@@ -398,19 +398,49 @@ const setCancelTicket = async (ticketCode) => {
 const getConvertDateMonthYear = (date) => {
     try {
         let dateConvert = new Date(date);
-        let day;
-        let month;
-        if(dateConvert.getDate() < 10){
-            day = "0"+dateConvert.getDate();
+        let day = dateConvert.getDate();
+        let month = dateConvert.getMonth();
+        if (dateConvert.getDate() < 10) {
+            day = "0" + dateConvert.getDate();
         }
-        if(dateConvert.getMonth() < 10){
-            month = "0"+(dateConvert.getMonth()+1);
+        if (dateConvert.getMonth() < 10) {
+            month = "0" + (dateConvert.getMonth() + 1);
         }
         return dateConvert.getFullYear() + "-" + month + "-" + day;
     } catch (err) {
         return "Error ConvertDate : " + err;
     }
 }
+
+const getConvertYMDHIS = (date) => {
+    try {
+        let dateConvert = new Date(date);
+        let day = dateConvert.getDate();
+        let month = dateConvert.getMonth();
+        let hours = dateConvert.getHours();
+        let minutes = dateConvert.getMinutes();
+        let seconds = dateConvert.getSeconds();
+        if (dateConvert.getDate() < 10) {
+            day = "0" + dateConvert.getDate();
+        }
+        if (dateConvert.getMonth() < 10) {
+            month = "0" + (dateConvert.getMonth() + 1);
+        }
+        if (dateConvert.getHours() < 10) {
+            hours = "0" + (dateConvert.getHours().toString())
+        }
+        if (dateConvert.getMinutes() < 10) {
+            minutes = "0" + (dateConvert.getMinutes()).toString();
+        }
+        if (dateConvert.getSeconds() < 10) {
+            seconds = "0" + (dateConvert.getSeconds()).toString();
+        }
+        return dateConvert.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    } catch (err) {
+        return "Error ConvertDate : " + err;
+    }
+}
+
 
 
 const getValidateSelectButtomCheckIn = () => {
@@ -761,25 +791,24 @@ const getTicketEdit = async () => {
             domTbodyTable.innerHTML += "<tr>"
                 + "<td><p id='ticketCode-" + i + "'>" + json[i].ticket_code + "</p></td> <td><p id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</p></td> <td><p id='boatNumber-" + i + "'>" + json[i].boat_number + "</p></td>"
                 + "<td> <button id='btn-diolog-customer-" + i + "' class='btn btn-link'>ดูรายการ</button></td> <td ><p id='emp-" + i + "'>" + json[i].emp_first_name + "</p></td>"
-                + "<td><p id='timeBuyTicket-" + i + "'>" + json[i].time_buy_ticket + "</p></td> <td <p id='travelDate-" + i + "'>" + json[i].travel_date + "</p></td> <td><p id='deadLineBook-" + i + "'>" + json[i].deadline_book + "</p></td>"
-                + "<td><p id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</p></td> <td>" + img + "</td> <td><p id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</p></td><td><button id='btnEdit-" + i + "' class='btn btn-warning'>Edit</button> <button id='btnDelete-" + i + "' class='btn btn-danger'>Delect</button></td>"
+                + "<td><p id='timeBuyTicket-" + i + "'>" + json[i].time_buy_ticket + "</p></td> <td <p id='deadLineBook-" + i + "'>" + json[i].deadline_book + "</p></td> <td><p id='travelDate-" + i + "'>" + json[i].travel_date + "</p></td>"
+                + "<td><p id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</p></td> <td>" + img + "</td> <td><p id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</p></td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
                 + "</tr>";
 
             //setting Event Tag <p> Use double Click 
             document.getElementById('ticketCode-' + i + '').setAttribute('ondblclick', 'getShowModalEditTicketCode("' + json[i].ticket_code + '")')
-            document.getElementById('ticketType-' + i + '').setAttribute('ondblclick', 'getModalEditTicketType("' + json[i].ticket_category_name + '")')
+            document.getElementById('ticketType-' + i + '').setAttribute('ondblclick', 'getModalEditTicketType("' + json[i].ticket_category_name + '","' + json[i].ticket_code + '")')
             document.getElementById('boatNumber-' + i + '').setAttribute('ondblclick', 'setEditTicketCode("' + json[i].boat_number + '")')
-            document.getElementById('emp-' + i + '').setAttribute('ondblclick', 'setEditTicketCode("' + json[i].emp_first_name + '")')
-            document.getElementById('timeBuyTicket-' + i + '').setAttribute('ondblclick', 'setEditTicketCode("' + json[i].time_buy_ticket + '")')
-            document.getElementById('travelDate-' + i + '').setAttribute('ondblclick', 'setEditTicketCode("' + json[i].travel_date + '")')
-            document.getElementById('deadLineBook-' + i + '').setAttribute('ondblclick', 'setEditTicketCode("' + json[i].deadline_book + '")')
-            document.getElementById('ticketStatus-' + i + '').setAttribute('ondblclick', 'setEditTicketCode("' + json[i].ticket_status_name + '")')
-            document.getElementById('timeUpSlip-' + i + '').setAttribute('ondblclick', 'setEditTicketCode("' + json[i].time_up_slip + '")')
+            document.getElementById('emp-' + i + '').setAttribute('ondblclick', 'getShowModalEditEmployee("' + json[i].emp_first_name + '","' + json[i].ticket_code + '")')
+            document.getElementById('timeBuyTicket-' + i + '').setAttribute('ondblclick', 'getShowModalBuyTicketTime("' + json[i].ticket_code + '")')
+            document.getElementById('travelDate-' + i + '').setAttribute('ondblclick', 'getShowModalTravelDate("' + json[i].travel_date + '","' + json[i].ticket_code + '")')
+            document.getElementById('deadLineBook-' + i + '').setAttribute('ondblclick', 'getShowModalDeadline("' + json[i].ticket_code + '")')
+            document.getElementById('ticketStatus-' + i + '').setAttribute('ondblclick', 'getShowModalTicketStatus("' + json[i].ticket_status_name + '","' + json[i].ticket_code + '")')
+            document.getElementById('timeUpSlip-' + i + '').setAttribute('ondblclick', 'getShowModalTimeUpSlip("' + json[i].ticket_code + '")')
 
             //setting btn
             document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setCancelTicket("' + json[i].ticket_code + '")');
             document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getDialogListCustomerFromSlip("' + json[i].ticket_code + '")')
-            document.getElementById('btnEdit-' + i + '').setAttribute('onclick', 'setEditTicketDialog("' + json[i].ticket_code + '","' + json[i].ticket_category_name + '","' + json[i].boat_number + '","' + json[i].emp_first_name + '","' + json[i].time_buy_ticket + '","' + json[i].travel_date + '","' + json[i].deadline_book + '","' + json[i].ticket_status_name + '","' + img + '","' + json[i].time_up_slip + '","' + json[i].time_up_slip + '",)');
 
 
         }
@@ -793,8 +822,6 @@ const getTicketEdit = async () => {
         alert('Error ticket edit\n :' + err)
     }
 }
-// ticketCode,typeTicket,numberBoat,employeeName,buyTicket,deadline,dateTravel,statusTicket,img,timeUpSlip
-
 const setEditTicketDialog = async (ticketCode, typeTicket, numberBoat, employeeName, buyTicket, deadline, dateTravel, statusTicket, img, timeUpSlip) => {
     document.getElementById('tbody-EditTicket-modal').innerHTML = "";
     document.getElementById('tbody-EditTicket-modal').innerHTML = "<tr><td><input type='text' value='" + ticketCode + "'></td>"
@@ -804,66 +831,330 @@ const setEditTicketDialog = async (ticketCode, typeTicket, numberBoat, employeeN
     $("#dialog-TicketEdit").modal();
 }
 
-const getModalEditTicketType = async (ticketType) => {
+const getModalEditTicketType = async (ticketType, ticketCode) => {
     try {
         let response = await fetch('model/apiGetTicketCatagory.php');
         let json = await response.json();
         let node = document.createElement("select");
-        document.getElementById('modal-body-editTicket').innerHTML ="";
+        node.setAttribute('class', 'form-control')
+        node.setAttribute('id', 'select-TicketType')
+        document.getElementById('modal-body-editTicket').innerHTML = "เลือกประเภทตั๋ว";
         for (let i = 0; i < json.length; i++) {
             var option = document.createElement("option");
             option.text = json[i].ticket_category_name;
             option.value = json[i].ticket_category_id;
-            if(ticketType == json[i].ticket_category_name){
+            if (ticketType == json[i].ticket_category_name) {
                 option.selected = true;
             }
             node.appendChild(option);
         }
-        document.getElementById('modal-body-editTicket').appendChild(node)
+        document.getElementById('modal-body-editTicket').appendChild(node);
+        document.getElementById('modal-footer').innerHTML = "<button id='btnRecord'class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+        document.getElementById('btnRecord').setAttribute('onclick', 'setEditTicketType("' + ticketCode + '")')
     } catch (err) {
         alert("Error modal get Ticket Catagory : " + err)
     }
-
     $("#dialog-TicketEdit").modal();
 }
 
 
 const getShowModalEditTicketCode = (id) => {
     document.getElementById('modal-body-editTicket').innerHTML = "";
-    document.getElementById('modal-body-editTicket').innerHTML = "รหัสตั๋ว <input type='tell' class='form-control' value=" + id + ">"
-    document.getElementById('modal-footer').innerHTML = "<button class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('modal-body-editTicket').innerHTML += "รหัสตั๋ว <input type='tell' id='ticketCode-modal-edit' readonly='readonly' class='form-control' value=" + id + ">"
+    document.getElementById('modal-body-editTicket').innerHTML += "<button onclick='getSearchTicketCode()' id='searchTicketCode' class='btn btn-warning btn-sm'>สุ่มรหัสตั๋ว</button>";
+    document.getElementById('searchTicketCode').style.margin = "10px 0px"
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-danger'>Reset</button> "
+    document.getElementById('btnRecode').setAttribute('onclick', 'setEditTicketCode("' + id + '")')
     $("#dialog-TicketEdit").modal();
 }
 
-const setEditTicketCode = (id) => {
 
+const getSearchTicketCode = async () => {
+    try {
+        let response = await fetch('model/apiCheckTicketCode.php');
+        let json = await response.json();
+        document.getElementById('ticketCode-modal-edit').setAttribute('value', json)
+    }
+    catch (err) {
+        alert("Error SearchTicket Code From Model Edit : " + err);
+    }
 }
 
-const setEditTicketType = async () => {
+const getShowModalEditEmployee = async (emp, ticketCode) => {
+    try {
+        let response = await fetch('model/apiGetEmployee.php');
+        let json = await response.json();
+        let node = document.createElement("select");
+        node.setAttribute('class', 'form-control')
+        node.setAttribute('id', 'select-Emp')
+        document.getElementById('modal-body-editTicket').innerHTML = "เลือกประเภทตั๋ว";
+        for (let i = 0; i < json.length; i++) {
+            var option = document.createElement("option");
+            option.text = json[i].emp_first_name;
+            option.value = json[i].employee_id;
+            if (emp == json[i].emp_first_name) {
+                option.selected = true;
+            }
+            node.appendChild(option);
+        }
+        document.getElementById('modal-body-editTicket').appendChild(node);
+        document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+        document.getElementById('btnRecode').setAttribute('onclick', 'setEditEmployee("' + ticketCode + '")')
+    } catch (err) {
+        alert("Error modal get Employee : " + err)
+    }
 
+    $("#dialog-TicketEdit").modal();
+}
+
+
+const getShowModalBuyTicketTime = async (ticketCode) => {
+    document.getElementById('modal-body-editTicket').innerHTML = "";
+    document.getElementById('modal-body-editTicket').innerHTML = "วันที่ซื้อตั๋ว <input id='inputBuyTicket' type='datetime-local' class='form-control' value=''>"
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode'class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('btnRecode').setAttribute('onclick', 'setEditTimeBuyTicket("' + ticketCode + '")')
+    $("#dialog-TicketEdit").modal();
+}
+
+const getShowModalDeadline = async (ticketCode) => {
+    document.getElementById('modal-body-editTicket').innerHTML = "";
+    document.getElementById('modal-body-editTicket').innerHTML = "กำหนดเวลาจอง <input id='inputTimeDeadline'type='datetime-local' class='form-control' value=''>"
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('btnRecode').setAttribute('onclick', 'setEditDeadlineBook("' + ticketCode + '")')
+    $("#dialog-TicketEdit").modal();
+}
+
+const getShowModalTravelDate = async (travelTime, ticketCode) => {
+    document.getElementById('modal-body-editTicket').innerHTML = "";
+    document.getElementById('modal-body-editTicket').innerHTML = "วันที่ขึ้นเรือ <input id='inputDateTravel' type='date' class='form-control' value=" + travelTime + ">"
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('btnRecode').setAttribute('onclick', 'setEditTravelTime("' + ticketCode + '")')
+    $("#dialog-TicketEdit").modal();
+}
+
+const getShowModalTicketStatus = async (ticketStatus, ticketCode) => {
+    try {
+        let response = await fetch('model/apiGetTicketStatus.php');
+        let json = await response.json();
+        let node = document.createElement("select");
+        node.setAttribute('class', 'form-control')
+        node.setAttribute('id', 'select-TicketStatus')
+        document.getElementById('modal-body-editTicket').innerHTML = "เลือกประเภทตั๋ว";
+        for (let i = 0; i < json.length; i++) {
+            var option = document.createElement("option");
+            option.text = json[i].ticket_status_name;
+            option.value = json[i].ticket_status_id;
+            if (ticketStatus == json[i].ticket_status_name) {
+                option.selected = true;
+            }
+            node.appendChild(option);
+        }
+        document.getElementById('modal-body-editTicket').appendChild(node);
+        document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+        document.getElementById('btnRecode').setAttribute('onclick', 'setEditTicketStatus("' + ticketCode + '")')
+    } catch (err) {
+        alert("Error modal get Employee : " + err)
+    }
+
+    $("#dialog-TicketEdit").modal();
+}
+
+const getShowModalTimeUpSlip = async (ticketCode) => {
+    document.getElementById('modal-body-editTicket').innerHTML = "";
+    document.getElementById('modal-body-editTicket').innerHTML = "เวลาอัพสลิป <input id='inputUpSlipTime' type='datetime-local' class='form-control' value=''>"
+    document.getElementById('modal-footer').innerHTML = "<button  id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('btnRecode').setAttribute('onclick', 'setEditUpSlipTime("' + ticketCode + '")')
+    $("#dialog-TicketEdit").modal();
+}
+
+
+const setEditTicketCode = async (ticketCodeOld) => {
+    try {
+        let ticketCodeNew = "" + document.getElementById('ticketCode-modal-edit').getAttribute('value') + "";
+        let response = await fetch('model/apiSetTicketCode.php', {
+            method: "POST",
+            body: JSON.stringify({
+                ticketCodeOld: ticketCodeOld,
+                ticketCodeNew: ticketCodeNew
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        alert("Edit Success")
+        location.reload();
+    } catch (err) {
+        alert("Error Edit Ticket Code : " + err)
+    }
+}
+
+const setEditTicketType = async (ticketCode) => {
+    let TicketTypeID = document.getElementById('select-TicketType').value;
+    try {
+        let response = await fetch('model/apiSetTicketType.php', {
+            method: "POST",
+            body: JSON.stringify({
+                TicketTypeID: TicketTypeID,
+                ticketCode: ticketCode
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.json();
+        alert('Sucess Edit Ticket Type');
+        location.reload();
+    } catch (err) {
+        alert("Error setTicketType : " + err);
+    }
 }
 const setEditCustomer = async () => {
 
 }
-const setEditEmployee = async () => {
-
+const setEditEmployee = async (ticketCode) => {
+    let empTicketId = document.getElementById('select-Emp').value;
+    try {
+        let response = await fetch('model/apiSetEmployeeTicket.php', {
+            method: "POST",
+            body: JSON.stringify({
+                empTicketId: empTicketId,
+                ticketCode: ticketCode
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.json();
+        alert('Sucess Edit Employee Ticket');
+        location.reload();
+    } catch (err) {
+        alert("Error setTicket emp : " + err);
+    }
 }
-const setEditTimeBuyTicket = async () => {
-
+const setEditTimeBuyTicket = async (ticketCode) => {
+    let timeBuyTicket = document.getElementById('inputBuyTicket').value;
+    let dateConvert = getConvertYMDHIS(timeBuyTicket);
+    try {
+        let response = await fetch('model/apiSetTimeBuyTicket.php', {
+            method: "POST",
+            body: JSON.stringify({
+                timeBuyTicket: dateConvert,
+                ticketCode: ticketCode
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.text();
+        if (json == "true") {
+            alert('Sucess Edit Time Buy Ticket');
+            location.reload();
+        }
+    } catch (err) {
+        alert("Error setTicket Time Buy Ticket  : " + err);
+    }
 }
 
-const setEditDeadlineBook = async () => {
-
+const setEditDeadlineBook = async (ticketCode) => {
+    let timeDeadline = document.getElementById('inputTimeDeadline').value;
+    let dateConvert = getConvertYMDHIS(timeDeadline);
+    try {
+        let response = await fetch('model/apiSetDeadlineBook.php', {
+            method: "POST",
+            body: JSON.stringify({
+                timeDeadline: dateConvert,
+                ticketCode: ticketCode
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.text();
+        if (json == "true") {
+            alert('Sucess Edit deadline book');
+            location.reload();
+        }
+    } catch (err) {
+        alert("Error setTicket Time deadline book  : " + err);
+    }
 }
-const setEditTravelTime = async () => {
-
+const setEditTravelTime = async (ticketCode) => {
+    let travelDate = document.getElementById('inputDateTravel').value;
+    let dateConvert = getConvertDateMonthYear(travelDate);
+    try {
+        let response = await fetch('model/apiSetTravelDate.php', {
+            method: "POST",
+            body: JSON.stringify({
+                travelDate: dateConvert,
+                ticketCode: ticketCode
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.text();
+        if (json == "true") {
+            alert('Sucess Edit Travel Date');
+            location.reload();
+        }
+        else {
+            alert("Error : " + json)
+        }
+    } catch (err) {
+        alert("Error setTicket Travel Date  : " + err);
+    }
 }
-const setEditTicketStatus = async () => {
-
+const setEditTicketStatus = async (ticketCode) => {
+    let ticketStatus = document.getElementById('select-TicketStatus').value;
+    try {
+        let response = await fetch('model/apiSetTicketStatus.php', {
+            method: "POST",
+            body: JSON.stringify({
+                ticketStatus: ticketStatus,
+                ticketCode: ticketCode
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.text();
+        if (json = "true") {
+            alert('Sucess Edit ticket status');
+        }
+        else {
+            alert('Error : ' + json);
+        }
+        location.reload();
+    } catch (err) {
+        alert("Error setTicket Status : " + err);
+    }
 }
 const setEditImg = async () => {
 
 }
-const setEditUpslipTime = async () => {
-
+const setEditUpSlipTime = async (ticketCode) => {
+    let upSlipTime = document.getElementById('inputUpSlipTime').value;
+    let dateConvert = getConvertYMDHIS(upSlipTime);
+    try {
+        let response = await fetch('model/apiSetUpslipTime.php', {
+            method: "POST",
+            body: JSON.stringify({
+                upSlipTime: dateConvert,
+                ticketCode: ticketCode
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.text();
+        if (json == "true") {
+            alert('Sucess Edit deadline book');
+            location.reload();
+        }
+        else {
+            alert('Error : ' + json);
+        }
+    } catch (err) {
+        alert("Error setTicket Time deadline book  : " + err);
+    }
 }
