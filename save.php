@@ -132,7 +132,10 @@ $listSeat = "asdsa";
                 <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
 
                 <br><br><br>
-                <button class="form-control btn-primary" id="floorTwoBtn" onclick="registerCustomer(listSeat,listSeatNumber)">ตกลง</button><br>
+                <button class="form-control btn-primary" id="floorTwoBtn" onclick="registerCustomer(listSeat,
+                listSeatNumber,
+                document.getElementById('select-Location_start').value,
+                document.getElementById('select-Location_end').value)">ตกลง</button><br>
                 <button class="form-control btn-danger" id="floorTwoBtn" onclick="">รีเซ็ต</button>
 
                 <br>
@@ -161,7 +164,10 @@ $listSeat = "asdsa";
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketNormal(listSeat,listSeatNumber)">Save</button>
+                                    <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketNormal(listSeat,
+                                    listSeatNumber,
+                                    document.getElementById('select-Location_start').value,
+                                    document.getElementById('select-Location_end').value)">Save</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 </div>
                             </div>

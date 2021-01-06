@@ -42,7 +42,7 @@ const validateDeadline = (current, deadline) => {
 }
 
 
-const getBottomBoatSeatData = async (boatNumber, date) => {
+const getBottomBoatSeatData = async (boatNumber, date, ticketCode) => {
     const response = await fetch('model/apiBoatSeat.php', {
         method: "POST",
         body: JSON.stringify({ boatNumber: boatNumber }),
@@ -68,11 +68,11 @@ const getBottomBoatSeatData = async (boatNumber, date) => {
     document.getElementById("rightBottom").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
     document.getElementById("leftBottom").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
     let dateToSeat = date;
-    await getBottomBoatSeatStatus(dateToSeat, boatNumber);
+    await getBottomBoatSeatStatus(dateToSeat, boatNumber, ticketCode);
 }
 
 
-const getBottomBoatSeatStatus = async (dateToSeat, boatNumber) => {
+const getBottomBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
     const response = await fetch('model/apiSeatStatus.php', {
         method: "POST",
         body: JSON.stringify({
@@ -92,6 +92,12 @@ const getBottomBoatSeatStatus = async (dateToSeat, boatNumber) => {
         let resultDeadline = validateDeadline(timeCurrent, deadline);
 
         if (json[i].ticket_status_id == 1) {
+            if (ticketCode == json[i].ticket_code) {
+                document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
+                document.getElementById(json[i].boat_seat_id).setAttribute('class', 'bg-primary');
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
+                continue;
+            }
             document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
             document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
             document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
@@ -104,7 +110,7 @@ const getBottomBoatSeatStatus = async (dateToSeat, boatNumber) => {
     }
 }
 
-const getTopBoatSeatData = async (boatNumber, date) => {
+const getTopBoatSeatData = async (boatNumber, date, ticketCode) => {
     const response = await fetch('model/apiBoatSeat.php', {
         method: "POST",
         body: JSON.stringify({ boatNumber: boatNumber }),
@@ -130,11 +136,11 @@ const getTopBoatSeatData = async (boatNumber, date) => {
     }
     document.getElementById("rightTop").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
     document.getElementById("leftTop").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
-    await getTopBoatSeatStatus();
+    await getTopBoatSeatStatus(ticketCode);
 
 }
 
-const getTopBoatSeatStatus = async () => {
+const getTopBoatSeatStatus = async (ticketCode) => {
     const response = await fetch('model/apiSeatStatus.php');
     const json = await response.json();
     for (let i = 0; i < json.length; i++) {
@@ -142,6 +148,12 @@ const getTopBoatSeatStatus = async () => {
         let deadline = new Date(json[i].deadline_book);
         let resultDeadline = validateDeadline(timeCurrent, deadline);
         if (json[i].ticket_status_id == 1) {
+            if (ticketCode == json[i].ticket_code) {
+                document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
+                document.getElementById(json[i].boat_seat_id).setAttribute('class', 'bg-primary');
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
+                continue;
+            }
             document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
             document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
             document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
@@ -170,7 +182,35 @@ const checkBoatSeat = (id, number) => {
         document.getElementById(id).setAttribute('bgcolor', 'gray');
         listSeat.push(id);
         listSeatNumber.push(number);
+    }
+    getListSeat();
+}
 
+const checkBoatSeatForEditSeat = (id, number) => {
+    let td = document.getElementById(id);
+    if (td.getAttribute('bgcolor') == 'gray') {
+        td.removeAttribute('bgcolor');
+        // for (let i = 0; i < listSeat.length; i++) {
+        //     if (listSeat[i] == id) {
+        //         listSeat.splice(i, 1);
+        //         listSeatNumber.splice(i, 1);
+        //         break;
+        //     }
+        // }
+    }
+    else {
+        for (let i = 0; i < listSeat.length; i++) {
+            if (listSeat[i] == id) {
+                listSeat.splice(i, 1);
+                listSeatNumber.splice(i, 1);
+                break;
+            }
+        }
+
+        document.getElementById(id).setAttribute('bgcolor', 'gray');
+        listSeat.push(id);
+        listSeatNumber.push(number);
+        
     }
     getListSeat();
 }
@@ -180,7 +220,7 @@ const getListSeat = () => {
     numberBoatSeat.innerHTML = listSeatNumber;
 }
 
-const saveTicketNormal = async (listSeat, listSeatNumber) => {
+const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination) => {
     let json;
     for (let i = 0; i < listSeatNumber.length; i++) {
         if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
@@ -219,7 +259,71 @@ const saveTicketNormal = async (listSeat, listSeatNumber) => {
             date: date = document.getElementById('date').value,
             ticketID: listSeat[i],
             ticketStatus: 1,
-            ticketCode: json
+            ticketCode: json,
+            orgin: orgin,
+            destination: destination
+        }
+        try {
+            let response = await fetch('model/apiSaveTicket.php', {
+                method: "POST",
+                body: JSON.stringify(detailCustomer),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+
+            const text = await response.text();
+            if (text == 'true') {
+            }
+            else {
+                alert("บันทึกข้อมูลไม่สำเร็จ");
+                return;
+            }
+
+        } catch (e) {
+            alert("Error " + e);
+            location.reload();
+            return;
+        }
+    }
+    alert('บันทึกสำเร็จ');
+    location.reload();
+}
+
+const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destination) => {
+    let json;
+    for (let i = 0; i < listSeatNumber.length; i++) {
+        if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
+            return alert('กรุณา ระบุเพศของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
+        }
+        if (document.getElementById('fristName-' + i + '').value == "") {
+            return alert('กรุณา ระบุชื่อของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
+        }
+        if (document.getElementById('lastName-' + i + '').value == "") {
+            return alert('กรุณา ระบุนามสกุลของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
+        }
+    }
+
+    for (let i = 0; i < listSeatNumber.length; i++) {
+        let gender;
+        if (document.getElementById('genderM-' + i + '').checked == true) {
+            gender = "Male";
+        }
+        else if (document.getElementById('genderF-' + i + '').checked == true) {
+            gender = "Female";
+        }
+
+        let detailCustomer = {
+            fristName: document.getElementById('fristName-' + i + '').value,
+            lastName: document.getElementById('lastName-' + i + '').value,
+            phoneNumber: document.getElementById('phoneNumber-' + i + '').value,
+            gender: gender,
+            date: date = document.getElementById('date').value,
+            ticketID: listSeat[i],
+            ticketStatus: 1,
+            ticketCode: document.getElementById('label-ticket-code').value,
+            orgin: orgin,
+            destination: destination
         }
         try {
             let response = await fetch('model/apiSaveTicket.php', {
@@ -267,6 +371,20 @@ const getSelectLocation = async () => {
     const LOCATIONDATA = location;
     const SELECTLOCATIONSTART = document.getElementById('select-Location_start');
     const SELECTLOCATIONEND = document.getElementById('select-Location_end');
+
+
+    for (let count = 0; count < location.length; count++) {
+        SELECTLOCATIONSTART.innerHTML += "<option value=" + LOCATIONDATA[count].location_id + ">" + LOCATIONDATA[count].location_name + "</option>"
+        SELECTLOCATIONEND.innerHTML += "<option value=" + LOCATIONDATA[count].location_id + ">" + LOCATIONDATA[count].location_name + "</option>"
+
+    }
+}
+
+const getSelectLocationChangeBoatSeat = async () => {
+    let location = await getLocation();
+    const LOCATIONDATA = location;
+    const SELECTLOCATIONSTART = document.getElementById('select-Location_start-changeBoatSeat');
+    const SELECTLOCATIONEND = document.getElementById('select-Location_end-changeBoatSeat');
 
 
     for (let count = 0; count < location.length; count++) {
@@ -332,7 +450,63 @@ const getSearchBoat = async (origin, destination) => {
 }
 
 
-const getBoatSeat = (boatNumber, date, orgin, destination) => {
+const getSearchBoatChangeBoatSeat = async (origin, destination) => {
+    let boatNumber = document.getElementById('boat-number-changeBoatSeat');
+
+    if (origin == destination) {
+        alert('ต้นทาง และปลายทาง เหมือนกัน !!')
+        return;
+    }
+
+    let responseOrigin = await fetch('model/apiSearchBoat.php', {
+        method: "POST",
+        body: JSON.stringify({ location: origin }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    let jsonOrgin = await responseOrigin.json();
+
+
+    let responseDestination = await fetch('model/apiSearchBoat.php', {
+        method: "POST",
+        body: JSON.stringify({ location: destination }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    let jsonDestination = await responseDestination.json();
+
+    let maxResponse;
+    let minResponse;
+
+
+    if (jsonOrgin.length == jsonDestination.length) {
+        maxResponse = jsonOrgin;
+        minResponse = jsonDestination;
+    }
+    else if (jsonOrgin.length > jsonDestination.length) {
+        maxResponse = jsonOrgin;
+        minResponse = jsonDestination;
+
+    }
+    else {
+        maxResponse = jsonDestination;
+        minResponse = jsonOrgin;
+    }
+
+    boatNumber.innerHTML = "";
+    for (let countMax = 0; countMax < maxResponse.length; countMax++) {
+        for (let countMin = 0; countMin < minResponse.length; countMin++) {
+            if (maxResponse[countMax].boat_number == minResponse[countMin].boat_number) {
+                boatNumber.innerHTML += "<option value=" + maxResponse[countMax].boat_number + " >หมายเลขเรือ : " + maxResponse[countMax].boat_number + "  เวลา : " + maxResponse[countMax].start_time + " - " + minResponse[countMin].return_time + " </option>";
+            };
+        }
+    }
+}
+
+
+const getBoatSeat = (boatNumber, date, orgin, destination, ticketCode) => {
     if (orgin == destination) {
         alert('ต้นทาง และปลายทาง เหมือนกัน !!')
         return;
@@ -343,8 +517,23 @@ const getBoatSeat = (boatNumber, date, orgin, destination) => {
     getListSeat();
 
     document.getElementById('container-boatSeat-customerData').style.display = "block";
-    getBottomBoatSeatData(boatNumber, date);
-    getTopBoatSeatData(boatNumber, date);
+    getBottomBoatSeatData(boatNumber, date, ticketCode);
+    getTopBoatSeatData(boatNumber, date, ticketCode);
+}
+
+const getBoatSeatForChangBoatSeat = (boatNumber, date, orgin, destination, ticketCode) => {
+    if (orgin == destination) {
+        alert('ต้นทาง และปลายทาง เหมือนกัน !!')
+        return;
+    }
+    //make Empty array Boat seat
+    listSeat = [];
+    listSeatNumber = [];
+    getListSeat();
+
+    document.getElementById('container-boatSeat-change').style.display = "block";
+    getBottomBoatSeatData(boatNumber, date, ticketCode);
+    getTopBoatSeatData(boatNumber, date, ticketCode);
 }
 
 const getDetailCustomerFromTicketCode = async (ticketCode) => {
@@ -808,7 +997,7 @@ const getTicketEdit = async () => {
 
             //setting btn
             document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setCancelTicket("' + json[i].ticket_code + '")');
-            document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getDialogListCustomerFromSlip("' + json[i].ticket_code + '")')
+            document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getShowModalEditListCustomerFromTicket("' + json[i].ticket_code + '")')
 
 
         }
@@ -967,6 +1156,63 @@ const getShowModalTimeUpSlip = async (ticketCode) => {
     $("#dialog-TicketEdit").modal();
 }
 
+const getShowModalEditListCustomerFromTicket = async (ticketCode) => {
+    try {
+        let response = await fetch('model/apiGetTicket.php', {
+            method: "POST",
+            body: JSON.stringify({ ticketCode: ticketCode }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.json();
+
+        document.getElementById('tbody-modal').innerHTML = "";
+        document.getElementById('addCustomer-TicketEdit').innerHTML = "<button class = 'btn btn-primary btn-sm'>เพิ่มลูกค้า</button>"
+        document.getElementById('addCustomer-TicketEdit').style.margin = '10px 0px'
+        document.getElementById('addCustomer-TicketEdit').style.textAlign = 'right'
+        document.getElementById('addCustomer-TicketEdit').setAttribute('onclick', 'getShowTicketAddCustomer("' + ticketCode + '","' + json[0].boat_number + '","' + json[0].travel_date + '","' + json[0].orgin + '","' + json[0].destination + '")')
+
+        for (let i = 0; i < json.length; i++) {
+            document.getElementById('tbody-modal').innerHTML += "<tr>"
+                + "<td>" + json[i].cust_first_name + "</td> <td>" + json[i].cust_last_name + "</td> <td>" + json[i].phone_number + "</td> <td>" + json[i].boat_seat_number + "</td>"
+                + "<td><botton id='btnDeleteCustomerTicker-" + json[i].buy_ticket_id + "'class='btn btn-danger'>ลบ</botton> <botton id='btnChangeBoatSeat-" + json[i].buy_ticket_id + "'class='btn btn-warning'>เปลียนที่นั่งเรือ</botton></td></tr>";
+            document.getElementById('btnDeleteCustomerTicker-' + json[i].buy_ticket_id).setAttribute('onclick', 'setEditDeleteCustomer("' + json[i].buy_ticket_id + '","' + ticketCode + '")')
+            document.getElementById('btnChangeBoatSeat-' + json[i].buy_ticket_id).setAttribute('onclick', 'getShowChangeBoatSeat("' + ticketCode + '","' + json[0].boat_number + '","' + json[0].travel_date + '","' + json[0].orgin + '","' + json[0].destination + '")')
+
+        }
+        document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='5'>จำนวนลูกค้า : " + json.length + "</td></tr>"
+        $("#dialogListCustomer").modal();
+    } catch (err) {
+        location.reload();
+    }
+}
+
+const getShowTicketAddCustomer = async (ticketCode, numBerBoat, travelDate, orgin, destination) => {
+    document.getElementById('header-select-boatSeat').innerHTML = "เลือกที่นั่งเรือลูกค้า CODE : <data id='label-ticket-code' value='" + ticketCode + "'>" + ticketCode + "</data>";
+    document.getElementById('select-Location_start').value = orgin;
+    document.getElementById('select-Location_end').value = destination;
+    getSearchBoat(orgin, destination)
+    document.getElementById('boat-number').value = numBerBoat;
+    document.getElementById('date').value = travelDate;
+    getBoatSeat(numBerBoat, travelDate, orgin, destination, ticketCode)
+
+    $("#dialog-showAddTicket").modal();
+}
+
+
+const getShowChangeBoatSeat = async (ticketCode, numBerBoat, travelDate, orgin, destination) => {
+    document.getElementById('header-select-boatSeat').innerHTML = "เลือกที่นั่งเรือลูกค้า CODE : <data id='label-ticket-code' value='" + ticketCode + "'>" + ticketCode + "</data>";
+    document.getElementById('select-Location_start-changeBoatSeat').value = orgin;
+    document.getElementById('select-Location_end-changeBoatSeat').value = destination;
+    getSearchBoatChangeBoatSeat(orgin, destination)
+    document.getElementById('boat-number').value = numBerBoat;
+    document.getElementById('date').value = travelDate;
+    getBoatSeatForChangBoatSeat(numBerBoat, travelDate, orgin, destination, ticketCode)
+
+    $("#dialog-show-ChangeBoatSeat").modal();
+}
+
 
 const setEditTicketCode = async (ticketCodeOld) => {
     try {
@@ -1008,9 +1254,31 @@ const setEditTicketType = async (ticketCode) => {
         alert("Error setTicketType : " + err);
     }
 }
-const setEditCustomer = async () => {
+const setEditDeleteCustomer = async (id, ticketCode) => {
+    try {
+        let response = await fetch('model/apiSetDeleteListCustomerTicket.php', {
+            method: "POST",
+            body: JSON.stringify({
+                ticketID: id
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
 
+        let json = await response.text();
+        if (json == "true") {
+            alert('Sucess Edit Time Buy Ticket');
+            let refresh = getShowModalEditListCustomerFromTicket(ticketCode);
+        }
+        else {
+            alert("Error : " + json)
+        }
+    } catch (err) {
+        alert("Error setTicketType : " + err);
+    }
 }
+
 const setEditEmployee = async (ticketCode) => {
     let empTicketId = document.getElementById('select-Emp').value;
     try {

@@ -59,8 +59,8 @@ $registerDate = date('Y-m-d H:i:s', strtotime($registerDate . ' + ' . $checkDead
     //     }
     // }
 
-    $data = $database->insert('insert into buy_ticket(ticket_category_id,customer_id,boat_seat_id,ticket_code,travel_date,ticket_status_id,employee_id,deadline_book)
-    values (1,' . $checkIDCustomer[0][0] . ',"' . $input['ticketID'] . '","' . $input['ticketCode'] . '","' . $input['date'] . '" , ' . $input['ticketStatus'] . ' , 2,"' . $registerDate . '")');
+    $data = $database->insert('insert into buy_ticket(ticket_category_id,customer_id,boat_seat_id,ticket_code,travel_date,ticket_status_id,employee_id,deadline_book,orgin,destination)
+    values (1,' . $checkIDCustomer[0][0] . ',"' . $input['ticketID'] . '","' . $input['ticketCode'] . '","' . $input['date'] . '" , ' . $input['ticketStatus'] . ' , 2,"' . $registerDate . '",'.$input['orgin'].','.$input['destination'].')');
 // }
 
 echo json_encode(true);
