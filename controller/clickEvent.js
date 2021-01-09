@@ -180,6 +180,26 @@ const btnFloorTwo = () => {
 }
 
 
+const btnFloorOneForChangeBoatSeat = () => {
+    if (document.getElementById('floorOneBtn-changeBoatSeat').getAttribute('class') == 'btn btn-warning') {
+        document.getElementById('tableFromBoatSeatBottom-changeBoatSeat').style.display = "block"
+        document.getElementById('tableFromBoatSeatTop-changeBoatSeat').style.display = "none"
+        document.getElementById('floorOneBtn-changeBoatSeat').setAttribute('class', 'btn btn-success')
+        document.getElementById('floorTwoBtn-changeBoatSeat').setAttribute('class', 'btn btn-warning')
+    }
+}
+
+const btnFloorTwoForChangeBoatSeat = () => {
+    if (document.getElementById('floorTwoBtn-changeBoatSeat').getAttribute('class') == 'btn btn-warning') {
+        document.getElementById('tableFromBoatSeatTop-changeBoatSeat').style.display = "block"
+        document.getElementById('tableFromBoatSeatBottom-changeBoatSeat').style.display = "none"
+        document.getElementById('floorTwoBtn-changeBoatSeat').setAttribute('class', 'btn btn-success')
+        document.getElementById('floorOneBtn-changeBoatSeat').setAttribute('class', 'btn btn-warning')
+    }
+}
+
+
+
 
 
 

@@ -8,7 +8,7 @@ $database = new database(IP, DBNAME, USER,PASS);
 $date = $input['date'];
 $qeueryData = $database->select("select * from buy_ticket 
 join boat_seat on boat_seat.boat_seat_id = buy_ticket.boat_seat_id 
-where DATE(`travel_date`) = DATE('" . $date . "') AND boat_number = " . $input['boatNumber'] . " AND (ticket_status_id = 1 OR ticket_status_id = 2)");
+where DATE(`travel_date`) = DATE('" . $date . "') AND boat_number = " . $input['boatNumber'] . " AND (ticket_status_id = 1 OR ticket_status_id = 2) AND boat_seat.floor = '".$input['floor']."' ");
 if ($qeueryData == true) {
     echo json_encode($qeueryData);
 }

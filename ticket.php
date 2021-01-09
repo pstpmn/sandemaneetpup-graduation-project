@@ -148,10 +148,9 @@ require 'navbar.php';
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body" id="modal-body-editTicket">
-                                <h1 class="mt-4">
-                                    <center>เพิ่มลูกค้า</center>
-                                </h1><br><br>
-                                ต้นทาง <select id='select-Location_start' disabled class='custom-select' onchange="getSearchBoat(
+                                <h1 id='header-addCustomer' class="mt-4">
+                                </h1>
+                                  ต้นทาง <select id='select-Location_start' disabled class='custom-select' onchange="getSearchBoat(
                 document.getElementById('select-Location_start').value,
                 document.getElementById('select-Location_end').value
                 )">
@@ -183,9 +182,10 @@ require 'navbar.php';
                 document.getElementById('select-Location_end').value
                 )">ค้นหาที่นั่งเรือ</button>
 
+
                                 <br><br><br>
                                 <div id="container-boatSeat-customerData">
-                                    <b>เลือกที่นั่งเรือของลูกค้า</b><br><br>
+                                    <b>เลือกที่นั่งเรือเพิ่มเติม</b><br><br>
                                     <div class="tableSet" id="tableFromBoatSeatBottom" style="overflow: auto;">
                                         <table class="table table-bordered table-primary" id="">
                                             <tr id="rightBottom">
@@ -234,8 +234,8 @@ require 'navbar.php';
                                     <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
 
                                     <br><br><br>
-                                    <button class="form-control btn-primary" id="floorTwoBtn" onclick="registerCustomer(listSeat,listSeatNumber)">ตกลง</button><br>
-                                    <button class="form-control btn-danger" id="floorTwoBtn" onclick="">รีเซ็ต</button>
+                                    <button class="form-control btn-primary" id='btn-save'  onclick="registerCustomer(listSeat,listSeatNumber)">ตกลง</button><br>
+                                    <button class="form-control btn-danger" id='btn-reset' onclick="getShowChangeBoatSeat('207952690','111','2021-01-07','1','2','134')">รีเซ็ต</button>
 
                                     </table>
                                 </div>
@@ -247,150 +247,38 @@ require 'navbar.php';
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="container">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4>โปรดระบุข้อมูลลูกค้า</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                <div class="container">
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4>โปรดระบุข้อมูลลูกค้า</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="register-customer">
+                                    <div id="register-customer-detail">
 
-                                </div>
-                                <div class="modal-body">
-                                    <div id="register-customer">
-                                        <div id="register-customer-detail">
-
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketAddCustomer(listSeat,
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketAddCustomer(listSeat,
                                     listSeatNumber,
                                     document.getElementById('select-Location_start').value,
                                     document.getElementById('select-Location_end').value)">Save</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                </div>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
-
-                <!-- change Boat Seat for selected the Customer  -->
-                <div class="container">
-                    <!-- Modal -->
-                    <div class="modal fade" id="dialog-show-ChangeBoatSeat" role="dialog">
-                        <div class="modal-dialog modal-xl">
-                            <!-- Modal content-->
-                            <div class="modal-content" style="overflow: auto;">
-                                <div class="modal-header">
-                                    <h4 id="header-select-boatSeat">เพิ่มลูกค้าในรหัสตั๋ว : </h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body" id="modal-body-editTicket">
-                                    <h1 class="mt-4">
-                                        <center>เพิ่มลูกค้า</center>
-                                    </h1><br><br>
-                                    ต้นทาง <select id='select-Location_start-changeBoatSeat' disabled class='custom-select' onchange="getSearchBoat(
-                document.getElementById('select-Location_start-changeBoatSeat').value,
-                document.getElementById('select-Location_end-changeBoatSeat').value
-                )">
-
-                                    </select>
-                                    <br><br>
-                                    ปลายทาง <select id='select-Location_end-changeBoatSeat' disabled class='custom-select' onchange="getSearchBoat(
-               document.getElementById('select-Location_start-changeBoatSeat').value,
-                document.getElementById('select-Location_end-changeBoatSeat').value
-                )">
-
-                                    </select>
-                                    <script>
-                                        getSelectLocationChangeBoatSeat();
-                                    </script>
-                                    <br> <br>
-                                    เลือกหมายเลขเรือ <select id='boat-number-changeBoatSeat' disabled class='custom-select'>
-                                        <option>!!! เลือกต้นทาง และปลายทาง ก่อนถึงจะแสดง !!!</option>
-                                    </select>
-                                    <br><br>
-                                    เลือกวันที่ออกเดินทาง
-                                    <input type='date' id='date' class="form-control" disabled value="<?php echo date('Y-m-d') ?>">
-
-                                    <br>
-                                    <button class="btn btn-primary" disabled id="search-boat" onclick="getBoatSeat(
-                document.getElementById('boat-number').value,
-                document.getElementById('date').value,
-                document.getElementById('select-Location_start').value,
-                document.getElementById('select-Location_end').value
-                )">ค้นหาที่นั่งเรือ</button>
-
-                                    <br><br><br>
-                                    <div id="container-boatSeat-change">
-                                        <b>เลือกที่นั่งเรือของลูกค้า</b><br><br>
-                                        <div class="tableSet" id="tableFromBoatSeatBottom" style="overflow: auto;">
-                                            <table class="table table-bordered table-primary" id="">
-                                                <tr id="rightBottom">
-                                                    <td bgcolor="#fff">
-                                                        <center>Right</center>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="125" bgcolor="#fff">
-                                                        <center>ที่นั่งเรือ</center>
-                                                    </td>
-                                                </tr>
-                                                <tr id="leftBottom">
-                                                    <td bgcolor="#fff">
-                                                        <center>Left</center>
-                                                    </td>
-                                                </tr>
-
-                                            </table>
-                                        </div>
-
-                                        <div class="tableSet" id="tableFromBoatSeatTop" style="display:none">
-                                            <table class="table table-bordered table-primary" id="">
-                                                <tr id="rightTop">
-                                                    <td bgcolor="#fff">
-                                                        <center>Right</center>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="125" bgcolor="#fff">
-                                                        <center>ที่นั่งเรือ</center>
-                                                    </td>
-                                                </tr>
-                                                <tr id="leftTop">
-                                                    <td bgcolor="#fff">
-                                                        <center>Left</center>
-                                                    </td>
-                                                </tr>
-
-                                            </table>
-                                        </div>
-
-
-                                        <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
-                                        <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button>
-                                        <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
-
-                                        <br><br><br>
-                                        <button class="form-control btn-primary" id="floorTwoBtn" onclick="registerCustomer(listSeat,listSeatNumber)">ตกลง</button><br>
-                                        <button class="form-control btn-danger" id="floorTwoBtn" onclick="">รีเซ็ต</button>
-
-                                        </table>
-                                    </div>
-                                    <div id="modal-footer" class="modal-footer">
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
+            </div>            
     </main>
     <script>
         getTicketEdit();
