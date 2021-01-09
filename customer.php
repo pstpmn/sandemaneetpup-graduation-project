@@ -15,6 +15,7 @@ require 'navbar.php';
     .tableSet {
         overflow: auto;
     }
+
     #noneTable {
         display: none;
     }
@@ -34,7 +35,7 @@ require 'navbar.php';
     <main>
         <div class="container-fluid">
             <h1 class="mt-4">
-                <center>จัดการข้อมูลตั๋วลูกค้า</center>
+                <center>จัดการข้อมูลลูกค้า</center>
             </h1>
             <br><br>
             <div class="card mb-4">
@@ -47,17 +48,12 @@ require 'navbar.php';
                         <table class="table table-bordered" style="text-align: center;" id="dataTable-TicketEdit" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>รหัสตั๋ว</th>
-                                    <th>ประเภทตั๋ว</th>
-                                    <th>หมายเลขเรือ</th>
-                                    <th>รายชื่อลูกค้า</th>
-                                    <th>พนักงาน</th>
-                                    <th>เวลาซื้อตั๋ว</th>
-                                    <th>สิ้นสุดเวลาจอง</th>
-                                    <th>วันที่ขึ้นเรือ</th>
-                                    <th>สถานะ</th>
-                                    <th>รูปภาพสลิป</th>
-                                    <th>เวลาอัพสลิป</th>
+                                    <th>ชื่อ</th>
+                                    <th>นามสกุล</th>
+                                    <th>หมายเลขโทรศัพท์</th>
+                                    <th>เพศ</th>
+                                    <th>วันที่ใช้งานครั้งแรก</th>
+                                    <th>จำนวนที่ใช้บริการ</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -76,7 +72,7 @@ require 'navbar.php';
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 id="dialog-ticketCode">รายชื่อลูกค้า</h4>
+                                <h4 id="dialog-ticketCode">แก้ไขข้อมูลลูกค้า</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body" id="modal-body-slip" style="overflow: auto;">
@@ -84,11 +80,24 @@ require 'navbar.php';
                                 <table class="table table-bordered" style="text-align: center;">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ชื่อ</th>
-                                            <th scope="col">นามสกุล</th>
-                                            <th scope="col">เบอร์โทรศัพ</th>
-                                            <th scope="col">ที่นั่ง</th>
-                                            <th scope="col">Action</th>
+                                            <td scope="col" width="30%"><b>ชื่อ</b></td>
+                                            <td><input id='text-fname' type="text" value=""></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="col" width="30%"><b>นามสกุล</b></td>
+                                            <td><input id='text-lname' type="text" value=""></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="col" width="30%"><b>เบอร์โทรศัพ</b></td>
+                                            <td><input id='text-phone' type="tel" value=""></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="col" width="30%"><b>วันที่ลงทะเบียน</b></td>
+                                            <td><input id='text-registerDate' type="text"></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="col" width="30%"><b>จำนวนที่ใช้บริการ</b></td>
+                                            <td><input id='text-count' type="number" value=""></td>
                                         </tr>
                                     </thead>
                                     <tbody id="tbody-modal">
@@ -96,6 +105,8 @@ require 'navbar.php';
                                 </table>
                             </div>
                             <div class="modal-footer">
+                                <button type="button" id='btn-saveEdit' class="btn btn-success">Save</button>
+
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
@@ -276,7 +287,7 @@ require 'navbar.php';
             </div>
     </main>
     <script>
-        getTicketEdit();
+        getShowCustomerEdit();
     </script>
 
 
