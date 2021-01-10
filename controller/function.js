@@ -744,6 +744,8 @@ const getDetailCustomerFromTicketCode = async (ticketCode) => {
         document.getElementById('floor-label').innerHTML = json[0].floor;
         document.getElementById('travel-label').innerHTML = json[0].travel_date;
         document.getElementById('buyTime-label').innerHTML = json[0].time_buy_ticket;
+
+        $('#dialog-cancelTicket').modal();
     } catch (err) {
         alert("ค้นหาไม่พบ Ticket Code นี้")
     }
@@ -752,16 +754,18 @@ const getDetailCustomerFromTicketCode = async (ticketCode) => {
 
 const setCancelTicket = async (ticketCode) => {
     try {
-        let response = await fetch('model/apiSetCancelTicket.php', {
-            method: "POST",
-            body: JSON.stringify({ ticketCode: ticketCode }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-        let json = await response.json();
-        alert(json)
-
+        let cf = confirm('ยืนยันการยกเลิกตั๋ว : ' + ticketCode)
+        if (cf == true) {
+            let response = await fetch('model/apiSetCancelTicket.php', {
+                method: "POST",
+                body: JSON.stringify({ ticketCode: ticketCode }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            let json = await response.json();
+            location.reload();
+        }
     }
     catch (err) {
         alert(err)
@@ -1147,40 +1151,55 @@ const getCountSlipNoValidate = async () => {
 
 const getTicketEdit = async () => {
     try {
+        let listUnique = []; // array เช็ครหัสซ้ำ
+
         let response = await fetch('model/apiGetTIcketAll.php');
         let json = await response.json();
         let domTbodyTable = document.getElementById('table-ticket-edit');
         domTbodyTable.innerHTML = ""
+
         for (let i = 0; i < json.length; i++) {
             let img;
-            if (json[i].slip_img != null) {
-                img = "<img id ='img-" + i + "' src='img/slip/" + json[i].slip_img + "'  width='120' height='120'  onclick='getImgSlip(" + json[i].slip_img + ")'></img>";
+            let resultForUnique = true;
+            for (let check = 0; check < listUnique.length; check++) {
+                if (listUnique[check] != json[i].ticket_code) {
+                    continue;
+                }
+                else if (listUnique[check] == json[i].ticket_code) {
+                    resultForUnique = false;
+                    break;
+                }
             }
-            else {
-                img = "<label>ไม่มีรูปภาพ</label>";
+            if (resultForUnique == true) {
+                listUnique.push(json[i].ticket_code)
+                if (json[i].slip_img != null) {
+                    img = "<img id ='img-" + i + "' src='img/slip/" + json[i].slip_img + "'  width='120' height='120'  onclick='getImgSlip(" + json[i].slip_img + ")'></img>";
+                }
+                else {
+                    img = "<label>ไม่มีรูปภาพ</label>";
+                }
+
+                domTbodyTable.innerHTML += "<tr>"
+                    + "<td><button class='btn btn-link' id='ticketCode-" + i + "'>" + json[i].ticket_code + "</button></td> <td><button class='btn btn-link' id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</button></td> <td><p  id='boatNumber-" + i + "'>" + json[i].boat_number + "</p></td>"
+                    + "<td> <button  id='btn-diolog-customer-" + i + "' class='btn btn-link'>ดูรายการ</button></td> <td ><button  class='btn btn-link' id='emp-" + i + "'>" + json[i].emp_first_name + "</button></td>"
+                    + "<td><button class='btn btn-link' id='timeBuyTicket-" + i + "'>" + json[i].time_buy_ticket + "</button></td> <td <button  class='btn btn-link' id='deadLineBook-" + i + "'>" + json[i].deadline_book + "</button></td> <td><button class='btn btn-link' id='travelDate-" + i + "'>" + json[i].travel_date + "</button></td>"
+                    + "<td><button class='btn btn-link' id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</button></td> <td>" + img + "</td> <td><button class='btn btn-link' id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</button> </td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
+                    + "</tr>";
+
+                //setting Event Tag <p> Use double Click 
+                document.getElementById('ticketCode-' + i + '').setAttribute('onclick', 'getShowModalEditTicketCode("' + json[i].ticket_code + '")')
+                document.getElementById('ticketType-' + i + '').setAttribute('onclick', 'getModalEditTicketType("' + json[i].ticket_category_name + '","' + json[i].ticket_code + '")')
+                document.getElementById('emp-' + i + '').setAttribute('onclick', 'getShowModalEditEmployee("' + json[i].emp_first_name + '","' + json[i].ticket_code + '")')
+                document.getElementById('timeBuyTicket-' + i + '').setAttribute('onclick', 'getShowModalBuyTicketTime("' + json[i].ticket_code + '")')
+                document.getElementById('travelDate-' + i + '').setAttribute('onclick', 'getShowModalTravelDate("' + json[i].travel_date + '","' + json[i].ticket_code + '")')
+                document.getElementById('deadLineBook-' + i + '').setAttribute('onclick', 'getShowModalDeadline("' + json[i].ticket_code + '")')
+                document.getElementById('ticketStatus-' + i + '').setAttribute('onclick', 'getShowModalTicketStatus("' + json[i].ticket_status_name + '","' + json[i].ticket_code + '")')
+                document.getElementById('timeUpSlip-' + i + '').setAttribute('onclick', 'getShowModalTimeUpSlip("' + json[i].ticket_code + '")')
+
+                //setting btn
+                document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setCancelTicket("' + json[i].ticket_code + '")');
+                document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getShowModalEditListCustomerFromTicket("' + json[i].ticket_code + '")')
             }
-
-            domTbodyTable.innerHTML += "<tr>"
-                + "<td><button class='btn btn-link' id='ticketCode-" + i + "'>" + json[i].ticket_code + "</button></td> <td><button class='btn btn-link' id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</button></td> <td><p  id='boatNumber-" + i + "'>" + json[i].boat_number + "</p></td>"
-                + "<td> <button  id='btn-diolog-customer-" + i + "' class='btn btn-link'>ดูรายการ</button></td> <td ><button  class='btn btn-link' id='emp-" + i + "'>" + json[i].emp_first_name + "</button></td>"
-                + "<td><button class='btn btn-link' id='timeBuyTicket-" + i + "'>" + json[i].time_buy_ticket + "</button></td> <td <button  class='btn btn-link' id='deadLineBook-" + i + "'>" + json[i].deadline_book + "</button></td> <td><button class='btn btn-link' id='travelDate-" + i + "'>" + json[i].travel_date + "</button></td>"
-                + "<td><button class='btn btn-link' id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</button></td> <td>" + img + "</td> <td><button class='btn btn-link' id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</button> </td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
-                + "</tr>";
-
-            //setting Event Tag <p> Use double Click 
-            document.getElementById('ticketCode-' + i + '').setAttribute('onclick', 'getShowModalEditTicketCode("' + json[i].ticket_code + '")')
-            document.getElementById('ticketType-' + i + '').setAttribute('onclick', 'getModalEditTicketType("' + json[i].ticket_category_name + '","' + json[i].ticket_code + '")')
-            document.getElementById('emp-' + i + '').setAttribute('onclick', 'getShowModalEditEmployee("' + json[i].emp_first_name + '","' + json[i].ticket_code + '")')
-            document.getElementById('timeBuyTicket-' + i + '').setAttribute('onclick', 'getShowModalBuyTicketTime("' + json[i].ticket_code + '")')
-            document.getElementById('travelDate-' + i + '').setAttribute('onclick', 'getShowModalTravelDate("' + json[i].travel_date + '","' + json[i].ticket_code + '")')
-            document.getElementById('deadLineBook-' + i + '').setAttribute('onclick', 'getShowModalDeadline("' + json[i].ticket_code + '")')
-            document.getElementById('ticketStatus-' + i + '').setAttribute('onclick', 'getShowModalTicketStatus("' + json[i].ticket_status_name + '","' + json[i].ticket_code + '")')
-            document.getElementById('timeUpSlip-' + i + '').setAttribute('onclick', 'getShowModalTimeUpSlip("' + json[i].ticket_code + '")')
-
-            //setting btn
-            document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setCancelTicket("' + json[i].ticket_code + '")');
-            document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getShowModalEditListCustomerFromTicket("' + json[i].ticket_code + '")')
-
 
         }
         $(document).ready(function () {
@@ -1202,7 +1221,8 @@ const getShowCustomerEdit = async () => {
         domTbodyTable.innerHTML = ""
         for (let i = 0; i < json.length; i++) {
             domTbodyTable.innerHTML += "<tr><td>" + json[i].cust_first_name + "</td><td>" + json[i].cust_last_name + "</td><td>" + json[i].phone_number + "</td>"
-                + "<td>" + json[i].gender + "</td><td>" + json[i].register_time + "</td><td>" + json[i].count + "</td><td><button onclick='getShowModalCustomer(" + json[i].customer_id + ")' id='btn-edit' class='btn btn-warning'>แก้ไข</button> <button id='btnDelete' onclick='setDeleteCustomer(" + json[i].customer_id + ")' class='btn btn-danger'>ลบ</button></td></tr>"
+                + "<td>" + json[i].gender + "</td><td>" + json[i].register_time + "</td><td>" + json[i].count + "</td><td><button onclick='getShowModalCustomer(" + json[i].customer_id + ")' id='btn-edit' class='btn btn-warning'>แก้ไข</button> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td></tr>"
+            document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setDeleteCustomer("' + json[i].customer_id + '","' + json[i].cust_first_name + '" , "' + json[i].cust_last_name + '")');
         }
         $(document).ready(function () {
             $('#dataTable-TicketEdit').dataTable({
@@ -1228,6 +1248,7 @@ const getShowModalCustomer = async (ticketCode) => {
         let json = await response.json();
         document.getElementById('text-fname').value = json[0].cust_first_name;
         document.getElementById('text-lname').value = json[0].cust_last_name;
+        document.getElementById('text-gender').value = json[0].gender;
         document.getElementById('text-phone').value = json[0].phone_number;
         document.getElementById('text-registerDate').value = json[0].register_time;
         document.getElementById('text-count').value = json[0].count;
@@ -1240,10 +1261,44 @@ const getShowModalCustomer = async (ticketCode) => {
     }
 }
 
+
+
+const setDeleteCustomer = async (customerID, fName, lName) => {
+    try {
+        let cf = confirm("ยืนยันการลบข้อมูล Customer : " + fName + " " + lName);
+        if (cf == true) {
+            let response = await fetch('model/apiSetDeleteCustomer.php', {
+                method: "POST",
+                body: JSON.stringify({
+                    customerID: customerID,
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            let result = await response.text();
+            if (response.status == 200) {
+                if (result == 'true') {
+                    location.reload();
+                }
+                else {
+                    alert("เกิดข้อผิดพลาด")
+                }
+            }
+            else {
+                return alert('Error status : ' + response.status)
+            }
+        }
+    } catch (err) {
+        alert("Error customer delete : " + err)
+    }
+}
+
 const setEditCustomer = async (customerID) => {
     try {
         let fname = document.getElementById('text-fname').value;
         let lname = document.getElementById('text-lname').value;
+        let gender = document.getElementById('text-gender').value;
         let phone = document.getElementById('text-phone').value;
         let registerDate = document.getElementById('text-registerDate').value;
         let count = document.getElementById('text-count').value;
@@ -1256,6 +1311,7 @@ const setEditCustomer = async (customerID) => {
                 customerID: customerID,
                 fname: fname,
                 lname: lname,
+                gender: gender,
                 phone: phone,
                 registerDate: registerDate,
                 count: count
@@ -1270,13 +1326,10 @@ const setEditCustomer = async (customerID) => {
         location.reload()
         // getShowCustomerEdit();
     } catch (err) {
-        alert("Error set edit customer : "+err)
+        alert("Error set edit customer : " + err)
     }
-
-
-
-
 }
+
 
 const setEditTicketDialog = async (ticketCode, typeTicket, numberBoat, employeeName, buyTicket, deadline, dateTravel, statusTicket, img, timeUpSlip) => {
     document.getElementById('tbody-EditTicket-modal').innerHTML = "";

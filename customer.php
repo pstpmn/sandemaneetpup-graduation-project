@@ -88,6 +88,13 @@ require 'navbar.php';
                                             <td><input id='text-lname' type="text" value=""></td>
                                         </tr>
                                         <tr>
+                                            <td scope="col" width="30%"><b>เพศ</b></td>
+                                            <td><select id='text-gender' name='gender'>
+                                                <option value="Male">ชาย</option>
+                                                <option value="Female">หญิง</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
                                             <td scope="col" width="30%"><b>เบอร์โทรศัพ</b></td>
                                             <td><input id='text-phone' type="tel" value=""></td>
                                         </tr>

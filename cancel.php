@@ -50,7 +50,7 @@ require 'navbar.php';
             <br><button class="form-control btn-danger">Reset</button>
 
             <br>
-            <div id="container-detail-customer">
+            <!-- <div id="container-detail-customer">
                 <center><i class="far fa-calendar-check"></i> ยืนยันข้อมูลตั๋วลูกค้า</center>
                 <div id="detail-customer">
                     <center>
@@ -73,9 +73,50 @@ require 'navbar.php';
                     </center>
 
                 </div>
-            </div>
+            </div> -->
             <br>
 
+        </div>
+
+        <div class="container">
+            <!-- Modal -->
+            <div class="modal fade" id="dialog-cancelTicket" role="dialog">
+                <div class="modal-dialog modal-xl	">
+                    <!-- Modal content-->
+                    <div class="modal-content" style="overflow: auto;">
+                        <div class="modal-header">
+                            <h4 id="dialog-ticketCode">แก้ไขข้อมูลตั๋วลูกค้า</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" id="modal-body-editTicket" style="overflow: auto;">
+                            <div id="detail-customer">
+                                <center>
+                                    <div id="topic">ชื่อ :</div><label id="fristName-label">....</label>
+                                    <div id="topic">นามสกุล :</div> <label id="lastName-label">....</label><br>
+                                    <div id="topic">เบอร์โทร : </div><label id="phone-label">....</label>
+                                    <div id="topic">รหัสตั๋ว :</div> <label id="ticketCode-label">....</label><br>
+                                    <div id="topic">ประเภทตั๋ว : </div><label id="ticketType-label">....</label>
+                                    <div id="topic">ซื้อกับพนักงาน :</div> <label id="employee-label">....</label><br>
+                                    <div id="topic">หมายเลขที่นั่ง : </div><label id="numberSeat-label">....</label>
+                                    <div id="topic">หมายเลขเรือ : </div><label id="numbetBoat-label">....</label><br>
+                                    <div id="topic">นั่งฝัง : </div><label id="seatType-label">....</label>
+                                    <div id="topic">ชั้น : </div><label id="floor-label">....</label><br><br>
+                                    <div id="topic">วันออกเรือ : </div><label id="travel-label" style="width:280px">....</label><br>
+                                    <div id="topic">เวลาซื้อตั๋ว : </div><label id="buyTime-label" style="width:280px">....</label><br>
+                                    <br><br>
+                                </center>
+                            </div>
+                        </div>
+                        <div id="modal-footer" class="modal-footer">
+                            <button class="btn btn-success" onclick="setCancelTicket(
+                            document.getElementById('ticketCode-label').textContent
+                        )">confrim</button>
+                            <br><button class="btn btn-danger" data-dismiss="modal">cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </main>
 
