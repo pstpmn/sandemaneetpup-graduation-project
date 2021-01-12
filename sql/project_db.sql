@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2021 at 04:49 PM
+-- Generation Time: Jan 12, 2021 at 08:28 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -209,8 +209,11 @@ INSERT INTO `boat_seat` (`boat_seat_id`, `boat_seat_number`, `boat_seat_type`, `
 (123, 123, 'L', 'T', 1),
 (124, 124, 'R', 'T', 1),
 (125, 125, 'L', 'T', 1),
-(133, 1, 'R', 'B', 111),
-(134, 2, 'L', 'B', 111);
+(133, 1, 'R', 'B', 1),
+(134, 4, 'L', 'B', 111),
+(135, 2, 'R', 'B', 111),
+(136, 3, 'R', 'B', 111),
+(137, 1, 'R', 'B', 111);
 
 -- --------------------------------------------------------
 
@@ -265,41 +268,18 @@ CREATE TABLE `buy_ticket` (
 --
 
 INSERT INTO `buy_ticket` (`buy_ticket_id`, `ticket_category_id`, `employee_id`, `customer_id`, `time_buy_ticket`, `time_up_slip`, `boat_seat_id`, `check_in`, `check_out`, `ticket_code`, `travel_date`, `ticket_status_id`, `deadline_book`, `payment_time`, `slip_img`, `payment_bank`, `payment_amount`, `orgin`, `destination`) VALUES
-(167, 2, 2, 22, '2020-12-26 12:48:55', NULL, 2, '2020-12-28 23:33:27', '2020-12-28 23:34:50', '918267584', '2020-12-26', 3, '2020-12-26 22:48:55', NULL, NULL, NULL, NULL, NULL, NULL),
-(168, 1, 2, 23, '2020-12-26 12:48:56', NULL, 6, '2020-12-28 23:26:23', '2020-12-28 23:26:40', '918267584', '2020-12-26', 3, '2020-12-26 22:48:56', NULL, NULL, NULL, NULL, NULL, NULL),
-(169, 1, 2, 24, '2020-12-26 12:48:57', NULL, 125, '2020-12-28 23:33:27', '2020-12-28 23:34:26', '918267584', '2020-12-26', 3, '2020-12-26 22:48:57', NULL, NULL, NULL, NULL, NULL, NULL),
-(170, 2, 2, 23, '2020-12-26 12:49:33', NULL, 3, NULL, NULL, '147028649', '2020-12-26', 2, '2020-12-26 22:49:33', NULL, NULL, NULL, NULL, NULL, NULL),
-(171, 1, 2, 25, '2020-12-26 16:19:49', NULL, 1, NULL, NULL, '542224609', '2020-12-30', 1, '2020-12-27 02:19:49', NULL, NULL, NULL, NULL, NULL, NULL),
-(172, 1, 2, 15, '2020-12-26 16:21:28', NULL, 1, NULL, NULL, '546606847', '2020-12-26', 2, '2020-12-26 23:23:28', NULL, NULL, NULL, NULL, NULL, NULL),
-(173, 1, 2, 26, '2020-12-26 16:29:51', NULL, 1, '2020-12-28 23:36:53', NULL, '624948197', '2020-12-26', 1, '2020-12-27 02:29:51', NULL, NULL, NULL, NULL, NULL, NULL),
-(174, 1, 2, 27, '2020-12-26 16:29:54', NULL, 2, '2020-12-28 23:37:00', '2020-12-28 23:40:24', '624948197', '2020-12-26', 1, '2020-12-27 02:29:54', NULL, NULL, NULL, NULL, NULL, NULL),
-(175, 2, 2, 15, '2020-12-26 16:31:44', NULL, 3, '2020-12-29 00:01:57', '2020-12-29 00:02:04', '179119453', '2020-12-26', 1, '2020-12-27 02:31:44', NULL, NULL, NULL, NULL, NULL, NULL),
-(176, 1, 2, 15, '2020-12-26 16:40:42', NULL, 7, '2020-12-28 23:57:54', '2020-12-28 23:57:56', '913282970', '2020-12-26', 1, '2020-12-27 02:40:42', NULL, NULL, NULL, NULL, NULL, NULL),
-(177, 1, 2, 28, '2020-12-26 16:41:00', NULL, 13, NULL, NULL, '317647032', '2020-12-26', 1, '2020-12-27 02:41:00', NULL, NULL, NULL, NULL, NULL, NULL),
-(178, 1, 2, 15, '2020-12-26 16:41:48', NULL, 16, '2020-12-28 23:57:46', '2020-12-28 23:57:13', '959938844', '2020-12-26', 3, '0000-00-00 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-(179, 1, 2, 29, '2020-12-26 16:42:22', NULL, 19, NULL, NULL, '462831457', '2020-12-26', 1, '2020-12-27 02:42:22', NULL, NULL, NULL, NULL, NULL, NULL),
-(180, 1, 2, 15, '2020-12-26 16:43:18', NULL, 11, NULL, NULL, '545636434', '2020-12-26', 1, '2020-12-27 02:43:18', NULL, NULL, NULL, NULL, NULL, NULL),
-(181, 1, 2, 15, '2020-12-26 16:43:59', NULL, 23, NULL, NULL, '676342929', '2020-12-26', 1, '2020-12-27 02:43:59', NULL, NULL, NULL, NULL, NULL, NULL),
-(182, 2, 2, 15, '2020-12-26 16:44:54', NULL, 17, NULL, NULL, '190741262', '2020-12-26', 1, '2020-12-27 02:44:54', NULL, NULL, NULL, NULL, NULL, NULL),
-(183, 1, 2, 30, '2020-12-26 16:46:01', NULL, 24, '2020-12-28 23:54:39', NULL, '339802701', '2020-12-26', 1, '2020-12-27 02:46:01', NULL, NULL, NULL, NULL, NULL, NULL),
-(184, 2, 8, 31, '2021-01-06 14:38:00', NULL, 10, NULL, NULL, '741715799', '2020-12-26', 1, '2020-12-27 03:00:56', NULL, NULL, NULL, NULL, NULL, NULL),
-(185, 2, 8, 32, '2021-01-06 14:38:00', NULL, 12, NULL, NULL, '741715799', '2020-12-26', 1, '2020-12-27 03:00:58', NULL, NULL, NULL, NULL, NULL, NULL),
-(186, 1, 2, 33, '2020-12-26 17:07:09', NULL, 3, '2020-12-30 15:14:23', NULL, '524041894', '2020-12-27', 1, '2020-12-27 03:07:09', NULL, NULL, NULL, NULL, NULL, NULL),
-(187, 1, 2, 34, '2020-12-26 17:07:09', NULL, 7, NULL, NULL, '524041894', '2020-12-27', 1, '2020-12-27 03:07:09', NULL, NULL, NULL, NULL, NULL, NULL),
-(188, 1, 2, 35, '2020-12-27 13:22:36', '2021-01-02 15:26:45', 12, '2020-12-28 23:40:54', '2020-12-28 23:40:43', '717233423', '2020-12-27', 1, '2020-12-27 23:22:36', NULL, NULL, NULL, NULL, NULL, NULL),
-(189, 1, 2, 36, '2020-12-27 13:22:36', '2021-01-02 15:26:39', 16, '2020-12-28 23:40:54', '2020-12-28 23:40:48', '717233423', '2020-12-27', 1, '2020-12-27 23:22:36', NULL, NULL, NULL, NULL, NULL, NULL),
-(190, 1, 2, 37, '2020-12-27 18:26:24', '2021-01-02 15:25:39', 4, '2020-12-30 14:44:25', '2021-01-03 00:02:18', '423492079', '2020-12-28', 1, '2020-12-28 04:26:24', NULL, NULL, NULL, NULL, NULL, NULL),
-(191, 1, 2, 38, '2020-12-27 18:26:24', '2021-01-02 15:25:25', 6, '2020-12-30 14:43:43', NULL, '423492079', '2020-12-28', 2, '2020-12-28 04:26:24', NULL, NULL, NULL, NULL, NULL, NULL),
-(192, 1, 2, 39, '2020-12-30 06:41:05', '2020-12-30 17:25:41', 3, '2020-12-30 14:17:45', '2020-12-30 14:42:10', '250509144', '2020-12-30', 2, '2020-12-30 16:41:05', NULL, 'test.jpg', NULL, NULL, NULL, NULL),
-(193, 1, 2, 40, '2020-12-30 07:44:53', '2021-01-02 12:20:34', 4, '2020-12-30 14:48:43', '2020-12-30 14:48:48', '406576623', '2020-12-30', 2, '2020-12-30 17:44:53', NULL, NULL, NULL, NULL, NULL, NULL),
-(194, 1, 2, 41, '2021-01-01 14:50:21', '2021-01-01 14:52:14', 9, '2020-12-30 15:43:23', NULL, '325492112', '2020-12-30', 1, '2020-12-30 18:35:15', NULL, 'test1.jpg', NULL, NULL, NULL, NULL),
-(195, 1, 2, 42, '2021-01-01 14:50:25', '2021-01-01 14:52:16', 10, '2020-12-30 15:35:36', NULL, '325492112', '2020-12-30', 2, '2020-12-30 18:35:15', NULL, 'test.jpg', NULL, NULL, NULL, NULL),
-(196, 1, 2, 43, '2021-01-01 14:50:27', '2021-01-03 13:26:25', 6, '2021-01-02 22:25:00', NULL, '429787433', '2020-12-30', 3, '2020-12-31 02:23:13', NULL, NULL, NULL, NULL, NULL, NULL),
-(197, 1, 2, 44, '2021-01-03 17:04:32', NULL, 1, NULL, NULL, '302276214', '2021-01-04', 1, '2021-01-04 03:04:32', NULL, NULL, NULL, NULL, NULL, NULL),
-(198, 1, 8, 59, '2021-01-05 15:38:00', '2021-01-05 15:48:00', 10, NULL, NULL, '135877315', '2021-01-05', 2, '0000-00-00 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-(199, 1, 2, 60, '2021-01-04 12:00:35', NULL, 21, '2021-01-04 19:01:49', '2021-01-04 19:02:04', '816455731', '2021-01-04', 1, '2021-01-04 22:00:35', NULL, NULL, NULL, NULL, NULL, NULL),
-(200, 1, 8, 61, '2021-01-04 17:47:05', NULL, 1, '2021-01-05 00:48:10', NULL, '269844297', '2021-01-05', 1, '2021-01-05 03:47:05', NULL, NULL, NULL, NULL, NULL, NULL),
-(201, 1, 8, 62, '2021-01-04 17:47:05', NULL, 2, '2021-01-05 00:51:42', '2021-01-05 00:52:09', '269844297', '2021-01-05', 1, '2021-01-05 03:47:05', NULL, NULL, NULL, NULL, NULL, NULL);
+(215, 1, 2, 74, '2021-01-07 10:20:03', NULL, 3, NULL, NULL, '664962787', '2021-01-07', 2, '2021-01-07 20:20:03', NULL, NULL, NULL, NULL, 1, 2),
+(216, 1, 2, 75, '2021-01-07 10:20:03', NULL, 4, NULL, NULL, '664962787', '2021-01-07', 2, '2021-01-07 20:20:03', NULL, NULL, NULL, NULL, 1, 2),
+(218, 1, 2, 76, '2021-01-07 10:20:43', NULL, 5, NULL, NULL, '360871143', '2021-01-08', 3, '2021-01-07 20:20:43', NULL, NULL, NULL, NULL, 1, 2),
+(219, 1, 2, 77, '2021-01-07 10:20:43', NULL, 6, NULL, NULL, '360871143', '2021-01-08', 3, '2021-01-07 20:20:43', NULL, NULL, NULL, NULL, 1, 2),
+(220, 1, 2, 78, '2021-01-07 11:29:32', NULL, 134, NULL, NULL, '207952690', '2021-01-07', 3, '2021-01-07 21:29:32', NULL, NULL, NULL, NULL, 1, 2),
+(221, 1, 2, 79, '2021-01-07 11:49:03', NULL, 53, NULL, NULL, '664962787', '2021-01-07', 2, '2021-01-07 21:49:03', NULL, NULL, NULL, NULL, 1, 2),
+(222, 1, 2, 80, '2021-01-08 10:50:02', NULL, 9, NULL, NULL, '956146308', '2021-01-08', 1, '2021-01-08 20:50:02', NULL, NULL, NULL, NULL, 1, 2),
+(223, 1, 2, 81, '2021-01-08 10:53:29', NULL, 135, NULL, NULL, '207952690', '2021-01-07', 3, '2021-01-08 20:53:29', NULL, NULL, NULL, NULL, 1, 2),
+(224, 1, 2, 82, '2021-01-08 10:55:38', NULL, 136, NULL, NULL, '207952690', '2021-01-07', 3, '2021-01-08 20:55:38', NULL, NULL, NULL, NULL, 1, 2),
+(225, 1, 2, 83, '2021-01-09 11:27:00', '2021-01-09 09:24:00', 32, NULL, NULL, '056028205', '2021-01-08', 3, '2021-01-08 20:57:07', NULL, NULL, NULL, NULL, 1, 2),
+(229, 1, 2, 87, '2021-01-08 15:52:56', NULL, 53, NULL, NULL, '837365609', '2021-01-09', 1, '2021-01-09 01:52:56', NULL, NULL, NULL, NULL, 1, 2),
+(230, 1, 2, 32, '2021-01-08 15:52:56', NULL, 54, NULL, NULL, '837365609', '2021-01-09', 1, '2021-01-09 01:52:56', NULL, NULL, NULL, NULL, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -322,8 +302,6 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `phone_number`, `register_time`, `gender`, `count`) VALUES
-(14, 'asd', '222', '1111', '2020-12-25 10:00:54', 'Male', 1),
-(15, '', '', '', '2020-12-25 10:01:31', 'Male', 15),
 (16, 'asd', 'asd', '0980173318', '2020-12-25 10:03:57', 'Male', 1),
 (17, 'qweqwe', 'asdsad', '0980173318', '2020-12-25 10:04:01', 'Male', 1),
 (18, 'พงศธร', 'พัสมุณี', '0980173318', '2020-12-25 10:50:10', 'Male', 2),
@@ -340,13 +318,12 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (29, 'q', 'qp', '', '2020-12-26 16:42:22', 'Male', 1),
 (30, 'd', 'q', '111', '2020-12-26 16:46:01', '', 1),
 (31, 'eqwe', 'qwe', '23232', '2020-12-26 17:00:56', 'Female', 1),
-(32, 'qweqw', 'asdasd', '565656', '2020-12-26 17:00:58', 'Male', 1),
+(32, 'qweqw', 'asdasd', '565656', '2020-12-26 17:00:58', 'Male', 2),
 (33, 'ww', 'ww', '3333', '2020-12-26 17:07:09', 'Male', 1),
 (34, 'eee', 'eee', '666', '2020-12-26 17:07:09', 'Male', 2),
 (35, 'as', 'asd', '5555', '2020-12-27 13:22:36', 'Male', 1),
 (36, 'asd', 'sad ', '222', '2020-12-27 13:22:36', 'Male', 1),
 (37, 'asdsad', 'sads', '212', '2020-12-27 18:26:24', 'Male', 1),
-(38, '12121', '2121', '212121', '2020-12-27 18:26:24', 'Male', 1),
 (39, 'asd', 'qweqwe', '', '2020-12-30 06:41:05', 'Male', 1),
 (40, 'qweqw', 'wqeqwe', '', '2020-12-30 07:44:53', 'Male', 1),
 (41, 'ๆไำๆไ', 'ำๆไำๆไ', '', '2020-12-30 08:35:15', 'Male', 1),
@@ -356,10 +333,8 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (45, 'frame', 'bo', '0222222', '2021-01-04 11:49:04', 'Male', 2),
 (46, 'qwewqe', 'asdsad', '', '2021-01-04 11:50:22', 'Male', 1),
 (47, 'qqq', 'qqq', '2222', '2021-01-04 11:51:05', 'Male', 1),
-(48, '666', '666', '666', '2021-01-04 11:52:51', 'Male', 1),
-(49, 'aa', 'aa', '', '2021-01-04 11:53:26', 'Male', 1),
+(49, 'aa', 'aa', '', '2021-01-04 11:53:26', 'Female', 1),
 (50, 'wweq', 'qwqe', '6666', '2021-01-04 11:54:01', 'Male', 1),
-(51, '6565', '656565', '6565', '2021-01-04 11:54:01', 'Male', 1),
 (52, 'asdsa', 'dasdsad', '', '2021-01-04 11:54:54', 'Male', 1),
 (53, 'qq', 'qqq', '', '2021-01-04 11:55:07', 'Male', 1),
 (54, 'qwewq', 'eqweq', '', '2021-01-04 11:55:08', 'Male', 1),
@@ -367,10 +342,35 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (56, 'qwe', 'qwe', '222', '2021-01-04 11:56:27', 'Male', 1),
 (57, 'qweqw', 'eqweq', '', '2021-01-04 11:57:23', 'Male', 1),
 (58, 'q', 'q', '', '2021-01-04 11:58:16', 'Male', 1),
-(59, 'a', 'a', '', '2021-01-04 11:59:17', 'Male', 1),
 (60, 'frame', 'joy', '', '2021-01-04 12:00:35', 'Male', 1),
 (61, 'aaa', 'aaa', '0', '2021-01-04 17:47:04', 'Male', 1),
-(62, '000', '000', '000', '2021-01-04 17:47:05', 'Male', 1);
+(63, 'แป้ง', 'แป้ง', '000', '2021-01-06 10:31:21', 'Male', 1),
+(64, 'ตุย', 'ตุย', '000', '2021-01-06 10:31:21', 'Male', 1),
+(65, 'asd', 'qwewqe', '', '2021-01-06 14:41:26', 'Male', 1),
+(66, 'qwe', 'eqwewq', '', '2021-01-06 14:45:33', 'Male', 1),
+(67, 'qweqwe', 'qweqwe', '000', '2021-01-06 15:31:58', 'Male', 3),
+(68, 'tyu', 'tyu', '', '2021-01-06 16:05:10', 'Male', 1),
+(69, 'iopoi', 'piopiop', '', '2021-01-06 16:05:30', 'Male', 1),
+(70, 'eqwe', 'qweqwe', '', '2021-01-06 16:24:21', 'Male', 1),
+(71, 'asdqw', 'eqeqw', '1', '2021-01-07 09:20:02', 'Male', 1),
+(72, 'qwewq', 'eqweqw', '', '2021-01-07 09:20:14', 'Male', 1),
+(73, 'ww', 'www', '', '2021-01-07 09:37:20', 'Male', 1),
+(74, 'qweqw', 'qweqwe', '4', '2021-01-07 10:20:03', 'Male', 1),
+(75, 'qwewqe', 'asdasd', '1', '2021-01-07 10:20:03', 'Male', 1),
+(76, 'qweqw', 'qweqw', '', '2021-01-07 10:20:43', 'Female', 1),
+(77, 'asd', 'asdaqwe', '', '2021-01-07 10:20:43', 'Male', 1),
+(78, 'ฟหก', 'ๆไำ', '', '2021-01-07 11:29:32', 'Male', 1),
+(79, 'ๆไำ', 'ๆไำ', '', '2021-01-07 11:49:03', 'Male', 1),
+(80, 'ๆไำ', 'ๆไำฟหก', '', '2021-01-08 10:50:02', 'Male', 1),
+(81, 'ๆไำไๆ', 'ฟหกหฟก', '', '2021-01-08 10:53:29', 'Male', 1),
+(82, 'ๆไำๆไ', 'ฟหกฟห', '', '2021-01-08 10:55:38', 'Male', 1),
+(83, 'ๆไำ', 'ฟหกหฟ', '', '2021-01-08 10:57:07', 'Male', 1),
+(84, 'pong', 'pas', '', '2021-01-08 15:08:03', 'Male', 1),
+(85, 'qweqw', 'asdsad', '', '2021-01-08 15:17:58', 'Male', 1),
+(86, 'asdqwe', 'qweqweasd', '', '2021-01-08 15:18:38', 'Male', 1),
+(87, 'qwe', 'asdsa', '', '2021-01-08 15:52:56', 'Male', 1),
+(88, 'ฟหกๆ', 'ๆไำๆไำ', '', '2021-01-08 17:52:08', 'Male', 1),
+(89, 'ฟหกหฟก', 'ฟหกฟหก', '', '2021-01-08 17:52:08', 'Male', 1);
 
 -- --------------------------------------------------------
 
@@ -385,8 +385,8 @@ CREATE TABLE `employee` (
   `emp_first_name` varchar(25) DEFAULT NULL,
   `emp_last_name` varchar(25) DEFAULT NULL,
   `register_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `gender` varchar(3) DEFAULT NULL,
-  `employee_category_id` int(2) DEFAULT NULL
+  `gender` varchar(10) DEFAULT NULL,
+  `employee_category_id` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -394,8 +394,8 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`employee_id`, `username`, `password`, `emp_first_name`, `emp_last_name`, `register_time`, `gender`, `employee_category_id`) VALUES
-(2, 'kang', 'kang', 'kang', 'kang', '2020-12-04 08:19:56', 'M', 2),
-(8, 'online', 'online', 'online', 'online', '2020-12-21 07:04:35', 'm', 1);
+(2, 'kang1', 'kang1', 'kang1', 'kang1', '2020-12-04 08:19:56', 'Female', 1),
+(8, 'online', 'online', 'online', 'online', '2020-12-21 07:04:35', 'Female', 2);
 
 -- --------------------------------------------------------
 
@@ -532,7 +532,8 @@ ALTER TABLE `customer`
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`),
   ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `employee_category_id` (`employee_category_id`);
+  ADD UNIQUE KEY `username_2` (`username`),
+  ADD KEY `employee_category_id` (`employee_category_id`);
 
 --
 -- Indexes for table `employee_category`
@@ -572,7 +573,7 @@ ALTER TABLE `boat_schedule`
 -- AUTO_INCREMENT for table `boat_seat`
 --
 ALTER TABLE `boat_seat`
-  MODIFY `boat_seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `boat_seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `book_time`
@@ -584,19 +585,19 @@ ALTER TABLE `book_time`
 -- AUTO_INCREMENT for table `buy_ticket`
 --
 ALTER TABLE `buy_ticket`
-  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `employee_category`

@@ -75,7 +75,7 @@
                         </a>
                         <div class="sb-sidenav-menu-heading">ระบบจัดการ Admin</div>
 
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="employee.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             จัดการพนักงาน
                         </a>

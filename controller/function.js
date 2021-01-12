@@ -1144,7 +1144,7 @@ const getCountSlipNoValidate = async () => {
         }
     } catch (err) {
         document.getElementById('count-slip-navbar').innerHTML = "สลิปโอนเงิน";
-        document.getElementById('count-slip-navbar').style.color = "white";
+        document.getElementById('count-slip-navbar').style.color = "#7ba1cb";
         document.getElementById('count-slip-navbar').style.cursor = "pointer";
     }
 }
