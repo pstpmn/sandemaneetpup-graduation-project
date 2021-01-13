@@ -64,46 +64,40 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                             <label id="count-slip-navbar">สลิปโอนเงิน&nbsp;</label>
                             <script>
-                                getCountSlipNoValidate()                              
+                                getCountSlipNoValidate()
                             </script>
                         </a>
 
                         <div class="sb-sidenav-menu-heading">ระบบรายงานผลลัพธ์</div>
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            สรุปผลลัพธ์
+                            สรุปผลลัพธ์ (ยังไม่ทำ)
                         </a>
                         <div class="sb-sidenav-menu-heading">ระบบจัดการ Admin</div>
 
                         <a class="nav-link" href="employee.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                             จัดการพนักงาน
                         </a>
 
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            จัดการราคาตั๋ว
+                        <a class="nav-link" href="location.php">
+                            <div class="sb-nav-link-icon"><i class="far fa-compass"></i></div>
+                            จัดการสถานที่
                         </a>
 
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            จัดการเช็คอินขึ้นเรือ
+                            จัดการราคาตั๋ว (ยังไม่ทำ)
                         </a>
 
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            จัดการที่นั่งเรือ
+                            จัดการเช็คอินขึ้นเรือ (ยังไม่ทำ)
                         </a>
-
-
 
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
+                            จัดการที่นั่งเรือ (ยังไม่ทำ)
                         </a>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ const getListEmployee = async () => {
                     + " <td><button id='btnEdit-" + i + "' class='btn btn-warning'>แก้ไข</button>  <button  id='btnDelte-" + i + "'  class='btn btn-danger'>ลบ</button> </td></tr>"
                 document.getElementById('btnEdit-' + i).setAttribute('onclick', 'getShowModalEditEmp("' + json[i].employee_id + '","' + json[i].username + '","' + json[i].password + '"'
                     + ',"' + json[i].emp_first_name + '","' + json[i].emp_last_name + '","' + json[i].gender + '",' + json[i].employee_category_id + ')');
-                    document.getElementById('btnDelte-' + i).setAttribute('onclick', 'setDelectEmployee("'+json[i].username+'")');
+                document.getElementById('btnDelte-' + i).setAttribute('onclick', 'setDelectEmployee("' + json[i].username + '")');
             }
         }
 
@@ -40,7 +40,7 @@ const setDelectEmployee = async (UserEmp) => {
                 }
             });
             let json = await response.text();
-            if(json == 'true'){
+            if (json == 'true') {
                 location.reload();
             }
         }
@@ -58,6 +58,7 @@ const getShowModalEditEmp = async (id, user, pass, fname, lname, gender, categor
     document.getElementById('text-lname').value = lname;
     document.getElementById('select-gender').value = gender;
     document.getElementById('select-category').value = category;
+    setBtnEditEmp();
     await $('#modal-Employee').modal();
 }
 
@@ -117,4 +118,80 @@ const setEditEmp = async () => {
     } catch (err) {
 
     }
+}
+
+const getShowModalAddEmp = async () => {
+    document.getElementById('text-id').value = "";
+    document.getElementById('text-user').value = "";
+    document.getElementById('text-pass').value = "";
+    document.getElementById('text-fname').value = "";
+    document.getElementById('text-lname').value = "";
+
+    document.getElementById('header-Employee').innerHTML = 'เพิ่มข้อมูลพนักงาน';
+    document.getElementById('btnSaveEdit').innerHTML = 'Save';
+    document.getElementById('btnSaveEdit').setAttribute('onclick', 'setAddEmp()');
+    await $('#modal-Employee').modal();
+}
+
+const setAddEmp = async () => {
+    let user = document.getElementById('text-user').value;
+    let pass = document.getElementById('text-pass').value;
+    let fname = document.getElementById('text-fname').value;
+    let lname = document.getElementById('text-lname').value;
+    let gender = document.getElementById('select-gender').value;
+    let categoryEmp = document.getElementById('select-category').value;
+
+    if (user == "") {
+        alert('กรุณาพิมพ์ Username')
+        return;
+    }
+    if (pass == "") {
+        alert('กรุณาพิมพ์ Password')
+        return;
+    }
+    if (fname == "") {
+        alert('กรุณาพิมพ์ First Name')
+        return;
+    }
+    if (lname == "") {
+        alert('กรุณาพิมพ์ Last Name')
+        return;
+    }
+
+    try {
+        let response = await fetch('model/apiSetAddEmp.php', {
+            method: "POST",
+            body: JSON.stringify({
+                user: user,
+                pass: pass,
+                fname: fname,
+                lname: lname,
+                gender: gender,
+                categoryEmp: categoryEmp
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+
+        if (response.status == 200) {
+            let json = await response.text();
+            if (json == 'true') {
+                alert('เพิ่มสำเร็จแล้ว')
+                location.reload();
+            }
+            else {
+                alert("เกิดข้อผิดพลาดในการเพิ่มพนักงาน");
+            }
+        }
+    } catch (err) {
+        alert('Error add Employee : ' + err)
+    }
+}
+
+
+const setBtnEditEmp = () => {
+    document.getElementById('header-Employee').innerHTML = 'แก้ไขข้อมูลพนักงาน';
+    document.getElementById('btnSaveEdit').innerHTML = 'Edit';
+    document.getElementById('btnSaveEdit').setAttribute('onclick', 'setEditEmp()');
 }

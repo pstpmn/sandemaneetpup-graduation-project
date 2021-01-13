@@ -21,19 +21,14 @@ require 'navbar.php';
                     DataTable Example
                 </div>
                 <div class="card-body">
-                    <button class='btn btn-primary' onclick="getShowModalAddEmp()">เพิ่มพนักงาน</button>
+                    <button class='btn btn-primary' onclick="getShowModalAddLocation()">เพิ่มสถานที่</button>
                     <div class="table-responsive">
                         <table class="table table-bordered" style="text-align: center;" id="dataTable-employee" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>ลำดับ</th>
-                                    <th>username</th>
-                                    <th>password</th>
-                                    <th>ชื่อ</th>
-                                    <th>นามสกุล</th>
-                                    <th>เพศ</th>
-                                    <th>ประเภทพนักงาน</th>
-                                    <th>Action</th>
+                                    <th>location_name</th>
+                                    <th>action</th>
                                 </tr>
                             </thead>
                             <tbody id="table-ticket-edit">
@@ -52,7 +47,7 @@ require 'navbar.php';
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 id="header-Employee" >แก้ไขข้อมูลพนักงาน</h4>
+                            <h4 id="header-Employee">แก้ไขข้อมูล Location</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body" id="modal-body-slip">
@@ -63,34 +58,10 @@ require 'navbar.php';
                                         <td><input id='text-id' type="text" disabled value=""></td>
                                     </tr>
                                     <tr>
-                                        <td scope="col" width="30%"><b>username</b></td>
-                                        <td><input id='text-user' type="text" value=""></td>
+                                        <td scope="col" width="30%"><b>Location</b></td>
+                                        <td><input id='text-locationName' type="text" value=""></td>
                                     </tr>
-                                    <tr>
-                                        <td scope="col" width="30%"><b>password</b></td>
-                                        <td><input id='text-pass' type="text" value=""></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col" width="30%"><b>ชื่อ</b></td>
-                                        <td><input id='text-fname' type="text" value=""></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col" width="30%"><b>นามสกุล</b></td>
-                                        <td><input id='text-lname' type="tel" value=""></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col" width="30%"><b>เพศ</b></td>
-                                        <td><select id='select-gender' name='gender'>
-                                                <option value="Male">ชาย</option>
-                                                <option value="Female">หญิง</option>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col" width="30%"><b>ประเภทพนักงาน</b></td>
-                                        <td>
-                                            <div id='contrainer-category'> </div>
-                                        </td>
-                                    </tr>
+                                   
                                 </thead>
                                 <tbody id="tbody-modal">
 
@@ -98,7 +69,7 @@ require 'navbar.php';
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditEmp()">Edit</button>
+                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditLocation()">Edit</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -109,8 +80,9 @@ require 'navbar.php';
         <!-- End -->
     </main>
     <script>
-        getEmpCategory();
-        getListEmployee();
+        getListLocation();
+        // getLocationCategory();
+
     </script>
     <!--  Finish -->
     <?php
