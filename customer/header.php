@@ -15,8 +15,7 @@
             <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
            
             <!-- java script -->
-            <script src="controller/index.js"></script>
-            <script src="controller/index_page_2.js"></script>
+            <script src="controller/function.js"></script>
             <script src="controller/clickEvent.js"></script>
             <!-- ajax jquery -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
