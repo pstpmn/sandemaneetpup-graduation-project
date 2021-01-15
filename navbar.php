@@ -61,7 +61,7 @@
                         </a>
 
                         <a class="nav-link collapsed" href="validatedSlip.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-dlist"></i></div>
                             <label id="count-slip-navbar">สลิปโอนเงิน&nbsp;</label>
                             <script>
                                 getCountSlipNoValidate()
@@ -85,8 +85,8 @@
                             จัดการสถานที่
                         </a>
 
-                        <a class="nav-link" href="location.php">
-                            <div class="sb-nav-link-icon"><i class="far fa-compass"></i></div>
+                        <a class="nav-link" href="boat.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-ship"></i></div>
                             จัดการเรือ
                         </a>
 
