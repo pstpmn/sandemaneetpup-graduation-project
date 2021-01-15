@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // const getBoatSeat = (boatNumber, date, orgin, destination) => {
 //     if (orgin == destination) {
 //         alert('ต้นทาง และ ปลายทาง เหมือนกัน !!')
@@ -12,6 +13,22 @@
 //     getBottomBoatSeatData(boatNumber, date);
 //     getTopBoatSeatData(boatNumber, date);
 // }
+=======
+const getBoatSeat = (boatNumber, date, orgin, destination) => {
+    if (orgin == destination) {
+        alert('ต้นทาง และ ปลายทาง เหมือนกัน !!')
+        return;
+    }
+    //make Empty array Boat seat
+    listSeat = [];
+    listSeatNumber = [];
+    getListSeat();
+
+    document.getElementById('container-boatSeat-customerData').style.display = "block";
+    getBottomBoatSeatData(boatNumber, date);
+    getTopBoatSeatData(boatNumber, date);
+}
+>>>>>>> 3f1ba140dba15af7944d480dd9aeeec514b8cded
 const getBottomBoatSeatData = async(boatNumber, date) => {
     const response = await fetch('model/apiBoatSeat.php', {
         method: "POST",
@@ -120,11 +137,14 @@ const checkBoatSeat = (id, number) => {
     getListSeat();
 }
 
+<<<<<<< HEAD
 const getListSeat = async () => {
     let numberBoatSeat = document.getElementById('number-boatseat');
     numberBoatSeat.innerHTML = listSeatNumber;
 }
 
+=======
+>>>>>>> 3f1ba140dba15af7944d480dd9aeeec514b8cded
 const registerCustomer = (listSeat, listSeatNumber) => {
     if (listSeatNumber.length == 0 || listSeat.length == 0) return alert('กรุณาเลือกที่นั่ง');
     $("#myModal").modal();
