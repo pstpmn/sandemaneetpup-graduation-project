@@ -85,6 +85,11 @@
                             จัดการสถานที่
                         </a>
 
+                        <a class="nav-link" href="location.php">
+                            <div class="sb-nav-link-icon"><i class="far fa-compass"></i></div>
+                            จัดการเรือ
+                        </a>
+
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             จัดการราคาตั๋ว (ยังไม่ทำ)

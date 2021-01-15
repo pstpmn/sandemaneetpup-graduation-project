@@ -23,6 +23,7 @@
 
 
     <!-- use -->
+    <script src="controller/fnBoat.js"></script>
     <script src="controller/function.js"></script>
     <script src="controller/fnEmployee.js"></script>
     <script src="controller/fnLocation.js"></script>

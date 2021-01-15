@@ -47,7 +47,6 @@ const setDelectEmployee = async (UserEmp) => {
     } catch (err) {
 
     }
-
 }
 
 const getShowModalEditEmp = async (id, user, pass, fname, lname, gender, category) => {

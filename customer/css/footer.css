@@ -1,0 +1,77 @@
+ .footer {
+     margin-left: 90px;
+     margin-right: 90px;
+     font-size: 15.5px;
+     font-family: 'Prompt', sans-serif;
+ }
+ 
+ .footer2 {
+     display: none;
+     margin-left: 90px;
+     margin-right: 90px;
+     font-size: 15px;
+     font-family: 'Prompt', sans-serif;
+ }
+ 
+ b {
+     font-size: 15px;
+     color: black;
+ }
+ 
+ .b2 {
+     color: #0056b3;
+     padding-bottom: 25px;
+ }
+ 
+ .has1 {
+     background-color: #e9ecef;
+ }
+ 
+ .has2,
+ .has3 {
+     font-size: 26px;
+     font-family: 'Kanit', sans-serif;
+     text-align: center;
+     padding-top: 100px;
+     padding-bottom: 20px;
+     color: #0056b3;
+ }
+ 
+ input[class="form-control"] {
+     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.034), 0 12.5px 10px rgba(0, 0, 0, 0.06);
+     margin-bottom: 15px;
+     width: 48%;
+ }
+ 
+ .form-group {
+     width: 100%;
+ }
+ 
+ @media (max-width: 890px) {
+     input[class="form-control"] {
+         width: 90%;
+     }
+     .has2 {
+         font-size: 36px;
+     }
+     .has3 {
+         font-size: 28px;
+     }
+     .footer {
+         display: none;
+     }
+     .footer2 {
+         display: block;
+         margin-left: 40px;
+         margin-right: 40px;
+     }
+ }
+ 
+ @media (max-width: 590px) {
+     .has2 {
+         font-size: 24px;
+     }
+     .has3 {
+         font-size: 16px;
+     }
+ }
