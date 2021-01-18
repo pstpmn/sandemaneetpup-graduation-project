@@ -1,4 +1,5 @@
 <?php include('header.php'); ?>
+
 <?php
 if (isset($_POST["btnSearch"])) {
     $orgin = $_POST['select-Location_start-responsive'];
@@ -8,6 +9,7 @@ if (isset($_POST["btnSearch"])) {
     echo $orgin . "  " . $destination . "   " . $boatId . "    " . $date;
 }
 ?>
+
 <style>
     input[type='radio'] {
         display: inline;
@@ -66,16 +68,16 @@ if (isset($_POST["btnSearch"])) {
 
         table[class="table table-bordered table-primary"] {
             width: 90%;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            margin-left: 15px;
         }
     }
 </style>
 
 <center>
-
     <body class="has1">
         <div id="container-boatSeat-customerData" style="display: none;">
-            <h3 class="has3">เลือกที่นั่งเรือของลูกค้า</h3>
+            <h3 class="has2">เลือกที่นั่งเรือของลูกค้า</h3>
             <div class="tableSet" id="tableFromBoatSeatBottom">
                 <table class="table table-bordered table-primary" id="">
                     <tr id="rightBottom">
@@ -118,7 +120,7 @@ if (isset($_POST["btnSearch"])) {
                 </table>
             </div>
             </table>
-        </div>
+        </div><br>
 
         <button id="floorOneBtn" class="btn btn-success" onclick="btnFloorOne()">ชั้น 1</button>
         <button id="floorTwoBtn" class="btn btn-warning" onclick="btnFloorTwo()">ชั้น 2</button>

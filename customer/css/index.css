@@ -36,7 +36,7 @@
  }
  
  .box p {
-     padding-left: 25px;
+     padding-left: 20px;
      font-family: 'Prompt', sans-serif;
  }
  
@@ -50,11 +50,6 @@
  .box input[type=date] {
      margin-left: 20px;
      margin-right: 10px;
-     font-family: 'Prompt', sans-serif;
- }
- 
- .box select[name=list] {
-     margin-left: 20px;
      font-family: 'Prompt', sans-serif;
  }
  
