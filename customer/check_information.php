@@ -2,11 +2,8 @@
 session_start();
         if(isset($_POST['ticket_code'])){
 
-            $con= mysqli_connect("localhost","root","","project_db") or die("Error: " . mysqli_error($con));
-            mysqli_query($con, "SET NAMES 'utf8' ");
-            error_reporting( error_reporting() & ~E_NOTICE );
-            date_default_timezone_set('Asia/Bangkok');
-
+            include('mysqli_connect.php');
+            
             $ticket_code = $_POST['ticket_code'];
 
             $sql = "SELECT * FROM buy_ticket
@@ -22,7 +19,7 @@ session_start();
                     $_SESSION["orgin"] = $row["orgin"];
                     $_SESSION["destination"] = $row["destination"];
 
-                    if($_SESSION["ticket_status_id"]== "1"){
+                    if($_SESSION["ticket_status_id"]== 1){
                         echo "<script>";
                         echo "window.location = 'show_information_success.php'; ";
                         echo "</script>";

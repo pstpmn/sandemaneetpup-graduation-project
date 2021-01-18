@@ -10,7 +10,7 @@ if (isset($_POST["btnSearch"])) {
     if($orgin == "0" || $destination == "0"){
         echo "<script type='text/javascript'>";
         echo "window.location = 'index.php'; ";
-        echo "alert('ต้นทาง และ ปลายทาง ยังไม่ได้เลือก  !!!');";
+        echo "alert('ต้นทาง หรือ ปลายทาง ยังไม่ได้เลือก  !!!');";
         echo "</script>";
     }
     else if($orgin == $destination){
@@ -90,6 +90,15 @@ if (isset($_POST["btnSearch"])) {
             width: 90%;
             margin-bottom: 10px;
             margin-left: 15px;
+        }
+
+        #container-boatSeat-customerData {
+        display: none;
+        width: 90%;
+        }
+
+        #tableFromBoatSeatTop{
+            width: 90%;
         }
     }
 </style>
