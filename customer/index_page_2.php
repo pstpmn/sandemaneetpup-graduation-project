@@ -61,6 +61,10 @@ if (isset($_POST["btnSearch"])) {
     
     #container-boatSeat-customerData {
         display: none;
+        width: 95%;
+    }
+    #tableFromBoatSeatTop{
+        width: 95%;
     }
 
     @media (max-width: 890px) {
@@ -98,7 +102,7 @@ if (isset($_POST["btnSearch"])) {
 <center>
     <body class="has1">
 
-        <div id="container-boatSeat-customerData" style="display: none;">
+        <div id="container-boatSeat-customerData" style="display: none;" >
             <h3 class="has2">เลือกที่นั่งเรือของลูกค้า</h3>
             <div class="tableSet" id="tableFromBoatSeatBottom">
                 <table class="table table-bordered table-primary" id="">

@@ -1,4 +1,46 @@
 // For desktop 
+const validateDeadline = (current, deadline) => {
+
+    if (current.getYear() < deadline.getYear()) {
+        return true;
+    }
+
+    else if (current.getYear() > deadline.getYear()) {
+        return false;
+    }
+
+
+    if (current.getMonth() < deadline.getMonth()) {
+        return true;
+    }
+    else if (current.getMonth() > deadline.getMonth()) {
+        return false;
+    }
+
+    if (current.getDate() < deadline.getDate()) {
+        return true;
+    }
+
+    else if (current.getDate() > deadline.getDate()) {
+        return false;
+    }
+
+    if (current.getHours() < deadline.getHours()) {
+        return true;
+    }
+    else if (current.getHours() > deadline.getHours()) {
+        return false;
+    }
+
+    if (current.getMinutes() < deadline.getMinutes()) {
+        return true;
+    }
+    if (current.getMinutes() > deadline.getMinutes()) {
+        return false;
+    }
+    return false;
+}
+
 const getLocation = async() => {
     try {
         const response = await fetch('model/apiLocation.php', {
@@ -169,100 +211,10 @@ const getBoatSeat = (boatNumber, date, orgin, destination) => {
 
 // index_page_2
 
-const getBottomBoatSeatData = async(boatNumber, date) => {
-    const response = await fetch('model/apiBoatSeat.php', {
-        method: "POST",
-        body: JSON.stringify({ boatNumber: boatNumber }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-    const json = await response.json();
-    document.getElementById("rightBottom").innerHTML = "";
-    document.getElementById("leftBottom").innerHTML = "";
-    document.getElementById("rightBottom").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
-    document.getElementById("leftBottom").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
-    for (let i = 0; i < json.length; i++) {
-        if (json[i].floor == 'B' && json[i].boat_seat_type == 'R') {
-            document.getElementById("rightBottom").innerHTML += '<td id=' + json[i].boat_seat_id + '  >' + json[i].boat_seat_number + '</td>'
-            document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
-        } else if (json[i].floor == 'B' && json[i].boat_seat_type == 'L') {
-            document.getElementById("leftBottom").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
-            document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
-        }
-    }
-    document.getElementById("rightBottom").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
-    document.getElementById("leftBottom").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
-    let dateToSeat = date;
 
-    await getBottomBoatSeatStatus(dateToSeat, boatNumber);
-}
 
-const getBottomBoatSeatStatus = async(dateToSeat, boatNumber) => {
-    try {
-        const response = await fetch('model/apiSeatStatus.php', {
-            method: "POST",
-            body: JSON.stringify({
-                date: dateToSeat,
-                boatNumber: boatNumber
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-        const json = await response.json();
 
-        var date = new Date();
-        for (let i = 0; i < json.length; i++) {
 
-            let timeCurrent = new Date();
-            let deadline = new Date(json[i].deadline_book);
-            let resultDeadline = validateDeadline(timeCurrent, deadline);
-
-            if (json[i].ticket_status_id == 1) {
-                document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
-                document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
-                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-            } else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
-                document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
-                document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
-                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-            }
-        }
-    } catch (err) {
-        alert(err)
-    }
-
-}
-
-const getTopBoatSeatData = async(boatNumber, date) => {
-    const response = await fetch('model/apiBoatSeat.php', {
-        method: "POST",
-        body: JSON.stringify({ boatNumber: boatNumber }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-    const json = await response.json();
-    document.getElementById("rightTop").innerHTML = "";
-    document.getElementById("leftTop").innerHTML = "";
-    document.getElementById("rightTop").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
-    document.getElementById("leftTop").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
-    for (let i = 0; i < json.length; i++) {
-        if (json[i].floor == 'T' && json[i].boat_seat_type == 'R') {
-            document.getElementById("rightTop").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
-            document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
-        } else if (json[i].floor == 'T' && json[i].boat_seat_type == 'L') {
-            document.getElementById("leftTop").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
-            document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
-
-        }
-    }
-    document.getElementById("rightTop").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
-    document.getElementById("leftTop").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
-    await getTopBoatSeatStatus();
-
-}
 
 const checkBoatSeat = (id, number) => {
     let td = document.getElementById(id);
@@ -309,7 +261,128 @@ const registerCustomer = (listSeat, listSeatNumber) => {
 
 }
 
-const getTopBoatSeatStatus = async(dateToSeat, boatNumber, ticketCode) => {
+
+
+
+
+
+
+
+
+// -----------------------
+
+const getBottomBoatSeatData = async (boatNumber, date, ticketCode) => {
+    try {
+        const response = await fetch('model/apiBoatSeat.php', {
+            method: "POST",
+            body: JSON.stringify({ boatNumber: boatNumber }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const json = await response.json();
+        document.getElementById("rightBottom").innerHTML = "";
+        document.getElementById("leftBottom").innerHTML = "";
+        document.getElementById("rightBottom").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
+        document.getElementById("leftBottom").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
+        for (let i = 0; i < json.length; i++) {
+            if (json[i].floor == 'B' && json[i].boat_seat_type == 'R') {
+                document.getElementById("rightBottom").innerHTML += '<td id=' + json[i].boat_seat_id + '  >' + json[i].boat_seat_number + '</td>'
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
+            }
+            else if (json[i].floor == 'B' && json[i].boat_seat_type == 'L') {
+                document.getElementById("leftBottom").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
+            }
+        }
+        document.getElementById("rightBottom").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
+        document.getElementById("leftBottom").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
+        let dateToSeat = date;
+        await getBottomBoatSeatStatus(dateToSeat, boatNumber, ticketCode);
+    } catch (err) {
+        alert('Error Get Bottom Boat Seat : ' + err)
+    }
+}
+
+
+
+const getBottomBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
+    try {
+        const response = await fetch('model/apiSeatStatus.php', {
+            method: "POST",
+            body: JSON.stringify({
+                date: dateToSeat,
+                boatNumber: boatNumber,
+                floor: 'B'
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const json = await response.json();
+
+        for (let i = 0; i < json.length; i++) {
+            let timeCurrent = new Date();
+            let deadline = new Date(json[i].deadline_book);
+            let resultDeadline = validateDeadline(timeCurrent, deadline);
+
+            if (json[i].ticket_status_id == 1) {
+                if (ticketCode == json[i].ticket_code) {
+                    document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
+                    document.getElementById(json[i].boat_seat_id).setAttribute('class', 'bg-primary');
+                    document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
+                    continue;
+                }
+                document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
+                document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
+            }
+            else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
+                document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
+                document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
+            }
+        }
+    } catch (err) {
+        // alert('Error Get Bottom Boat Seat Status : ' + err)
+    }
+}
+
+
+const getTopBoatSeatData = async (boatNumber, date, ticketCode) => {
+    try {
+        const response = await fetch('model/apiBoatSeat.php', {
+            method: "POST",
+            body: JSON.stringify({ boatNumber: boatNumber }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const json = await response.json();
+        document.getElementById("rightTop").innerHTML = "";
+        document.getElementById("leftTop").innerHTML = "";
+        document.getElementById("rightTop").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
+        document.getElementById("leftTop").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
+        for (let i = 0; i < json.length; i++) {
+            if (json[i].floor == 'T' && json[i].boat_seat_type == 'R') {
+                document.getElementById("rightTop").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
+            }
+            else if (json[i].floor == 'T' && json[i].boat_seat_type == 'L') {
+                document.getElementById("leftTop").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
+                document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
+            }
+        }
+        document.getElementById("rightTop").innerHTML += '<td bgcolor="#fff"><center>Right</center></td>';
+        document.getElementById("leftTop").innerHTML += '<td bgcolor="#fff"><center>Left</center></td>';
+        let dateToSeat = date;
+        await getTopBoatSeatStatus(dateToSeat, boatNumber, ticketCode);
+    } catch (err) {
+        // alert("Error Top boat seat : " + err)
+    }
+}
+
+const getTopBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
     try {
         const response = await fetch('model/apiSeatStatus.php', {
             method: "POST",
@@ -337,13 +410,15 @@ const getTopBoatSeatStatus = async(dateToSeat, boatNumber, ticketCode) => {
                 document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                 document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-            } else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
+            }
+            else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
                 document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                 document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
             }
         }
-    } catch (err) {
+    }
+    catch (err) {
         // alert("Error Top boatseat Status : " + err)
     }
 

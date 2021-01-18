@@ -69,7 +69,7 @@
                         </a>
 
                         <div class="sb-sidenav-menu-heading">ระบบรายงานผลลัพธ์</div>
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             สรุปผลลัพธ์ (ยังไม่ทำ)
                         </a>
@@ -100,17 +100,17 @@
                             จัดวันหยุดงาน (ยังไม่ทำ)
                         </a>
 
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="">
                             <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
                             จัดการราคาตั๋ว (ยังไม่ทำ)
                         </a>
 
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             จัดการเช็คอินขึ้นเรือ (ยังไม่ทำ)
                         </a>
 
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             จัดการที่นั่งเรือ (ยังไม่ทำ)
                         </a>
