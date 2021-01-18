@@ -175,6 +175,43 @@ $listSeat = "asdsa";
                         </div>
                     </div>
                 </div>
+
+                <div class="container">
+                    <!-- Modal -->
+                    <div class="modal fade " id="result-buyTicket" role="dialog">
+                        <div class="modal-dialog modal-xl">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div id="ModalHeader" class="modal-header alert alert-success">
+                                    <div id="txtModalHeader"></div>
+                                    <button type="button" onclick="getRefreshPage()" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body-result">
+                                    <center>
+                                        <div role="alert" style="width:95%;">
+                                            <h4 id="txtTicketCode" class="alert-heading"></h4>
+                                            <hr>
+                                            <table style="width: 100%;" id="detail-boat">
+                                                <!-- ดำเนินการโดย Database -->
+                                            </table>
+                                            <hr>
+                                            <table style="width: 100%;" border="0" id="detail-customer">
+                                                <!-- ดำเนินการโดย Database -->
+
+                                            </table>
+                                            <br>
+                                        </div>
+
+                                    </center>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btnClose" onclick="getRefreshPage()" class="btn btn-success" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
     </main>
     <br>
     <!--  Finish -->

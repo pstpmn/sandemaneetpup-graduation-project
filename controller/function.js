@@ -37,7 +37,6 @@ const validateDeadline = (current, deadline) => {
     if (current.getMinutes() > deadline.getMinutes()) {
         return false;
     }
-
     return false;
 }
 
@@ -457,19 +456,57 @@ const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination) =>
 
             const text = await response.text();
             if (text == 'true') {
+                await $('#myModal').modal('hide');
+                await getShowResultBuyTicket(json);
             }
             else {
                 alert("บันทึกข้อมูลไม่สำเร็จ");
                 return;
             }
-
         } catch (e) {
             alert("Error " + e);
             location.reload();
             return;
         }
     }
-    alert('บันทึกสำเร็จ');
+}
+
+
+const getShowResultBuyTicket = async (ticketCode) => {
+    $('#result-buyTicket').modal({ backdrop: 'static', keyboard: false });
+    document.getElementById('detail-customer').innerHTML = "";
+    document.getElementById('detail-boat').innerHTML = "";
+
+    document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-success');
+    document.getElementById('txtModalHeader').innerHTML = "<h4>ผลลัพธ์การซื้อตั๋ว : สำเร็จ</h4>";
+    document.getElementById('txtTicketCode').innerHTML = "รหัสตั๋ว : " + ticketCode;
+    try {
+        let response = await fetch('model/apiGetTicket.php', {
+            method: "POST",
+            body: JSON.stringify({ ticketCode: ticketCode }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        json = await response.json();
+        document.getElementById('detail-boat').innerHTML = "<tr>"
+            + "<td> หมายเลขเรือ : <u>" + json[0].boat_number + "</u></td> <td>ต้นทาง :<u> " + json[0][45] + "</u></td> <td>ปลายทาง : <u>" + json[0][47] + "</u></td> <td>วันออกเดินทาง : <u>" + json[0].travel_date + "</u></td> </tr>"
+
+        for (let i = 0; i < json.length; i++) {
+            document.getElementById('detail-customer').innerHTML += "<tr>"
+                + "<td> ชื่อ : " + json[i].cust_first_name + " " + json[i].cust_last_name + "</td> <td>เบอร์โทรศัพท์ : " + json[i].phone_number + "</td>"
+                + "<td>หมายเลขที่นั่งเรือ : " + json[i].boat_seat_number + "</td> <td>ชั้น : " + json[i].floor + "</td></tr>"
+        }
+
+    } catch (err) {
+        document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-danger');
+        document.getElementById('txtModalHeader').innerHTML = "<h4>ผลลัพธ์การซื้อตั๋ว : ไม่สำเร็จ</h4>";
+        document.getElementById('txtTicketCode').innerHTML = "รหัสตั๋ว : ล้มเหลว";
+    }
+
+}
+
+const getRefreshPage = () => {
     location.reload();
 }
 
@@ -745,7 +782,7 @@ const getDetailCustomerFromTicketCode = async (ticketCode) => {
         document.getElementById('travel-label').innerHTML = json[0].travel_date;
         document.getElementById('buyTime-label').innerHTML = json[0].time_buy_ticket;
 
-        $('#dialog-cancelTicket').modal();
+        $('#dialog-cancelTicket').modal({ backdrop: 'static', keyboard: false });
     } catch (err) {
         alert("ค้นหาไม่พบ Ticket Code นี้")
     }
@@ -914,7 +951,7 @@ const btnSelectSlip = async (dom) => {
 
 const registerCustomer = () => {
     if (listSeatNumber.length == 0 || listSeat.length == 0) return alert('กรุณาเลือกที่นั่ง');
-    $("#myModal").modal();
+    $("#myModal").modal({ backdrop: 'static', keyboard: false });
     document.getElementById('register-customer').innerHTML = "";
     listSeatNumber.sort(function (a, b) { return a - b });
     listSeat.sort(function (a, b) { return a - b });
@@ -1067,7 +1104,7 @@ const getDialogListCustomerFromSlip = async (ticketCode) => {
                 + "<td>" + json[i].cust_first_name + "</td> <td>" + json[i].cust_last_name + "</td> <td>" + json[i].phone_number + "</td> <td>" + json[i].boat_seat_number + "</td></tr>";
         }
         document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='4'>จำนวนลูกค้า : " + json.length + "</td></tr>"
-        $("#dialogListCustomer").modal();
+        $("#dialogListCustomer").modal({ backdrop: 'static', keyboard: false });
     } catch (err) {
         alert("Error Diolog Slip : " + err)
     }
@@ -1124,7 +1161,7 @@ const setCancelSlip = async (ticketCode) => {
 
 const getImgSlip = (img) => {
     document.getElementById('modal-body-slip').innerHTML = '<img src="img/slip/' + img + '"  width="100%" height="500px"  ></img>'
-    $("#myModal").modal();
+    $("#myModal").modal({ backdrop: 'static', keyboard: false });
 }
 
 const getCountSlipNoValidate = async () => {
@@ -1254,7 +1291,7 @@ const getShowModalCustomer = async (ticketCode) => {
         document.getElementById('text-count').value = json[0].count;
         document.getElementById('btn-saveEdit').setAttribute('onclick', 'setEditCustomer(' + json[0].customer_id + ')')
 
-        $("#dialogListCustomer").modal();
+        $("#dialogListCustomer").modal({ backdrop: 'static', keyboard: false });
     } catch (err) {
         alert("a" + err)
         location.reload();
@@ -1337,7 +1374,7 @@ const setEditTicketDialog = async (ticketCode, typeTicket, numberBoat, employeeN
         + "<td><input type='text' value='" + typeTicket + "'></td> <td>" + numberBoat + "</td> <td><button id='btn-diolog-customer-" + ticketCode + "' class='btn btn-link'>ดูรายการ</button></td> <td>" + employeeName + "</td> <td>" + buyTicket + "</td> <td>" + deadline + "</td> <td>" + dateTravel + "</td> "
         + " <td>" + statusTicket + "</td> <td>" + img + "</td> <td>" + timeUpSlip + "</td></tr>";
     document.getElementById('btn-diolog-customer-' + ticketCode + '').setAttribute('onclick', 'getDialogListCustomerFromSlip("' + ticketCode + '")');
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 
@@ -1365,7 +1402,7 @@ const getModalEditTicketType = async (ticketType, ticketCode) => {
     } catch (err) {
         alert("Error modal get Ticket Catagory : " + err)
     }
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 
@@ -1376,7 +1413,7 @@ const getShowModalEditTicketCode = (id) => {
     document.getElementById('searchTicketCode').style.margin = "10px 0px"
     document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-danger'>Reset</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditTicketCode("' + id + '")')
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 
@@ -1415,7 +1452,7 @@ const getShowModalEditEmployee = async (emp, ticketCode) => {
         alert("Error modal get Employee : " + err)
     }
 
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 
@@ -1424,7 +1461,7 @@ const getShowModalBuyTicketTime = async (ticketCode) => {
     document.getElementById('modal-body-editTicket').innerHTML = "วันที่ซื้อตั๋ว <input id='inputBuyTicket' type='datetime-local' class='form-control' value=''>"
     document.getElementById('modal-footer').innerHTML = "<button id='btnRecode'class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditTimeBuyTicket("' + ticketCode + '")')
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 const getShowModalDeadline = async (ticketCode) => {
@@ -1432,7 +1469,7 @@ const getShowModalDeadline = async (ticketCode) => {
     document.getElementById('modal-body-editTicket').innerHTML = "กำหนดเวลาจอง <input id='inputTimeDeadline'type='datetime-local' class='form-control' value=''>"
     document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditDeadlineBook("' + ticketCode + '")')
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 const getShowModalTravelDate = async (travelTime, ticketCode) => {
@@ -1467,7 +1504,7 @@ const getShowModalTicketStatus = async (ticketStatus, ticketCode) => {
         alert("Error modal get Employee : " + err)
     }
 
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 const getShowModalTimeUpSlip = async (ticketCode) => {
@@ -1475,7 +1512,7 @@ const getShowModalTimeUpSlip = async (ticketCode) => {
     document.getElementById('modal-body-editTicket').innerHTML = "เวลาอัพสลิป <input id='inputUpSlipTime' type='datetime-local' class='form-control' value=''>"
     document.getElementById('modal-footer').innerHTML = "<button  id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditUpSlipTime("' + ticketCode + '")')
-    $("#dialog-TicketEdit").modal();
+    $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 const getShowModalEditListCustomerFromTicket = async (ticketCode) => {
@@ -1504,7 +1541,7 @@ const getShowModalEditListCustomerFromTicket = async (ticketCode) => {
 
         }
         document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='5'>จำนวนลูกค้า : " + json.length + "</td></tr>"
-        $("#dialogListCustomer").modal();
+        $("#dialogListCustomer").modal({ backdrop: 'static', keyboard: false });
     } catch (err) {
         location.reload();
     }
@@ -1525,7 +1562,7 @@ const getShowTicketAddCustomer = async (ticketCode, numBerBoat, travelDate, orig
     document.getElementById('btn-save').setAttribute('onclick', 'registerCustomer()')
 
     document.getElementById('btn-reset').setAttribute('onclick', 'getShowTicketAddCustomer("' + ticketCode + '","' + numBerBoat + '","' + travelDate + '","' + origin + '","' + destination + '")')
-    $("#dialog-showAddTicket").modal();
+    $("#dialog-showAddTicket").modal({ backdrop: 'static', keyboard: false });
 }
 
 
@@ -1541,7 +1578,7 @@ const getShowChangeBoatSeat = async (ticketCode, numBerBoat, travelDate, origin,
     document.getElementById('btn-save').setAttribute('onclick', 'setBoatSeat("' + ticketCode + '","' + listSeat + '")')
     document.getElementById('btn-reset').setAttribute('onclick', 'getShowChangeBoatSeat("' + ticketCode + '","' + numBerBoat + '","' + travelDate + '","' + origin + '","' + destination + '","' + boatSeatID + '")')
 
-    $("#dialog-showAddTicket").modal();
+    $("#dialog-showAddTicket").modal({ backdrop: 'static', keyboard: false });
 }
 
 

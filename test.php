@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-<body>
-
-    <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "project_db";
-
-    $array = array();
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    $sql = "SELECT * FROM buy_ticket where ticket_code = '664962787'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        // output data of each row
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "id: " . $row["buy_ticket_id"] . " - Name: " . $row["buy_ticket_id"] . " " . $row["buy_ticket_id"] . "<br>";
-            array_push($array,$row["buy_ticket_id"]);
-        }
-
-        echo"<br> ".count($array);
-    } else {
-        echo "0 results";
-    }
-
-    mysqli_close($conn);
-    ?>
-
-</body>
-
+      #map {
+        height: 500px;
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 13.847860, lng: 100.604274},
+          zoom: 11
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU&callback=initMap"
+    async defer></script>
+  </body>
 </html>

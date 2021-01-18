@@ -90,8 +90,18 @@
                             จัดการเรือ
                         </a>
 
+                        <a class="nav-link" href="boat.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
+                            จัดการเส้นทางเรือ (ยังไม่ทำ)
+                        </a>
+
+                        <a class="nav-link" href="boat.php">
+                            <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
+                            จัดวันหยุดงาน (ยังไม่ทำ)
+                        </a>
+
                         <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
                             จัดการราคาตั๋ว (ยังไม่ทำ)
                         </a>
 
