@@ -1,0 +1,173 @@
+ @import 'https://fonts.googleapis.com/css?family=Kanit|Prompt';
+ .fullheight {
+     height: 100vh;
+ }
+ 
+ .align-times-center {
+     align-items: center;
+     justify-content: center;
+ }
+ 
+ .img {
+     background-size: cover;
+     background-position: center;
+     background-repeat: no-repeat;
+ }
+ 
+ .img-fixed {
+     background-attachment: fixed;
+ }
+ 
+ .container {
+     width: 100%;
+     margin: 5 auto;
+ }
+ 
+ .slogan {
+     text-align: center;
+     padding-top: 260px;
+     padding-left: 30px;
+     width: 50%;
+     float: left;
+ }
+ 
+ .slogan h1 {
+     color: #fff;
+     font-family: 'Kanit', sans-serif;
+     font-size: 24px;
+ }
+ 
+ .box {
+     float: right;
+     margin-top: 105px;
+     margin-right: 30px;
+     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.034), 0 7px 6px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+     width: 300px;
+     height: 420px;
+     background: white;
+     border-radius: 5px;
+ }
+ 
+ .box h2 {
+     font-size: 20px;
+     background: #38BBEE;
+     color: white;
+     font-family: 'Prompt', sans-serif;
+     padding-top: 25px;
+     padding-bottom: 10px;
+     text-align: center;
+ }
+ 
+ .box p {
+     padding-left: 25px;
+     font-family: 'Prompt', sans-serif;
+ }
+ 
+ .container .box button {
+     font-family: 'Prompt', sans-serif;
+     font-size: 18px;
+     width: 120px;
+     background-color: #38BBEE;
+ }
+ 
+ .box input[type=date] {
+     margin-left: 25px;
+     margin-bottom: 15px;
+     margin-right: 10px;
+     font-family: 'Prompt', sans-serif;
+ }
+ 
+ .box select[name=list] {
+     margin-left: 25px;
+     font-family: 'Prompt', sans-serif;
+ }
+ 
+ select[class=form-control] {
+     width: 90%;
+ }
+ 
+ .call {
+     font-size: 20px;
+     padding-top: 20px;
+     padding-bottom: 20px;
+     color: #005eca;
+     font-family: 'Itim', sans-serif;
+ }
+ 
+ .container2 {
+     display: none;
+     padding-top: 20px;
+     padding-bottom: 20px;
+     background-color: #d7dae6;
+     width: 100%;
+     font-size: 20px auto;
+     font-family: 'Prompt', sans-serif;
+     margin: 5 auto;
+ }
+ 
+ @media (max-width: 995px) {
+     .slogan {
+         text-align: center;
+         padding-top: 250px;
+         padding-left: 0px;
+         width: 44%;
+         float: left;
+     }
+     .box {
+         margin-left: 80px;
+         margin-right: 5px;
+     }
+ }
+ 
+ @media (max-width: 890px) {
+     .slogan {
+         text-align: center;
+         width: 100%;
+         float: center;
+     }
+     .slogan h1 {
+         color: #fff;
+         font-family: 'Kanit', sans-serif;
+         font-size: 24px;
+     }
+     .box {
+         display: none;
+     }
+     section {
+         background-color: #c5c5c5;
+     }
+     .container2 {
+         display: block;
+     }
+     .container2 h2 {
+         width: 100%;
+         font-size: 19px auto;
+         text-align: center;
+     }
+     .container2 p {
+         padding-left: 40px;
+         font-family: 'Prompt', sans-serif;
+     }
+ }
+ 
+ @media (max-width: 520px) {
+     .container2 h2 {
+         width: 100%;
+         font-size: 20px;
+         text-align: center;
+     }
+     .container2 p {
+         padding-left: 25px;
+         font-family: 'Prompt', sans-serif;
+     }
+ }
+ 
+ @media (max-width: 410px) {
+     .slogan h1 {
+         font-size: 19px;
+     }
+     .container2 p {
+         padding-left: 20px;
+         font-family: 'Prompt', sans-serif;
+     }
+ }
