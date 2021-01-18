@@ -6,7 +6,19 @@ if (isset($_POST["btnSearch"])) {
     $destination = $_POST['select-Location_end-responsive'];
     $boatId = $_POST['boat-number'];
     $date = $_POST['date'];
-    echo $orgin . "  " . $destination . "   " . $boatId . "    " . $date;
+    echo $orgin ."       a";
+    if($orgin == "0" || $destination == "0"){
+        echo "<script type='text/javascript'>";
+        echo "window.location = 'index.php'; ";
+        echo "alert('ต้นทาง และ ปลายทาง ยังไม่ได้เลือก  !!!');";
+        echo "</script>";
+    }
+    else if($orgin == $destination){
+        echo "<script type='text/javascript'>";
+        echo "window.location = 'index.php'; ";
+        echo "alert('ต้นทาง และ ปลายทาง เหมือนกัน  !!!');";
+        echo "</script>";
+    }
 }
 ?>
 
@@ -46,6 +58,10 @@ if (isset($_POST["btnSearch"])) {
         width: 85%;
         margin-bottom: 15px;
     }
+    
+    #container-boatSeat-customerData {
+        display: none;
+    }
 
     @media (max-width: 890px) {
 
@@ -74,8 +90,14 @@ if (isset($_POST["btnSearch"])) {
     }
 </style>
 
+<script>
+    var listSeat = []; //List Boat Seat ID
+    var listSeatNumber = []; //List Boat Seat Number
+</script>
+
 <center>
     <body class="has1">
+
         <div id="container-boatSeat-customerData" style="display: none;">
             <h3 class="has2">เลือกที่นั่งเรือของลูกค้า</h3>
             <div class="tableSet" id="tableFromBoatSeatBottom">
@@ -128,9 +150,14 @@ if (isset($_POST["btnSearch"])) {
 
         <br><br>
 
-
-
-        <button onclick="document.getElementById('specify_information').style.display='block'" type="button" class="form-control btn btn-primary">ตกลง</button>
+        <button 
+            onclick="document.getElementById('specify_information').style.display='block'" 
+            type="button" class="form-control btn btn-primary" 
+            id="floorTwoBtn" onclick="registerCustomer(listSeat,listSeatNumber,
+            document.getElementById('select-Location_start').value,
+            document.getElementById('select-Location_end').value)">
+                ตกลง
+        </button>
 
         <a href='index.php'><button type="button" class="form-control btn btn-danger">ยกเลิก</button></a>
 

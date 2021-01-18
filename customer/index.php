@@ -37,10 +37,7 @@
  }
 </style>
 
-<script>
-    var listSeat = []; //List Boat Seat ID
-    var listSeatNumber = []; //List Boat Seat Number
-</script>
+
 
     <section class="fullheight align-times-center img img-fixed" 
         style="background-image: url('image/tk.png');">
@@ -61,7 +58,7 @@
                             <select  name='select-Location_start-responsive' class="form-control" id='select-Location_start' onchange="getSearchBoat(
                                 document.getElementById('select-Location_start').value,
                                 document.getElementById('select-Location_end').value)">
-                                <option>------ ต้นทาง ------</option>
+                                <option value="0">------ ต้นทาง ------</option>
                             </select></br>
                         </center>
                     
@@ -70,7 +67,7 @@
                             <select  name='select-Location_end-responsive' class="form-control" id='select-Location_end' onchange="getSearchBoat(
                                 document.getElementById('select-Location_start').value,
                                 document.getElementById('select-Location_end').value)">
-                                <option>------ ปลายทาง ------</option>
+                                <option value="0">------ ปลายทาง ------</option>
                             </select></br>
                         </center>
                         

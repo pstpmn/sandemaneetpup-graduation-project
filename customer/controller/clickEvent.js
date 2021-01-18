@@ -1,4 +1,4 @@
-const setCheckInTicketCode = async (ticketID) => {
+const setCheckInTicketCode = async(ticketID) => {
     try {
         let response = await fetch('model/apiSetCheckIn.php', {
             method: "POST",
@@ -16,7 +16,7 @@ const setCheckInTicketCode = async (ticketID) => {
 }
 
 
-const setCheckOutTicketCode = async (ticketID) => {
+const setCheckOutTicketCode = async(ticketID) => {
     try {
         let response = await fetch('model/apiSetCheckOut.php', {
             method: "POST",
@@ -38,8 +38,7 @@ function checkBoxListCustomer() {
     let checkIn_or_checkout;
     if (document.getElementById('btncheckIn').getAttribute('class') == 'btn btn-success') {
         checkIn_or_checkout = 'checkIn';
-    }
-    else {
+    } else {
         checkIn_or_checkout = 'checkOut';
     }
 
@@ -56,8 +55,7 @@ function checkBoxListCustomer() {
         alert("check in success");
         getTicketCheckIn();
         $("#myModal").modal('hide');
-    }
-    else {
+    } else {
         for (let i = 0; i < arguments.length; i++) {
             let checkbox = document.getElementById('checkbox-' + arguments[i] + '')
             if (checkbox.checked == true) {
@@ -73,7 +71,7 @@ function checkBoxListCustomer() {
     }
 }
 
-const getListTicketCode = async (ticketCode) => {
+const getListTicketCode = async(ticketCode) => {
     if (ticketCode == "") {
         alert('กรุณาพิมพ์ Ticket Code');
         return;
@@ -81,8 +79,7 @@ const getListTicketCode = async (ticketCode) => {
     let checkIn_or_checkout;
     if (document.getElementById('btncheckIn').getAttribute('class') == 'btn btn-success') {
         checkIn_or_checkout = 'checkIn';
-    }
-    else {
+    } else {
         checkIn_or_checkout = 'checkOut';
     }
     let data = {
@@ -105,51 +102,46 @@ const getListTicketCode = async (ticketCode) => {
             for (let count = 0; count < json.length; count++) {
                 if (checkIn_or_checkout == "checkIn") {
                     if (json[count].check_in == null) {
-                        document.getElementById('tbody-modal').innerHTML += "<tr><th scope='row'><input type='checkbox' id='checkbox-" + json[count].buy_ticket_id + "' value='" + json[count].buy_ticket_id + "'></th>"
-                            + "<td>" + json[count].cust_first_name + "</td>"
-                            + "<td>" + json[count].boat_seat_number + "</td>"
-                            + "<td>" + json[count].boat_number + "</td></tr>"
+                        document.getElementById('tbody-modal').innerHTML += "<tr><th scope='row'><input type='checkbox' id='checkbox-" + json[count].buy_ticket_id + "' value='" + json[count].buy_ticket_id + "'></th>" +
+                            "<td>" + json[count].cust_first_name + "</td>" +
+                            "<td>" + json[count].boat_seat_number + "</td>" +
+                            "<td>" + json[count].boat_number + "</td></tr>"
                         countCustomerFound.push(json[count].buy_ticket_id);
                     }
-                }
-                else if (checkIn_or_checkout == "checkOut") {
+                } else if (checkIn_or_checkout == "checkOut") {
                     if (json[count].check_out == null) {
-                        document.getElementById('tbody-modal').innerHTML += "<tr><th scope='row'><input type='checkbox' id='checkbox-" + json[count].buy_ticket_id + "' value='" + json[count].buy_ticket_id + "'></th>"
-                            + "<td>" + json[count].cust_first_name + "</td>"
-                            + "<td>" + json[count].boat_seat_number + "</td>"
-                            + "<td>" + json[count].boat_number + "</td></tr>"
+                        document.getElementById('tbody-modal').innerHTML += "<tr><th scope='row'><input type='checkbox' id='checkbox-" + json[count].buy_ticket_id + "' value='" + json[count].buy_ticket_id + "'></th>" +
+                            "<td>" + json[count].cust_first_name + "</td>" +
+                            "<td>" + json[count].boat_seat_number + "</td>" +
+                            "<td>" + json[count].boat_number + "</td></tr>"
                         countCustomerFound.push(json[count].buy_ticket_id);
                     }
                 }
             }
             document.getElementById('btn-checkIn-checkOut').setAttribute('onclick', 'checkBoxListCustomer(' + countCustomerFound + ')');
             $("#myModal").modal();
-        }
-        else if (json.length == 1) {
+        } else if (json.length == 1) {
             if (checkIn_or_checkout == "checkIn") {
-                if(json[0].check_in != null){
+                if (json[0].check_in != null) {
                     alert("มีการเช็คอินแล้วววว")
                     return;
                 }
                 let resultCheck = setCheckInTicketCode(json[0].buy_ticket_id);
                 if (resultCheck == false) {
                     alert("fail check in");
-                }
-                else {
+                } else {
                     alert("check in success");
                 }
-                
-            }
-            else if (checkIn_or_checkout == "checkOut") {
-                if(json[0].check_out != null){
+
+            } else if (checkIn_or_checkout == "checkOut") {
+                if (json[0].check_out != null) {
                     alert("มีการเช็คเอ้าแล้วววว")
                     return;
                 }
                 let resultCheck = setCheckOutTicketCode(json[0].buy_ticket_id)
                 if (resultCheck == false) {
                     alert("fail check out");
-                }
-                else {
+                } else {
                     alert("check out success");
                 }
             }
@@ -180,12 +172,20 @@ const btnFloorTwo = () => {
 }
 
 
+const btnFloorOneForChangeBoatSeat = () => {
+    if (document.getElementById('floorOneBtn-changeBoatSeat').getAttribute('class') == 'btn btn-warning') {
+        document.getElementById('tableFromBoatSeatBottom-changeBoatSeat').style.display = "block"
+        document.getElementById('tableFromBoatSeatTop-changeBoatSeat').style.display = "none"
+        document.getElementById('floorOneBtn-changeBoatSeat').setAttribute('class', 'btn btn-success')
+        document.getElementById('floorTwoBtn-changeBoatSeat').setAttribute('class', 'btn btn-warning')
+    }
+}
 
-
-
-
-
-
-
-
-
+const btnFloorTwoForChangeBoatSeat = () => {
+    if (document.getElementById('floorTwoBtn-changeBoatSeat').getAttribute('class') == 'btn btn-warning') {
+        document.getElementById('tableFromBoatSeatTop-changeBoatSeat').style.display = "block"
+        document.getElementById('tableFromBoatSeatBottom-changeBoatSeat').style.display = "none"
+        document.getElementById('floorTwoBtn-changeBoatSeat').setAttribute('class', 'btn btn-success')
+        document.getElementById('floorOneBtn-changeBoatSeat').setAttribute('class', 'btn btn-warning')
+    }
+}
