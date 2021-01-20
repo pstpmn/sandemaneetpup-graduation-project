@@ -33,6 +33,12 @@ session_start();
 
                     if($_SESSION["ticket_status_id"]== 3){
                         echo "<script>";
+                        echo "window.location = '.php'; ";
+                        echo "</script>";
+                      }
+
+                    if($_SESSION["ticket_status_id"]== 4){
+                        echo "<script>";
                         echo "window.location = 'show_information_pending.php'; ";
                         echo "</script>";
                       }

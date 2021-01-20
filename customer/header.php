@@ -1,4 +1,4 @@
-
+<?php date_default_timezone_set("Asia/Bangkok");?>
     <!DOCTYPE html>
         <html lang="en" dir="ltr">
             <head>
@@ -7,24 +7,23 @@
                 <!-- css -->
                 <link rel="stylesheet" href="css/header.css">
                 <link rel="stylesheet" href="css/index.css">
-                <link rel="stylesheet" href="css/index_page_2.css">
                 <link rel="stylesheet" href="css/show_information.css">
                 <link rel="stylesheet" href="css/check_in_check_out.css">
                 <link rel="stylesheet" href="css/footer.css">
 
                 <!-- bootstrap -->
-                <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                <link rel="stylesheet" href="css/bootstrap.min.css">
             
                 <!-- java script -->
                 <script src="controller/function.js"></script>
                 <script src="controller/clickEvent.js"></script>
+
                 <!-- ajax jquery -->
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                <script src="js/jquery.min.js"></script>
+                
                 <!-- bootstrap script -->
-                <script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-                
-                <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-                
+                <script src="js/bootstrap.min.js"></script>
+                <script src="js/fontawesome.js"></script>
                 
                 <title>Sandmaneetpup</title>
                 

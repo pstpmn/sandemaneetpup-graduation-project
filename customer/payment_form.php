@@ -32,24 +32,31 @@
       
     }
 
+    select[class=form-control] {
+      width: 48%;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.034), 0 12.5px 10px rgba(0, 0, 0, 0.06);
+    }
+
     button[class="btn btn-info"] {
       width: 20%;
       font-family: 'Kanit', sans-serif;
-    }
-
-    
-    @media (max-width: 995px) {
-     .form {
-      width: 90%;
-    }
-    .form img {
-      width:auto;
     }
 
     @media (max-width: 890px) {
     button[class="btn btn-info"] {
         width: 90%;
       }
+    .form {
+      width: 90%;
+    }
+    .form img {
+      width:auto;
+    }
+
+    select[class=form-control] {
+      width: 90%;
+      margin-bottom: 15px;
     }
  }
   </style>
@@ -63,7 +70,12 @@
              
             <input type="text" class="form-control" id="ticket_code"  name="ticket_code" placeholder="รหัสการซื้อตั๋ว">
 
-            <input type="text" class="form-control" id="payment_bank"  name="payment_bank" placeholder="ธนาคาร">
+            <select  name='payment_bank' class="form-control" id=''>
+              <option value="0">ธนคาร</option>
+              <option value="ไทยพาณชย์">ไทยพาณชย์</option>
+              <option value="กรุงศรี">กรุงศรี</option>
+              <option value="กรุงไทย">กรุงไทย</option>
+            </select>
 
             <input type="text" class="form-control" id="payment_time"  name="payment_time" placeholder="เวลาโอน">
 

@@ -3,32 +3,26 @@ const validateDeadline = (current, deadline) => {
 
     if (current.getYear() < deadline.getYear()) {
         return true;
-    }
-
-    else if (current.getYear() > deadline.getYear()) {
+    } else if (current.getYear() > deadline.getYear()) {
         return false;
     }
 
 
     if (current.getMonth() < deadline.getMonth()) {
         return true;
-    }
-    else if (current.getMonth() > deadline.getMonth()) {
+    } else if (current.getMonth() > deadline.getMonth()) {
         return false;
     }
 
     if (current.getDate() < deadline.getDate()) {
         return true;
-    }
-
-    else if (current.getDate() > deadline.getDate()) {
+    } else if (current.getDate() > deadline.getDate()) {
         return false;
     }
 
     if (current.getHours() < deadline.getHours()) {
         return true;
-    }
-    else if (current.getHours() > deadline.getHours()) {
+    } else if (current.getHours() > deadline.getHours()) {
         return false;
     }
 
@@ -193,7 +187,8 @@ const getSearchBoatForResponsive = async(origin, destination) => {
     }
 }
 
-// index-index_page_2
+// index_page_2
+
 const getBoatSeat = (boatNumber, date, orgin, destination) => {
     if (orgin == destination) {
         alert('ต้นทาง และ ปลายทาง เหมือนกัน !!')
@@ -210,11 +205,6 @@ const getBoatSeat = (boatNumber, date, orgin, destination) => {
 }
 
 // index_page_2
-
-
-
-
-
 
 const checkBoatSeat = (id, number) => {
     let td = document.getElementById(id);
@@ -261,17 +251,7 @@ const registerCustomer = (listSeat, listSeatNumber) => {
 
 }
 
-
-
-
-
-
-
-
-
-// -----------------------
-
-const getBottomBoatSeatData = async (boatNumber, date, ticketCode) => {
+const getBottomBoatSeatData = async(boatNumber, date, ticketCode) => {
     try {
         const response = await fetch('model/apiBoatSeat.php', {
             method: "POST",
@@ -289,8 +269,7 @@ const getBottomBoatSeatData = async (boatNumber, date, ticketCode) => {
             if (json[i].floor == 'B' && json[i].boat_seat_type == 'R') {
                 document.getElementById("rightBottom").innerHTML += '<td id=' + json[i].boat_seat_id + '  >' + json[i].boat_seat_number + '</td>'
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
-            }
-            else if (json[i].floor == 'B' && json[i].boat_seat_type == 'L') {
+            } else if (json[i].floor == 'B' && json[i].boat_seat_type == 'L') {
                 document.getElementById("leftBottom").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
             }
@@ -306,7 +285,7 @@ const getBottomBoatSeatData = async (boatNumber, date, ticketCode) => {
 
 
 
-const getBottomBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
+const getBottomBoatSeatStatus = async(dateToSeat, boatNumber, ticketCode) => {
     try {
         const response = await fetch('model/apiSeatStatus.php', {
             method: "POST",
@@ -336,8 +315,7 @@ const getBottomBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
                 document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                 document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-            }
-            else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
+            } else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
                 document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                 document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
@@ -349,7 +327,7 @@ const getBottomBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
 }
 
 
-const getTopBoatSeatData = async (boatNumber, date, ticketCode) => {
+const getTopBoatSeatData = async(boatNumber, date, ticketCode) => {
     try {
         const response = await fetch('model/apiBoatSeat.php', {
             method: "POST",
@@ -367,8 +345,7 @@ const getTopBoatSeatData = async (boatNumber, date, ticketCode) => {
             if (json[i].floor == 'T' && json[i].boat_seat_type == 'R') {
                 document.getElementById("rightTop").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
-            }
-            else if (json[i].floor == 'T' && json[i].boat_seat_type == 'L') {
+            } else if (json[i].floor == 'T' && json[i].boat_seat_type == 'L') {
                 document.getElementById("leftTop").innerHTML += '<td id=' + json[i].boat_seat_id + '>' + json[i].boat_seat_number + '</td>'
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + json[i].boat_seat_id + ',' + json[i].boat_seat_number + ')');
             }
@@ -382,7 +359,7 @@ const getTopBoatSeatData = async (boatNumber, date, ticketCode) => {
     }
 }
 
-const getTopBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
+const getTopBoatSeatStatus = async(dateToSeat, boatNumber, ticketCode) => {
     try {
         const response = await fetch('model/apiSeatStatus.php', {
             method: "POST",
@@ -410,16 +387,16 @@ const getTopBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode) => {
                 document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                 document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-            }
-            else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
+            } else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
                 document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                 document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
                 document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
             }
         }
-    }
-    catch (err) {
+    } catch (err) {
         // alert("Error Top boatseat Status : " + err)
     }
 
 }
+
+// index_page_2

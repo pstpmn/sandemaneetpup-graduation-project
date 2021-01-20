@@ -1,11 +1,20 @@
 <?php include('header.php');?>
 
+  <?php session_start(); 
+    include('mysqli_connect.php');
+    $ticket_code = $_SESSION['ticket_code'];
+
+    $sql = "SELECT * FROM buy_ticket
+    WHERE ticket_code = '$ticket_code' ";
+    $result = mysqli_query($con,$sql);
+  ?>
+
 <style>
 
   form {
     width: 50%;
   }
-  button[class="btn btn-primary"],
+  button[class="btn btn-info"],
   button[class="btn btn-danger"] {
     width: 49.5%;
     margin-bottom: 10px;
@@ -18,7 +27,7 @@
 }
 
 @media (max-width: 890px) {
-  button[class="btn btn-primary"],
+  button[class="btn btn-info"],
   button[class="btn btn-danger"] {
     width: 90%;
     margin-bottom: 10px;
@@ -29,7 +38,7 @@
 }
 
 @media (max-width: 590px) {
-  button[class="btn btn-primarys"],
+  button[class="btn btn-info"],
   button[class="btn btn-danger"] {
        width: 90%;
        margin-bottom: 10px;
@@ -37,25 +46,9 @@
 }
 </style>
 
-    <!-- <?php
-      include('mysqli_connect.php');
-      
-      $ticket_code = $_POST['ticket_code'];
-
-      $query = "SELECT * FROM buy_ticket as p 
-      INNER JOIN customer on customer.customer_id = buy_ticket.customer_id
-      INNER JOIN boat_seat on boat_seat.boat_seat_id = buy_ticket.boat_seat_id
-      INNER JOIN boat on boat.boat_number = boat_seat.boat_number
-      INNER JOIN ticket_category on ticket_category.ticket_category_id  = buy_ticket.ticket_category_id
-      INNER JOIN employee on employee.employee_id = buy_ticket.employee_id
-      WHERE ticket_code = '$ticket_code' " or die("Error:" . mysqli_error());
-      $result = mysqli_query($con, $query);
-
-    ?> -->
-
   <body class="has1">
-     <h3 class="has4">กำหนดการเดินทาง/Travel Itinerary</br></br>
-      รหัสการซื้อตั๋ว Ticket Code : T04284 <span style="color:red">(ค้างชำระ)</span></h3>
+     <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
+      รหัสการซื้อตั๋ว Ticket Code : <?php echo  $ticket_code ?> <span style="color:red">(ค้างชำระ)</span></h3>
       <center>
       <form>
       
@@ -63,16 +56,13 @@
           <b>ข้อมูลผู้โดยสาร</b><hr>
             
             <table>
-            <?php
-            echo " <tr>
+            <tr>
               <th>ชื่อ - นามสกุล</th>
               <th>เบอร์โทรศัพท์</th>
               <th style='text-align:center'>ชั้น</th>
               <th style='text-align:center'>ฝั่ง</th>
               <th style='text-align:center'>ที่นั่ง</th>
             </tr>
-            ";
-            ?>
 
             <tr>
               <td>นาย พงศธร พัสมุณี</td>
@@ -151,7 +141,7 @@
           </div>
           
           <div class="box-6">
-            <a href='payment_form.php'><button type="button" class="btn btn-primary">ไปยังหน้าอัพสลิป</button></a>
+            <a href='payment_form.php'><button type="button" class="btn btn-info">ไปยังหน้าอัพสลิป</button></a>
             <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>
           </div>
       </form>

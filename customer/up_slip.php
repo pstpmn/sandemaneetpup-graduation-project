@@ -29,8 +29,9 @@
             payment_time='$date' , 
             payment_bank='$payment_bank' , 
             payment_amount='$payment_amount' , 
-            slip_img ='$path'
-            WHERE ticket_code='$ticket_code' ";
+            slip_img ='$path',
+            ticket_status_id ='4'
+            WHERE ticket_code='$ticket_code'";
          }
             $result = mysqli_query($con, $sql) or die ("Error in query: $sql " . mysqli_error());
             mysqli_close($con);

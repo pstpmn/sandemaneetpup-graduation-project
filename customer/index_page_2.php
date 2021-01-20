@@ -98,15 +98,10 @@ if (isset($_POST["btnSearch"])) {
         }
 
         #tableFromBoatSeatTop{
-            width: 90%;
+            width: 100%;
         }
     }
 </style>
-
-<script>
-    var listSeat = []; //List Boat Seat ID
-    var listSeatNumber = []; //List Boat Seat Number
-</script>
 
 <center>
     <body class="has1">
@@ -163,9 +158,7 @@ if (isset($_POST["btnSearch"])) {
 
         <br><br>
 
-        <button 
-            onclick="document.getElementById('specify_information').style.display='block'" 
-            type="button" class="form-control btn btn-primary" 
+        <button type="button" class="form-control btn btn-primary" 
             id="floorTwoBtn" onclick="registerCustomer(listSeat,listSeatNumber,
             document.getElementById('select-Location_start').value,
             document.getElementById('select-Location_end').value)">
@@ -174,30 +167,6 @@ if (isset($_POST["btnSearch"])) {
 
         <a href='index.php'><button type="button" class="form-control btn btn-danger">ยกเลิก</button></a>
 
-
-        <div id="specify_information" class="specify">
-            <form class="specify-content">
-                <div class="font">
-                    <p><b>โปรดระบุข้อมูลลูกค้า</p></b>
-                    <br>
-                    <hr>
-
-                    <p>เลขที่นั่งเรือ : 21</p>
-                    <input type="text" class="form-control" placeholder="ชื่อจริง">
-                    <input type="text" class="form-control" placeholder="นามสกุล">
-                    <input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์">
-                    <input type="radio">ชาย
-                    <input type="radio">หญิง
-                    <hr>
-
-                    <a href='confirm_information.php'>
-                        <buttion type="button" class="btn btn-success">บันทึก</button>
-                    </a>
-                    <buttion onclick="document.getElementById('specify_information').style.display='none'" type="button" class="btn btn-danger">ยกเลิก</button>
-            </form>
-        </div>
-        </div>
-        </div>
 
         <script>
             let origin = "<?php echo $orgin ?>";

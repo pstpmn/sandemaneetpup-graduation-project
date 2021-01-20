@@ -101,7 +101,7 @@
          <select class="form-control" name='select-Location_start-responsive' id='select-Location_start-responsive' onchange="getSearchBoatForResponsive(
             document.getElementById('select-Location_start-responsive').value,
             document.getElementById('select-Location_end-responsive').value)">
-            <option>------ ต้นทาง ------</option>
+            <option value="0">------ ต้นทาง ------</option>
          </select></br>
          </center>  
         
@@ -110,7 +110,7 @@
          <select class="form-control" name='select-Location_end-responsive' id='select-Location_end-responsive' onchange="getSearchBoatForResponsive(
             document.getElementById('select-Location_start-responsive').value,
             document.getElementById('select-Location_end-responsive').value)">
-            <option>------ ปลายทาง ------</option>
+            <option value="0">------ ปลายทาง ------</option>
          </select></br>
          </center>
 
