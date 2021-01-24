@@ -1,8 +1,17 @@
-<?php include('header.php');?>
+<?php 
+include('header.php');
+?>
 
   <?php session_start(); 
     include('mysqli_connect.php');
+    $buy_ticket_id = $_SESSION['buy_ticket_id'];
     $ticket_code = $_SESSION['ticket_code'];
+
+    $floor = $_SESSION['floor'];
+    $boat_seat_number = $_SESSION['boat_seat_number'];
+    $boat_seat_type = $_SESSION['boat_seat_type'];
+    $boat_number = $_SESSION['boat_number'];
+    
 
     $sql = "SELECT * FROM buy_ticket
     WHERE ticket_code = '$ticket_code' ";
@@ -63,13 +72,13 @@
               <th style='text-align:center'>ฝั่ง</th>
               <th style='text-align:center'>ที่นั่ง</th>
             </tr>
-
+            
             <tr>
-              <td>นาย พงศธร พัสมุณี</td>
-              <td>012-3456789</td>
-              <td style="text-align:center">T</td>
-              <td style="text-align:center">R</td>
-              <td style="text-align:center">21</td>
+              <td> <?php echo  $buy_ticket_id ?> </td>
+              <td> <?php echo  $floor ?> </td>
+              <td style="text-align:center"> <?php echo  $floor ?> </td>
+              <td style="text-align:center"> <?php echo  $boat_seat_type ?> </td>
+              <td style="text-align:center"> <?php echo  $boat_seat_number ?> </td>
           </tr>
 
           <tr>
@@ -93,11 +102,11 @@
                 <table style="overflow-x:auto;">
                   <tr>
                     <th class="th-2">ต้นทาง :</th>
-                    <td>สุราษฎร์ธานี</td>
+                    <td><?php echo  $boat_seat_type ?></td>
                   </tr>
                   <tr>
                     <th class="th-2">ปลายทาง :</th>
-                    <td>เกาะเต่า</td>
+                    <td><?php echo  $boat_seat_number ?></td>
                   </tr>
                   <tr>
                     <th class="th-2">วันที่ออกเดินทาง :</th>
@@ -109,7 +118,7 @@
                   </tr>
                   <tr>
                     <th class="th-2">หมายเลขเรือ :</th>
-                    <td>1</td>
+                    <td><?php echo  $boat_number ?></td>
                   </tr>
     
               </table>

@@ -56,7 +56,7 @@ if (isset($_POST["btnSearch"])) {
 
     table[class="table table-bordered table-primary"] {
         width: 85%;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
     }
     
     #container-boatSeat-customerData {
@@ -64,7 +64,7 @@ if (isset($_POST["btnSearch"])) {
         width: 95%;
     }
     #tableFromBoatSeatTop{
-        width: 95%;
+        width: 97%;
     }
 
     @media (max-width: 890px) {
@@ -88,7 +88,7 @@ if (isset($_POST["btnSearch"])) {
 
         table[class="table table-bordered table-primary"] {
             width: 90%;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             margin-left: 15px;
         }
 
@@ -103,10 +103,17 @@ if (isset($_POST["btnSearch"])) {
     }
 </style>
 
+<script>
+//List Boat Seat ID
+    var listSeat = []; 
+//List Boat Seat Number
+    var listSeatNumber = []; 
+</script>
+
 <center>
     <body class="has1">
 
-        <div id="container-boatSeat-customerData" style="display: none;" >
+        <div id="container-boatSeat-customerData">
             <h3 class="has2">เลือกที่นั่งเรือของลูกค้า</h3>
             <div class="tableSet" id="tableFromBoatSeatBottom">
                 <table class="table table-bordered table-primary" id="">
@@ -149,25 +156,47 @@ if (isset($_POST["btnSearch"])) {
 
                 </table>
             </div>
-            </table>
-        </div><br>
 
         <button id="floorOneBtn" class="btn btn-success" onclick="btnFloorOne()">ชั้น 1</button>
         <button id="floorTwoBtn" class="btn btn-warning" onclick="btnFloorTwo()">ชั้น 2</button>
-        <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
-
+        <br><br>
+            เลขที่นั่งเรือ : <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
         <br><br>
 
-        <button type="button" class="form-control btn btn-primary" 
-            id="floorTwoBtn" onclick="registerCustomer(listSeat,listSeatNumber,
-            document.getElementById('select-Location_start').value,
-            document.getElementById('select-Location_end').value)">
-                ตกลง
-        </button>
+        <button type="button" class="form-control btn btn-primary" id="floorTwoBtn" 
+        onclick="registerCustomer(boatId,listSeatNumber,origin,destination)">ตกลง</button>
 
         <a href='index.php'><button type="button" class="form-control btn btn-danger">ยกเลิก</button></a>
 
 
+        <div class="container">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>โปรดระบุข้อมูลลูกค้า</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div id="register-customer">
+                                <div id="register-customer-detail">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" id="btnSaveTicket" 
+                            onclick="saveTicketNormal(listSeat,listSeatNumber,origin,destination)">บันทึก</button>
+                            
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
         <script>
             let origin = "<?php echo $orgin ?>";
             let destination = "<?php echo $destination ?>";
