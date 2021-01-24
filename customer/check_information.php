@@ -7,21 +7,15 @@ session_start();
             $ticket_code = $_POST['ticket_code'];
 
             $sql = "SELECT * FROM buy_ticket AS buy_t
-            -- JOIN location AS o ON buy_t.orgin = o.location_id
-            JOIN boat_seat AS b ON buy_t.boat_seat_id = b.boat_seat_id
+            JOIN location AS i ON buy_t.destination = i.location_id
             WHERE ticket_code = '$ticket_code' ";
             $result = mysqli_query($con,$sql);
 
             if(mysqli_num_rows($result)){
                 $row = mysqli_fetch_array($result);
-                    $_SESSION["ticket_status_id"] = $row["ticket_status_id"];
-                    $_SESSION["buy_ticket_id"] = $row["buy_ticket_id"];
                     $_SESSION["ticket_code"] = $row["ticket_code"];
-                    
-                    $_SESSION["floor"] = $row["floor"];
-                    $_SESSION["boat_seat_number"] = $row["boat_seat_number"];
-                    $_SESSION["boat_seat_type"] = $row["boat_seat_type"];
-                    $_SESSION["boat_number"] = $row["boat_number"];
+                    $_SESSION["ticket_status_id"] = $row["ticket_status_id"];                    
+                    $_SESSION["destinatio"] = $row["location_name"];
                     
 
                     if($_SESSION["ticket_status_id"]== 1){
