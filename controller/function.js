@@ -40,6 +40,15 @@ const validateDeadline = (current, deadline) => {
     return false;
 }
 
+const getFormatYearDMY = (date) => {
+    let dmy = new Date(date);
+    return dmy.getDate() + "/" + ((dmy.getMonth()) + 1) + "/" + dmy.getFullYear();
+}
+
+const getFormatYearDMYHIS = (date) => {
+    let dmyhis = new Date(date);
+    return dmyhis.getDate() + "/" + ((dmyhis.getMonth()) + 1) + "/" + dmyhis.getFullYear() + " " + dmyhis.getHours() + ":" + dmyhis.getMinutes() + ":" + dmyhis.getSeconds();
+}
 
 const getBottomBoatSeatData = async (boatNumber, date, ticketCode) => {
     try {
@@ -433,6 +442,7 @@ const checkBoatSeat = (id, number) => {
         listSeat.push(id);
         listSeatNumber.push(number);
     }
+    document.getElementById('priceSum').innerHTML = ticketPrice * listSeat.length;
     getListSeat();
 }
 
@@ -546,13 +556,17 @@ const getShowResultBuyTicket = async (ticketCode) => {
         });
         json = await response.json();
         document.getElementById('detail-boat').innerHTML = "<tr>"
-            + "<td> หมายเลขเรือ : <u>" + json[0].boat_number + "</u></td> <td>ต้นทาง :<u> " + json[0][45] + "</u></td> <td>ปลายทาง : <u>" + json[0][47] + "</u></td> <td>วันออกเดินทาง : <u>" + json[0].travel_date + "</u></td> </tr>"
+            + "<td> หมายเลขเรือ : <u>" + json[0].boat_number + "</u></td> <td>ต้นทาง :<u> " + json[0][45] + "</u></td> <td>ปลายทาง : <u>" + json[0][47] + "</u></td> <td>วันออกเดินทาง : <u>" + getFormatYearDMY(json[0].travel_date) + "</u></td> </tr>"
 
         for (let i = 0; i < json.length; i++) {
             document.getElementById('detail-customer').innerHTML += "<tr>"
                 + "<td> ชื่อ : " + json[i].cust_first_name + " " + json[i].cust_last_name + "</td> <td>เบอร์โทรศัพท์ : " + json[i].phone_number + "</td>"
                 + "<td>หมายเลขที่นั่งเรือ : " + json[i].boat_seat_number + "</td> <td>ชั้น : " + json[i].floor + "</td></tr>"
         }
+
+        document.getElementById('result-CountCustomer').innerHTML = listSeat.length
+        document.getElementById('result-priceSum').innerHTML = ticketPrice
+
 
     } catch (err) {
         document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-danger');
@@ -799,12 +813,29 @@ const CheckDayOff = async (date) => {
             }
         });
         let json = await response.json();
-        alert("ปิดการใช้งานวันที่ลูกค้าเลือก สาเหตุ : "+json[0].dayOff_cause)
+        alert("ปิดการใช้งานวันที่ลูกค้าเลือก สาเหตุ : " + json[0].dayOff_cause)
         return true;
     } catch (err) {
         return false;
     }
 }
+
+const getTicketPrice = async (ticketCategoryId) => {
+    try {
+        let response = await fetch('model/apiGetTicketPrice.php', {
+            method: "POST",
+            body: JSON.stringify({ ticketCategoryId: ticketCategoryId }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.json();
+        ticketPrice = json[0].ticket_category_price;
+    } catch (Error) {
+
+    }
+}
+
 
 const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode) => {
     if (orgin == destination) {
@@ -812,10 +843,10 @@ const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode) => 
         return;
     }
     let checkDayOff = await CheckDayOff(date);
-    if(checkDayOff == true){
+    if (checkDayOff == true) {
         return;
     }
-    
+
     //make Empty array Boat seat
     listSeat = [];
     listSeatNumber = [];
@@ -1297,11 +1328,14 @@ const getTicketEdit = async () => {
                 else {
                     img = "<label>ไม่มีรูปภาพ</label>";
                 }
+                if (json[i].time_up_slip != null) {
+                    json[i].time_up_slip = getFormatYearDMYHIS(json[i].time_up_slip);
+                }
 
                 domTbodyTable.innerHTML += "<tr>"
                     + "<td><button class='btn btn-link' id='ticketCode-" + i + "'>" + json[i].ticket_code + "</button></td> <td><button class='btn btn-link' id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</button></td> <td><p  id='boatNumber-" + i + "'>" + json[i].boat_number + "</p></td>"
                     + "<td> <button  id='btn-diolog-customer-" + i + "' class='btn btn-link'>ดูรายการ</button></td> <td ><button  class='btn btn-link' id='emp-" + i + "'>" + json[i].emp_first_name + "</button></td>"
-                    + "<td><button class='btn btn-link' id='timeBuyTicket-" + i + "'>" + json[i].time_buy_ticket + "</button></td> <td <button  class='btn btn-link' id='deadLineBook-" + i + "'>" + json[i].deadline_book + "</button></td> <td><button class='btn btn-link' id='travelDate-" + i + "'>" + json[i].travel_date + "</button></td>"
+                    + "<td><button class='btn btn-link' id='timeBuyTicket-" + i + "'>" + getFormatYearDMYHIS(json[i].time_buy_ticket) + "</button></td> <td <button  class='btn btn-link' id='deadLineBook-" + i + "'>" + getFormatYearDMYHIS(json[i].deadline_book) + "</button></td> <td><button class='btn btn-link' id='travelDate-" + i + "'>" + getFormatYearDMYHIS(json[i].travel_date) + "</button></td>"
                     + "<td><button class='btn btn-link' id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</button></td> <td>" + img + "</td> <td><button class='btn btn-link' id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</button> </td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
                     + "</tr>";
 
@@ -1340,7 +1374,7 @@ const getShowCustomerEdit = async () => {
         domTbodyTable.innerHTML = ""
         for (let i = 0; i < json.length; i++) {
             domTbodyTable.innerHTML += "<tr><td>" + json[i].cust_first_name + "</td><td>" + json[i].cust_last_name + "</td><td>" + json[i].phone_number + "</td>"
-                + "<td>" + json[i].gender + "</td><td>" + json[i].register_time + "</td><td>" + json[i].count + "</td><td><button onclick='getShowModalCustomer(" + json[i].customer_id + ")' id='btn-edit' class='btn btn-warning'>แก้ไข</button> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td></tr>"
+                + "<td>" + json[i].gender + "</td><td>" + getFormatYearDMYHIS(json[i].register_time) + "</td><td>" + json[i].count + "</td><td><button onclick='getShowModalCustomer(" + json[i].customer_id + ")' id='btn-edit' class='btn btn-warning'>แก้ไข</button> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td></tr>"
             document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setDeleteCustomer("' + json[i].customer_id + '","' + json[i].cust_first_name + '" , "' + json[i].cust_last_name + '")');
         }
         $(document).ready(function () {

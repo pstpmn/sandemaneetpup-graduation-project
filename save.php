@@ -42,6 +42,8 @@ $listSeat = "asdsa";
 <script>
     var listSeat = []; //List Boat Seat ID
     var listSeatNumber = []; //List Boat Seat Number
+    var ticketPrice; // set price
+    getTicketPrice(1);
 </script>
 <div id="layoutSidenav_content">
     <main>
@@ -97,7 +99,7 @@ $listSeat = "asdsa";
                             </td>
                         </tr>
                         <tr id="leftBottom">
-                            <td bgcolor="#fff" id='td-leftBottom' >
+                            <td bgcolor="#fff" id='td-leftBottom'>
                                 <center>Left</center>
                             </td>
                         </tr>
@@ -122,7 +124,6 @@ $listSeat = "asdsa";
                                 <center>Left</center>
                             </td>
                         </tr>
-
                     </table>
                 </div>
 
@@ -130,6 +131,8 @@ $listSeat = "asdsa";
                 <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
                 <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button>
                 <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
+                <br><br><b>ราคารวมทั้งหมด :</b> <label id="priceSum"></label>
+
 
                 <br><br><br>
                 <button class="form-control btn-primary" id="floorTwoBtn" onclick="registerCustomer(listSeat,
@@ -199,7 +202,13 @@ $listSeat = "asdsa";
                                                 <!-- ดำเนินการโดย Database -->
 
                                             </table>
+
                                             <br>
+                                            <br>
+                                            <div style="text-align:right;width:95%">
+                                                จำนวนผู้โดยสาร : <label id="result-CountCustomer"> ที่นั่ง</label><br>
+                                                จำนวนเงินทั้งหมด : <label id="result-priceSum"></label> บาท<br>
+                                            </div>
                                         </div>
                                     </center>
                                 </div>
