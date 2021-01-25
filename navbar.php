@@ -1,15 +1,13 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="index.html">
-            <center>ADMIN<br> SANDEMANEETPUP</center>
+            <center><?php echo $_SESSION["statusName"]; ?><br> SANDEMANEETPUP</center>
         </a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </div>
         </form>
@@ -95,14 +93,14 @@
                             จัดการเส้นทางเรือ (ยังไม่ทำ)
                         </a>
 
-                        <a class="nav-link" href="boat.php">
+                        <a class="nav-link" href="dayOff.php">
                             <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
-                            จัดวันหยุดงาน (ยังไม่ทำ)
+                            จัดการวันหยุดงาน
                         </a>
 
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="ticketPrice.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
-                            จัดการราคาตั๋ว (ยังไม่ทำ)
+                            จัดการราคาตั๋ว
                         </a>
 
                         <a class="nav-link" href="">
@@ -110,15 +108,16 @@
                             จัดการเช็คอินขึ้นเรือ (ยังไม่ทำ)
                         </a>
 
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="boatSeat.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             จัดการที่นั่งเรือ (ยังไม่ทำ)
                         </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    
+                    <div class="">Logged in : <?php echo $_SESSION["username"]; ?></div>
+                    <div class='small' style="text-align:right"><a href="logout.php">ออกจากระบบ</a></div>
                 </div>
             </nav>
         </div>

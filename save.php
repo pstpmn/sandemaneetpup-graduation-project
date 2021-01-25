@@ -87,17 +87,17 @@ $listSeat = "asdsa";
                 <div class="tableSet" id="tableFromBoatSeatBottom">
                     <table class="table table-bordered table-primary" id="">
                         <tr id="rightBottom">
-                            <td bgcolor="#fff">
+                            <td bgcolor="#fff" id='td-rightBottom'>
                                 <center>Right</center>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="125" bgcolor="#fff">
+                            <td colspan="999" bgcolor="#fff">
                                 <center>ที่นั่งเรือ</center>
                             </td>
                         </tr>
                         <tr id="leftBottom">
-                            <td bgcolor="#fff">
+                            <td bgcolor="#fff" id='td-leftBottom' >
                                 <center>Left</center>
                             </td>
                         </tr>
@@ -176,12 +176,12 @@ $listSeat = "asdsa";
                     </div>
                 </div>
 
-                <div class="container">
+                <div class="container" style="overflow: auto;">
                     <!-- Modal -->
-                    <div class="modal fade " id="result-buyTicket" role="dialog">
-                        <div class="modal-dialog modal-xl">
+                    <div class="modal fade " id="result-buyTicket" role="dialog" style="overflow: auto;">
+                        <div class="modal-dialog modal-xl" style="overflow: auto;">
                             <!-- Modal content-->
-                            <div class="modal-content">
+                            <div class="modal-content" style="overflow: auto;">
                                 <div id="ModalHeader" class="modal-header alert alert-success">
                                     <div id="txtModalHeader"></div>
                                     <button type="button" onclick="getRefreshPage()" class="close" data-dismiss="modal">&times;</button>
@@ -201,7 +201,6 @@ $listSeat = "asdsa";
                                             </table>
                                             <br>
                                         </div>
-
                                     </center>
                                 </div>
                                 <div class="modal-footer">

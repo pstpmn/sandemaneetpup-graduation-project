@@ -1,5 +1,7 @@
 <?php
 require 'header.php';
+require 'checkAdmin.php';
+
 ?>
 <title>Ticket Recode</title>
 <?php

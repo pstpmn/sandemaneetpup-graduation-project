@@ -1,5 +1,7 @@
 <?php
 require 'header.php';
+require 'checkAdmin.php';
+
 ?>
 <title>Ticket Recode</title>
 <?php
@@ -12,7 +14,7 @@ require 'navbar.php';
     <main>
         <div class="container-fluid">
             <h1 class="mt-4">
-                <center>จัดการพนักงาน</center>
+                <center>จัดการเรือ</center>
             </h1>
             <br><br>
             <div class="card mb-4">
@@ -21,7 +23,7 @@ require 'navbar.php';
                     DataTable Example
                 </div>
                 <div class="card-body">
-                    <button class='btn btn-primary' onclick="getShowModalAddBoat()">เพิ่มพนักงาน</button>
+                    <button class='btn btn-primary' onclick="getShowModalAddBoat()">เพิ่มเรือ</button>
                     <div class="table-responsive">
                         <table class="table table-bordered" style="text-align: center;" id="dataTable-employee" width="100%" cellspacing="0">
                             <thead>
@@ -29,6 +31,7 @@ require 'navbar.php';
                                     <th>ลำดับ</th>
                                     <th>หมายเลขเรือ</th>
                                     <th>ชื่อเรือ</th>
+                                    <th>จัดการที่นั่งเรือ</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,7 +51,7 @@ require 'navbar.php';
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 id="header-Employee" >แก้ไขเรือ</h4>
+                            <h4 id="header-Employee">แก้ไขเรือ</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body" id="modal-body-slip">

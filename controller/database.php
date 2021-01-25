@@ -13,15 +13,15 @@ class Database
 
     public function select($show)
     {
-        $stmt = $this->pdo->prepare($show);
-        $stmt->execute();
-        $data = $stmt->fetchAll();
-        if ($data == true) {
+        try{
+            $stmt = $this->pdo->prepare($show);
+            $stmt->execute();
+            $data = $stmt->fetchAll();
             return $data;
+        }catch(PDOException $e){
+            return $e->getMessage();
         }
-        else{
-            return false;
-        }
+      
     }
 
     public function insert($insert)

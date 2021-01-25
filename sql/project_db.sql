@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2021 at 08:28 PM
+-- Generation Time: Jan 22, 2021 at 08:16 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -37,8 +37,9 @@ CREATE TABLE `boat` (
 --
 
 INSERT INTO `boat` (`boat_number`, `boat_name`) VALUES
-(1, 'เรือนอนสุราษฎร์ธานี '),
-(111, 'สุราษฎร์ธานี-เกาะเต่า');
+(1, 'เรือนอนสุราษฎร์ธานี'),
+(111, 'เรือเฟรมตูดหมึก'),
+(1115, 'เรือเฟรมตูดหมึก');
 
 -- --------------------------------------------------------
 
@@ -268,18 +269,7 @@ CREATE TABLE `buy_ticket` (
 --
 
 INSERT INTO `buy_ticket` (`buy_ticket_id`, `ticket_category_id`, `employee_id`, `customer_id`, `time_buy_ticket`, `time_up_slip`, `boat_seat_id`, `check_in`, `check_out`, `ticket_code`, `travel_date`, `ticket_status_id`, `deadline_book`, `payment_time`, `slip_img`, `payment_bank`, `payment_amount`, `orgin`, `destination`) VALUES
-(215, 1, 2, 74, '2021-01-07 10:20:03', NULL, 3, NULL, NULL, '664962787', '2021-01-07', 2, '2021-01-07 20:20:03', NULL, NULL, NULL, NULL, 1, 2),
-(216, 1, 2, 75, '2021-01-07 10:20:03', NULL, 4, NULL, NULL, '664962787', '2021-01-07', 2, '2021-01-07 20:20:03', NULL, NULL, NULL, NULL, 1, 2),
-(218, 1, 2, 76, '2021-01-07 10:20:43', NULL, 5, NULL, NULL, '360871143', '2021-01-08', 3, '2021-01-07 20:20:43', NULL, NULL, NULL, NULL, 1, 2),
-(219, 1, 2, 77, '2021-01-07 10:20:43', NULL, 6, NULL, NULL, '360871143', '2021-01-08', 3, '2021-01-07 20:20:43', NULL, NULL, NULL, NULL, 1, 2),
-(220, 1, 2, 78, '2021-01-07 11:29:32', NULL, 134, NULL, NULL, '207952690', '2021-01-07', 3, '2021-01-07 21:29:32', NULL, NULL, NULL, NULL, 1, 2),
-(221, 1, 2, 79, '2021-01-07 11:49:03', NULL, 53, NULL, NULL, '664962787', '2021-01-07', 2, '2021-01-07 21:49:03', NULL, NULL, NULL, NULL, 1, 2),
-(222, 1, 2, 80, '2021-01-08 10:50:02', NULL, 9, NULL, NULL, '956146308', '2021-01-08', 1, '2021-01-08 20:50:02', NULL, NULL, NULL, NULL, 1, 2),
-(223, 1, 2, 81, '2021-01-08 10:53:29', NULL, 135, NULL, NULL, '207952690', '2021-01-07', 3, '2021-01-08 20:53:29', NULL, NULL, NULL, NULL, 1, 2),
-(224, 1, 2, 82, '2021-01-08 10:55:38', NULL, 136, NULL, NULL, '207952690', '2021-01-07', 3, '2021-01-08 20:55:38', NULL, NULL, NULL, NULL, 1, 2),
-(225, 1, 2, 83, '2021-01-09 11:27:00', '2021-01-09 09:24:00', 32, NULL, NULL, '056028205', '2021-01-08', 3, '2021-01-08 20:57:07', NULL, NULL, NULL, NULL, 1, 2),
-(229, 1, 2, 87, '2021-01-08 15:52:56', NULL, 53, NULL, NULL, '837365609', '2021-01-09', 1, '2021-01-09 01:52:56', NULL, NULL, NULL, NULL, 1, 2),
-(230, 1, 2, 32, '2021-01-08 15:52:56', NULL, 54, NULL, NULL, '837365609', '2021-01-09', 1, '2021-01-09 01:52:56', NULL, NULL, NULL, NULL, 1, 2);
+(424, 1, 2, 91, '2021-01-21 07:45:18', NULL, 3, NULL, NULL, '589423744', '2021-01-21', 1, '2021-01-21 17:45:18', NULL, NULL, NULL, NULL, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -302,7 +292,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `phone_number`, `register_time`, `gender`, `count`) VALUES
-(16, 'asd', 'asd', '0980173318', '2020-12-25 10:03:57', 'Male', 1),
+(16, 'asd', 'asd', '0980173318', '2020-12-25 10:03:57', 'Male', 13),
 (17, 'qweqwe', 'asdsad', '0980173318', '2020-12-25 10:04:01', 'Male', 1),
 (18, 'พงศธร', 'พัสมุณี', '0980173318', '2020-12-25 10:50:10', 'Male', 2),
 (19, 'โดม', 'ณเดช', '0980173318', '2020-12-25 10:50:13', 'Male', 1),
@@ -339,9 +329,9 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (53, 'qq', 'qqq', '', '2021-01-04 11:55:07', 'Male', 1),
 (54, 'qwewq', 'eqweq', '', '2021-01-04 11:55:08', 'Male', 1),
 (55, 'qw', 'qwe', '', '2021-01-04 11:55:41', 'Male', 1),
-(56, 'qwe', 'qwe', '222', '2021-01-04 11:56:27', 'Male', 1),
+(56, 'qwe', 'qwe', '222', '2021-01-04 11:56:27', 'Male', 2),
 (57, 'qweqw', 'eqweq', '', '2021-01-04 11:57:23', 'Male', 1),
-(58, 'q', 'q', '', '2021-01-04 11:58:16', 'Male', 1),
+(58, 'q', 'q', '', '2021-01-04 11:58:16', 'Male', 2),
 (60, 'frame', 'joy', '', '2021-01-04 12:00:35', 'Male', 1),
 (61, 'aaa', 'aaa', '0', '2021-01-04 17:47:04', 'Male', 1),
 (63, 'แป้ง', 'แป้ง', '000', '2021-01-06 10:31:21', 'Male', 1),
@@ -370,7 +360,66 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (86, 'asdqwe', 'qweqweasd', '', '2021-01-08 15:18:38', 'Male', 1),
 (87, 'qwe', 'asdsa', '', '2021-01-08 15:52:56', 'Male', 1),
 (88, 'ฟหกๆ', 'ๆไำๆไำ', '', '2021-01-08 17:52:08', 'Male', 1),
-(89, 'ฟหกหฟก', 'ฟหกฟหก', '', '2021-01-08 17:52:08', 'Male', 1);
+(89, 'ฟหกหฟก', 'ฟหกฟหก', '', '2021-01-08 17:52:08', 'Male', 1),
+(90, 'qwe', 'asd', '', '2021-01-13 14:14:10', 'Male', 2),
+(91, 'a', 'a', '', '2021-01-18 05:54:58', 'Male', 30),
+(92, 'asd', 'qqq', '', '2021-01-18 06:17:53', 'Male', 1),
+(93, 'e', 'e', '', '2021-01-18 08:29:12', 'Male', 3),
+(94, 'qw', 'q', '', '2021-01-18 08:44:23', 'Male', 1),
+(95, 'a', 's', '', '2021-01-18 08:44:51', 'Male', 2),
+(96, 'q', 'w', '', '2021-01-18 08:45:33', 'Male', 1),
+(97, 'a', 'e', '', '2021-01-18 08:47:17', 'Male', 1),
+(98, 'a', '49', '', '2021-01-18 09:06:20', 'Male', 1),
+(99, 'asd', 'sd', '', '2021-01-18 09:17:15', 'Male', 1),
+(100, 'asd', 'asdsad', '', '2021-01-18 09:34:14', 'Male', 1),
+(101, 'ฟหก', 'ฟหก', '', '2021-01-18 15:20:12', 'Male', 1),
+(102, 'asdsad', 'asdsad', '', '2021-01-18 17:19:59', 'Male', 13),
+(103, 'พี่ไม่หล่อลวง', 'แต่หล่อมาก', '', '2021-01-19 13:56:55', 'Male', 1),
+(104, 'เฟรมตูดหมึก', 'เฟรมตูดหมึก', '', '2021-01-20 08:05:48', 'Male', 1),
+(105, 'asdsa', 'asd', '', '2021-01-20 09:13:10', 'Male', 1),
+(106, 'asdsadasd', 'asdsadasd', '', '2021-01-20 17:08:25', 'Male', 13),
+(107, 'asdsadasd', ' asdsadasd', '', '2021-01-20 17:08:25', 'Male', 1),
+(108, ' asdsadasd', 'asdsadasd', '', '2021-01-20 17:08:25', 'Male', 2),
+(109, '', '', '', '2021-01-20 17:11:57', '', 101);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dayoff`
+--
+
+CREATE TABLE `dayoff` (
+  `dayOff_id` int(4) NOT NULL,
+  `dayOff` varchar(50) DEFAULT NULL,
+  `dayOff_cause` varchar(100) DEFAULT NULL,
+  `dayOff_status_id` int(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `dayoff`
+--
+
+INSERT INTO `dayoff` (`dayOff_id`, `dayOff`, `dayOff_cause`, `dayOff_status_id`) VALUES
+(11, 'Friday', 'หยุดทุกวันศุกร์ ขออภัยในความไม่สะดวก', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dayoff_status`
+--
+
+CREATE TABLE `dayoff_status` (
+  `dayOff_status_id` int(2) NOT NULL,
+  `dayOff_status_name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `dayoff_status`
+--
+
+INSERT INTO `dayoff_status` (`dayOff_status_id`, `dayOff_status_name`) VALUES
+(1, 'วันหยุดประจำ'),
+(2, 'วันหยุดพิเศษ');
 
 -- --------------------------------------------------------
 
@@ -394,7 +443,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`employee_id`, `username`, `password`, `emp_first_name`, `emp_last_name`, `register_time`, `gender`, `employee_category_id`) VALUES
-(2, 'kang1', 'kang1', 'kang1', 'kang1', '2020-12-04 08:19:56', 'Female', 1),
+(2, 'kang12', 'kang1', 'kang1', 'kang1', '2020-12-04 08:19:56', 'Female', 1),
 (8, 'online', 'online', 'online', 'online', '2020-12-21 07:04:35', 'Female', 2);
 
 -- --------------------------------------------------------
@@ -433,7 +482,9 @@ CREATE TABLE `location` (
 
 INSERT INTO `location` (`location_id`, `location_name`) VALUES
 (1, 'สุราษฎร์ธานี'),
-(2, 'เกาะเต่า');
+(2, 'เกาะเต่า'),
+(4, 'asdsad'),
+(6, 'asdqweqwewq');
 
 -- --------------------------------------------------------
 
@@ -527,6 +578,19 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`customer_id`);
 
 --
+-- Indexes for table `dayoff`
+--
+ALTER TABLE `dayoff`
+  ADD PRIMARY KEY (`dayOff_id`),
+  ADD KEY `dayOff_status_id` (`dayOff_status_id`);
+
+--
+-- Indexes for table `dayoff_status`
+--
+ALTER TABLE `dayoff_status`
+  ADD PRIMARY KEY (`dayOff_status_id`);
+
+--
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
@@ -585,19 +649,31 @@ ALTER TABLE `book_time`
 -- AUTO_INCREMENT for table `buy_ticket`
 --
 ALTER TABLE `buy_ticket`
-  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=425;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+
+--
+-- AUTO_INCREMENT for table `dayoff`
+--
+ALTER TABLE `dayoff`
+  MODIFY `dayOff_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `dayoff_status`
+--
+ALTER TABLE `dayoff_status`
+  MODIFY `dayOff_status_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `employee_category`
@@ -609,7 +685,7 @@ ALTER TABLE `employee_category`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `location_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `location_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ticket_category`
@@ -651,6 +727,12 @@ ALTER TABLE `buy_ticket`
   ADD CONSTRAINT `buy_ticket_ibfk_5` FOREIGN KEY (`ticket_status_id`) REFERENCES `ticket_status` (`ticket_status_id`),
   ADD CONSTRAINT `buy_ticket_ibfk_6` FOREIGN KEY (`orgin`) REFERENCES `location` (`location_id`),
   ADD CONSTRAINT `buy_ticket_ibfk_7` FOREIGN KEY (`destination`) REFERENCES `location` (`location_id`);
+
+--
+-- Constraints for table `dayoff`
+--
+ALTER TABLE `dayoff`
+  ADD CONSTRAINT `dayoff_ibfk_1` FOREIGN KEY (`dayOff_status_id`) REFERENCES `dayoff_status` (`dayOff_status_id`);
 
 --
 -- Constraints for table `employee`

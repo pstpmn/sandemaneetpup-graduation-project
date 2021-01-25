@@ -7,7 +7,9 @@ const getListBoat = async () => {
             for (let i = 0; i < json.length; i++) {
                 tbodyTable.innerHTML += "<tr><td>" + (i + 1) + "</td> <td>" + json[i].boat_number + "</td>"
                     + "<td>" + json[i].boat_name + "</td>"
-                    + " <td><button id='btnEdit-" + i + "' class='btn btn-warning'>แก้ไข</button>  <button  id='btnDelte-" + i + "'  class='btn btn-danger'>ลบ</button> </td></tr>"
+                    + "<td><form action='boatSeat.php'><button name='btnBoatSeat' value='"+json[i].boat_number+"' class='btn btn-link'>Click !!</button></form></td>"
+                    + "<td><button id='btnEdit-" + i + "' class='btn btn-warning'>แก้ไขข้อมูล</button> "
+                    +"<button  id='btnDelte-" + i + "'  class='btn btn-danger'>ลบ</button> </td></tr>"
                 document.getElementById('btnEdit-' + i).setAttribute('onclick', 'getShowModalEditBoat("' + json[i].boat_number + '","' + json[i].boat_name + '")');
                 document.getElementById('btnDelte-' + i).setAttribute('onclick', 'setDelectBoat("' + json[i].boat_number + '")');
             }
@@ -49,7 +51,7 @@ const setDelectBoat = async (boatNumber) => {
 const getShowModalEditBoat = async (boatNumber, boatName) => {
     document.getElementById('text-boatNumber').value = boatNumber;
     document.getElementById('text-boatName').value = boatName;
-    setBtnEditEmp();
+    setBtnEditBoat();
     await $('#modal-Employee').modal();
 }
 
@@ -134,7 +136,7 @@ const setAddBoat = async () => {
 }
 
 
-const setBtnEditEmp = () => {
+const setBtnEditBoat = () => {
     document.getElementById('header-Employee').innerHTML = 'แก้ไขข้อมูลเรือ';
     document.getElementById('btnSaveEdit').innerHTML = 'Edit';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setEditBoat()');
