@@ -6,18 +6,17 @@ session_start();
             
             $ticket_code = $_POST['ticket_code'];
 
-            $sql = "SELECT * FROM buy_ticket
+            $sql = "SELECT * FROM buy_ticket AS buy_t
+            JOIN location AS i ON buy_t.destination = i.location_id
             WHERE ticket_code = '$ticket_code' ";
             $result = mysqli_query($con,$sql);
 
             if(mysqli_num_rows($result)){
                 $row = mysqli_fetch_array($result);
                     $_SESSION["ticket_code"] = $row["ticket_code"];
-                    $_SESSION["customer_id"] = $row["customer_id"];
-                    $_SESSION["boat_seat_id"] = $row["boat_seat_id"];
-                    $_SESSION["ticket_status_id"] = $row["ticket_status_id"];
-                    $_SESSION["orgin"] = $row["orgin"];
-                    $_SESSION["destination"] = $row["destination"];
+                    $_SESSION["ticket_status_id"] = $row["ticket_status_id"];                    
+                    $_SESSION["destinatio"] = $row["location_name"];
+                    
 
                     if($_SESSION["ticket_status_id"]== 1){
                         echo "<script>";

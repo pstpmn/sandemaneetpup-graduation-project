@@ -9,6 +9,7 @@
                 <link rel="stylesheet" href="css/index.css">
                 <link rel="stylesheet" href="css/show_information.css">
                 <link rel="stylesheet" href="css/check_in_check_out.css">
+                <link rel="stylesheet" href="css/styles.css">
                 <link rel="stylesheet" href="css/footer.css">
 
                 <!-- bootstrap -->
@@ -16,6 +17,7 @@
             
                 <!-- java script -->
                 <script src="controller/function.js"></script>
+                <script src="controller/functionResponsive.js"></script>
                 <script src="controller/clickEvent.js"></script>
 
                 <!-- ajax jquery -->
