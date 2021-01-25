@@ -50,16 +50,18 @@ include('header.php');
       <center>
       <form>
       
-        <?php 
+      <?php 
         include('mysqli_connect.php');
         $sql = "SELECT * FROM buy_ticket AS bt
         INNER JOIN customer as c ON bt.customer_id = c.customer_id
         INNER JOIN boat_seat as ba ON bt.boat_seat_id = ba.boat_seat_id
         INNER JOIN boat as b ON ba.boat_number = b.boat_number
-        INNER JOIN location AS o ON bt.orgin = o.location_id  
+        INNER JOIN location AS l ON bt.orgin = l.location_id
+        RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
+        INNER JOIN ticket_category AS tc ON bt.ticket_category_id = tc.ticket_category_id
         WHERE ticket_code = '$ticket_code' ";
         $result1 = mysqli_query($con,$sql);
-      
+        $count = 0;
         echo "<div class='box-3'>";
           echo "<b>ข้อมูลผู้โดยสาร</b><hr>";
             
@@ -79,6 +81,7 @@ include('header.php');
               echo "<td style='text-align:center'>" .$row["boat_seat_type"]. "</td>";
               echo "<td style='text-align:center'>" .$row["boat_seat_number"]. "</td>";
             echo "</tr>";
+            $count ++ ;
           }?>
           <?php
             mysqli_close($con);
@@ -88,8 +91,8 @@ include('header.php');
         echo "</div>";
         ?>
         
-      <?php 
-        echo "<div class='box-2'>";
+      <div class='box-2'>
+        <?php
           echo "<div class='box-4'>";
               echo "<b>ข้อมูลการเดินทาง</b><hr>";
                 echo "<table style='overflow-x:auto;'>";
@@ -107,11 +110,11 @@ include('header.php');
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-2'>เวลาออกเรือ :</th>";
-                    echo "<td>" .$row["boat_number"]. "น.</td>";
+                    echo "<td>" .date("h:i",strtotime($row["start_time"])). " น.</td>";
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-2'>วันที่ออกเดินทาง :</th>";
-                    echo "<td>" .$row["boat_number"]. "</td>";
+                    echo "<td>" .date("d/m/Y",strtotime($row["travel_date"])). "</td>";
                   echo "</tr>";
                   
                   
@@ -119,29 +122,30 @@ include('header.php');
               ?>
 
             </div>
-
-            <div class="box-5">
-              <b>ข้อมูลการชำระเงิน</b><hr>
-
-                <table>
-                  <tr>
-                    <th class="th-3">เดินทาง :</th>
-                    <td>2 ที่นั่ง</td>
-                  </tr>
-                  <tr>
-                    <th class="th-3">ราคา :</th>
-                    <td>550 บาท</td>
-                  </tr>
-                  <tr>
-                    <th class="th-3">ส่วนลด :</th>
-                    <td>0 บาท</td>
-                  </tr>
-                  <tr>
-                    <th class="th-3">ยอดรวมชำระ :</th>
-                    <td>1,100 บาท</td>
-                  </tr>
-              </table>
-            </div>
+            
+            <?php
+            echo "<div class='box-5'>";
+              echo "<b>ข้อมูลการชำระเงิน</b><hr>";
+                echo "<table>";
+                  echo "<tr>";
+                    echo "<th class='th-3'>เดินทาง :</th>";
+                    echo "<td>".$count." ที่นั่ง</echo>";
+                  echo "</tr>";
+                  echo "<tr>";
+                    echo "<th class='th-3'>ราคา :</th>";
+                    echo "<td>" .$row["ticket_category_price"]. " บาท</td>";
+                  echo "</tr>";
+                  echo "<tr>";
+                    echo "<th class='th-3'>ส่วนลด :</th>";
+                    echo "<td>0 บาท</td>";
+                  echo "</tr>";
+                  echo "<tr>";
+                    echo "<th class='th-3'>ยอดรวมชำระ :</th>";
+                    echo "<td>" .$count * $row["ticket_category_price"]. " บาท</td>";
+                  echo "</tr>";
+              echo "</table>";
+            echo "</div>";
+            ?>
           </div>
           
           <div class="box-6">
