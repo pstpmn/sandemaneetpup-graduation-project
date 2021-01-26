@@ -81,8 +81,6 @@
 
             <input type="text" class="form-control" id="payment_amount"  name="payment_amount" placeholder="จำนวนเงิน">
         
-            <!-- <input  id='date' class="form-control" name="datetime" value="<?php echo date('d/m/Y H:i')?>">
-             -->
               <div class="form">
                   <input type='file' id="slip_img" name="slip_img" onchange="showMyImage(this)" />
                   <img id="slip" style="display:none;" src="" alt="logo" />
