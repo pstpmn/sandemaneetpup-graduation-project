@@ -98,14 +98,14 @@
                             จัดการวันหยุดงาน
                         </a>
 
+                        <a class="nav-link" href="book.php">
+                            <div class="sb-nav-link-icon"><i class="far fa-hourglass"></i></div>
+                            จัดการเวลาจองตั๋ว
+                        </a>
+
                         <a class="nav-link" href="ticketPrice.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
                             จัดการราคาตั๋ว
-                        </a>
-
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            จัดการเช็คอินขึ้นเรือ (ยังไม่ทำ)
                         </a>
 
                         <a class="nav-link" href="boatSeat.php">

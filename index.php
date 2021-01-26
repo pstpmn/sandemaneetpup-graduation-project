@@ -52,7 +52,7 @@ if (isset($_SESSION["username"])) {
                                     </form>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <div class="small"><a href="register.html">ID : admin    Pass : admin (ใช้สำหรับทดสอบระบบ)</a></div>
+                                    <div class="small"><a>ID : admin    Pass : admin (ใช้สำหรับทดสอบระบบ)</a></div>
                                 </div>
                             </div>
                         </div>

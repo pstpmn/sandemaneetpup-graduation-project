@@ -16,6 +16,8 @@ if((!$_SESSION["username"])){
     <meta name="author" content="" />
     <link href="css/styles.css" rel="stylesheet" />
     <!-- use -->
+    
+    <script src="controller/fnBookTime.js"></script>
     <script src="controller/fnTicketPrice.js"></script>
     <script src="controller/fnDayOff.js"></script>
     <script src="controller/fnBoat.js"></script>
