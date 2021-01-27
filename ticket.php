@@ -15,6 +15,7 @@ require 'navbar.php';
     .tableSet {
         overflow: auto;
     }
+
     #noneTable {
         display: none;
     }
@@ -30,6 +31,11 @@ require 'navbar.php';
         /* display: none; */
     }
 </style>
+<script>
+    var ticketPrice; // set price
+    getTicketPrice(1);
+
+</script>
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
@@ -181,8 +187,8 @@ require 'navbar.php';
                                 <br><br><br>
                                 <div id="container-boatSeat-customerData">
                                     <b>เลือกที่นั่งเรือเพิ่มเติม</b><br><br>
-                                    <div class="tableSet" id="tableFromBoatSeatBottom" style="overflow: auto;">
-                                        <table class="table table-bordered table-primary" id="">
+                                    <div class="tableSet" id="tableFromBoatSeat" style="overflow: auto;">
+                                        <!-- <table class="table table-bordered table-primary" id="">
                                             <tr id="rightBottom">
                                                 <td bgcolor="#fff">
                                                     <center>Right</center>
@@ -199,10 +205,10 @@ require 'navbar.php';
                                                 </td>
                                             </tr>
 
-                                        </table>
+                                        </table> -->
                                     </div>
 
-                                    <div class="tableSet" id="tableFromBoatSeatTop" style="display:none">
+                                    <!-- <div class="tableSet" id="tableFromBoatSeatTop" style="display:none">
                                         <table class="table table-bordered table-primary" id="">
                                             <tr id="rightTop">
                                                 <td bgcolor="#fff">
@@ -221,12 +227,14 @@ require 'navbar.php';
                                             </tr>
 
                                         </table>
+                                    </div> -->
+
+
+                                    <div id='container-btnFloor'>
+
                                     </div>
-
-
-                                    <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
-                                    <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button>
                                     <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
+                                    <br><br><b>ราคารวมทั้งหมด :</b> <label id="priceSum"></label>
 
                                     <br><br><br>
                                     <button class="form-control btn-primary" id='btn-save' onclick="registerCustomer(listSeat,listSeatNumber)">ตกลง</button><br>

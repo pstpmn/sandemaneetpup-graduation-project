@@ -38,11 +38,18 @@ $listSeat = "asdsa";
         border-radius: 5px;
         /* display: none; */
     }
+
+    .onmouse:hover {
+        background-color: gray;
+
+    }
 </style>
 <script>
     var listSeat = []; //List Boat Seat ID
     var listSeatNumber = []; //List Boat Seat Number
     var ticketPrice; // set price
+    var listCountFloor = [];
+    var listFloorData;
     getTicketPrice(1);
 </script>
 <div id="layoutSidenav_content">
@@ -76,7 +83,7 @@ $listSeat = "asdsa";
             <input type='date' id='date' class="form-control" value="<?php echo date('Y-m-d') ?>">
 
             <br>
-            <button class="btn btn-primary" id="search-boat" onclick="getBoatSeat(
+            <button class="btn btn-primary" id="search-boat" onclick="getBoatSeat1(
                 document.getElementById('boat-number').value,
                 document.getElementById('date').value,
                 document.getElementById('select-Location_start').value,
@@ -86,7 +93,29 @@ $listSeat = "asdsa";
             <br><br><br>
             <div id="container-boatSeat-customerData">
                 <b>เลือกที่นั่งเรือของลูกค้า</b><br><br>
-                <div class="tableSet" id="tableFromBoatSeatBottom">
+
+                <div class="tableSet" id="tableFromBoatSeat">
+                    <!-- <table class="table table-bordered table-primary" id="">
+                        <tr id="right">
+                            <td bgcolor="#fff" id='td-rightBottom'>
+                                <center>Right</center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="999" bgcolor="#fff">
+                                <center>ที่นั่งเรือ</center>
+                            </td>
+                        </tr>
+                        <tr id="left">
+                            <td bgcolor="#fff" id='td-leftBottom'>
+                                <center>Left</center>
+                            </td>
+                        </tr>
+                    </table> -->
+                </div>
+
+
+                <!-- <div class="tableSet" id="tableFromBoatSeatBottom">
                     <table class="table table-bordered table-primary" id="">
                         <tr id="rightBottom">
                             <td bgcolor="#fff" id='td-rightBottom'>
@@ -125,11 +154,13 @@ $listSeat = "asdsa";
                             </td>
                         </tr>
                     </table>
+                </div> -->
+
+                <div id='container-btnFloor'>
+                    <!-- <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
+                    <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button> -->
                 </div>
 
-
-                <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
-                <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button>
                 <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label>
                 <br><br><b>ราคารวมทั้งหมด :</b> <label id="priceSum"></label>
 
@@ -139,7 +170,7 @@ $listSeat = "asdsa";
                 listSeatNumber,
                 document.getElementById('select-Location_start').value,
                 document.getElementById('select-Location_end').value)">ตกลง</button><br>
-                <button class="form-control btn-danger" id="floorTwoBtn" onclick="">รีเซ็ต</button>
+                <button class="form-control btn-danger"  onclick="setResetBoatSeatAll()">รีเซ็ต</button>
 
                 <br>
                 <!-- <div id="register-customer">

@@ -15,17 +15,20 @@ if((!$_SESSION["username"])){
     <meta name="description" content="" />
     <meta name="author" content="" />
     <link href="css/styles.css" rel="stylesheet" />
-    <!-- use -->
     
+    <!-- use -->
     <script src="controller/fnBookTime.js"></script>
     <script src="controller/fnTicketPrice.js"></script>
     <script src="controller/fnDayOff.js"></script>
     <script src="controller/fnBoat.js"></script>
     <script src="controller/function.js"></script>
-    <script src="controller/fnBoatSeat.js"></script>
     <script src="controller/fnEmployee.js"></script>
     <script src="controller/fnLocation.js"></script>
     <script src="controller/clickEvent.js"></script>
+    <script src="controller/fnBoatSeat.js"></script>
+    <script src="controller/fnSearchBoatSeat.js"></script>
+    <script src="controller/fnTime.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
