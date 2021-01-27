@@ -1,5 +1,4 @@
-<?php date_default_timezone_set("Asia/Bangkok");
-?>
+<?php date_default_timezone_set("Asia/Bangkok");?>
     <!DOCTYPE html>
         <html lang="en" dir="ltr">
             <head>
@@ -18,8 +17,8 @@
             
                 <!-- java script -->
                 <script src="controller/function.js"></script>
-                <script src="controller/functionResponsive.js"></script>
-                <script src="controller/clickEvent.js"></script>
+                <!-- <script src="controller/functionResponsive.js"></script> -->
+                <!-- <script src="controller/clickEvent.js"></script> -->
 
                 <!-- ajax jquery -->
                 <script src="js/jquery.min.js"></script>

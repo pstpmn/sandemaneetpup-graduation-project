@@ -26,7 +26,7 @@
 
             $sql = "UPDATE buy_ticket SET  
             time_up_slip='$date' , 
-            payment_time='$date' , 
+            payment_time='$payment_time' , 
             payment_bank='$payment_bank' , 
             payment_amount='$payment_amount' , 
             slip_img ='$path',
