@@ -17,8 +17,8 @@
             
                 <!-- java script -->
                 <script src="controller/function.js"></script>
-                <!-- <script src="controller/functionResponsive.js"></script> -->
-                <!-- <script src="controller/clickEvent.js"></script> -->
+                <script src="controller/functionResponsive.js"></script>
+                <script src="controller/clickEvent.js"></script>
 
                 <!-- ajax jquery -->
                 <script src="js/jquery.min.js"></script>
@@ -41,7 +41,7 @@
                                 <li><a href="index.php" id="textNavber">หน้าแรก</a></li>
                                 <li><a href="status.php" id="textNavber">ตรวจสอบสถานะ</a></li>
                                 <li><a href="payment_form.php" id="textNavber">อัพสลิปการโอนเงิน</a></li>
-                                <li><a href="check_in_check_out.php" id="textNavber">เช็ดอิน - เช็ดเอาท์</a></li>
+                                <li><a href="check_in_out.php" id="textNavber">เช็ดอิน - เช็ดเอาท์</a></li>
                             </ul>
                 </nav>
             </body>

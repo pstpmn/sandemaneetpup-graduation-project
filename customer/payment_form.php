@@ -37,6 +37,10 @@
       margin-bottom: 15px;
       box-shadow: 0 3px 3px rgba(0, 0, 0, 0.034), 0 12.5px 10px rgba(0, 0, 0, 0.06);
     }
+    span{
+      color:red; 
+      margin-left:26%;
+    }
 
     button[class="btn btn-info"] {
       width: 20%;
@@ -58,6 +62,9 @@
       width: 90%;
       margin-bottom: 15px;
     }
+    span{
+      margin-left:5%;
+    }
  }
   </style>
 
@@ -77,16 +84,18 @@
               <option value="กรุงไทย">กรุงไทย</option>
             </select>
 
-            <input type="text" class="form-control" id="payment_time"  name="payment_time" placeholder="เวลาโอน">
-
             <input type="text" class="form-control" id="payment_amount"  name="payment_amount" placeholder="จำนวนเงิน">
-        
-              <div class="form">
-                  <input type='file' id="slip_img" name="slip_img" onchange="showMyImage(this)" />
-                  <img id="slip" style="display:none;" src="" alt="logo" />
-                  <br>
-
-              </div>
+            
+            
+            <input type="datetime-local" class="form-control" id="payment_time"  name="payment_time" placeholder="เวลาโอน" >
+          </center>
+            <span>*เวลาที่ชำระเงิน(ดูจากสลิปโอนเงิน)*</span>
+            <center>
+            <div class="form">
+              <input type='file' id="slip_img" name="slip_img" onchange="showMyImage(this)" />
+              <img id="slip" style="display:none;" src="" alt="logo" />
+              <br>
+            </div>
                   <br>
                   <button type="submit" class="btn btn-info" id="upslip" name="submit"> ยืนยันการชำระเงิน </button>
           </div>

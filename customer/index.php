@@ -116,8 +116,8 @@
 
         <!-- javascript -->
         <script>
-            // getSelectLocation();
-            // getSelectLocationForResponsive();
+            getSelectLocation();
+            getSelectLocationForResponsive();
         </script>
         <!-- javascript -->
 

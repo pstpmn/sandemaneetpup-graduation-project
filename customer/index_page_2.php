@@ -36,7 +36,6 @@ if (isset($_POST["btnSearch"])) {
         cursor: pointer;
     }
 
-    button[class="form-control btn btn-success"],
     button[class="form-control btn btn-danger"],
     button[class="form-control btn btn-primary"] {
         width: 24%;
@@ -69,10 +68,9 @@ if (isset($_POST["btnSearch"])) {
 
     @media (max-width: 890px) {
 
-        button[class="form-control btn btn-success"],
         button[class="form-control btn btn-danger"],
         button[class="form-control btn btn-primary"] {
-            width: 90%;
+            width: 100%;
             margin-bottom: 10px;
         }
 
@@ -112,7 +110,6 @@ if (isset($_POST["btnSearch"])) {
 
 <center>
     <body class="has1">
-
         <div id="container-boatSeat-customerData">
             <h3 class="has2">เลือกที่นั่งเรือของลูกค้า</h3>
             <div class="tableSet" id="tableFromBoatSeatBottom">
