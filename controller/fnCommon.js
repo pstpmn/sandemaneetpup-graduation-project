@@ -1,44 +1,36 @@
-const validateDeadline = (current, deadline) => {
+const getListCountFloor = async (boatNumber) => {
+    try {
+        listCountFloor = [];
+        let responseFloor = await fetch('model/apiGetFloorBoat.php', {
+            method: "POST",
+            body: JSON.stringify({ boatNumber: boatNumber }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let jsonFloor = await responseFloor.json();
+        listFloorData = jsonFloor;
+        return jsonFloor;
+    } catch (error) {
 
-    if (current.getYear() < deadline.getYear()) {
-        return true;
     }
-
-    else if (current.getYear() > deadline.getYear()) {
-        return false;
-    }
-
-
-    if (current.getMonth() < deadline.getMonth()) {
-        return true;
-    }
-    else if (current.getMonth() > deadline.getMonth()) {
-        return false;
-    }
-
-    if (current.getDate() < deadline.getDate()) {
-        return true;
-    }
-
-    else if (current.getDate() > deadline.getDate()) {
-        return false;
-    }
-
-    if (current.getHours() < deadline.getHours()) {
-        return true;
-    }
-    else if (current.getHours() > deadline.getHours()) {
-        return false;
-    }
-
-    if (current.getMinutes() < deadline.getMinutes()) {
-        return true;
-    }
-    if (current.getMinutes() > deadline.getMinutes()) {
-        return false;
-    }
-    return false;
 }
+
+const getLocation = async () => {
+    try {
+        const response = await fetch('model/apiLocation.php', {
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        return error;
+    }
+}
+
+
 
 const getFormatYearDMY = (date) => {
     let dmy = new Date(date);
@@ -77,7 +69,6 @@ const CheckDayOff = async (date) => {
         return false;
     }
 }
-
 
 const getConvertDateMonthYear = (date) => {
     try {
@@ -123,4 +114,51 @@ const getConvertYMDHIS = (date) => {
     } catch (err) {
         return "Error ConvertDate : " + err;
     }
+}
+
+
+const validateDeadline = (current, deadline) => {
+
+    if (current.getYear() < deadline.getYear()) {
+        return true;
+    }
+
+    else if (current.getYear() > deadline.getYear()) {
+        return false;
+    }
+
+
+    if (current.getMonth() < deadline.getMonth()) {
+        return true;
+    }
+    else if (current.getMonth() > deadline.getMonth()) {
+        return false;
+    }
+
+    if (current.getDate() < deadline.getDate()) {
+        return true;
+    }
+
+    else if (current.getDate() > deadline.getDate()) {
+        return false;
+    }
+
+    if (current.getHours() < deadline.getHours()) {
+        return true;
+    }
+    else if (current.getHours() > deadline.getHours()) {
+        return false;
+    }
+
+    if (current.getMinutes() < deadline.getMinutes()) {
+        return true;
+    }
+    if (current.getMinutes() > deadline.getMinutes()) {
+        return false;
+    }
+    return false;
+}
+
+const getRefreshPage = () => {
+    location.reload();
 }

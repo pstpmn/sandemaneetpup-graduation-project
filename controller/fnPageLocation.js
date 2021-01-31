@@ -128,3 +128,17 @@ const setAddLocation = async () => {
         alert('Error add Employee : ' + err)
     }
 }
+
+const getSelectLocationChangeBoatSeat = async () => {
+    let location = await getLocation();
+    const LOCATIONDATA = location;
+    const SELECTLOCATIONSTART = document.getElementById('select-Location_start-changeBoatSeat');
+    const SELECTLOCATIONEND = document.getElementById('select-Location_end-changeBoatSeat');
+
+
+    for (let count = 0; count < location.length; count++) {
+        SELECTLOCATIONSTART.innerHTML += "<option value=" + LOCATIONDATA[count].location_id + ">" + LOCATIONDATA[count].location_name + "</option>"
+        SELECTLOCATIONEND.innerHTML += "<option value=" + LOCATIONDATA[count].location_id + ">" + LOCATIONDATA[count].location_name + "</option>"
+
+    }
+}

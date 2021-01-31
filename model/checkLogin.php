@@ -16,6 +16,7 @@ if (isset($_POST['username'])) {
 
     if (count($qeueryData) > 0) {
         $_SESSION["username"] = $qeueryData[0]['username'];
+        $_SESSION["empId"] = $qeueryData[0]['employee_id'];
         $_SESSION["statusName"] = $qeueryData[0]['employee_category_name'];
         $_SESSION["statusId"] = $qeueryData[0]['employee_category_id'];
         $_SESSION["fullName"] = $qeueryData[0]['emp_first_name'] . " " . $qeueryData[0]['emp_last_name'];

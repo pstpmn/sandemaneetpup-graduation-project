@@ -92,6 +92,7 @@ require 'navbar.php';
                                             <th scope="col">นามสกุล</th>
                                             <th scope="col">เบอร์โทรศัพ</th>
                                             <th scope="col">ที่นั่ง</th>
+                                            <th scope="col">ชั้น</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbody-modal">

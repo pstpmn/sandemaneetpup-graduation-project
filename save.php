@@ -1,7 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Bangkok');
 require 'header.php';
-
 ?>
 <title>Ticket Recode</title>
 <?php
@@ -39,10 +38,7 @@ $listSeat = "asdsa";
         /* display: none; */
     }
 
-    .onmouse:hover {
-        background-color: gray;
 
-    }
 </style>
 <script>
     var listSeat = []; //List Boat Seat ID
@@ -83,7 +79,7 @@ $listSeat = "asdsa";
             <input type='date' id='date' class="form-control" value="<?php echo date('Y-m-d') ?>">
 
             <br>
-            <button class="btn btn-primary" id="search-boat" onclick="getBoatSeat1(
+            <button class="btn btn-primary" id="search-boat" onclick="getBoatSeat(
                 document.getElementById('boat-number').value,
                 document.getElementById('date').value,
                 document.getElementById('select-Location_start').value,
@@ -95,67 +91,8 @@ $listSeat = "asdsa";
                 <b>เลือกที่นั่งเรือของลูกค้า</b><br><br>
 
                 <div class="tableSet" id="tableFromBoatSeat">
-                    <!-- <table class="table table-bordered table-primary" id="">
-                        <tr id="right">
-                            <td bgcolor="#fff" id='td-rightBottom'>
-                                <center>Right</center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="999" bgcolor="#fff">
-                                <center>ที่นั่งเรือ</center>
-                            </td>
-                        </tr>
-                        <tr id="left">
-                            <td bgcolor="#fff" id='td-leftBottom'>
-                                <center>Left</center>
-                            </td>
-                        </tr>
-                    </table> -->
+                  
                 </div>
-
-
-                <!-- <div class="tableSet" id="tableFromBoatSeatBottom">
-                    <table class="table table-bordered table-primary" id="">
-                        <tr id="rightBottom">
-                            <td bgcolor="#fff" id='td-rightBottom'>
-                                <center>Right</center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="999" bgcolor="#fff">
-                                <center>ที่นั่งเรือ</center>
-                            </td>
-                        </tr>
-                        <tr id="leftBottom">
-                            <td bgcolor="#fff" id='td-leftBottom'>
-                                <center>Left</center>
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-
-                <div class="tableSet" id="tableFromBoatSeatTop" style="display:none">
-                    <table class="table table-bordered table-primary" id="">
-                        <tr id="rightTop">
-                            <td bgcolor="#fff">
-                                <center>Right</center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="125" bgcolor="#fff">
-                                <center>ที่นั่งเรือ</center>
-                            </td>
-                        </tr>
-                        <tr id="leftTop">
-                            <td bgcolor="#fff">
-                                <center>Left</center>
-                            </td>
-                        </tr>
-                    </table>
-                </div> -->
-
                 <div id='container-btnFloor'>
                     <!-- <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
                     <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button> -->
@@ -201,7 +138,8 @@ $listSeat = "asdsa";
                                     <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketNormal(listSeat,
                                     listSeatNumber,
                                     document.getElementById('select-Location_start').value,
-                                    document.getElementById('select-Location_end').value)">Save</button>
+                                    document.getElementById('select-Location_end').value,
+                                    <?php echo $_SESSION['empId']; ?>)">Save</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -231,7 +169,6 @@ $listSeat = "asdsa";
                                             <hr>
                                             <table style="width: 100%;" border="0" id="detail-customer">
                                                 <!-- ดำเนินการโดย Database -->
-
                                             </table>
 
                                             <br>

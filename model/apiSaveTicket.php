@@ -4,7 +4,7 @@ require 'confix.php';
 
 $input = json_decode(file_get_contents('php://input'), true);
 $detailBoatSeat = array();
-$database = new database(IP, DBNAME, USER,PASS);
+$database = new database(IP, DBNAME, USER, PASS);
 
 // ตรวจสอบจำนวนการใช้งานของลูกค้า
 $checkCount = $database->select("SELECT count from customer 
@@ -46,21 +46,21 @@ $registerDate = date('Y-m-d H:i:s', strtotime($registerDate . ' + ' . $checkDead
 
 // บันทึกตั๋ว
 // for ($i = 0; $i < count($input['ticketID']); $i++) {
-    //สร้างรหัสตั๋ว
-    // $ticketCODE;
-    // while (true) {
-    //     $ticketCODE = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
-    //     $checkTicketID = $database->select('select ticket_code from buy_ticket where ticket_code = "' . $ticketCODE . '" ');
+//สร้างรหัสตั๋ว
+// $ticketCODE;
+// while (true) {
+//     $ticketCODE = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
+//     $checkTicketID = $database->select('select ticket_code from buy_ticket where ticket_code = "' . $ticketCODE . '" ');
 
-    //     if ($checkTicketID == null) {
-    //         break;
-    //     } else {
-    //         continue;
-    //     }
-    // }
+//     if ($checkTicketID == null) {
+//         break;
+//     } else {
+//         continue;
+//     }
+// }
 
-    $data = $database->insert('insert into buy_ticket(ticket_category_id,customer_id,boat_seat_id,ticket_code,travel_date,ticket_status_id,employee_id,deadline_book,orgin,destination)
-    values (1,' . $checkIDCustomer[0][0] . ',"' . $input['ticketID'] . '","' . $input['ticketCode'] . '","' . $input['date'] . '" , ' . $input['ticketStatus'] . ' , 2,"' . $registerDate . '",'.$input['orgin'].','.$input['destination'].')');
+$data = $database->insert('insert into buy_ticket(ticket_category_id,customer_id,boat_seat_id,ticket_code,travel_date,ticket_status_id,employee_id,deadline_book,orgin,destination)
+    values (1,' . $checkIDCustomer[0][0] . ',"' . $input['ticketID'] . '","' . $input['ticketCode'] . '","' . $input['date'] . '" , ' . $input['ticketStatus'] . ' ,' . $input['empId'] . ',"' . $registerDate . '",' . $input['orgin'] . ',' . $input['destination'] . ')');
 // }
 
 echo json_encode(true);

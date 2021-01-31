@@ -17,17 +17,19 @@ if((!$_SESSION["username"])){
     <link href="css/styles.css" rel="stylesheet" />
     
     <!-- use -->
-    <script src="controller/fnBookTime.js"></script>
-    <script src="controller/fnTicketPrice.js"></script>
-    <script src="controller/fnDayOff.js"></script>
-    <script src="controller/fnBoat.js"></script>
-    <script src="controller/function.js"></script>
-    <script src="controller/fnEmployee.js"></script>
-    <script src="controller/fnLocation.js"></script>
-    <script src="controller/clickEvent.js"></script>
-    <script src="controller/fnBoatSeat.js"></script>
-    <script src="controller/fnSearchBoatSeat.js"></script>
-    <script src="controller/fnTime.js"></script>
+    <script src="controller/fnPageValidateSlip.js"></script>
+    <script src="controller/fnPageScan.js"></script>
+    <script src="controller/fnPageCustomer.js"></script>
+    <script src="controller/fnPageTicket.js"></script>
+    <script src="controller/fnPageCancel.js"></script>
+    <script src="controller/fnCommon.js"></script>
+    <script src="controller/fnPageSave.js"></script>
+    <script src="controller/fnPageBookTime.js"></script>
+    <script src="controller/fnPageTicketPrice.js"></script>
+    <script src="controller/fnPageDayOff.js"></script>
+    <script src="controller/fnPageBoat.js"></script>
+    <script src="controller/fnPageEmployee.js"></script>
+    <script src="controller/fnPageLocation.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>

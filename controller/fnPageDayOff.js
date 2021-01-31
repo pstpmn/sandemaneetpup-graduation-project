@@ -22,7 +22,6 @@ const getListDayOff = async () => {
             });
         })
     } catch (err) {
-        alert("Error manage boat system : " + err);
     }
 }
 

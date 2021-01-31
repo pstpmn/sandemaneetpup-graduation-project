@@ -23,7 +23,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.php">
+                        <a class="nav-link" href="home.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             หน้าหลัก
                         </a>
@@ -53,7 +53,7 @@
                             </nav>
                         </div>
 
-                        <a class="nav-link collapsed" href="scanbarcode.php">
+                        <a class="nav-link collapsed" href="scanQRCode.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-barcode"></i></div>
                             สแกน QR Code
                         </a>
@@ -106,11 +106,6 @@
                         <a class="nav-link" href="ticketPrice.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
                             จัดการราคาตั๋ว
-                        </a>
-
-                        <a class="nav-link" href="boatSeat.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            จัดการที่นั่งเรือ (ยังไม่ทำ)
                         </a>
                     </div>
                 </div>
