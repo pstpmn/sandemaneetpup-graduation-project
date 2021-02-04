@@ -7,9 +7,9 @@ const getListBoat = async () => {
             for (let i = 0; i < json.length; i++) {
                 tbodyTable.innerHTML += "<tr><td>" + (i + 1) + "</td> <td>" + json[i].boat_number + "</td>"
                     + "<td>" + json[i].boat_name + "</td>"
-                    + "<td><form action='boatSeat.php'><button name='btnBoatSeat' value='"+json[i].boat_number+"' class='btn btn-link'>Click !!</button></form></td>"
+                    + "<td><form action='boatSeat.php'><button name='btnBoatSeat' value='" + json[i].boat_number + "' class='btn btn-link'>Click !!</button></form></td>"
                     + "<td><button id='btnEdit-" + i + "' class='btn btn-warning'>แก้ไขข้อมูล</button> "
-                    +"<button  id='btnDelte-" + i + "'  class='btn btn-danger'>ลบ</button> </td></tr>"
+                    + "<button  id='btnDelte-" + i + "'  class='btn btn-danger'>ลบ</button> </td></tr>"
                 document.getElementById('btnEdit-' + i).setAttribute('onclick', 'getShowModalEditBoat("' + json[i].boat_number + '","' + json[i].boat_name + '")');
                 document.getElementById('btnDelte-' + i).setAttribute('onclick', 'setDelectBoat("' + json[i].boat_number + '")');
             }
@@ -20,14 +20,13 @@ const getListBoat = async () => {
             });
         })
     } catch (err) {
-        alert("Error manage boat system : " + err);
     }
 }
 
 
 const setDelectBoat = async (boatNumber) => {
     try {
-        let cf = confirm('ยืนยันลบเรือ : ' + boatNumber);
+        let cf = confirm('ยืนยันการลบเรือหมายเลข : ' + boatNumber+"\nคำเตือน : เมือเรือถูกลบจะทำการลบตั๋วที่เคยซื้อกับเรือไปด้วย");
         if (cf == true) {
             let response = await fetch('model/apiSetDeleteBoat.php', {
                 method: "POST",
@@ -62,7 +61,7 @@ const getShowModalEditBoat = async (boatNumber, boatName) => {
 const setEditBoat = async () => {
     let boatNumber = document.getElementById('text-boatNumber').value;
     let boatName = document.getElementById('text-boatName').value;
-   
+
     try {
         let response = await fetch('model/apiSetBoat.php', {
             method: "POST",
@@ -91,7 +90,7 @@ const getShowModalAddBoat = async () => {
     document.getElementById('text-boatName').value = "";
     document.getElementById('text-boatNumber').disabled = false;
 
-    
+
     document.getElementById('header-Employee').innerHTML = 'เพิ่มข้อมูลเรือ';
     document.getElementById('btnSaveEdit').innerHTML = 'Save';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setAddBoat()');
@@ -162,7 +161,7 @@ const getShowDataTableBoatSeat = async (boatNumber) => {
                 tableBoatSeat.innerHTML += "<tr><td>" + json[i].boat_seat_number + "</td>"
                     + "<td>" + json[i].boat_seat_type + "</td><td>" + json[i].floor + "</td>"
                     + "<td><button id='btnEdit-" + i + "' class='btn btn-warning'>แก้ไข</button> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td></tr>"
-                document.getElementById("btnEdit-" + i).setAttribute('onclick', 'getModalEditBoatSeat("' + json[i].boat_seat_id + '","'+json[i].boat_seat_number+'","'+json[i].boat_seat_type+'","'+json[i].floor+'","'+json[i].boat_number+'")')
+                document.getElementById("btnEdit-" + i).setAttribute('onclick', 'getModalEditBoatSeat("' + json[i].boat_seat_id + '","' + json[i].boat_seat_number + '","' + json[i].boat_seat_type + '","' + json[i].floor + '","' + json[i].boat_number + '")')
                 document.getElementById("btnDelete-" + i).setAttribute('onclick', 'setDeleteBoatSeat("' + json[i].boat_seat_id + '")')
 
             }
@@ -235,12 +234,12 @@ const getModalEditBoatSeat = (id, seatNumber, boatType, floor, boatNumber) => {
         + "<tr><td scope='col' width='30%'><b>ตำแหน่ง</b></td>"
         + "<td><select id='txt-type'><option value='L'>ซ้าย</option><option value='R'>ขวา</option></select></td></tr>"
         + "</thead></table>"
-        
+
     document.getElementById('btnAdd').innerHTML = "Edit";
     document.getElementById('txt-floor').value = floor;
     document.getElementById('txt-type').value = boatType;
     document.getElementById('txt-seat').value = seatNumber;
-    document.getElementById('btnAdd').setAttribute('onclick','setEditBoatSeat("'+id+'")');
+    document.getElementById('btnAdd').setAttribute('onclick', 'setEditBoatSeat("' + id + '")');
     $('#modal-addBoatSeat').modal();
 }
 
@@ -332,15 +331,15 @@ const setAddBoatSeatMultiRow = async (boatNumber) => {
         let response;
         let differ = parseInt(end) - parseInt(start);
 
-        if(floor == ""){
+        if (floor == "") {
             alert("โปรดใส่ข้อมูล Floor");
             return;
         }
-        if(start == ""){
+        if (start == "") {
             alert("โปรดใส่ข้อมูล เริ่มต้นเลขที่นั่ง");
             return;
         }
-        if(end == ""){
+        if (end == "") {
             alert("โปรดใส่ข้อมูล สิ้นสุดเลขที่นั่ง");
             return;
         }
@@ -380,11 +379,11 @@ const setAddBoatSeatOne = async (boatNumber) => {
         let start = document.getElementById('txt-seat').value;
         let SeatType = document.getElementById('txt-type').value;
 
-        if(floor == ""){
+        if (floor == "") {
             alert("โปรดใส่ข้อมูล Floor");
             return;
         }
-        if(start == ""){
+        if (start == "") {
             alert("โปรดใส่ข้อมูล หมายเลขที่นั่ง");
             return;
         }
@@ -416,17 +415,17 @@ const setAddBoatSeatOne = async (boatNumber) => {
 
 
 
-const setEditBoatSeat = async(id) => {
-    try{
-        let floor =  document.getElementById('txt-floor').value;
+const setEditBoatSeat = async (id) => {
+    try {
+        let floor = document.getElementById('txt-floor').value;
         let seatType = document.getElementById('txt-type').value;
         let numbetSeat = document.getElementById('txt-seat').value;
 
-        if(floor == ""){
+        if (floor == "") {
             alert("โปรดใส่ข้อมูล Floor");
             return;
         }
-        if(numbetSeat == ""){
+        if (numbetSeat == "") {
             alert("โปรดใส่ข้อมูล หมายเลขที่นั่ง");
             return;
         }
@@ -451,7 +450,7 @@ const setEditBoatSeat = async(id) => {
         else {
             alert('เกิดข้อผิดพลาด')
         }
-    }catch(err){
+    } catch (err) {
         alert(err)
     }
 }
@@ -459,9 +458,9 @@ const setEditBoatSeat = async(id) => {
 
 const setDeleteBoatSeat = async (id) => {
     try {
-        let cf = confirm("ยืนยันการลบที่นั่งเรือ");
+        let cf = confirm("คำเตือน : เมือลบที่นั่งเรือแล้ว จะทำการลบตั๋วที่เคยซื้อที่นั่งเรือนั้นไปด้วย");
         if (cf == true) {
-            let response = await fetch('model/apiSetDeleteBoat.php', {
+            let response = await fetch('model/apiSetDelectBoatSeat.php', {
                 method: "POST",
                 body: JSON.stringify({
                     id: id,
@@ -470,8 +469,8 @@ const setDeleteBoatSeat = async (id) => {
                     "Content-type": "application/json; charset=UTF-8"
                 }
             });
-            let result = await response.text();
             if (response.status == 200) {
+                let result = await response.text();
                 if (result == 'true') {
                     location.reload();
                 }

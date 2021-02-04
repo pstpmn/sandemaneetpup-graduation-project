@@ -15,7 +15,7 @@ const getShowChangeBoatSeat = async (ticketCode, numBerBoat, travelDate, origin,
     $("#dialog-showAddTicket").modal({ backdrop: 'static', keyboard: false });
 }
 
-const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destination) => {
+const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destination, empId) => {
     for (let i = 0; i < listSeatNumber.length; i++) {
         if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
             return alert('กรุณา ระบุเพศของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
@@ -47,7 +47,8 @@ const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destinatio
             ticketStatus: 1,
             ticketCode: document.getElementById('label-ticket-code').value,
             orgin: orgin,
-            destination: destination
+            destination: destination,
+            empId: empId
         }
         try {
             let response = await fetch('model/apiSaveTicket.php', {
@@ -126,7 +127,7 @@ const getTicketEdit = async () => {
                 document.getElementById('timeUpSlip-' + i + '').setAttribute('onclick', 'getShowModalTimeUpSlip("' + json[i].ticket_code + '")')
 
                 //setting btn
-                document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setCancelTicket("' + json[i].ticket_code + '")');
+                document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setDeleteTicket("' + json[i].ticket_code + '")');
                 document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getShowModalEditListCustomerFromTicket("' + json[i].ticket_code + '")')
             }
 
@@ -138,7 +139,33 @@ const getTicketEdit = async () => {
         })
     }
     catch (err) {
-        alert('Error ticket edit\n :' + err)
+    }
+}
+
+
+
+const setDeleteTicket = async (ticketCode) => {
+    try {
+        let cf = confirm('ยืนยันการยกเลิกตั๋ว : ' + ticketCode)
+        if (cf == true) {
+            let response = await fetch('model/apiSetDelectTicket.php', {
+                method: "POST",
+                body: JSON.stringify({ id: ticketCode }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            let json = await response.json();
+            if(json == true){
+                location.reload();
+
+            }else{
+                alert('เกิดข้อผิดพลาดในการลบ');
+            }
+        }
+    }
+    catch (err) {
+        alert(err)
     }
 }
 
@@ -317,7 +344,7 @@ const getShowModalEditEmployee = async (emp, ticketCode) => {
         document.getElementById('modal-body-editTicket').innerHTML = "เลือกพนักงาน";
         for (let i = 0; i < json.length; i++) {
             var option = document.createElement("option");
-            option.text = json[i].emp_first_name +"  "+ json[i].emp_last_name;
+            option.text = json[i].emp_first_name + "  " + json[i].emp_last_name;
             option.value = json[i].employee_id;
             if (emp == json[i].emp_first_name) {
                 option.selected = true;
@@ -663,14 +690,14 @@ const setEditDeleteCustomer = async (id, ticketCode) => {
 
         let json = await response.text();
         if (json == "true") {
-            alert('Sucess Edit Time Buy Ticket');
+            alert('การลบเสร็จสิ้น');
             let refresh = getShowModalEditListCustomerFromTicket(ticketCode);
         }
         else {
             alert("Error : " + json)
         }
     } catch (err) {
-        alert("Error setTicketType : " + err);
+        alert("Error delect ticket : " + err);
     }
 }
 

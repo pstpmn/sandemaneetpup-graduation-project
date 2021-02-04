@@ -17,7 +17,6 @@ const getShowCustomerEdit = async () => {
         })
     }
     catch (err) {
-        alert('Error ticket edit\n :' + err)
     }
 }
 

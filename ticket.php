@@ -274,7 +274,8 @@ require 'navbar.php';
                                 <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketAddCustomer(listSeat,
                                     listSeatNumber,
                                     document.getElementById('select-Location_start').value,
-                                    document.getElementById('select-Location_end').value)">Save</button>
+                                    document.getElementById('select-Location_end').value,
+                                    <?php echo $_SESSION['empId']; ?>)">Save</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>

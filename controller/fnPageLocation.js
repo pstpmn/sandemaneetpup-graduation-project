@@ -18,7 +18,6 @@ const getListLocation = async () => {
             });
         })
     } catch (err) {
-        alert("Error manage location system : " + err);
     }
 }
 

@@ -90,11 +90,14 @@ const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode, num
         alert('ต้นทาง และปลายทาง เหมือนกัน !!')
         return;
     }
+    if (boatNumber == "") {
+        alert('กรุณาเลือกเรือ')
+        return;
+    }
     let checkDayOff = await CheckDayOff(date);
     if (checkDayOff == true) {
         return;
     }
-
     try {
         //make Empty array Boat seat
         listSeat = [];

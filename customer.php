@@ -104,7 +104,7 @@ require 'navbar.php';
                                         </tr>
                                         <tr>
                                             <td scope="col" width="30%"><b>จำนวนที่ใช้บริการ</b></td>
-                                            <td><input id='text-count' type="number" value=""></td>
+                                            <td><input id='text-count' type="number" disabled value=""></td>
                                         </tr>
                                     </thead>
                                     <tbody id="tbody-modal">

@@ -73,7 +73,6 @@ const getTicketCheckIn = async () => {
             }
         }
     } catch (err) {
-        alert(err)
     }
 }
 
