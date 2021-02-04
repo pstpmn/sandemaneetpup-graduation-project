@@ -62,7 +62,7 @@
         else{
             echo "<script type='text/javascript'>";
             echo "window.location = 'check_in_out.php'; ";
-            echo "alert('$ticket_code ไม่มีรหัสนี้ ');";
+            echo "alert('$ticket_code รหัสไม่ถูกต้อง !!!');";
             echo "</script>";
         }
         mysqli_close($con);
@@ -110,7 +110,7 @@
         else{
             echo "<script type='text/javascript'>";
             echo "window.location = 'check_in_out.php'; ";
-            echo "alert('$ticket_code ไม่มีรหัสนี้ ');";
+            echo "alert('$ticket_code รหัสไม่ถูกต้อง !!!');";
             echo "</script>";
         }
     }
@@ -156,7 +156,7 @@
         else{
             echo "<script type='text/javascript'>";
             echo "window.location = 'check_in_out.php'; ";
-            echo "alert('รหัสหรือเบอร์โทรศัพท์ไม่ถูกต้อง');";
+            echo "alert('รหัส หรือ เบอร์โทรศัพท์ไม่ถูกต้อง !!!');";
             echo "</script>";
         }
     }
@@ -196,7 +196,7 @@
         else{
             echo "<script type='text/javascript'>";
             echo "window.location = 'check_in_out.php'; ";
-            echo "alert('รหัสหรือเบอร์โทรศัพท์ไม่ถูกต้อง');";
+            echo "alert('รหัส หรือ เบอร์โทรศัพท์ไม่ถูกต้อง !!!');";
             echo "</script>";
         }
     }
