@@ -34,7 +34,6 @@ require 'navbar.php';
 <script>
     var ticketPrice; // set price
     getTicketPrice(1);
-
 </script>
 <div id="layoutSidenav_content">
     <main>
@@ -53,7 +52,7 @@ require 'navbar.php';
                         <table class="table table-bordered" style="text-align: center;" id="dataTable-TicketEdit" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>รหัสตั๋ว</th>
+                                    <th>รหัสการจอง</th>
                                     <th>ประเภทตั๋ว</th>
                                     <th>หมายเลขเรือ</th>
                                     <th>รายชื่อลูกค้า</th>
@@ -90,9 +89,10 @@ require 'navbar.php';
                                 <table class="table table-bordered" style="text-align: center;">
                                     <thead>
                                         <tr>
+                                            <th scope="col">รหัสตั๋ว</th>
                                             <th scope="col">ชื่อ</th>
                                             <th scope="col">นามสกุล</th>
-                                            <th scope="col">เบอร์โทรศัพ</th>
+                                            <th scope="col">เบอร์โทรศัพท์</th>
                                             <th scope="col">ที่นั่ง</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -285,7 +285,7 @@ require 'navbar.php';
             </div>
     </main>
     <script>
-        getTicketEdit();
+        getListTicketEdit();
     </script>
 
 

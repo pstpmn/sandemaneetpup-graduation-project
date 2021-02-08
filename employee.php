@@ -30,7 +30,6 @@ require 'navbar.php';
                                 <tr>
                                     <th>ลำดับ</th>
                                     <th>username</th>
-                                    <th>password</th>
                                     <th>ชื่อ</th>
                                     <th>นามสกุล</th>
                                     <th>เพศ</th>
@@ -70,7 +69,7 @@ require 'navbar.php';
                                     </tr>
                                     <tr>
                                         <td scope="col" width="30%"><b>password</b></td>
-                                        <td><input id='text-pass' type="text" value=""></td>
+                                        <td><input id='text-pass' type="password" value=""></td>
                                     </tr>
                                     <tr>
                                         <td scope="col" width="30%"><b>ชื่อ</b></td>

@@ -1,6 +1,6 @@
-const getShowChangeBoatSeat = async (ticketCode, numBerBoat, travelDate, origin, destination, boatSeatID) => {
+const getShowChangeBoatSeat = async (ticketCode, numBerBoat, travelDate, origin, destination, boatSeatID,buyTicketCode) => {
     document.getElementById('header-select-boatSeat').innerHTML = "เลือกที่นั่งเรือลูกค้า CODE : <data id='label-ticket-code' value='" + ticketCode + "'>" + ticketCode + "</data>";
-    document.getElementById('header-addCustomer').innerHTML = " <center>แก้ไขที่นั่งเรือ รหัสตั๋ว :  " + ticketCode + "</center>"
+    document.getElementById('header-addCustomer').innerHTML = " <center>แก้ไขที่นั่งเรือ รหัสตั๋ว :  " + buyTicketCode + "</center>"
     document.getElementById('select-Location_start').value = origin;
     document.getElementById('select-Location_end').value = destination;
     await getSearchBoat(origin, destination)
@@ -9,13 +9,21 @@ const getShowChangeBoatSeat = async (ticketCode, numBerBoat, travelDate, origin,
     // await getBoatSeatForChangBoatSeat(numBerBoat, travelDate, origin, destination, ticketCode, boatSeatID)
     await getBoatSeatForChangeSeat(numBerBoat, travelDate, origin, destination, ticketCode, boatSeatID)
 
-    document.getElementById('btn-save').setAttribute('onclick', 'setBoatSeat("' + ticketCode + '","' + listSeat + '")')
+    document.getElementById('btn-save').setAttribute('onclick', 'setBoatSeat("' + buyTicketCode + '","' + listSeat + '","'+ticketCode+'")')
     document.getElementById('btn-reset').setAttribute('onclick', 'getShowChangeBoatSeat("' + ticketCode + '","' + numBerBoat + '","' + travelDate + '","' + origin + '","' + destination + '","' + boatSeatID + '")')
 
     $("#dialog-showAddTicket").modal({ backdrop: 'static', keyboard: false });
 }
 
 const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destination, empId) => {
+////////////////////////
+
+    let json;
+    let listGender=[];
+    let listFirstName=[];
+    let listLastName=[];
+    let listPhoneNumber=[];
+
     for (let i = 0; i < listSeatNumber.length; i++) {
         if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
             return alert('กรุณา ระบุเพศของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
@@ -27,7 +35,7 @@ const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destinatio
             return alert('กรุณา ระบุนามสกุลของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
         }
     }
-
+   
     for (let i = 0; i < listSeatNumber.length; i++) {
         let gender;
         if (document.getElementById('genderM-' + i + '').checked == true) {
@@ -36,109 +44,97 @@ const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destinatio
         else if (document.getElementById('genderF-' + i + '').checked == true) {
             gender = "Female";
         }
+        listGender.push(gender);
+        listFirstName.push(document.getElementById('fristName-' + i + '').value);
+        listLastName.push(document.getElementById('lastName-' + i + '').value);
+        listPhoneNumber.push(document.getElementById('phoneNumber-' + i + '').value);
+    }
+    let detailCustomer = {
+        fristName: listFirstName,
+        lastName: listLastName,
+        phoneNumber: listPhoneNumber,
+        gender: listGender,
+        date: document.getElementById('date').value,
+        listSeat: listSeat,
+        ticketStatus: 1,
+        ticketBookCode: document.getElementById('label-ticket-code').value,
+        orgin: orgin,
+        destination: destination,
+        empId: empId,
+        totalPrice : ticketPrice * listSeat.length
+    }
+    try {
+        let response = await fetch('model/apiAddSaveTicket.php', {
+            method: "POST",
+            body: JSON.stringify(detailCustomer),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
 
-        let detailCustomer = {
-            fristName: document.getElementById('fristName-' + i + '').value,
-            lastName: document.getElementById('lastName-' + i + '').value,
-            phoneNumber: document.getElementById('phoneNumber-' + i + '').value,
-            gender: gender,
-            date: date = document.getElementById('date').value,
-            ticketID: listSeat[i],
-            ticketStatus: 1,
-            ticketCode: document.getElementById('label-ticket-code').value,
-            orgin: orgin,
-            destination: destination,
-            empId: empId
+        const text = await response.text();
+        if (text == 'true') {
+            $("#dialog-showAddTicket").modal('hide');
+            $("#myModal").modal('hide');
+            getShowModalEditListCustomerFromTicket(document.getElementById('label-ticket-code').value);
         }
-        try {
-            let response = await fetch('model/apiSaveTicket.php', {
-                method: "POST",
-                body: JSON.stringify(detailCustomer),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-
-            const text = await response.text();
-            if (text == 'true') {
-            }
-            else {
-                alert("บันทึกข้อมูลไม่สำเร็จ");
-                return;
-            }
-
-        } catch (e) {
-            alert("Error " + e);
-            location.reload();
+        else {
+            alert("บันทึกข้อมูลไม่สำเร็จ ");
             return;
         }
+    } catch (e) {
+        alert("Error " + e);
+        location.reload();
+        return;
     }
-    alert('บันทึกสำเร็จ');
-    location.reload();
 }
 
-const getTicketEdit = async () => {
+const getListTicketEdit = async () => {
     try {
-        let listUnique = []; // array เช็ครหัสซ้ำ
-        let response = await fetch('model/apiGetTIcketAll.php');
+        let response = await fetch('model/apiGetTicketBookAll.php');
         let json = await response.json();
         let domTbodyTable = document.getElementById('table-ticket-edit');
         domTbodyTable.innerHTML = ""
-
         for (let i = 0; i < json.length; i++) {
+            
             let img;
-            let resultForUnique = true;
-            for (let check = 0; check < listUnique.length; check++) {
-                if (listUnique[check] != json[i].ticket_code) {
-                    continue;
-                }
-                else if (listUnique[check] == json[i].ticket_code) {
-                    resultForUnique = false;
-                    break;
-                }
+            if (json[i].slip_img != null) {
+                img = "<img id ='img-" + i + "' src='img/slip/" + json[i].slip_img + "'  width='120' height='120'  onclick='getImgSlip(" + json[i].slip_img + ")'></img>";
             }
-            if (resultForUnique == true) {
-                listUnique.push(json[i].ticket_code)
-                if (json[i].slip_img != null) {
-                    img = "<img id ='img-" + i + "' src='img/slip/" + json[i].slip_img + "'  width='120' height='120'  onclick='getImgSlip(" + json[i].slip_img + ")'></img>";
-                }
-                else {
-                    img = "<label>ไม่มีรูปภาพ</label>";
-                }
-                if (json[i].time_up_slip != null) {
-                    json[i].time_up_slip = getFormatYearDMYHIS(json[i].time_up_slip);
-                }
-
-                domTbodyTable.innerHTML += "<tr>"
-                    + "<td><button class='btn btn-link' id='ticketCode-" + i + "'>" + json[i].ticket_code + "</button></td> <td><button class='btn btn-link' id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</button></td> <td><p  id='boatNumber-" + i + "'>" + json[i].boat_number + "</p></td>"
-                    + "<td> <button  id='btn-diolog-customer-" + i + "' class='btn btn-link'>ดูรายการ</button></td> <td ><button  class='btn btn-link' id='emp-" + i + "'>" + json[i].emp_first_name + "</button></td>"
-                    + "<td><button class='btn btn-link' id='timeBuyTicket-" + i + "'>" + getFormatYearDMYHIS(json[i].time_buy_ticket) + "</button></td> <td <button  class='btn btn-link' id='deadLineBook-" + i + "'>" + getFormatYearDMYHIS(json[i].deadline_book) + "</button></td> <td><button class='btn btn-link' id='travelDate-" + i + "'>" + getFormatYearDMYHIS(json[i].travel_date) + "</button></td>"
-                    + "<td><button class='btn btn-link' id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</button></td> <td>" + img + "</td> <td><button class='btn btn-link' id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</button> </td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
-                    + "</tr>";
-
-                //setting Event Tag <p> Use double Click 
-                document.getElementById('ticketCode-' + i + '').setAttribute('onclick', 'getShowModalEditTicketCode("' + json[i].ticket_code + '")')
-                document.getElementById('ticketType-' + i + '').setAttribute('onclick', 'getModalEditTicketType("' + json[i].ticket_category_name + '","' + json[i].ticket_code + '")')
-                document.getElementById('emp-' + i + '').setAttribute('onclick', 'getShowModalEditEmployee("' + json[i].emp_first_name + '","' + json[i].ticket_code + '")')
-                document.getElementById('timeBuyTicket-' + i + '').setAttribute('onclick', 'getShowModalBuyTicketTime("' + json[i].ticket_code + '")')
-                document.getElementById('travelDate-' + i + '').setAttribute('onclick', 'getShowModalTravelDate("' + json[i].travel_date + '","' + json[i].ticket_code + '")')
-                document.getElementById('deadLineBook-' + i + '').setAttribute('onclick', 'getShowModalDeadline("' + json[i].ticket_code + '")')
-                document.getElementById('ticketStatus-' + i + '').setAttribute('onclick', 'getShowModalTicketStatus("' + json[i].ticket_status_name + '","' + json[i].ticket_code + '")')
-                document.getElementById('timeUpSlip-' + i + '').setAttribute('onclick', 'getShowModalTimeUpSlip("' + json[i].ticket_code + '")')
-
-                //setting btn
-                document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setDeleteTicket("' + json[i].ticket_code + '")');
-                document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getShowModalEditListCustomerFromTicket("' + json[i].ticket_code + '")')
+            else {
+                img = "<label>ไม่มีรูปภาพ</label>";
+            }
+            if (json[i].time_up_slip != null) {
+                json[i].time_up_slip = getFormatYearDMYHIS(json[i].time_up_slip);
             }
 
+            domTbodyTable.innerHTML += "<tr>"
+                + "<td><button class='btn btn-link' id='ticketCode-" + i + "'>" + json[i].ticket_book_code + "</button></td> <td><button class='btn btn-link' id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</button></td> <td><p  id='boatNumber-" + i + "'>" + json[i].boat_number + "</p></td>"
+                + "<td> <button  id='btn-diolog-customer-" + i + "' class='btn btn-link'>ดูรายการ</button></td> <td ><button  class='btn btn-link' id='emp-" + i + "'>" + json[i].emp_first_name + "</button></td>"
+                + "<td><button class='btn btn-link' id='timeBuyTicket-" + i + "'>" + getFormatYearDMYHIS(json[i].time_buy_ticket) + "</button></td> <td <button  class='btn btn-link' id='deadLineBook-" + i + "'>" + getFormatYearDMYHIS(json[i].deadline_book) + "</button></td> <td><button class='btn btn-link' id='travelDate-" + i + "'>" + getFormatYearDMYHIS(json[i].travel_date) + "</button></td>"
+                + "<td><button class='btn btn-link' id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</button></td> <td>" + img + "</td> <td><button class='btn btn-link' id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</button> </td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
+                + "</tr>";
+
+            //setting Event Tag <p> Use double Click 
+            document.getElementById('ticketCode-' + i + '').setAttribute('onclick', 'getShowModalEditTicketCode("' + json[i].ticket_book_code + '")')
+            document.getElementById('ticketType-' + i + '').setAttribute('onclick', 'getModalEditTicketType("' + json[i].ticket_category_name + '","' + json[i].ticket_book_code + '")')
+            document.getElementById('emp-' + i + '').setAttribute('onclick', 'getShowModalEditEmployee("' + json[i].emp_first_name + '","' + json[i].ticket_book_code + '")')
+            document.getElementById('timeBuyTicket-' + i + '').setAttribute('onclick', 'getShowModalBuyTicketTime("' + json[i].ticket_book_code + '")')
+            document.getElementById('travelDate-' + i + '').setAttribute('onclick', 'getShowModalTravelDate("' + json[i].travel_date + '","' + json[i].ticket_book_code + '")')
+            document.getElementById('deadLineBook-' + i + '').setAttribute('onclick', 'getShowModalDeadline("' + json[i].ticket_book_code + '")')
+            document.getElementById('ticketStatus-' + i + '').setAttribute('onclick', 'getShowModalTicketStatus("' + json[i].ticket_status_name + '","' + json[i].ticket_book_code + '")')
+            document.getElementById('timeUpSlip-' + i + '').setAttribute('onclick', 'getShowModalTimeUpSlip("' + json[i].ticket_book_code + '")')
+
+            //setting btn
+            document.getElementById('btnDelete-' + i + '').setAttribute('onclick', 'setDeleteTicket("' + json[i].ticket_book_code + '")');
+            document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getShowModalEditListCustomerFromTicket("' + json[i].ticket_book_code + '")')
         }
         $(document).ready(function () {
             $('#dataTable-TicketEdit').dataTable({
                 "lengthChange": false
             });
         })
-    }
-    catch (err) {
+    } catch (err) {
     }
 }
 
@@ -146,7 +142,7 @@ const getTicketEdit = async () => {
 
 const setDeleteTicket = async (ticketCode) => {
     try {
-        let cf = confirm('ยืนยันการยกเลิกตั๋ว : ' + ticketCode)
+        let cf = confirm('ยืนยันการลบการจองตั๋ว : ' + ticketCode+"\nคำเตือน : จะทำการลบรหัสตั๋วที่เกี่ยวข้องไปด้วย")
         if (cf == true) {
             let response = await fetch('model/apiSetDelectTicket.php', {
                 method: "POST",
@@ -156,10 +152,10 @@ const setDeleteTicket = async (ticketCode) => {
                 }
             });
             let json = await response.json();
-            if(json == true){
+            if (json == true) {
                 location.reload();
 
-            }else{
+            } else {
                 alert('เกิดข้อผิดพลาดในการลบ');
             }
         }
@@ -287,7 +283,7 @@ const btnChangBoatFloor = (btnId) => {
 
 const getSearchTicketCode = async () => {
     try {
-        let response = await fetch('model/apiCheckTicketCode.php');
+        let response = await fetch('model/apiRandomTicketBookCode.php');
         let json = await response.json();
         document.getElementById('ticketCode-modal-edit').setAttribute('value', json)
     }
@@ -438,14 +434,14 @@ const getShowModalEditListCustomerFromTicket = async (ticketCode) => {
         document.getElementById('addCustomer-TicketEdit').setAttribute('onclick', 'getShowTicketAddCustomer("' + ticketCode + '","' + json[0].boat_number + '","' + json[0].travel_date + '","' + json[0].orgin + '","' + json[0].destination + '")')
 
         for (let i = 0; i < json.length; i++) {
-            document.getElementById('tbody-modal').innerHTML += "<tr>"
+            document.getElementById('tbody-modal').innerHTML += "<tr><td>" + json[i].ticket_book_code + "</td>"
                 + "<td>" + json[i].cust_first_name + "</td> <td>" + json[i].cust_last_name + "</td> <td>" + json[i].phone_number + "</td> <td>" + json[i].boat_seat_number + "</td>"
                 + "<td><botton id='btnChangeBoatSeat-" + json[i].buy_ticket_id + "'class='btn btn-warning'>เปลียนที่นั่งเรือ</botton> <botton id='btnDeleteCustomerTicker-" + json[i].buy_ticket_id + "'class='btn btn-danger'>ลบ</botton> </td></tr>";
             document.getElementById('btnDeleteCustomerTicker-' + json[i].buy_ticket_id).setAttribute('onclick', 'setEditDeleteCustomer("' + json[i].buy_ticket_id + '","' + ticketCode + '")')
-            document.getElementById('btnChangeBoatSeat-' + json[i].buy_ticket_id).setAttribute('onclick', 'getShowChangeBoatSeat("' + ticketCode + '","' + json[i].boat_number + '","' + json[i].travel_date + '","' + json[i].orgin + '","' + json[i].destination + '",' + json[i].boat_seat_id + ')')
+            document.getElementById('btnChangeBoatSeat-' + json[i].buy_ticket_id).setAttribute('onclick', 'getShowChangeBoatSeat("' + ticketCode + '","' + json[i].boat_number + '","' + json[i].travel_date + '","' + json[i].orgin + '","' + json[i].destination + '",' + json[i].boat_seat_id + ',"'+json[i].ticket_code+'")')
 
         }
-        document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='5'>จำนวนลูกค้า : " + json.length + "</td></tr>"
+        document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='6'>จำนวนลูกค้า : " + json.length + "</td></tr>"
         $("#dialogListCustomer").modal({ backdrop: 'static', keyboard: false });
     } catch (err) {
         location.reload();
@@ -468,7 +464,7 @@ const checkBoatSeatForChangeBoatSeat = (id, number) => {
 const setEditTicketCode = async (ticketCodeOld) => {
     try {
         let ticketCodeNew = "" + document.getElementById('ticketCode-modal-edit').getAttribute('value') + "";
-        let response = await fetch('model/apiSetTicketCode.php', {
+        let response = await fetch('model/apiSetTicketBookCode.php', {
             method: "POST",
             body: JSON.stringify({
                 ticketCodeOld: ticketCodeOld,
@@ -661,7 +657,7 @@ const setEditEmployee = async (ticketCode) => {
 
 const getShowTicketAddCustomer = async (ticketCode, numBerBoat, travelDate, origin, destination) => {
     document.getElementById('header-select-boatSeat').innerHTML = "เลือกที่นั่งเรือลูกค้า CODE : <data id='label-ticket-code' value='" + ticketCode + "'>" + ticketCode + "</data>";
-    document.getElementById('header-addCustomer').innerHTML = " <center>เพิ่มลูกค้า รหัสตั๋ว :  " + ticketCode + "</center>"
+    document.getElementById('header-addCustomer').innerHTML = " <center>เพิ่มลูกค้า รหัสการจอง :  " + ticketCode + "</center>"
 
 
     document.getElementById('select-Location_start').value = origin;
@@ -715,7 +711,7 @@ const getListSeatForChangeBoatSeat = () => {
     numberBoatSeat.innerHTML = listSeatNumber;
 }
 
-const setBoatSeat = async (ticketCode, oldListSeat) => {
+const setBoatSeat = async (ticketCode, oldListSeat,ticketBookCode) => {
     try {
         if (listSeat == oldListSeat) {
             alert("ยังไม่ได้เปลียนแปลงที่นั่งเรือ");
@@ -736,7 +732,7 @@ const setBoatSeat = async (ticketCode, oldListSeat) => {
         if (json == 'true') {
             alert("แก้ไขข้อมูลสำเร็จ ");
             $("#dialog-showAddTicket").modal('hide');
-            getShowModalEditListCustomerFromTicket(ticketCode);
+            getShowModalEditListCustomerFromTicket(ticketBookCode);
         }
         else {
             alert('เกิดข้อผิดพลาดในการแก้ไข ที่นั่งเรือ : ' + json);

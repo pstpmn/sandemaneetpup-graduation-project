@@ -178,10 +178,10 @@ const getDialogListCustomerFromSlip = async (ticketCode) => {
         document.getElementById('dialog-ticketCode').innerHTML = "รายชื่อลูกค้า CODE : " + ticketCode;
         document.getElementById('tbody-modal').innerHTML = "";
         for (let i = 0; i < json.length; i++) {
-            document.getElementById('tbody-modal').innerHTML += "<tr>"
+            document.getElementById('tbody-modal').innerHTML += "<tr><td>" + json[i].ticket_code + "</td> "
                 + "<td>" + json[i].cust_first_name + "</td> <td>" + json[i].cust_last_name + "</td> <td>" + json[i].phone_number + "</td> <td>" + json[i].boat_seat_number + "</td><td>" + json[i].floor + "</td></tr>";
         }
-        document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='5'>จำนวนลูกค้า : " + json.length + "</td></tr>"
+        document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='6'>จำนวนลูกค้า : " + json.length + "</td></tr>"
         $("#dialogListCustomer").modal({ backdrop: 'static', keyboard: false });
     } catch (err) {
         alert("Error Diolog Slip : " + err)
@@ -192,17 +192,20 @@ const getCountSlipNoValidate = async () => {
     try {
         let response = await fetch('model/apiGetCountSlipNoValidate.php');
         let json = await response.json();
-        if (json.length > 0) {
-            document.getElementById('count-slip-navbar').innerHTML = "สลิปโอนเงิน <sup>" + json.length + " <i class='fas fa-envelope'></i></sup>";
-            document.getElementById('count-slip-navbar').style.color = "yellow"
-            document.getElementById('count-slip-navbar').style.cursor = "pointer";
-            document.getElementById('count-slip-navbar').onmouseover = function () {
-                document.getElementById('count-slip-navbar').innerHTML = "สลิปโอนเงิน <sup>" + json.length + " <i class='fas fa-envelope-open'></i></sup>";
-            }
-            document.getElementById('count-slip-navbar').onmouseout = function () {
+        if (json == true) {
+            if (json.length > 0) {
                 document.getElementById('count-slip-navbar').innerHTML = "สลิปโอนเงิน <sup>" + json.length + " <i class='fas fa-envelope'></i></sup>";
+                document.getElementById('count-slip-navbar').style.color = "yellow"
+                document.getElementById('count-slip-navbar').style.cursor = "pointer";
+                document.getElementById('count-slip-navbar').onmouseover = function () {
+                    document.getElementById('count-slip-navbar').innerHTML = "สลิปโอนเงิน <sup>" + json.length + " <i class='fas fa-envelope-open'></i></sup>";
+                }
+                document.getElementById('count-slip-navbar').onmouseout = function () {
+                    document.getElementById('count-slip-navbar').innerHTML = "สลิปโอนเงิน <sup>" + json.length + " <i class='fas fa-envelope'></i></sup>";
+                }
             }
         }
+
     } catch (err) {
         document.getElementById('count-slip-navbar').innerHTML = "สลิปโอนเงิน";
         document.getElementById('count-slip-navbar').style.color = "#7ba1cb";

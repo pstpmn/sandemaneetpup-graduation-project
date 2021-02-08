@@ -62,7 +62,7 @@ require 'navbar.php';
                         <div class="modal-body" id="modal-body-editTicket" style="overflow: auto;">
                             <div id="detail-customer">
                                 <center>
-                                    <H4>รหัสตั๋ว : <label id="ticketCode-label">....</label></H4>
+                                    <H4>รหัสการจอง : <label id="ticketCode-label">....</label></H4>
                                     <hr>
                                     <div id="topic">รายชื่อลูกค้า :</div><label id="fristName-label"><button class="btn btn-link">ดูรายชื่อ</button></label>
                                     <!-- <div id="topic">นามสกุล :</div> <label id="lastName-label">....</label><br> -->
@@ -105,6 +105,7 @@ require 'navbar.php';
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                        <th scope="col">รหัสตั๋ว</th>
                                         <th scope="col">ชื่อ</th>
                                         <th scope="col">นามสกุล</th>
                                         <th scope="col">เบอร์โทรศัพ</th>

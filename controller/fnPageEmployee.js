@@ -6,7 +6,7 @@ const getListEmployee = async () => {
             let json = await response.json();
             for (let i = 0; i < json.length; i++) {
                 tbodyTable.innerHTML += "<tr><td>" + (i + 1) + "</td> <td>" + json[i].username + "</td>"
-                    + "<td>" + json[i].password + "</td> <td>" + json[i].emp_first_name + "</td> <td>" + json[i].emp_last_name + "</td> "
+                    + " <td>" + json[i].emp_first_name + "</td> <td>" + json[i].emp_last_name + "</td> "
                     + " <td>" + json[i].gender + "</td> <td>" + json[i].employee_category_name + "</td>"
                     + " <td><button id='btnEdit-" + i + "' class='btn btn-warning'>แก้ไข</button>  <button  id='btnDelte-" + i + "'  class='btn btn-danger'>ลบ</button> </td></tr>"
                 document.getElementById('btnEdit-' + i).setAttribute('onclick', 'getShowModalEditEmp("' + json[i].employee_id + '","' + json[i].username + '","' + json[i].password + '"'

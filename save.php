@@ -37,8 +37,6 @@ $listSeat = "asdsa";
         border-radius: 5px;
         /* display: none; */
     }
-
-
 </style>
 <script>
     var listSeat = []; //List Boat Seat ID
@@ -91,7 +89,7 @@ $listSeat = "asdsa";
                 <b>เลือกที่นั่งเรือของลูกค้า</b><br><br>
 
                 <div class="tableSet" id="tableFromBoatSeat">
-                  
+
                 </div>
                 <div id='container-btnFloor'>
                     <!-- <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
@@ -107,7 +105,7 @@ $listSeat = "asdsa";
                 listSeatNumber,
                 document.getElementById('select-Location_start').value,
                 document.getElementById('select-Location_end').value)">ตกลง</button><br>
-                <button class="form-control btn-danger"  onclick="setResetBoatSeatAll()">รีเซ็ต</button>
+                <button class="form-control btn-danger" onclick="setResetBoatSeatAll()">รีเซ็ต</button>
 
                 <br>
                 <!-- <div id="register-customer">

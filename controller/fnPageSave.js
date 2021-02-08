@@ -239,32 +239,32 @@ const getBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode, BoatSeatID)
                         continue;
                     }
                     if (json[i].ticket_status_id == 1) {
-                        if (ticketCode == json[i].ticket_code) {
+                        if (ticketCode == json[i].ticket_book_code) {
                             document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                             document.getElementById(json[i].boat_seat_id).setAttribute('class', 'bg-primary');
                             document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-                            document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
+                            document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสจอง : ' + json[i].ticket_book_code + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
                             continue;
                         }
                         document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                         document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', '#28a745');
                         document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
                         document.getElementById(json[i].boat_seat_id).setAttribute('class', '');
-                        document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
+                        document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสจอง : ' + json[i].ticket_book_code + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
                     }
                     else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
                         document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                         document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
                         document.getElementById(json[i].boat_seat_id).setAttribute('class', '');
                         document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-                        document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
+                        document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสจอง : ' + json[i].ticket_book_code + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
                     }
                     else if (json[i].ticket_status_id == 4) {
                         document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                         document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
                         document.getElementById(json[i].boat_seat_id).setAttribute('class', '');
                         document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
-                        document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
+                        document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสจอง : ' + json[i].ticket_book_code + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
                     }
                 }
             }
@@ -295,6 +295,11 @@ const setResetBoatSeatAll = async () => {
 
 const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination,employeeId) => {
     let json;
+    let listGender=[];
+    let listFirstName=[];
+    let listLastName=[];
+    let listPhoneNumber=[];
+
     for (let i = 0; i < listSeatNumber.length; i++) {
         if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
             return alert('กรุณา ระบุเพศของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
@@ -308,13 +313,13 @@ const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination,emp
     }
 
     try {
-        let response = await fetch('model/apiCheckTicketCode.php');
+        let response = await fetch('model/apiRandomTicketBookCode.php');
         json = await response.json();
     }
     catch (err) {
         return alert("Error Ticker Code เกิดข้อผิดพลาด !!\n " + err + "");
     }
-
+   
     for (let i = 0; i < listSeatNumber.length; i++) {
         let gender;
         if (document.getElementById('genderM-' + i + '').checked == true) {
@@ -323,43 +328,47 @@ const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination,emp
         else if (document.getElementById('genderF-' + i + '').checked == true) {
             gender = "Female";
         }
+        listGender.push(gender);
+        listFirstName.push(document.getElementById('fristName-' + i + '').value);
+        listLastName.push(document.getElementById('lastName-' + i + '').value);
+        listPhoneNumber.push(document.getElementById('phoneNumber-' + i + '').value);
+    }
+    let detailCustomer = {
+        fristName: listFirstName,
+        lastName: listLastName,
+        phoneNumber: listPhoneNumber,
+        gender: listGender,
+        date: document.getElementById('date').value,
+        listSeat: listSeat,
+        ticketStatus: 1,
+        ticketBookCode: json,
+        orgin: orgin,
+        destination: destination,
+        empId: employeeId,
+        totalPrice : ticketPrice * listSeat.length
+    }
+    try {
+        let response = await fetch('model/apiSaveTicket.php', {
+            method: "POST",
+            body: JSON.stringify(detailCustomer),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
 
-        let detailCustomer = {
-            fristName: document.getElementById('fristName-' + i + '').value,
-            lastName: document.getElementById('lastName-' + i + '').value,
-            phoneNumber: document.getElementById('phoneNumber-' + i + '').value,
-            gender: gender,
-            date: document.getElementById('date').value,
-            ticketID: listSeat[i],
-            ticketStatus: 1,
-            ticketCode: json,
-            orgin: orgin,
-            destination: destination,
-            empId: employeeId
+        const text = await response.text();
+        if (text == 'true') {
+            await $('#myModal').modal('hide');
+            await getShowResultBuyTicket(json);
         }
-        try {
-            let response = await fetch('model/apiSaveTicket.php', {
-                method: "POST",
-                body: JSON.stringify(detailCustomer),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-
-            const text = await response.text();
-            if (text == 'true') {
-                await $('#myModal').modal('hide');
-                await getShowResultBuyTicket(json);
-            }
-            else {
-                alert("บันทึกข้อมูลไม่สำเร็จ");
-                return;
-            }
-        } catch (e) {
-            alert("Error " + e);
-            location.reload();
+        else {
+            alert("บันทึกข้อมูลไม่สำเร็จ");
             return;
         }
+    } catch (e) {
+        alert("Error " + e);
+        location.reload();
+        return;
     }
 }
 
@@ -369,7 +378,7 @@ const getShowResultBuyTicket = async (ticketCode) => {
 
     document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-success');
     document.getElementById('txtModalHeader').innerHTML = "<h4>ผลลัพธ์การซื้อตั๋ว : สำเร็จ</h4>";
-    document.getElementById('txtTicketCode').innerHTML = "รหัสตั๋ว : " + ticketCode;
+    document.getElementById('txtTicketCode').innerHTML = "รหัสการจอง : " + ticketCode;
     try {
         let response = await fetch('model/apiGetTicket.php', {
             method: "POST",
@@ -379,23 +388,32 @@ const getShowResultBuyTicket = async (ticketCode) => {
             }
         });
         json = await response.json();
+     
+        if(json.length <= 0){
+            document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-danger');
+            document.getElementById('txtModalHeader').innerHTML = "<h4>ผลลัพธ์การซื้อตั๋ว : ไม่สำเร็จ</h4>";
+            document.getElementById('txtTicketCode').innerHTML = "โปรดลองใหม่อีกครั้ง หรือติดต่อผู้ดูแล";
+            await $('#result-buyTicket').modal({ backdrop: 'static', keyboard: false });
+            return;
+        }
+
         document.getElementById('detail-boat').innerHTML = "<tr>"
-            + "<td> หมายเลขเรือ : <u>" + json[0].boat_number + "</u></td> <td>ต้นทาง :<u> " + json[0][45] + "</u></td> <td>ปลายทาง : <u>" + json[0][47] + "</u></td> <td>วันออกเดินทาง : <u>" + getFormatYearDMY(json[0].travel_date) + "</u></td> </tr>"
+            + "<td> หมายเลขเรือ : <u>" + json[0].boat_number + "</u></td> <td>ต้นทาง : <u>" + json[0][49] + "</u></td> <td>ปลายทาง : <u>" + json[0][51] + "</u></td> <td>วันออกเดินทาง : <u>" + getFormatYearDMY(json[0].travel_date) + "</u></td> </tr>"
 
         for (let i = 0; i < json.length; i++) {
-            document.getElementById('detail-customer').innerHTML += "<tr>"
+            document.getElementById('detail-customer').innerHTML += "<tr><td><b><i>หมายเลขตั๋ว : " + json[i].ticket_code + "</b></i></td>"
                 + "<td> ชื่อ : " + json[i].cust_first_name + " " + json[i].cust_last_name + "</td> <td>เบอร์โทรศัพท์ : " + json[i].phone_number + "</td>"
                 + "<td>หมายเลขที่นั่งเรือ : " + json[i].boat_seat_number + "</td> <td>ชั้น : " + json[i].floor + "</td></tr>"
         }
 
-        document.getElementById('result-CountCustomer').innerHTML = listSeat.length
-        document.getElementById('result-priceSum').innerHTML = (ticketPrice*listSeat.length)
+        document.getElementById('result-CountCustomer').innerHTML = listSeat.length;
+        document.getElementById('result-priceSum').innerHTML = json[0].total_price;
 
 
     } catch (err) {
         document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-danger');
         document.getElementById('txtModalHeader').innerHTML = "<h4>ผลลัพธ์การซื้อตั๋ว : ไม่สำเร็จ</h4>";
-        document.getElementById('txtTicketCode').innerHTML = "รหัสตั๋ว : ล้มเหลว";
+        document.getElementById('txtTicketCode').innerHTML = "โปรดลองใหม่อีกครั้ง หรือติดต่อผู้ดูแล";
     }
     await $('#result-buyTicket').modal({ backdrop: 'static', keyboard: false });
 }

@@ -8,10 +8,14 @@ const getDetailCustomerFromTicketCode = async (ticketCode) => {
             }
         });
         let json = await response.json();
+        if(json.length <= 0){
+            alert("เกิดข้อผิดพลาด")
+            return;
+        }
         document.getElementById('fristName-label').setAttribute('onclick','getDialogListCustomerFromSlip("'+ticketCode+'")');
         // document.getElementById('lastName-label').innerHTML = json[0].cust_last_name;
         // document.getElementById('phone-label').innerHTML = json[0].phone_number;
-        document.getElementById('ticketCode-label').innerHTML = json[0].ticket_code;
+        document.getElementById('ticketCode-label').innerHTML = json[0].ticket_book_code;
         document.getElementById('ticketType-label').innerHTML = json[0].ticket_category_name;
         document.getElementById('employee-label').innerHTML = json[0].username;
         // document.getElementById('numberSeat-label').innerHTML = json[0].boat_seat_number;
@@ -31,9 +35,9 @@ const getDetailCustomerFromTicketCode = async (ticketCode) => {
 
 const setCancelTicket = async (ticketCode) => {
     try {
-        let cf = confirm('ยืนยันการยกเลิกตั๋ว : ' + ticketCode)
+        let cf = confirm('ยืนยันการยกเลิกการจองนี้ : ' + ticketCode)
         if (cf == true) {
-            let response = await fetch('model/apiSetCancelTicket.php', {
+            let response = await fetch('model/apiSetCancelTicketBook.php', {
                 method: "POST",
                 body: JSON.stringify({ ticketCode: ticketCode }),
                 headers: {
