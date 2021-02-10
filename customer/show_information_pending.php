@@ -46,7 +46,7 @@ include('header.php');
 
   <body class="has1">
      <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
-      รหัสการซื้อตั๋ว Ticket Book : <?php echo  $ticket_book ?> <span style="color:#F9D62E">(รอดำเนินการ)</span></h3>
+      รหัสจองตั๋ว Ticket Book : <?php echo  $ticket_book ?> <span style="color:#F9D62E">(รอดำเนินการ)</span></h3>
       <center>
       <form>
       

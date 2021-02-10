@@ -16,6 +16,7 @@ include('header.php');
   button[class="btn btn-danger"] {
     width: 49.5%;
     margin-bottom: 10px;
+    font-family: 'Kanit', sans-serif;
   }
 
 @media (max-width: 995px) {
@@ -30,9 +31,6 @@ include('header.php');
     width: 90%;
     margin-bottom: 10px;
   }
-  button[class="btn btn-danger"]{
-    width: 90%;
-  }
 }
 
 @media (max-width: 590px) {
@@ -46,7 +44,7 @@ include('header.php');
 
   <body class="has1">
      <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
-      รหัสการซื้อตั๋ว Ticket Book : <?php echo  $ticket_book ?> <span style="color:red">(ค้างชำระ)</span></h3>
+      รหัสจองตั๋ว Ticket Book : <?php echo  $ticket_book ?> <span style="color:red">(ค้างชำระ)</span></h3>
       <center>
       <form>
       
