@@ -41,7 +41,7 @@ require 'navbar.php';
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table mr-1"></i>
-                    DataTable Example
+                    ข้อมูลลูกค้าทั้งหมด
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -95,7 +95,7 @@ require 'navbar.php';
                                                 </select></td>
                                         </tr>
                                         <tr>
-                                            <td scope="col" width="30%"><b>เบอร์โทรศัพ</b></td>
+                                            <td scope="col" width="30%"><b>เบอร์โทรศัพท์</b></td>
                                             <td><input id='text-phone' type="tel" value=""></td>
                                         </tr>
                                         <tr>
@@ -112,9 +112,9 @@ require 'navbar.php';
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id='btn-saveEdit' class="btn btn-success">Save</button>
+                                <button type="button" id='btn-saveEdit' class="btn btn-success">บันทึก</button>
 
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                             </div>
                         </div>
 

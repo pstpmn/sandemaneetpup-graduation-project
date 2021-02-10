@@ -40,13 +40,13 @@ require 'navbar.php';
     <main>
         <div class="container-fluid">
             <h1 class="mt-4">
-                <center>ยกเลิกตั๋ว</center>
+                <center>ยกเลิกการจองตั๋ว</center>
             </h1><br><br>
-            <input type="text" id="ticket-code" class="form-control" placeholder="รหัสตั๋วของลูกค้า"><br>
+            <input type="text" id="ticket-code" class="form-control" placeholder="กรุณาใส่รหัสการจอง"><br>
             <br><br><button class="form-control btn-success" onclick="getDetailCustomerFromTicketCode(
                 document.getElementById('ticket-code').value
-            )">Cancel</button>
-            <br><button class="form-control btn-danger">Reset</button>
+            )">ตรวจสอบรายละเอียด</button>
+            <br><button class="form-control btn-danger" onclick='setResetTickeBookCode()' >ลบข้อมูล</button>
         </div>
 
         <div class="container">
@@ -56,15 +56,15 @@ require 'navbar.php';
                     <!-- Modal content-->
                     <div class="modal-content" style="overflow: auto;">
                         <div class="modal-header alert alert-danger">
-                            <h4 id="dialog-ticketCode">รายละเอียดตั๋วลูกค้า</h4>
+                            <h4 id="dialog-ticketCode">รายละเอียดการจองของลูกค้า</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body" id="modal-body-editTicket" style="overflow: auto;">
                             <div id="detail-customer">
                                 <center>
-                                    <H4>รหัสการจอง : <label id="ticketCode-label">....</label></H4>
+                                        <H4>รหัสการจอง : <label id="ticketCode-label">....</label> </H4>
                                     <hr>
-                                    <div id="topic">รายชื่อลูกค้า :</div><label id="fristName-label"><button class="btn btn-link">ดูรายชื่อ</button></label>
+                                    <div id="topic">รายชื่อลูกค้า :</div><label id="fristName-label"><button class="btn btn-link">เปิดรายชื่อ</button></label>
                                     <!-- <div id="topic">นามสกุล :</div> <label id="lastName-label">....</label><br> -->
                                     <!-- <div id="topic">เบอร์โทร : </div><label id="phone-label">....</label> -->
                                     <div id="topic">ประเภทตั๋ว : </div><label id="ticketType-label">....</label><br>
@@ -81,8 +81,8 @@ require 'navbar.php';
                         <div id="modal-footer" class="modal-footer">
                             <button class="btn btn-success" onclick="setCancelTicket(
                             document.getElementById('ticketCode-label').textContent
-                        )">confrim</button>
-                            <br><button class="btn btn-danger" data-dismiss="modal">cancel</button>
+                        )">ยืนยันการยกเลิก</button>
+                            <br><button class="btn btn-danger"  data-dismiss="modal">ปิด</button>
                         </div>
                     </div>
 
@@ -91,12 +91,12 @@ require 'navbar.php';
         </div>
 
 
-        <div class="container">
+        <div class="container" style="overflow: auto;">
             <!-- Modal -->
-            <div class="modal fade" id="dialogListCustomer" role="dialog">
-                <div class="modal-dialog">
+            <div class="modal fade" id="dialogListCustomer" role="dialog" style="overflow: auto;">
+                <div class="modal-dialog " >
                     <!-- Modal content-->
-                    <div class="modal-content">
+                    <div class="modal-content" style="overflow: auto;">
                         <div class="modal-header">
                             <h4 id="dialog-ticketCode">รายชื่อลูกค้า</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -118,7 +118,7 @@ require 'navbar.php';
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                         </div>
                     </div>
 

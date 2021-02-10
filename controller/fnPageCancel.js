@@ -12,6 +12,7 @@ const getDetailCustomerFromTicketCode = async (ticketCode) => {
             alert("เกิดข้อผิดพลาด")
             return;
         }
+        if(json[0].ticket_status_id == 3)return alert("รหัสการจองนี้ได้ถูกยกเลิกแล้ว !!");
         document.getElementById('fristName-label').setAttribute('onclick','getDialogListCustomerFromSlip("'+ticketCode+'")');
         // document.getElementById('lastName-label').innerHTML = json[0].cust_last_name;
         // document.getElementById('phone-label').innerHTML = json[0].phone_number;
@@ -51,4 +52,8 @@ const setCancelTicket = async (ticketCode) => {
     catch (err) {
         alert(err)
     }
+}
+
+const setResetTickeBookCode = () =>{
+    document.getElementById('ticket-code').value = "";
 }

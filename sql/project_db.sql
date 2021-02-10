@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2021 at 06:41 PM
+-- Generation Time: Feb 10, 2021 at 05:00 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -38,8 +38,7 @@ CREATE TABLE `boat` (
 
 INSERT INTO `boat` (`boat_number`, `boat_name`) VALUES
 (1, 'เรือนอนสุราษฎร์ธานี'),
-(111, 'เรือนอนสุราษฎร์ธานี	- เกาะเต่า'),
-(222, 'ทดสอบ');
+(111, 'เรือนอนสุราษฎร์ธานี	- เกาะเต่า');
 
 -- --------------------------------------------------------
 
@@ -328,57 +327,7 @@ INSERT INTO `boat_seat` (`boat_seat_id`, `boat_seat_number`, `boat_seat_type`, `
 (264, 46, 'R', '2', 111),
 (265, 47, 'R', '2', 111),
 (266, 48, 'R', '2', 111),
-(267, 49, 'R', '2', 111),
-(682, 1, 'L', '1', 222),
-(683, 2, 'L', '1', 222),
-(684, 3, 'L', '1', 222),
-(685, 4, 'L', '1', 222),
-(686, 5, 'L', '1', 222),
-(687, 6, 'L', '1', 222),
-(688, 7, 'L', '1', 222),
-(689, 8, 'L', '1', 222),
-(690, 9, 'L', '1', 222),
-(691, 10, 'L', '1', 222),
-(692, 11, 'L', '1', 222),
-(693, 12, 'L', '1', 222),
-(694, 13, 'L', '1', 222),
-(695, 14, 'L', '1', 222),
-(696, 15, 'L', '1', 222),
-(697, 16, 'L', '1', 222),
-(698, 17, 'L', '1', 222),
-(699, 18, 'L', '1', 222),
-(700, 19, 'L', '1', 222),
-(701, 20, 'L', '1', 222),
-(702, 21, 'L', '1', 222),
-(703, 22, 'L', '1', 222),
-(704, 23, 'L', '1', 222),
-(705, 24, 'L', '1', 222),
-(706, 25, 'L', '1', 222),
-(707, 26, 'L', '1', 222),
-(708, 27, 'L', '1', 222),
-(709, 28, 'L', '1', 222),
-(710, 29, 'L', '1', 222),
-(711, 30, 'L', '1', 222),
-(712, 31, 'L', '1', 222),
-(713, 32, 'L', '1', 222),
-(714, 33, 'L', '1', 222),
-(715, 34, 'L', '1', 222),
-(716, 35, 'L', '1', 222),
-(717, 36, 'L', '1', 222),
-(718, 37, 'L', '1', 222),
-(719, 38, 'L', '1', 222),
-(720, 39, 'L', '1', 222),
-(721, 40, 'L', '1', 222),
-(722, 41, 'L', '1', 222),
-(723, 42, 'L', '1', 222),
-(724, 43, 'L', '1', 222),
-(725, 44, 'L', '1', 222),
-(726, 45, 'L', '1', 222),
-(727, 46, 'L', '1', 222),
-(728, 47, 'L', '1', 222),
-(729, 48, 'L', '1', 222),
-(730, 49, 'L', '1', 222),
-(731, 50, 'L', '1', 222);
+(267, 49, 'R', '2', 111);
 
 -- --------------------------------------------------------
 
@@ -421,10 +370,23 @@ CREATE TABLE `buy_ticket` (
 --
 
 INSERT INTO `buy_ticket` (`buy_ticket_id`, `customer_id`, `boat_seat_id`, `check_in`, `check_out`, `ticket_code`, `ticket_book_id`) VALUES
-(534, 147, 11, NULL, NULL, '824692283291', 58),
-(547, 147, 21, NULL, NULL, '991693482793', 56),
-(550, 147, 25, NULL, NULL, '322717021935', 56),
-(551, 147, 145, NULL, NULL, '661258064845', 56);
+(557, 150, 10, '2021-02-10 22:58:37', NULL, '109336006317', 67),
+(560, 162, 14, NULL, NULL, '058689532835', 69),
+(561, 162, 16, NULL, NULL, '763811443767', 69),
+(562, 162, 21, NULL, NULL, '075499834988', 68),
+(566, 147, 20, NULL, NULL, '171005673481', 68),
+(567, 147, 23, '2021-02-10 22:55:48', NULL, '410209833068', 68),
+(568, 150, 33, NULL, NULL, '383466120599', 68),
+(569, 147, 27, NULL, NULL, '658173781910', 68),
+(570, 147, 31, NULL, NULL, '541065040195', 68),
+(571, 147, 35, NULL, NULL, '883726648852', 68),
+(572, 147, 26, NULL, NULL, '131051688591', 68),
+(573, 147, 10, NULL, NULL, '176011203475', 68),
+(574, 147, 15, NULL, NULL, '002003904607', 68),
+(575, 147, 39, NULL, NULL, '568723781670', 68),
+(576, 147, 22, NULL, NULL, '917638297209', 68),
+(577, 147, 29, NULL, NULL, '701623577405', 68),
+(578, 147, 13, NULL, NULL, '588894257219', 68);
 
 -- --------------------------------------------------------
 
@@ -447,10 +409,10 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `phone_number`, `register_time`, `gender`, `count`) VALUES
-(147, 'qwe', 'asd', '', '2021-02-07 18:03:41', 'Male', 52),
+(147, 'qwe', 'asd', '0980173318', '2021-02-07 18:03:41', 'Male', 72),
 (148, 'eqw', 'asdsa', '', '2021-02-07 18:03:41', 'Male', 1),
 (149, 'eqw', 'qwe', '', '2021-02-07 18:04:10', 'Male', 2),
-(150, 'asd', 'qwe', '', '2021-02-07 18:13:27', 'Male', 8),
+(150, 'asd', 'qwe', '', '2021-02-07 18:13:27', 'Male', 11),
 (151, 'a', 'qqwe', '', '2021-02-07 18:41:47', 'Male', 1),
 (152, 'qwe', 'qwe', '', '2021-02-07 18:42:02', 'Male', 5),
 (153, 'a', 'a', '', '2021-02-07 18:42:50', 'Male', 5),
@@ -461,7 +423,8 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (158, 'พงศธร', 'พัสมุณี', '0980173318', '2021-02-08 14:50:32', 'Male', 1),
 (159, 'เฟรมเฟรมเฟรม', 'ฟิวฟิวฟิว', '098073318', '2021-02-08 14:50:32', 'Male', 1),
 (160, 'qwe', 'asdsaw', '', '2021-02-08 15:08:25', 'Male', 1),
-(161, 'qew', 'asd', '', '2021-02-08 17:33:31', 'Male', 1);
+(161, 'qew', 'asd', '', '2021-02-08 17:33:31', 'Male', 1),
+(162, 'ๆไำ', 'ฟหก', '', '2021-02-10 13:18:23', 'Male', 4);
 
 -- --------------------------------------------------------
 
@@ -589,17 +552,18 @@ CREATE TABLE `ticket_book` (
   `orgin` int(2) NOT NULL,
   `destination` int(2) NOT NULL,
   `ticket_category_id` int(2) NOT NULL,
-  `total_price` float DEFAULT NULL
+  `total_price` float DEFAULT NULL,
+  `reason_cancel` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ticket_book`
 --
 
-INSERT INTO `ticket_book` (`ticket_book_id`, `ticket_book_code`, `employee_id`, `time_buy_ticket`, `time_up_slip`, `travel_date`, `ticket_status_id`, `deadline_book`, `payment_time`, `slip_img`, `payment_bank`, `payment_amount`, `orgin`, `destination`, `ticket_category_id`, `total_price`) VALUES
-(56, 'B368783649297', 19, '2021-02-08 22:21:31', NULL, '2021-02-08', 1, '2021-02-10 08:26:31', NULL, NULL, NULL, NULL, 1, 2, 1, 100),
-(57, 'B356117215952', 19, '2021-02-08 22:22:24', '2021-02-20 00:30:00', '2021-02-08', 1, '2021-02-10 08:27:24', NULL, NULL, NULL, NULL, 1, 2, 1, 100),
-(58, 'B546526759475', 19, '2021-02-08 22:22:41', NULL, '2021-02-08', 1, '2021-02-10 08:27:41', NULL, NULL, NULL, NULL, 1, 2, 1, 100);
+INSERT INTO `ticket_book` (`ticket_book_id`, `ticket_book_code`, `employee_id`, `time_buy_ticket`, `time_up_slip`, `travel_date`, `ticket_status_id`, `deadline_book`, `payment_time`, `slip_img`, `payment_bank`, `payment_amount`, `orgin`, `destination`, `ticket_category_id`, `total_price`, `reason_cancel`) VALUES
+(67, 'B295215410601', 19, '2021-02-10 17:42:24', '2021-02-11 17:52:00', '2021-02-10', 1, '2021-02-12 03:47:24', NULL, NULL, NULL, NULL, 1, 2, 1, 100, NULL),
+(68, 'B174987434955', 19, '2021-02-10 17:42:32', '2021-02-20 17:42:00', '2021-02-10', 1, '2021-02-12 03:47:32', NULL, NULL, NULL, NULL, 1, 2, 1, 1400, NULL),
+(69, 'B561851828192', 19, '2021-02-10 20:20:47', NULL, '2021-02-10', 1, '2021-02-12 06:25:47', NULL, NULL, NULL, NULL, 1, 2, 1, 200, NULL);
 
 -- --------------------------------------------------------
 
@@ -772,13 +736,13 @@ ALTER TABLE `book_time`
 -- AUTO_INCREMENT for table `buy_ticket`
 --
 ALTER TABLE `buy_ticket`
-  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=552;
+  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=579;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT for table `dayoff`
@@ -808,13 +772,13 @@ ALTER TABLE `employee_category`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `location_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `location_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ticket_book`
 --
 ALTER TABLE `ticket_book`
-  MODIFY `ticket_book_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `ticket_book_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `ticket_category`

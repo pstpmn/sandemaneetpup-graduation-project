@@ -11,7 +11,9 @@ const btnSelectCheckInAndOut = (dom) => {
     }
 }
 
-
+const setReset = () =>{
+    document.getElementById('barcode').value ="";
+}
 
 const getValidateSelectButtomCheckIn = () => {
     let checkIn_or_checkout;
@@ -103,6 +105,8 @@ const getListTicketCode = async (ticketCode) => {
         });
         let json = await response.json();
         
+        if(json[0].ticket_status_id == 3)return alert('รหัสการจองนี้ มีสถานะถูกยกเลิก !!');
+
         document.getElementById('tbody-modal').innerHTML = "";
         let countCustomerFound = [];
         if (json.length > 1) {
@@ -110,7 +114,7 @@ const getListTicketCode = async (ticketCode) => {
                 if (checkIn_or_checkout == "checkIn") {
                     if (json[count].check_in == null) {
                         document.getElementById('tbody-modal').innerHTML += "<tr><th scope='row'><input type='checkbox' id='checkbox-" + json[count].buy_ticket_id + "' value='" + json[count].buy_ticket_id + "'></th>"
-                            + "<td>" + json[count].cust_first_name + "</td>"
+                            + "<td>" + json[count].cust_first_name +" "+json[count].cust_last_name +"</td>"
                             + "<td>" + json[count].boat_seat_number + "</td>"
                             + "<td>" + json[count].boat_number + "</td></tr>"
                         countCustomerFound.push(json[count].buy_ticket_id);

@@ -16,13 +16,11 @@ const getShowChangeBoatSeat = async (ticketCode, numBerBoat, travelDate, origin,
 }
 
 const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destination, empId) => {
-////////////////////////
-
-    let json;
     let listGender=[];
     let listFirstName=[];
     let listLastName=[];
     let listPhoneNumber=[];
+    let newTotalPrice = 0;
 
     for (let i = 0; i < listSeatNumber.length; i++) {
         if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
@@ -48,6 +46,7 @@ const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destinatio
         listFirstName.push(document.getElementById('fristName-' + i + '').value);
         listLastName.push(document.getElementById('lastName-' + i + '').value);
         listPhoneNumber.push(document.getElementById('phoneNumber-' + i + '').value);
+        newTotalPrice += parseInt(ticketPrice)
     }
     let detailCustomer = {
         fristName: listFirstName,
@@ -61,7 +60,7 @@ const saveTicketAddCustomer = async (listSeat, listSeatNumber, orgin, destinatio
         orgin: orgin,
         destination: destination,
         empId: empId,
-        totalPrice : ticketPrice * listSeat.length
+        totalPrice : newTotalPrice + countCustomerOld
     }
     try {
         let response = await fetch('model/apiAddSaveTicket.php', {
@@ -109,10 +108,10 @@ const getListTicketEdit = async () => {
             }
 
             domTbodyTable.innerHTML += "<tr>"
-                + "<td><button class='btn btn-link' id='ticketCode-" + i + "'>" + json[i].ticket_book_code + "</button></td> <td><button class='btn btn-link' id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</button></td>"
-                + "<td> <button  id='btn-diolog-customer-" + i + "' class='btn btn-link'>ดูรายการ</button></td> <td ><button  class='btn btn-link' id='emp-" + i + "'>" + json[i].username + "</button></td>"
+                + "<td><button class='btn btn-link' id='ticketCode-" + i + "'>" + json[i].ticket_book_code + "</button></td>"
+                + "<td> <button class='btn btn-link' id='ticketType-" + i + "'>" + json[i].ticket_category_name + "</button> </td> <td ><button  class='btn btn-link' id='emp-" + i + "'>" + json[i].username + "</button></td>"
                 + "<td><button class='btn btn-link' id='timeBuyTicket-" + i + "'>" + getFormatYearDMYHIS(json[i].time_buy_ticket) + "</button></td> <td <button  class='btn btn-link' id='deadLineBook-" + i + "'>" + getFormatYearDMYHIS(json[i].deadline_book) + "</button></td> <td><button class='btn btn-link' id='travelDate-" + i + "'>" + getFormatYearDMYHIS(json[i].travel_date) + "</button></td>"
-                + "<td><button class='btn btn-link' id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</button></td> <td>" + img + "</td> <td><button class='btn btn-link' id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</button> </td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
+                + "<td><button class='btn btn-link' id='ticketStatus-" + i + "'>" + json[i].ticket_status_name + "</button></td> <td>" + img + "</td> <td><button class='btn btn-link' id='timeUpSlip-" + i + "'>" + json[i].time_up_slip + "</button> </td><td><button  id='btn-diolog-customer-" + i + "' class='btn btn-info'>เปิด</button></td><td> <button id='btnDelete-" + i + "' class='btn btn-danger'>ลบ</button></td>"
                 + "</tr>";
 
             //setting Event Tag <p> Use double Click 
@@ -298,7 +297,7 @@ const getShowModalEditTicketCode = (id) => {
     document.getElementById('modal-body-editTicket').innerHTML += "รหัสตั๋ว <input type='tell' id='ticketCode-modal-edit' readonly='readonly' class='form-control' value=" + id + ">"
     document.getElementById('modal-body-editTicket').innerHTML += "<button onclick='getSearchTicketCode()' id='searchTicketCode' class='btn btn-warning btn-sm'>สุ่มรหัสตั๋ว</button>";
     document.getElementById('searchTicketCode').style.margin = "10px 0px"
-    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-danger'>Reset</button> "
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditTicketCode("' + id + '")')
     $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
@@ -322,7 +321,7 @@ const getModalEditTicketType = async (ticketType, ticketCode) => {
             node.appendChild(option);
         }
         document.getElementById('modal-body-editTicket').appendChild(node);
-        document.getElementById('modal-footer').innerHTML = "<button id='btnRecord'class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+        document.getElementById('modal-footer').innerHTML = "<button id='btnRecord'class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
         document.getElementById('btnRecord').setAttribute('onclick', 'setEditTicketType("' + ticketCode + '")')
     } catch (err) {
         alert("Error modal get Ticket Catagory : " + err)
@@ -340,7 +339,7 @@ const getShowModalEditEmployee = async (emp, ticketCode) => {
         document.getElementById('modal-body-editTicket').innerHTML = "เลือกพนักงาน";
         for (let i = 0; i < json.length; i++) {
             var option = document.createElement("option");
-            option.text = json[i].emp_first_name + "  " + json[i].emp_last_name;
+            option.text = json[i].emp_first_name + "  " + json[i].emp_last_name +" ("+json[i].username+") ";
             option.value = json[i].employee_id;
             if (emp == json[i].emp_first_name) {
                 option.selected = true;
@@ -348,7 +347,7 @@ const getShowModalEditEmployee = async (emp, ticketCode) => {
             node.appendChild(option);
         }
         document.getElementById('modal-body-editTicket').appendChild(node);
-        document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+        document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
         document.getElementById('btnRecode').setAttribute('onclick', 'setEditEmployee("' + ticketCode + '")')
     } catch (err) {
         alert("Error modal get Employee : " + err)
@@ -360,7 +359,7 @@ const getShowModalEditEmployee = async (emp, ticketCode) => {
 const getShowModalBuyTicketTime = async (ticketCode) => {
     document.getElementById('modal-body-editTicket').innerHTML = "";
     document.getElementById('modal-body-editTicket').innerHTML = "วันที่ซื้อตั๋ว <input id='inputBuyTicket' type='datetime-local' class='form-control' value=''>"
-    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode'class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode'class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditTimeBuyTicket("' + ticketCode + '")')
     $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
@@ -368,7 +367,7 @@ const getShowModalBuyTicketTime = async (ticketCode) => {
 const getShowModalDeadline = async (ticketCode) => {
     document.getElementById('modal-body-editTicket').innerHTML = "";
     document.getElementById('modal-body-editTicket').innerHTML = "กำหนดเวลาจอง <input id='inputTimeDeadline'type='datetime-local' class='form-control' value=''>"
-    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditDeadlineBook("' + ticketCode + '")')
     $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
@@ -376,7 +375,7 @@ const getShowModalDeadline = async (ticketCode) => {
 const getShowModalTravelDate = async (travelTime, ticketCode) => {
     document.getElementById('modal-body-editTicket').innerHTML = "";
     document.getElementById('modal-body-editTicket').innerHTML = "วันที่ขึ้นเรือ <input id='inputDateTravel' type='date' class='form-control' value=" + travelTime + ">"
-    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditTravelTime("' + ticketCode + '")')
     $("#dialog-TicketEdit").modal();
 }
@@ -399,7 +398,7 @@ const getShowModalTicketStatus = async (ticketStatus, ticketCode) => {
             node.appendChild(option);
         }
         document.getElementById('modal-body-editTicket').appendChild(node);
-        document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+        document.getElementById('modal-footer').innerHTML = "<button id='btnRecode' class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
         document.getElementById('btnRecode').setAttribute('onclick', 'setEditTicketStatus("' + ticketCode + '")')
     } catch (err) {
         alert("Error modal get Employee : " + err)
@@ -411,13 +410,14 @@ const getShowModalTicketStatus = async (ticketStatus, ticketCode) => {
 const getShowModalTimeUpSlip = async (ticketCode) => {
     document.getElementById('modal-body-editTicket').innerHTML = "";
     document.getElementById('modal-body-editTicket').innerHTML = "เวลาอัพสลิป <input id='inputUpSlipTime' type='datetime-local' class='form-control' value=''>"
-    document.getElementById('modal-footer').innerHTML = "<button  id='btnRecode' class='btn btn-success'>Recode</button> <button class='btn btn-warning'>Reset</button> "
+    document.getElementById('modal-footer').innerHTML = "<button  id='btnRecode' class='btn btn-success'>บันทึก</button> <button data-dismiss='modal' class='btn btn-danger'>ปิด</button> "
     document.getElementById('btnRecode').setAttribute('onclick', 'setEditUpSlipTime("' + ticketCode + '")')
     $("#dialog-TicketEdit").modal({ backdrop: 'static', keyboard: false });
 }
 
 const getShowModalEditListCustomerFromTicket = async (ticketCode) => {
     try {
+        countCustomerOld = 0;
         let response = await fetch('model/apiGetTicket.php', {
             method: "POST",
             body: JSON.stringify({ ticketCode: ticketCode }),
@@ -434,12 +434,12 @@ const getShowModalEditListCustomerFromTicket = async (ticketCode) => {
         document.getElementById('addCustomer-TicketEdit').setAttribute('onclick', 'getShowTicketAddCustomer("' + ticketCode + '","' + json[0].boat_number + '","' + json[0].travel_date + '","' + json[0].orgin + '","' + json[0].destination + '")')
 
         for (let i = 0; i < json.length; i++) {
-            document.getElementById('tbody-modal').innerHTML += "<tr><td>" + json[i].ticket_book_code + "</td>"
+            document.getElementById('tbody-modal').innerHTML += "<tr><td>" + json[i].ticket_code + "</td>"
                 + "<td>" + json[i].cust_first_name + "</td> <td>" + json[i].cust_last_name + "</td> <td>" + json[i].phone_number + "</td> <td>" + json[i].boat_seat_number + "</td>"
                 + "<td><botton id='btnChangeBoatSeat-" + json[i].buy_ticket_id + "'class='btn btn-warning'>เปลียนที่นั่งเรือ</botton> <botton id='btnDeleteCustomerTicker-" + json[i].buy_ticket_id + "'class='btn btn-danger'>ลบ</botton> </td></tr>";
             document.getElementById('btnDeleteCustomerTicker-' + json[i].buy_ticket_id).setAttribute('onclick', 'setEditDeleteCustomer("' + json[i].buy_ticket_id + '","' + ticketCode + '")')
             document.getElementById('btnChangeBoatSeat-' + json[i].buy_ticket_id).setAttribute('onclick', 'getShowChangeBoatSeat("' + ticketCode + '","' + json[i].boat_number + '","' + json[i].travel_date + '","' + json[i].orgin + '","' + json[i].destination + '",' + json[i].boat_seat_id + ',"'+json[i].ticket_code+'")')
-
+            countCustomerOld += parseInt(ticketPrice);
         }
         document.getElementById('tbody-modal').innerHTML += "<tr><td style='text-align:right;' colspan='6'>จำนวนลูกค้า : " + json.length + "</td></tr>"
         $("#dialogListCustomer").modal({ backdrop: 'static', keyboard: false });

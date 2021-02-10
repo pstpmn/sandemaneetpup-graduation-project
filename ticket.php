@@ -32,6 +32,7 @@ require 'navbar.php';
     }
 </style>
 <script>
+    var countCustomerOld;
     var ticketPrice; // set price
     getTicketPrice(1);
 </script>
@@ -39,13 +40,13 @@ require 'navbar.php';
     <main>
         <div class="container-fluid">
             <h1 class="mt-4">
-                <center>จัดการข้อมูลตั๋วลูกค้า</center>
+                <center>จัดการข้อมูลตั๋ว</center>
             </h1>
             <br><br>
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table mr-1"></i>
-                    DataTable Example
+                    ข้อมูลการซื้อตั๋วลูกค้าทั้งหมด
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -54,7 +55,6 @@ require 'navbar.php';
                                 <tr>
                                     <th>รหัสการจอง</th>
                                     <th>ประเภทตั๋ว</th>
-                                    <th>รายละเอียดตั๋ว</th>
                                     <th>พนักงาน</th>
                                     <th>เวลาซื้อตั๋ว</th>
                                     <th>สิ้นสุดเวลาจอง</th>
@@ -62,6 +62,7 @@ require 'navbar.php';
                                     <th>สถานะ</th>
                                     <th>รูปภาพสลิป</th>
                                     <th>เวลาอัพสลิป</th>
+                                    <th>ดูข้อมูลเพิ่มเติม</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -75,15 +76,40 @@ require 'navbar.php';
 
             <div class="container">
                 <!-- Modal -->
-                <div class="modal fade" id="dialogListCustomer" role="dialog">
+                <div class="modal fade" id="dialogListCustomer" role="dialog" style="height:90%; overflow: auto;">
                     <div class="modal-dialog modal-lg">
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 id="dialog-ticketCode">รายชื่อลูกค้า</h4>
+                                <h4 id="dialog-ticketCode">รายละเอียดตั๋วและเรือ</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body" id="modal-body-slip" style="overflow: auto;">
+                            <center><h4>ข้อมูลเกี่ยวกับเรือ</h4></center><br>
+                                ต้นทาง <select id='select-Location_start' disabled class='custom-select' onchange="getSearchBoat(
+                document.getElementById('select-Location_start').value,
+                document.getElementById('select-Location_end').value
+                )">
+
+                                </select>
+                                <br><br>
+                                ปลายทาง <select id='select-Location_end' disabled class='custom-select' onchange="getSearchBoat(
+                document.getElementById('select-Location_start').value,
+                document.getElementById('select-Location_end').value
+                )">
+
+                                </select>
+                                <script>
+                                    getSelectLocation();
+                                </script>
+                                <br> <br>
+                                หมายเลขเรือ <select id='boat-number' disabled class='custom-select'>
+                                    <option>!!! เลือกต้นทาง และปลายทาง ก่อนถึงจะแสดง !!!</option>
+                                </select>
+                                <br><br>
+                                วันที่ออกเดินทาง
+                                <input type='date' id='date' class="form-control" disabled value="<?php echo date('Y-m-d') ?>">
+                                <br>
                                 <div id='addCustomer-TicketEdit'></div>
                                 <table class="table table-bordered" style="text-align: center;">
                                     <thead>
@@ -101,7 +127,7 @@ require 'navbar.php';
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                             </div>
                         </div>
 
@@ -113,7 +139,7 @@ require 'navbar.php';
 
             <div class="container">
                 <!-- Modal -->
-                <div class="modal fade" id="dialog-TicketEdit" role="dialog">
+                <div class="modal fade" id="dialog-TicketEdit" role="dialog" style="height:90%; overflow: auto;">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content" style="overflow: auto;">
@@ -139,7 +165,7 @@ require 'navbar.php';
             <!-- show select Boat Seat -->
             <div class="container">
                 <!-- Modal -->
-                <div class="modal fade" id="dialog-showAddTicket" role="dialog">
+                <div class="modal fade" id="dialog-showAddTicket" role="dialog" style="height:90%; overflow: auto;">
                     <div class="modal-dialog modal-xl">
                         <!-- Modal content-->
                         <div class="modal-content" style="overflow: auto;">
@@ -150,7 +176,7 @@ require 'navbar.php';
                             <div class="modal-body" id="modal-body-editTicket">
                                 <h1 id='header-addCustomer' class="mt-4">
                                 </h1>
-                                ต้นทาง <select id='select-Location_start' disabled class='custom-select' onchange="getSearchBoat(
+                                <!-- ต้นทาง <select id='select-Location_start' disabled class='custom-select' onchange="getSearchBoat(
                 document.getElementById('select-Location_start').value,
                 document.getElementById('select-Location_end').value
                 )">
@@ -180,7 +206,7 @@ require 'navbar.php';
                 document.getElementById('date').value,
                 document.getElementById('select-Location_start').value,
                 document.getElementById('select-Location_end').value
-                )">ค้นหาที่นั่งเรือ</button>
+                )">ค้นหาที่นั่งเรือ</button> -->
 
 
                                 <br><br><br>
@@ -274,8 +300,8 @@ require 'navbar.php';
                                     listSeatNumber,
                                     document.getElementById('select-Location_start').value,
                                     document.getElementById('select-Location_end').value,
-                                    <?php echo $_SESSION['empId']; ?>)">Save</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <?php echo $_SESSION['empId']; ?>)">บันทึก</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                             </div>
                         </div>
 

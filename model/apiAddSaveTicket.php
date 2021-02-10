@@ -8,6 +8,7 @@ $database = new database(IP, DBNAME, USER, PASS);
 
 
 $ticketBookId = $database->select('select ticket_book_id from ticket_book where ticket_book_code = "' . $input['ticketBookCode'] . '"');
+$database->select('update ticket_book set total_price = '.$input['totalPrice'].' where ticket_book_code = "' . $input['ticketBookCode'] . '"');
 
 for ($i = 0; $i < count($input['listSeat']); $i++) {
     // ตรวจสอบจำนวนการใช้งานของลูกค้า

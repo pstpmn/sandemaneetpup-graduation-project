@@ -19,6 +19,8 @@ const btnSelectSlip = async (dom) => {
     }
 }
 
+
+
 const getSlipTranferMoney = async () => {
     let btnSlip = getBtnValidateSlip();
     try {
@@ -52,7 +54,7 @@ const getSlipTranferMoney = async () => {
                         + "<td></td></tr>"
                     document.getElementById('img-' + i).setAttribute('onclick', 'getImgSlip("' + json[i].slip_img + '")')
                     document.getElementById('img-' + i).style.cursor = 'zoom-in';
-                    document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getDialogListCustomerFromSlip("' + json[i].ticket_code + '")')
+                    document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getDialogListCustomerFromSlip("' + json[i].ticket_book_code + '")')
                 }
             }
 
@@ -68,7 +70,7 @@ const getSlipTranferMoney = async () => {
                         + "<td>"+json[i].reason_cancel +"</td></tr>"
                     document.getElementById('img-' + i).setAttribute('onclick', 'getImgSlip("' + json[i].slip_img + '")')
                     document.getElementById('img-' + i).style.cursor = 'zoom-in';
-                    document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getDialogListCustomerFromSlip("' + json[i].ticket_code + '")')
+                    document.getElementById('btn-diolog-customer-' + i + '').setAttribute('onclick', 'getDialogListCustomerFromSlip("' + json[i].ticket_book_code + '")')
                 }
             }
         }
@@ -142,7 +144,6 @@ const getDialogListCustomerFromSlip = async (ticketCode) => {
             }
         });
         let json = await response.json();
-        document.getElementById('dialog-ticketCode').innerHTML = "รายชื่อลูกค้า CODE : " + ticketCode;
         document.getElementById('tbody-modal').innerHTML = "";
         for (let i = 0; i < json.length; i++) {
             document.getElementById('tbody-modal').innerHTML += "<tr><td>" + json[i].ticket_code + "</td> "

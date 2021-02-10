@@ -44,7 +44,7 @@ require 'navbar.php';
     <main>
         <div class="container-fluid">
             <h1 class="mt-4">
-                <center>ระบบสแกน QR Code</center>
+                <center>ระบบ check in - check out <br>(สำหรับพนักงาน)</center>
             </h1><br><br>
             <button class="btn btn-success" id="btncheckIn" onclick="btnSelectCheckInAndOut(this)">check in</button>
             <button class="btn btn-warning" id="btncheckOut" onclick="btnSelectCheckInAndOut(this)">check out</button>
@@ -52,18 +52,18 @@ require 'navbar.php';
 
             <div class="card" id="fillBarCode">
                 <div class="card-body">
-                    <center>ใส่โค๊ดตรงนี้</center>
+                    <center>ใส่รหัสตั๋วตรงนี้</center>
                     <br>
-                    <input type="text" class="form-control" placeholder="รหัสตั๋วของลูกค้า" id="barcode">
+                    <input type="text" class="form-control" placeholder="โปรดใส่รหัสการจอง" id="barcode">
                     <br><br><button class="form-control btn-success" id="btnScan" onclick="getListTicketCode(
                         document.getElementById('barcode').value
-                    )">Scan</button>
-                    <br><button id="reset" class="form-control btn-danger">Reset</button>
+                    )">ตรวจสอบ</button>
+                    <br><button  onclick="setReset()" class="form-control btn-danger">รีเซ็ต</button>
                 </div>
             </div>
             <div class="card" id="dataTicket">
                 <div class="card-body">
-                    <center>ข้อมูลตั๋วที่ผ่านการเช็คอิน</center><br>
+                    <center>ข้อมูลตั๋วผ่านการเช็คอินวันนี้</center><br>
                     <div id="scollbarTable">
                         <Table class="table table-bordered" style="text-align: center">
                             <thead>
@@ -72,7 +72,7 @@ require 'navbar.php';
                                     <td>ชื่อ</td>
                                     <td>นามสกุล</td>
                                     <td>ที่นั่ง</td>
-                                    <td>ชั่น</td>
+                                    <td>ชั้น</td>
                                     <td>หมายเลขเรือ</td>
                                     <td>check In</td>
                                     <td>check out</td>
@@ -121,8 +121,8 @@ require 'navbar.php';
                                 </center> -->
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-success" id="btn-checkIn-checkOut" onclick="checkBoxListCustomer()">Save</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button class="btn btn-success" id="btn-checkIn-checkOut" onclick="checkBoxListCustomer()">บันทึก</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                             </div>
                         </div>
 
