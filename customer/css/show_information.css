@@ -118,7 +118,7 @@ button[class="btn btn-danger"] {
 
 @media (max-width: 590px) {
     .has4 {
-        font-size: 22px;
+        font-size: 18px;
     }
     table {
         width: 90%;
@@ -137,7 +137,7 @@ button[class="btn btn-danger"] {
         font-size: 17px;
     }
     table {
-        font-size: 10px;
+        font-size: 12px;
     }
 }
 
