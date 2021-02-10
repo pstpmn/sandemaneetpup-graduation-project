@@ -29,7 +29,7 @@ const getTicketCheckIn = async () => {
     try {
         let ButtomCheckin = getValidateSelectButtomCheckIn();
         let timeCurrent = getConvertDateMonthYear(new Date());
-        let response = await fetch('model/apiGetTIcketAll.php');
+        let response = await fetch('model/apiGetTicketAll.php');
         let json = await response.json();
 
         document.getElementById('tbody').innerHTML = "";
@@ -102,7 +102,7 @@ const getListTicketCode = async (ticketCode) => {
             }
         });
         let json = await response.json();
-
+        
         document.getElementById('tbody-modal').innerHTML = "";
         let countCustomerFound = [];
         if (json.length > 1) {

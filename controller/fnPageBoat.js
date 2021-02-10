@@ -37,8 +37,8 @@ const setDelectBoat = async (boatNumber) => {
                     "Content-type": "application/json; charset=UTF-8"
                 }
             });
-            let json = await response.text();
-            if (json == 'true') {
+            let json = await response.json();
+            if (json == true) {
                 location.reload();
             }
         }

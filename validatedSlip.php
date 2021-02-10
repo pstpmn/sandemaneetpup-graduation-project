@@ -17,7 +17,9 @@ require 'navbar.php';
 
 
             <button class="btn btn-success" id="btnSlipNoValidated" onclick="btnSelectSlip(this)">สลิปที่ยังไม่ตรวจสอบ</button>
-            <button class="btn btn-warning" id="btnSlipValidated" onclick="btnSelectSlip(this)">สลิปที่ตรวจสอบแล้ว</button><br><br>
+            <button class="btn btn-warning" id="btnSlipValidated" onclick="btnSelectSlip(this)">สลิปที่ตรวจสอบแล้ว</button>
+            <button class="btn btn-warning" id="btnSlipCancel" onclick="btnSelectSlip(this)">สลิปที่ถูกยกเลิก</button>
+            <br><br>
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table mr-1"></i>
@@ -30,14 +32,13 @@ require 'navbar.php';
                                 <tr>
                                     <th>Ticket Code</th>
                                     <th>รายชื่อลูกค้า</th>
-                                    <th>หมายเลขเรือ</th>
                                     <th>เวลาโอนเงิน</th>
                                     <th>เวลาอัพสลิป</th>
                                     <th>ธนาคาร</th>
-                                    <th>ราคา</th>
+                                    <th>จำนวนเงินที่โอน</th>
+                                    <th>ราคาที่ต้องจ่าย</th>
                                     <th>รูปภาพสลิป</th>
-                                    <th>สถานะ</th>
-                                    <th>action</th>
+                                    <th id='action'>action</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-slip">
@@ -77,7 +78,7 @@ require 'navbar.php';
             <div class="container">
                 <!-- Modal -->
                 <div class="modal fade" id="dialogListCustomer" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
@@ -88,6 +89,7 @@ require 'navbar.php';
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
+                                            <th scope="col">รหัสตั๋ว</th>
                                             <th scope="col">ชื่อ</th>
                                             <th scope="col">นามสกุล</th>
                                             <th scope="col">เบอร์โทรศัพ</th>
