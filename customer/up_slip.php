@@ -7,7 +7,7 @@
 
     $valid_extensions = array('jpeg', 'jpg', 'png');
     
-    $path = 'uploads/';
+    $path = '../img/slip/';
 
     if(!empty($_POST['ticket_code']) || $_FILES['slip_img']){
     $img = $_FILES['slip_img']['name'];

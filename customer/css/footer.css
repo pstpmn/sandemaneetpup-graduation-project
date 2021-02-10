@@ -75,3 +75,12 @@
          font-size: 16px;
      }
  }
+ 
+ @media (max-width: 350px) {
+     .has2 {
+         font-size: 24px;
+     }
+     .has3 {
+         font-size: 13px;
+     }
+ }

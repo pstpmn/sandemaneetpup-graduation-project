@@ -1,55 +1,44 @@
 <?php include('header.php');?>
 <style>
-    button[class="btn btn-light"]{
-        width: 24%;
-        font-family: 'Kanit', sans-serif;
-        font-size: 16px;
-        margin-left: 1%;
-        border-radius: 15px;
-        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.034), 0 7px 6px rgba(0, 0, 0, 0.048), 0 12px 10px rgba(0, 0, 0, 0.06), 0 22px 17px rgba(0, 0, 0, 0.072), 0 41px 33px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+button[class="btn btn-success"],
+button[class="btn btn-warning"] {
+    width: 24%;
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;     
+}   
+button[class="btn btn-danger"]{
+    margin-top : 1%;
+    width: 48.5%;
 }
 
-@media (max-width:1120px) {
-    button[class="btn btn-light"]{
-        width: 45%;
-        font-size: 14px;
-        margin-left: 1%;
-       
-    }
-}
-@media (max-width:960px) {
-    button[class="btn btn-light"]{
-        width: 45%;
-        font-size: 14px;
-        margin-left: 1%;
-       
-    }
-}
 @media (max-width:890px) {
-    button[class="btn btn-light"]{
+    button[class="btn btn-success"],
+    button[class="btn btn-warning"] {
         width: 45%;
         font-size: 14px;
-        margin-left: 1%;
+        margin-left: 5px;
        
+    }
+    button[class="btn btn-danger"]{
+        margin-top : 1%;
+        width: 92%;
+        margin-left: 5px;
     }
 }
 </style>
 
     <body class="has1">
 
-        <h3 class="has2">เลือกการ เช็ดอิน - เช็ดเอาท์</h3>
+        <h3 class="has2">เช็คอิน - เช็คเอาท์</h3>
 
         <center>
+        <form action="up_check_in_out.php" method="POST" enctype="multipart/form-data" name="form1" id="form1">
         <div class="form-group">
-
-            <a href="check_in_out_group.php"><button  type="button" class="btn btn-light">
-                <br><img src="image/group.png" style = "width: 30%"><br><br>
-                <span style="color:#0056b3">เช็ดอิน - เช็ดเอาท์ (กลุ่ม)</span>
-            </button></a>
+            <input type="text" class="form-control" id="id_code" name="ticket_code"  placeholder="รหัสจองตั๋ว หรือ รหัสตั๋ว">
             
-            <a href="check_in_out_individual.php"><button  type="button" class="btn btn-light">
-                <br><img src="image/individual.png" style = "width: 30%"><br><br>
-                <span style="color:#0056b3">เช็ดอิน - เช็ดเอาท์ (1 ที่นั่ง)</span>
-            </button></a>
+            <button type="submit" class="btn btn-success" name="check_in">เช็คอิน</button>
+
+            <button type="submit" class="btn btn-warning" name="check_out">เช็คเอาท์</button>
         </div>
+        </form>
         </center>

@@ -7,6 +7,7 @@
       background: #ccc;
       padding: 20px;
       border: 1px solid black;
+      word-wrap:break-word;
     }
 
     form ol {
@@ -23,11 +24,11 @@
     }
 
     .form img {
+      width:auto; 
       height: auto;
       order: 1;
-      width:auto; 
       max-width: auto; 
-      max-height:130px; 
+      max-height:200px; 
       margin-top:10px;
       
     }
@@ -45,17 +46,25 @@
     button[class="btn btn-info"] {
       width: 20%;
       font-family: 'Kanit', sans-serif;
+      margin-bottom:2%;
     }
 
     @media (max-width: 890px) {
     button[class="btn btn-info"] {
         width: 90%;
+        margin-bottom:5%;
       }
     .form {
       width: 90%;
     }
     .form img {
-      width:auto;
+      width:auto; 
+      height: auto;
+      order: 1;
+      max-width: auto; 
+      max-height:150px; 
+      margin-top:10px;
+      
     }
 
     select[class=form-control] {
@@ -75,10 +84,10 @@
           <center>
           <div class="form-group">
              
-            <input type="text" class="form-control" id="ticket_code"  name="ticket_code" placeholder="รหัสการซื้อตั๋ว">
+            <input type="text" class="form-control" id="id_code" name="ticket_book"  placeholder="รหัสจองตั๋ว">
 
             <select  name='payment_bank' class="form-control" id=''>
-              <option value="0">ธนคาร</option>
+              <option value="0">ธนาคาร</option>
               <option value="ไทยพาณชย์">ไทยพาณชย์</option>
               <option value="กรุงศรี">กรุงศรี</option>
               <option value="กรุงไทย">กรุงไทย</option>

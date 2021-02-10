@@ -3,7 +3,7 @@ include('header.php');
 ?>
 
   <?php session_start();    
-    $ticket_code = $_SESSION['ticket_code'];
+    $ticket_book = $_SESSION['ticket_book_code'];
     $destinatio = $_SESSION['destinatio'];
   ?>
 
@@ -46,20 +46,30 @@ include('header.php');
     
   <body class="has1">
      <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
-      รหัสการซื้อตั๋ว Ticket Code : <?php echo  $ticket_code ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
+      รหัสจองตั๋ว Ticket Book : <?php echo  $ticket_book ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
       <center>
       <form>
 
       <?php 
         include('mysqli_connect.php');
-        $sql = "SELECT * FROM buy_ticket AS bt
+        // $sql = "SELECT * FROM ticket_book AS tb
+        // INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
+        // INNER JOIN customer as c ON bt.customer_id = c.customer_id
+        // INNER JOIN boat_seat as ba ON bt.boat_seat_id = ba.boat_seat_id
+        // INNER JOIN boat as b ON ba.boat_number = b.boat_number
+        // INNER JOIN location AS l ON tb.orgin = l.location_id
+        // RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
+        // WHERE ticket_book_code = '$ticket_book' ";
+
+        $sql = "SELECT * FROM ticket_book AS tb
+        INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
         INNER JOIN customer as c ON bt.customer_id = c.customer_id
         INNER JOIN boat_seat as ba ON bt.boat_seat_id = ba.boat_seat_id
         INNER JOIN boat as b ON ba.boat_number = b.boat_number
-        INNER JOIN location AS l ON bt.orgin = l.location_id
+        INNER JOIN location AS l ON tb.orgin = l.location_id
         RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
-        INNER JOIN ticket_category AS tc ON bt.ticket_category_id = tc.ticket_category_id
-        WHERE ticket_code = '$ticket_code' ";
+        INNER JOIN ticket_category AS tc ON tb.ticket_category_id = tc.ticket_category_id
+        WHERE ticket_book_code = '$ticket_book' ";
         $result1 = mysqli_query($con,$sql);
         $count = 0;
         echo "<div class='box-3'>";
@@ -67,6 +77,7 @@ include('header.php');
             
             echo "<table>";
             echo "<tr>
+              <th>รหัสตั๋ว</th>
               <th>ชื่อ - นามสกุล</th>
               <th>เบอร์โทรศัพท์</th>
               <th style='text-align:center'>ชั้น</th>
@@ -75,6 +86,7 @@ include('header.php');
             </tr>";
             foreach( $result1 as $row ) {
             echo "<tr>";
+              echo "<td>" .$row["ticket_code"]. "</td>";
               echo "<td>" .$row["cust_first_name"]. " " .$row["cust_last_name"]. "</td>";
               echo "<td>" .$row["phone_number"].  "</td>";
               echo "<td style='text-align:center'>" .$row["floor"]. "</td>";
@@ -141,7 +153,7 @@ include('header.php');
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-3'>ยอดรวมชำระ :</th>";
-                    echo "<td>" .$count * $row["ticket_category_price"]. " บาท</td>";
+                    echo "<td>" .$row["total_price"]. " บาท</td>";
                   echo "</tr>";
               echo "</table>";
             echo "</div>";

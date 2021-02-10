@@ -1,23 +1,22 @@
 <?php
 session_start();
-        if(isset($_POST['ticket_code'])){
+        if(isset($_POST['ticket_book'])){
 
             include('mysqli_connect.php');
             
-            $ticket_code = $_POST['ticket_code'];
+            $ticket_book = $_POST['ticket_book'];
 
-            $sql = "SELECT * FROM buy_ticket AS buy_t
-            JOIN location AS i ON buy_t.destination = i.location_id
-            WHERE ticket_code = '$ticket_code' ";
+            $sql = "SELECT * FROM ticket_book AS t_b
+            JOIN location AS i ON t_b.destination = i.location_id
+            WHERE ticket_book_code = '$ticket_book' ";
             $result = mysqli_query($con,$sql);
 
             if(mysqli_num_rows($result)){
                 $row = mysqli_fetch_array($result);
-                    $_SESSION["ticket_code"] = $row["ticket_code"];
+                    $_SESSION["ticket_book_code"] = $row["ticket_book_code"];
                     $_SESSION["ticket_status_id"] = $row["ticket_status_id"];                    
                     $_SESSION["destinatio"] = $row["location_name"];
                     
-
                     if($_SESSION["ticket_status_id"]== 1){
                         echo "<script>";
                         echo "window.location = 'show_information_success.php'; ";
@@ -32,7 +31,7 @@ session_start();
 
                     if($_SESSION["ticket_status_id"]== 3){
                         echo "<script>";
-                        echo "window.location = '.php'; ";
+                        echo "window.location = 'show_information_cancel.php'; ";
                         echo "</script>";
                       }
 
@@ -44,7 +43,7 @@ session_start();
             }
                 else{
                     echo "<script>";
-                    echo 'alert(\' รหัสการซื้อตั๋ว ไม่ถูกต้อง\');';
+                    echo 'alert(\' รหัสจองตั๋ว ไม่ถูกต้อง\');';
                     echo "window.location = 'status.php'; ";
                     echo "</script>";
                 }
