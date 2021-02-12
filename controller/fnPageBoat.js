@@ -7,7 +7,9 @@ const getListBoat = async () => {
             for (let i = 0; i < json.length; i++) {
                 tbodyTable.innerHTML += "<tr><td>" + (i + 1) + "</td> <td>" + json[i].boat_number + "</td>"
                     + "<td>" + json[i].boat_name + "</td>"
-                    + "<td><form action='boatSeat.php'><button name='btnBoatSeat' value='" + json[i].boat_number + "' class='btn btn-link'>Click !!</button></form></td>"
+                    + "<td><form action='boatSeat.php'><button name='btnBoatSeat' value='" + json[i].boat_number + "' class='btn btn-info'>เปิด</button></form></td>"
+                    + "<td><form action='boatSchedule.php'><button name='btnBoat' value='" + json[i].boat_number + "' class='btn btn-info'>เปิด</button></form></td>"
+
                     + "<td><button id='btnEdit-" + i + "' class='btn btn-warning'>แก้ไขข้อมูล</button> "
                     + "<button  id='btnDelte-" + i + "'  class='btn btn-danger'>ลบ</button> </td></tr>"
                 document.getElementById('btnEdit-' + i).setAttribute('onclick', 'getShowModalEditBoat("' + json[i].boat_number + '","' + json[i].boat_name + '")');
@@ -26,7 +28,7 @@ const getListBoat = async () => {
 
 const setDelectBoat = async (boatNumber) => {
     try {
-        let cf = confirm('ยืนยันการลบเรือหมายเลข : ' + boatNumber+"\nคำเตือน : เมือเรือถูกลบจะทำการลบตั๋วที่เคยซื้อกับเรือไปด้วย");
+        let cf = confirm('ยืนยันการลบเรือหมายเลข : ' + boatNumber + "\nคำเตือน : เมือเรือถูกลบจะทำการลบตั๋วที่เคยซื้อกับเรือไปด้วย");
         if (cf == true) {
             let response = await fetch('model/apiSetDeleteBoat.php', {
                 method: "POST",
@@ -92,7 +94,7 @@ const getShowModalAddBoat = async () => {
 
 
     document.getElementById('header-Employee').innerHTML = 'เพิ่มข้อมูลเรือ';
-    document.getElementById('btnSaveEdit').innerHTML = 'Save';
+    document.getElementById('btnSaveEdit').innerHTML = 'บันทึก';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setAddBoat()');
     await $('#modal-Employee').modal();
 }
@@ -140,7 +142,7 @@ const setAddBoat = async () => {
 
 const setBtnEditBoat = () => {
     document.getElementById('header-Employee').innerHTML = 'แก้ไขข้อมูลเรือ';
-    document.getElementById('btnSaveEdit').innerHTML = 'Edit';
+    document.getElementById('btnSaveEdit').innerHTML = 'แก้ไข';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setEditBoat()');
 }
 
@@ -484,5 +486,166 @@ const setDeleteBoatSeat = async (id) => {
         }
     } catch (err) {
         alert("Error customer delete : " + err)
+    }
+}
+
+
+const getModalAddBoatSchedule = async (boatNumber) => {
+    document.getElementById('txt-type-start').checked = false;
+    document.getElementById('txt-time').value = "";
+    document.getElementById('txt-type-return').checked = false;
+    document.getElementById('txt-location').value = 1;
+
+    document.getElementById('btnSaveEdit').setAttribute('onclick', 'setAddBoatSchedule(' + boatNumber + ')');
+    $('#modal-addBoatSchedule').modal();
+}
+
+
+const setAddBoatSchedule = async (boatNumber) => {
+    let txtType;
+    if (document.getElementById('txt-type-start').checked == true) {
+        txtType = 'start';
+    }
+    else if (document.getElementById('txt-type-return').checked == true) {
+        txtType = 'return';
+    }
+    else {
+        return alert('โปรดระบุ ประเภท รอบไป / รอบกลับ !!');
+    }
+
+    let txtLocation = document.getElementById('txt-location').value;
+    let txtTime = document.getElementById('txt-time').value;
+
+    if (txtLocation == "") return alert('โปรดระบุ location !!')
+    if (txtTime == "") return alert('โปรดระบุ เวลา !!')
+
+    try {
+        let response = await fetch('model/apiSetAddBoatSchedule.php', {
+            method: "POST",
+            body: JSON.stringify({
+                boatNumber: boatNumber,
+                txtLocation: txtLocation,
+                txtTime: txtTime,
+                txtType: txtType
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.json();
+        if (json == true) {
+            alert('การเพิ่มเส้นทางเรือ สำเร็จ')
+            location.reload();
+        }
+        else {
+            alert('เกิดข้อผิดพลาดในการเพิ่มเส้นทาง !!')
+        }
+    } catch (err) {
+        alert('เกิดข้อผิดพลาดในการเพิ่มเส้นทางเรือ !!')
+    }
+}
+
+const getModalEditBoatSchedule = async (id) => {
+    try {
+        let response = await fetch('model/apiGetBoatScheduleRowId.php', {
+            method: "POST",
+            body: JSON.stringify({
+                id: id
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.json();
+        if (json.length > 0) {
+            if (json[0].start_time != null) {
+                document.getElementById('txt-type-start').checked = true;
+                document.getElementById('txt-time').value = json[0].start_time;
+            }
+            else {
+                document.getElementById('txt-type-return').checked = true;
+                document.getElementById('txt-time').value = json[0].return_time;
+            }
+            document.getElementById('txt-location').value = json[0].location_id;
+            document.getElementById('btnSaveEdit').setAttribute('onclick', 'setEditBoatSchedule(' + id + ')');
+            $('#modal-addBoatSchedule').modal();
+        }
+        else {
+            alert('เกิดข้อผิดพลาด')
+        }
+    } catch (err) {
+
+    }
+}
+
+
+const setEditBoatSchedule = async (id) => {
+    let txtType;
+    if (document.getElementById('txt-type-start').checked == true) {
+        txtType = 'start';
+    }
+    else if (document.getElementById('txt-type-return').checked == true) {
+        txtType = 'return';
+    }
+    else {
+        return alert('โปรดระบุ ประเภท รอบไป / รอบกลับ !!');
+    }
+
+    let txtLocation = document.getElementById('txt-location').value;
+    let txtTime = document.getElementById('txt-time').value;
+
+    if (txtLocation == "") return alert('โปรดระบุ location !!')
+    if (txtTime == "") return alert('โปรดระบุ เวลา !!')
+
+    try {
+        let response = await fetch('model/apiSetEditBoatSchedule.php', {
+            method: "POST",
+            body: JSON.stringify({
+                id: id,
+                txtLocation: txtLocation,
+                txtTime: txtTime,
+                txtType: txtType
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        let json = await response.json();
+        if (json == true) {
+            alert('การเพิ่มเส้นทางเรือ สำเร็จ')
+            location.reload();
+        }
+        else {
+            alert('เกิดข้อผิดพลาดในการเพิ่มเส้นทาง !!')
+        }
+    } catch (err) {
+        alert('เกิดข้อผิดพลาดในการเพิ่มเส้นทางเรือ !!')
+    }
+}
+
+const setDelectBoatSchedule = async (id) => {
+    try {
+        let cf = confirm('ยืนยันการลบตารางเดินเรือ !! ');
+        if (cf == true) {
+            let response = await fetch('model/apiSetDelectBoatSchedule.php', {
+                method: "POST",
+                body: JSON.stringify({
+                    id: id
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            let json = await response.json();
+            if (json == true) {
+                location.reload();
+            }
+            else {
+                alert('เกิดข้อผิดพลาดในการลบ !!')
+            }
+        }
+
+    } catch (err) {
+
     }
 }

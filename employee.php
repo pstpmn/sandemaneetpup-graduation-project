@@ -99,8 +99,8 @@ require 'navbar.php';
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditEmp()">Edit</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditEmp()">แก้ไข</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                         </div>
                     </div>
 

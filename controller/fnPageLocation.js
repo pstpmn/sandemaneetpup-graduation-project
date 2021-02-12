@@ -82,7 +82,7 @@ const getShowModalAddLocation = async () => {
     document.getElementById('text-locationName').value = "";
 
     document.getElementById('header-Employee').innerHTML = 'เพิ่มข้อมูล Location';
-    document.getElementById('btnSaveEdit').innerHTML = 'Save';
+    document.getElementById('btnSaveEdit').innerHTML = 'บันทึก';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setAddLocation()');
     await $('#modal-Employee').modal();
 }
@@ -90,7 +90,7 @@ const getShowModalAddLocation = async () => {
 
 const getBtnEditLocation = () => {
     document.getElementById('header-Employee').innerHTML = 'แก้ไขข้อ Location';
-    document.getElementById('btnSaveEdit').innerHTML = 'Edit';
+    document.getElementById('btnSaveEdit').innerHTML = 'แก้ไข';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setEditLocation()');
 }
 

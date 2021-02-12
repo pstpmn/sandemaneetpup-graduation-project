@@ -71,8 +71,8 @@ require 'navbar.php';
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditLocation()">Edit</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditLocation()">แก้ไข</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                         </div>
                     </div>
 

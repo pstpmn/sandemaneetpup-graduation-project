@@ -127,7 +127,7 @@ const getShowModalAddEmp = async () => {
     document.getElementById('text-lname').value = "";
 
     document.getElementById('header-Employee').innerHTML = 'เพิ่มข้อมูลพนักงาน';
-    document.getElementById('btnSaveEdit').innerHTML = 'Save';
+    document.getElementById('btnSaveEdit').innerHTML = 'บันทึก';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setAddEmp()');
     await $('#modal-Employee').modal();
 }
@@ -191,6 +191,6 @@ const setAddEmp = async () => {
 
 const setBtnEditEmp = () => {
     document.getElementById('header-Employee').innerHTML = 'แก้ไขข้อมูลพนักงาน';
-    document.getElementById('btnSaveEdit').innerHTML = 'Edit';
+    document.getElementById('btnSaveEdit').innerHTML = 'แก้ไข';
     document.getElementById('btnSaveEdit').setAttribute('onclick', 'setEditEmp()');
 }

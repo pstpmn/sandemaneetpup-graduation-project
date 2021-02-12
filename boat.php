@@ -32,6 +32,7 @@ require 'navbar.php';
                                     <th>หมายเลขเรือ</th>
                                     <th>ชื่อเรือ</th>
                                     <th>จัดการที่นั่งเรือ</th>
+                                    <th>จัดการเส้นทางเรือ</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -72,8 +73,8 @@ require 'navbar.php';
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditBoat()">Edit</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" id='btnSaveEdit' class="btn btn-success" onclick="setEditBoat()">แก้ไข</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
                         </div>
                     </div>
 

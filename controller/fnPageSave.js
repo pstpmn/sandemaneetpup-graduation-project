@@ -293,12 +293,12 @@ const setResetBoatSeatAll = async () => {
     document.getElementById('priceSum').innerHTML = ticketPrice * listSeat.length;
 }
 
-const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination,employeeId) => {
+const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination, employeeId) => {
     let json;
-    let listGender=[];
-    let listFirstName=[];
-    let listLastName=[];
-    let listPhoneNumber=[];
+    let listGender = [];
+    let listFirstName = [];
+    let listLastName = [];
+    let listPhoneNumber = [];
 
     for (let i = 0; i < listSeatNumber.length; i++) {
         if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
@@ -319,7 +319,7 @@ const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination,emp
     catch (err) {
         return alert("Error Ticker Code เกิดข้อผิดพลาด !!\n " + err + "");
     }
-   
+
     for (let i = 0; i < listSeatNumber.length; i++) {
         let gender;
         if (document.getElementById('genderM-' + i + '').checked == true) {
@@ -345,7 +345,7 @@ const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination,emp
         orgin: orgin,
         destination: destination,
         empId: employeeId,
-        totalPrice : ticketPrice * listSeat.length
+        totalPrice: ticketPrice * listSeat.length
     }
     try {
         let response = await fetch('model/apiSaveTicket.php', {
@@ -388,8 +388,8 @@ const getShowResultBuyTicket = async (ticketCode) => {
             }
         });
         json = await response.json();
-     
-        if(json.length <= 0){
+
+        if (json.length <= 0) {
             document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-danger');
             document.getElementById('txtModalHeader').innerHTML = "<h4>ผลลัพธ์การซื้อตั๋ว : ไม่สำเร็จ</h4>";
             document.getElementById('txtTicketCode').innerHTML = "โปรดลองใหม่อีกครั้ง หรือติดต่อผู้ดูแล";
@@ -499,6 +499,7 @@ const onchangeCountBoatSeatAdd = () => {
     let seatStart = document.getElementById('txt-seatStart').value;
     let seatEnd = document.getElementById('txt-seatEnd').value;
     if (seatStart != "" && seatEnd != "") {
-        document.getElementById('txt-count').innerHTML = ((parseInt(seatEnd) - parseInt(seatStart)+1) + " ที่นั่ง");
+        document.getElementById('txt-count').innerHTML = ((parseInt(seatEnd) - parseInt(seatStart) + 1) + " ที่นั่ง");
     }
 }
+

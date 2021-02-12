@@ -105,6 +105,8 @@ const getListTicketCode = async (ticketCode) => {
         });
         let json = await response.json();
         
+        if(json[0].ticket_status_id == 2)return alert('รหัสการจองนี้ มีสถานะการจอง !!');
+        if(json[0].ticket_status_id == 4)return alert('รหัสการจองนี้ มีสถานะการจอง !!');
         if(json[0].ticket_status_id == 3)return alert('รหัสการจองนี้ มีสถานะถูกยกเลิก !!');
 
         document.getElementById('tbody-modal').innerHTML = "";
