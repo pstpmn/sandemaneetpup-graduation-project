@@ -43,7 +43,7 @@ session_start();
             }
                 else{
                     echo "<script>";
-                    echo 'alert(\' รหัสจองตั๋ว ไม่ถูกต้อง\');';
+                    echo 'alert(\' รหัสการจอง ไม่ถูกต้อง\');';
                     echo "window.location = 'status.php'; ";
                     echo "</script>";
                 }
