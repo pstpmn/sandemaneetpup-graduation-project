@@ -1,6 +1,5 @@
 <?php include('header.php');?>
 
-
 <style>
    .form {
       width: 48%;
@@ -80,17 +79,18 @@
     <body class="has1">
         
         <h3 class="has3">ฟอร์มแจ้งชำระเงินสำหรับการโอนเงินผ่านบัญชีธนาคาร</h3>
-        <form action="up_slip.php" method="POST" enctype="multipart/form-data" name="form1" id="form1"> 
+        <form action="up_sql.php" method="POST" enctype="multipart/form-data" name="form1" id="form1"> 
           <center>
           <div class="form-group">
              
-            <input type="text" class="form-control" id="id_code" name="ticket_book"  placeholder="รหัสจองตั๋ว">
+            <input type="text" class="form-control" id="id_code" name="ticket_book"  placeholder="รหัสการจอง">
 
             <select  name='payment_bank' class="form-control" id=''>
               <option value="0">ธนาคาร</option>
               <option value="ไทยพาณชย์">ไทยพาณชย์</option>
               <option value="กรุงศรี">กรุงศรี</option>
-              <option value="กรุงไทย">กรุงไทย</option>
+              <option value="กรุงเทพ">กรุงเทพ</option>
+              <option value="กสิกรไทย">กสิกรไทย</option>
             </select>
 
             <input type="text" class="form-control" id="payment_amount"  name="payment_amount" placeholder="จำนวนเงิน">
@@ -106,7 +106,7 @@
               <br>
             </div>
                   <br>
-                  <button type="submit" class="btn btn-info" id="upslip" name="submit"> ยืนยันการชำระเงิน </button>
+                  <button type="submit" class="btn btn-info" id="upslip" name="confirm_payment"> ยืนยันการชำระเงิน </button>
           </div>
         </form>
         </center>

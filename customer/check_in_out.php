@@ -1,28 +1,17 @@
 <?php include('header.php');?>
 <style>
-button[class="btn btn-success"],
-button[class="btn btn-warning"] {
-    width: 24%;
-    font-family: 'Kanit', sans-serif;
-    font-size: 16px;     
-}   
-button[class="btn btn-danger"]{
-    margin-top : 1%;
-    width: 48.5%;
-}
+    button[class="btn btn-success"],
+    button[class="btn btn-warning"] {
+        width: 24%;
+        font-family: 'Kanit', sans-serif;
+        font-size: 16px;     
+    }   
 
 @media (max-width:890px) {
     button[class="btn btn-success"],
     button[class="btn btn-warning"] {
-        width: 45%;
+        width: 44%;
         font-size: 14px;
-        margin-left: 5px;
-       
-    }
-    button[class="btn btn-danger"]{
-        margin-top : 1%;
-        width: 92%;
-        margin-left: 5px;
     }
 }
 </style>
@@ -34,7 +23,7 @@ button[class="btn btn-danger"]{
         <center>
         <form action="up_check_in_out.php" method="POST" enctype="multipart/form-data" name="form1" id="form1">
         <div class="form-group">
-            <input type="text" class="form-control" id="id_code" name="ticket_code"  placeholder="รหัสจองตั๋ว หรือ รหัสตั๋ว">
+            <input type="text" class="form-control" id="id_book" name="ticket_book"  placeholder="รหัสการจอง หรือ รหัสตั๋ว">
             
             <button type="submit" class="btn btn-success" name="check_in">เช็คอิน</button>
 

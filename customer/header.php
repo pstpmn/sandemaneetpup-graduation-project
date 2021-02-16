@@ -21,6 +21,7 @@
 
                 <!-- java script Responsive -->
                 <script src="js/functionResponsive.js"></script>
+                <script src="js/qrcode.js"></script>
 
                 <!-- ajax jquery -->
                 <script src="js/jquery.min.js"></script>

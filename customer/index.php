@@ -29,6 +29,9 @@
      .fullheight {
         height: 100vh;
     }
+    button[class="btn btn-primary"]{
+        width: 90%;
+    }
  }
  @media (max-width: 520px) {
      .fullheight {
@@ -36,9 +39,6 @@
     }
  }
 </style>
-
-
-
     <section class="fullheight align-times-center img img-fixed" 
         style="background-image: url('image/tk.png');">
         <div class="container">

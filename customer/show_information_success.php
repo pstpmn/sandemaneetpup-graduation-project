@@ -6,7 +6,7 @@ include('header.php');
     $ticket_book = $_SESSION['ticket_book_code'];
     $destinatio = $_SESSION['destinatio'];
   ?>
-
+  
 <style>
 
   form {
@@ -30,9 +30,6 @@ include('header.php');
     width: 90%;
     margin-bottom: 10px;
   }
-  button[class="btn btn-danger"]{
-    width: 90%;
-  }
 }
 
 @media (max-width: 590px) {
@@ -46,7 +43,7 @@ include('header.php');
     
   <body class="has1">
      <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
-      รหัสจองตั๋ว Ticket Book : <?php echo  $ticket_book ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
+      รหัสการจอง Ticket Book : <?php echo  $ticket_book ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
       <center>
       <form>
 
@@ -159,14 +156,20 @@ include('header.php');
             echo "</div>";
             ?>
           </div>
-          
+
           <div class="box-6">
-            <a href='index.php'><button type="button" class="btn btn-primary">ปริ้นตั๋ว</button></a>
+            <button type="button" class="btn btn-primary"  onclick="Function_Send_value()">ปริ้นตั๋ว</button></a>
             <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>
           </div>
       </form>
       </center>
-            
+<script>
+  function Function_Send_value()
+    {
+      var ticket_book = "<?php echo  $ticket_book ?>";
+      window.location.href = "boarding_pass.php?ticket_book=" + ticket_book;
+    }
+</script>
       
 
        
