@@ -63,10 +63,12 @@ const getTicketPrice = async (ticketCategoryId) => {
             }
         });
         let json = await response.json();
-        ticketPrice = json[0].ticket_category_price;
+        ticketPrice = await json[0].ticket_category_price;
     } catch (Error) {
 
     }
+    document.getElementById('priceToSeat').innerHTML = ticketPrice +" บาท";
+
 }
 
 const getSelectLocation = async () => {
@@ -445,34 +447,22 @@ const getSearchBoat = async (origin, destination) => {
     });
     let jsonDestination = await responseDestination.json();
 
-    let maxResponse;
-    let minResponse;
-
-
-    if (jsonOrgin.length == jsonDestination.length) {
-        maxResponse = jsonOrgin;
-        minResponse = jsonDestination;
-    }
-    else if (jsonOrgin.length > jsonDestination.length) {
-        maxResponse = jsonOrgin;
-        minResponse = jsonDestination;
-
-    }
-    else {
-        maxResponse = jsonDestination;
-        minResponse = jsonOrgin;
-    }
-
     boatNumber.innerHTML = "";
-    for (let countMax = 0; countMax < maxResponse.length; countMax++) {
-        for (let countMin = 0; countMin < minResponse.length; countMin++) {
-            if (maxResponse[countMax].boat_number == minResponse[countMin].boat_number) {
-                boatNumber.innerHTML += "<option value=" + maxResponse[countMax].boat_number + " >หมายเลขเรือ : " + maxResponse[countMax].boat_number + "  เวลา : " + maxResponse[countMax].start_time.substring(0, 5) + " - " + minResponse[countMin].return_time.substring(0, 5) + " น. </option>";
-            };
+    for (let countMax = 0; countMax < jsonOrgin.length; countMax++) {
+        for (let countMin = 0; countMin < jsonDestination.length; countMin++) {
+            if (jsonOrgin[countMax].boat_number == jsonDestination[countMin].boat_number &&
+                (jsonOrgin[countMax].start_time != null && jsonDestination[countMin].start_time != null)
+                && (jsonOrgin[countMax].boat_schedule_id < jsonDestination[countMin].boat_schedule_id)) {
+                boatNumber.innerHTML += "<option value=" + jsonOrgin[countMax].boat_number + " >หมายเลขเรือ : " + jsonOrgin[countMax].boat_number + "  เวลา : " + jsonOrgin[countMax].start_time.substring(0, 5) + " - " + jsonDestination[countMin].start_time.substring(0, 5) + " น. (รอบเรือเดินทางไป) </option>";
+            }
+            else if (jsonOrgin[countMax].boat_number == jsonDestination[countMin].boat_number &&
+                (jsonOrgin[countMax].return_time != null && jsonDestination[countMin].return_time != null)
+                && (jsonOrgin[countMax].boat_schedule_id < jsonDestination[countMin].boat_schedule_id)) {
+                boatNumber.innerHTML += "<option value=" + jsonOrgin[countMax].boat_number + " >หมายเลขเรือ : " + jsonOrgin[countMax].boat_number + "  เวลา : " + jsonOrgin[countMax].return_time.substring(0, 5) + " - " + jsonDestination[countMin].return_time.substring(0, 5) + " น. (รอบเรือเดินทางกลับ) </option>";
+            }
         }
     }
 }
-
 
 const checkBoatSeat = (id, number) => {
     let td = document.getElementById(id);
@@ -492,6 +482,8 @@ const checkBoatSeat = (id, number) => {
         listSeatNumber.push(number);
     }
     document.getElementById('priceSum').innerHTML = ticketPrice * listSeat.length;
+    document.getElementById('countBoatSeatToSelected').innerHTML = listSeat.length +" ที่นั่ง";
+
     getListSeat();
 }
 

@@ -95,7 +95,7 @@ require 'navbar.php';
                             <?php
                             try {
                                 $boatSchedule = $database->select('SELECT * from boat_schedule join location on location.location_id = boat_schedule.location_id 
-                                    where boat_number = ' . $boatNumber . ' AND return_time is not null order by boat_schedule_id desc');
+                                    where boat_number = ' . $boatNumber . ' AND return_time is not null order by boat_schedule_id asc');
                             } catch (Exception $err) {
                                 echo "<script>alert('เกิดข้อผิดพลาด')</script>";
                             }
