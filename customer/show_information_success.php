@@ -40,12 +40,13 @@ include('header.php');
      }
 }
 </style>
-    
+  <center>
+  <canva>
+  <form>
   <body class="has1">
      <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
       รหัสการจอง Ticket Book : <?php echo  $ticket_book ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
-      <center>
-      <form>
+      
 
       <?php 
         include('mysqli_connect.php');
@@ -158,17 +159,48 @@ include('header.php');
           </div>
 
           <div class="box-6">
-            <button type="button" class="btn btn-primary"  onclick="Function_Send_value()">ปริ้นตั๋ว</button></a>
+
+            <center>
+              <h5>QR Code</h5>
+              <div id="qrcode" ondragstart="return false" onselectstart="return false"></div><br>
+            </center>
+
+            <button type="button" class="btn btn-primary"  onclick="()">ดาวน์โหลด QR Code</button></a>
             <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>
           </div>
       </form>
+      </canva>
       </center>
 <script>
-  function Function_Send_value()
-    {
-      var ticket_book = "<?php echo  $ticket_book ?>";
-      window.location.href = "boarding_pass.php?ticket_book=" + ticket_book;
+  // function Function_Send_value()
+  //   {
+  //     var ticket_book = "<?php echo  $ticket_book ?>";
+  //     window.location.href = "boarding_pass.php?ticket_book=" + ticket_book;
+  //   }
+
+  //   function makeCode() {
+  //     var qrcodeId = document.getElementById("QrcodeId");
+  //     var qrcode = new QRCode(document.getElementById("qrcode"), {
+  //         width: 100,
+  //         height: 100,
+  //         colorDark: "#000000",
+  //         colorLight: "#ffffff",
+  //         correctLevel: QRCode.CorrectLevel.H
+  //     });
+  //     qrcode.makeCode("http://localhost:50810/Profile/Qrcode?id=" + qrcodeId);
+  // }
+
+  $ticket_book_code = "<?php echo $ticket_book ?>";
+    new QRCode(document.getElementById("qrcode"), {
+        render: "canvas",
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#FFFFFF",
+        text: $ticket_book_code,
+        correctLevel: QRCode.CorrectLevel.H
     }
+  );
 </script>
       
 

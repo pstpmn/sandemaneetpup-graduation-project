@@ -6,7 +6,7 @@
       background: #ccc;
       padding: 20px;
       border: 1px solid black;
-      word-wrap:break-word;
+      word-wrap:break-word; /* // กำหนดให้ ข้อความอยู่ในกรอก // */
     }
 
     form ol {
@@ -105,8 +105,9 @@
               <img id="slip" style="display:none;" src="" alt="logo" />
               <br>
             </div>
-                  <br>
-                  <button type="submit" class="btn btn-info" id="upslip" name="confirm_payment"> ยืนยันการชำระเงิน </button>
+            
+            <br>
+              <button type="submit" class="btn btn-info" id="upslip" name="confirm_payment"> ยืนยันการชำระเงิน </button>
           </div>
         </form>
         </center>

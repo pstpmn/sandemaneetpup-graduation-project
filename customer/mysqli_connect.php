@@ -1,4 +1,4 @@
-<?php include('model/confix.php');
+<?php include('../model/confix.php');
 
     $con= mysqli_connect(IP,USER,PASS,DBNAME) or die("Error: " . mysqli_error($con));
     mysqli_query($con, "SET NAMES 'utf8' ");
