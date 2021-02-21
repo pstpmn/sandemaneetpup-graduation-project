@@ -64,6 +64,9 @@ require 'navbar.php';
 
                                         </td>
                                     </tr>
+                                    <tr id='EngDate'>
+
+                                    </tr>
                                     <tr>
                                         <td scope="col" width="30%"><b>สาเหตุ</b></td>
                                         <td><textarea id='text-cause' value=""></textarea></td>

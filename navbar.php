@@ -48,13 +48,14 @@
 
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="ticket.php">ตั๋ว</a>
-                                <a class="nav-link" href="customer.php">ลูกค้า</a>
+                                <a class="nav-link" href="bookingID.php">Booking ID</a>
+                                <a class="nav-link" href="ticketID.php">Ticket ID</a>
+                                <a class="nav-link" href="customer.php">Customer</a>
                             </nav>
                         </div>
 
                         <a class="nav-link collapsed" href="scanQRCode.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-barcode"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-qrcode"></i></div>
                             สแกน QR Code
                         </a>
 

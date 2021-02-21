@@ -2,17 +2,15 @@ const btnSelectCheckInAndOut = (dom) => {
     if (dom.id == 'btncheckIn') {
         document.getElementById('btncheckIn').setAttribute('class', 'btn btn-success');
         document.getElementById('btncheckOut').setAttribute('class', 'btn btn-warning');
-        getTicketCheckIn();
     }
     else {
         document.getElementById('btncheckIn').setAttribute('class', 'btn btn-warning');
         document.getElementById('btncheckOut').setAttribute('class', 'btn btn-success');
-        getTicketCheckIn();
     }
 }
 
-const setReset = () =>{
-    document.getElementById('barcode').value ="";
+const setReset = () => {
+    document.getElementById('barcode').value = "";
 }
 
 const getValidateSelectButtomCheckIn = () => {
@@ -28,54 +26,22 @@ const getValidateSelectButtomCheckIn = () => {
 
 
 const getTicketCheckIn = async () => {
-    try {
-        let ButtomCheckin = getValidateSelectButtomCheckIn();
-        let timeCurrent = getConvertDateMonthYear(new Date());
-        let response = await fetch('model/apiGetTicketAll.php');
-        let json = await response.json();
+    $('#dataTable-Ticket').DataTable({
+        "processing": true,
+        "serverSide": true,
+        'retrieve': false,
+        'destroy': true,
+        "ajax": {
+            url: "model/apiGetTicketAll.php", // json datasource
+            type: "post", // method  , by default get
+            error: function () { // error handling
+                $(".employee-grid-error").html("");
+                $("#dataTable-TicketEdit").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                $("#dataTable-TicketEdit_processing").css("display", "none");
 
-        document.getElementById('tbody').innerHTML = "";
-        for (let count = 0; count < json.length; count++) {
-            let dateTicket = json[count].travel_date;
-            if (ButtomCheckin == 'checkIn') {
-                if (timeCurrent == dateTicket && json[count].check_in != null) {
-                    let array = [json[count].ticket_code, json[count].cust_first_name, json[count].cust_last_name, json[count].boat_seat_number, json[count].floor, json[count].boat_number, json[count].check_in, json[count].check_out];
-                    if (array[6] == null) {
-                        array[6] = "<i class='fas fa-times-circle' ></i>";
-                    }
-                    else {
-                        array[6] = "<i class='fas fa-check' ></i>";
-                    }
-                    if (array[7] == null) {
-                        array[7] = "<i class='fas fa-times-circle' ></i>";
-                    }
-                    else {
-                        array[7] = "<i class='fas fa-check' ></i>";
-                    }
-                    document.getElementById('tbody').innerHTML += "<tr><td>" + array[0] + "</td> <td>" + array[1] + "</td> <td>" + array[2] + "</td> <td>" + array[3] + "</td> <td>" + array[4] + "</td> <td>" + array[5] + "</td> <td>" + array[6] + "</td> <td>" + array[7] + "</td> </tr>";
-                }
-            }
-            else if (ButtomCheckin == 'checkOut') {
-                if (timeCurrent == dateTicket && json[count].check_out != null) {
-                    let array = [json[count].ticket_code, json[count].cust_first_name, json[count].cust_last_name, json[count].boat_seat_number, json[count].floor, json[count].boat_number, json[count].check_in, json[count].check_out];
-                    if (array[6] == null) {
-                        array[6] = "<i class='fas fa-times-circle' ></i>";
-                    }
-                    else {
-                        array[6] = "<i class='fas fa-check' ></i>";
-                    }
-                    if (array[7] == null) {
-                        array[7] = "<i class='fas fa-times-circle' ></i>";
-                    }
-                    else {
-                        array[7] = "<i class='fas fa-check' ></i>";
-                    }
-                    document.getElementById('tbody').innerHTML += "<tr><td>" + array[0] + "</td> <td>" + array[1] + "</td> <td>" + array[2] + "</td> <td>" + array[3] + "</td> <td>" + array[4] + "</td> <td>" + array[5] + "</td> <td>" + array[6] + "</td> <td>" + array[7] + "</td> </tr>";
-                }
             }
         }
-    } catch (err) {
-    }
+    });
 }
 
 
@@ -94,7 +60,6 @@ const getListTicketCode = async (ticketCode) => {
     let data = {
         ticketCode: ticketCode
     };
-
     try {
         let response = await fetch('model/apiGetTicket.php', {
             method: "POST",
@@ -104,10 +69,12 @@ const getListTicketCode = async (ticketCode) => {
             }
         });
         let json = await response.json();
-        
-        if(json[0].ticket_status_id == 2)return alert('รหัสการจองนี้ มีสถานะการจอง !!');
-        if(json[0].ticket_status_id == 4)return alert('รหัสการจองนี้ มีสถานะการจอง !!');
-        if(json[0].ticket_status_id == 3)return alert('รหัสการจองนี้ มีสถานะถูกยกเลิก !!');
+        if (json[0].ticket_status_id == 2) return alert('รหัสการจองนี้ มีสถานะการจอง !!');
+        if (json[0].ticket_status_id == 4) return alert('รหัสการจองนี้ มีสถานะการจอง !!');
+        if (json[0].ticket_status_id == 3) return alert('รหัสการจองนี้ มีสถานะถูกยกเลิก !!');
+
+        document.getElementById('display-bookingID').innerHTML = json[0].ticket_book_code;
+        document.getElementById('display-boatNumber').innerHTML = json[0].boat_number;
 
         document.getElementById('tbody-modal').innerHTML = "";
         let countCustomerFound = [];
@@ -116,18 +83,20 @@ const getListTicketCode = async (ticketCode) => {
                 if (checkIn_or_checkout == "checkIn") {
                     if (json[count].check_in == null) {
                         document.getElementById('tbody-modal').innerHTML += "<tr><th scope='row'><input type='checkbox' id='checkbox-" + json[count].buy_ticket_id + "' value='" + json[count].buy_ticket_id + "'></th>"
-                            + "<td>" + json[count].cust_first_name +" "+json[count].cust_last_name +"</td>"
+                            + "<td>" + json[count].ticket_code + "</td>"
+                            + "<td>" + json[count].cust_first_name + " " + json[count].cust_last_name + "</td>"
                             + "<td>" + json[count].boat_seat_number + "</td>"
-                            + "<td>" + json[count].boat_number + "</td></tr>"
+                            + "<td>" + json[count].floor + "</td></tr>"
                         countCustomerFound.push(json[count].buy_ticket_id);
                     }
                 }
                 else if (checkIn_or_checkout == "checkOut") {
                     if (json[count].check_out == null) {
                         document.getElementById('tbody-modal').innerHTML += "<tr><th scope='row'><input type='checkbox' id='checkbox-" + json[count].buy_ticket_id + "' value='" + json[count].buy_ticket_id + "'></th>"
+                            + "<td>" + json[count].ticket_code + "</td>"
                             + "<td>" + json[count].cust_first_name + "</td>"
                             + "<td>" + json[count].boat_seat_number + "</td>"
-                            + "<td>" + json[count].boat_number + "</td></tr>"
+                            + "<td>" + json[count].floor + "</td></tr>"
                         countCustomerFound.push(json[count].buy_ticket_id);
                     }
                 }
@@ -165,10 +134,11 @@ const getListTicketCode = async (ticketCode) => {
             }
         }
     } catch (err) {
-        alert('ไม่พบบาร์โค๊ดนี้ \n' + err)
+        alert('ไม่พบบาร์รหัสนี้')
     }
     getTicketCheckIn();
     document.getElementById('barcode').value = '';
+
 }
 
 function checkBoxListCustomer() {
@@ -208,6 +178,7 @@ function checkBoxListCustomer() {
         getTicketCheckIn();
         $("#myModal").modal('hide');
     }
+
 }
 
 const setCheckOutTicketCode = async (ticketID) => {

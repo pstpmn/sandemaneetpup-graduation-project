@@ -48,8 +48,7 @@ require 'navbar.php';
                         <table class="table table-bordered" style="text-align: center;" id="dataTable-TicketEdit" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>ชื่อ</th>
-                                    <th>นามสกุล</th>
+                                    <th>ชื่อ - นามสกุล</th>
                                     <th>หมายเลขโทรศัพท์</th>
                                     <th>เพศ</th>
                                     <th>วันที่ใช้งานครั้งแรก</th>
@@ -80,7 +79,7 @@ require 'navbar.php';
                                 <table class="table table-bordered" style="text-align: center;">
                                     <thead>
                                         <tr>
-                                            <td scope="col" width="30%"><b>ชื่อ</b></td>
+                                            <td scope="col" width="30%"><b>ชื่อ นามสกุล</b></td>
                                             <td><input id='text-fname' type="text" value=""></td>
                                         </tr>
                                         <tr>
@@ -123,7 +122,27 @@ require 'navbar.php';
             </div>
     </main>
     <script>
-        getShowCustomerEdit();
+        // getShowCustomerEdit();
+
+        $(document).ready(function() {
+				var dataTable = $('#dataTable-TicketEdit').DataTable( {
+					"processing": true,
+					"serverSide": true,
+					"ajax":{
+						url :"model/apiGetCustomerAll.php", // json datasource
+						type: "post",  // method  , by default get
+						error: function(){  // error handling
+							$(".employee-grid-error").html("");
+							$("#dataTable-TicketEdit").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+							$("#dataTable-TicketEdit_processing").css("display","none");
+							
+						}
+					}
+				} );
+			} );
+
+
+        
     </script>
 
 

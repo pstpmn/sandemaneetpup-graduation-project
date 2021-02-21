@@ -104,6 +104,7 @@ const setEditCustomer = async (customerID) => {
             }
         });
         let json = await response.text();
+        alert(json)
         $("#dialogListCustomer").modal('hide');
         location.reload()
         // getShowCustomerEdit();

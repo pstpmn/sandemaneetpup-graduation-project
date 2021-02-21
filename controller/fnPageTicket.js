@@ -123,10 +123,12 @@ const getListTicketEdit = async () => {
         }
         $(document).ready(function () {
             $('#dataTable-TicketEdit').dataTable({
-                "lengthChange": false
+                "lengthChange": false,
+                "processing": true
             });
         })
     } catch (err) {
+
     }
 }
 

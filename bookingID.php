@@ -62,8 +62,9 @@ require 'navbar.php';
                                     <th>สถานะ</th>
                                     <th>รูปภาพสลิป</th>
                                     <th>เวลาอัพสลิป</th>
-                                    <th>ดูข้อมูลเพิ่มเติม</th>
-                                    <th>Action</th>
+                                    <th>รายละเอียดเพิ่มเติม</th>
+                                    <th>action</th>
+
                                 </tr>
                             </thead>
                             <tbody id="table-ticket-edit">
@@ -85,7 +86,9 @@ require 'navbar.php';
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body" id="modal-body-slip" style="overflow: auto;">
-                            <center><h4>ข้อมูลเกี่ยวกับเรือ</h4></center><br>
+                                <center>
+                                    <h4>ข้อมูลเกี่ยวกับเรือ</h4>
+                                </center><br>
                                 ต้นทาง <select id='select-Location_start' disabled class='custom-select' onchange="getSearchBoat(
                 document.getElementById('select-Location_start').value,
                 document.getElementById('select-Location_end').value
@@ -123,6 +126,7 @@ require 'navbar.php';
                                         </tr>
                                     </thead>
                                     <tbody id="tbody-modal">
+
                                     </tbody>
                                 </table>
                             </div>
@@ -176,84 +180,14 @@ require 'navbar.php';
                             <div class="modal-body" id="modal-body-editTicket">
                                 <h1 id='header-addCustomer' class="mt-4">
                                 </h1>
-                                <!-- ต้นทาง <select id='select-Location_start' disabled class='custom-select' onchange="getSearchBoat(
-                document.getElementById('select-Location_start').value,
-                document.getElementById('select-Location_end').value
-                )">
-
-                                </select>
-                                <br><br>
-                                ปลายทาง <select id='select-Location_end' disabled class='custom-select' onchange="getSearchBoat(
-                document.getElementById('select-Location_start').value,
-                document.getElementById('select-Location_end').value
-                )">
-
-                                </select>
-                                <script>
-                                    getSelectLocation();
-                                </script>
-                                <br> <br>
-                                เลือกหมายเลขเรือ <select id='boat-number' disabled class='custom-select'>
-                                    <option>!!! เลือกต้นทาง และปลายทาง ก่อนถึงจะแสดง !!!</option>
-                                </select>
-                                <br><br>
-                                เลือกวันที่ออกเดินทาง
-                                <input type='date' id='date' class="form-control" disabled value="<?php echo date('Y-m-d') ?>">
-
-                                <br>
-                                <button class="btn btn-primary" disabled id="search-boat" onclick="getBoatSeat(
-                document.getElementById('boat-number').value,
-                document.getElementById('date').value,
-                document.getElementById('select-Location_start').value,
-                document.getElementById('select-Location_end').value
-                )">ค้นหาที่นั่งเรือ</button> -->
 
 
                                 <br><br><br>
                                 <div id="container-boatSeat-customerData">
                                     <b>เลือกที่นั่งเรือเพิ่มเติม</b><br><br>
                                     <div class="tableSet" id="tableFromBoatSeat" style="overflow: auto;">
-                                        <!-- <table class="table table-bordered table-primary" id="">
-                                            <tr id="rightBottom">
-                                                <td bgcolor="#fff">
-                                                    <center>Right</center>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="125" bgcolor="#fff">
-                                                    <center>ที่นั่งเรือ</center>
-                                                </td>
-                                            </tr>
-                                            <tr id="leftBottom">
-                                                <td bgcolor="#fff">
-                                                    <center>Left</center>
-                                                </td>
-                                            </tr>
 
-                                        </table> -->
                                     </div>
-
-                                    <!-- <div class="tableSet" id="tableFromBoatSeatTop" style="display:none">
-                                        <table class="table table-bordered table-primary" id="">
-                                            <tr id="rightTop">
-                                                <td bgcolor="#fff">
-                                                    <center>Right</center>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="125" bgcolor="#fff">
-                                                    <center>ที่นั่งเรือ</center>
-                                                </td>
-                                            </tr>
-                                            <tr id="leftTop">
-                                                <td bgcolor="#fff">
-                                                    <center>Left</center>
-                                                </td>
-                                            </tr>
-
-                                        </table>
-                                    </div> -->
-
 
                                     <div id='container-btnFloor'>
 
@@ -310,7 +244,24 @@ require 'navbar.php';
             </div>
     </main>
     <script>
-        getListTicketEdit();
+        // getListTicketEdit();
+
+        $(document).ready(function() {
+				var dataTable = $('#dataTable-TicketEdit').DataTable( {
+					"processing": true,
+					"serverSide": true,
+					"ajax":{
+						url :"model/apiGetTicketBookAll.php", // json datasource
+						type: "post",  // method  , by default get
+						error: function(){  // error handling
+							$(".employee-grid-error").html("");
+							$("#dataTable-TicketEdit").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+							$("#dataTable-TicketEdit_processing").css("display","none");
+							
+						}
+					}
+				} );
+			} );
     </script>
 
 
