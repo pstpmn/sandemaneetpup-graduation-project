@@ -42,14 +42,14 @@
       margin-left:26%;
     }
 
-    button[class="btn btn-info"] {
+    button[class="btn btn-success"] {
       width: 20%;
       font-family: 'Kanit', sans-serif;
       margin-bottom:2%;
     }
 
     @media (max-width: 890px) {
-    button[class="btn btn-info"] {
+    button[class="btn btn-success"] {
         width: 90%;
         margin-bottom:5%;
       }
@@ -79,7 +79,7 @@
     <body class="has1">
         
         <h3 class="has3">ฟอร์มแจ้งชำระเงินสำหรับการโอนเงินผ่านบัญชีธนาคาร</h3>
-        <form action="up_sql.php" method="POST" enctype="multipart/form-data" name="form1" id="form1"> 
+        <form action="up_payment.php" method="POST" enctype="multipart/form-data" name="form1" id="form1"> 
           <center>
           <div class="form-group">
              
@@ -95,7 +95,6 @@
 
             <input type="text" class="form-control" id="payment_amount"  name="payment_amount" placeholder="จำนวนเงิน">
             
-            
             <input type="datetime-local" class="form-control" id="payment_time"  name="payment_time" placeholder="เวลาโอน" >
           </center>
             <span>*เวลาที่ชำระเงิน(ดูจากสลิปโอนเงิน)*</span>
@@ -107,7 +106,7 @@
             </div>
             
             <br>
-              <button type="submit" class="btn btn-info" id="upslip" name="confirm_payment"> ยืนยันการชำระเงิน </button>
+              <button type="submit" class="btn btn-success" id="upslip" name="confirm_payment"> ยืนยันการชำระเงิน </button>
           </div>
         </form>
         </center>

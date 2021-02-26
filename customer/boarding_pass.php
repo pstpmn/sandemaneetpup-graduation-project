@@ -11,15 +11,6 @@
         margin-top: 20px;
         font-family: 'Prompt', sans-serif;
   }
-  .box-QRCode {
-    padding: 10px;
-    width: 100%;
-    background-color: #fff;
-    border: 0 solid rgba(0, 0, 0, .125);
-    border-radius: .25rem;
-    margin-bottom: 10px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-}
 
 @media (max-width: 890px) {
     button[class="btn btn-success"],

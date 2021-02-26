@@ -19,10 +19,8 @@
     $data1 = mysqli_fetch_all($result1,MYSQLI_ASSOC);
 ?>
 
-<!-- check_in - check_out group-->
 
-<!-- check_in group -->
-<?php
+<!-- 
     if (isset($_POST["check_in_group"])) {
         if(count($data) >= 1){
             if(count($data) >= 2){
@@ -67,64 +65,55 @@
         }
         mysqli_close($con);
     }
-?>
 
-<!-- check_out group -->
-<?php 
-    if (isset($_POST["check_out_group"])){
-        if(count($data) >= 1){
-            if(count($data) >= 2 ){
-                if($data[0]['ticket_status_id'] == 1){
-                    if($data[0]["check_out"] == null){
-                        $sql2 = "UPDATE buy_ticket SET 
-                        check_out = '$date'
-                        WHERE ticket_code = '$ticket_code'  AND ticket_status_id = '1' ";
-                        $result2 = mysqli_query($con,$sql2) or die ("Error in query: $sql2 " . mysqli_error());
+    // if (isset($_POST["check_out_group"])){
+        // if(count($data) >= 1){
+        //     if(count($data) >= 2 ){
+        //         if($data[0]['ticket_status_id'] == 1){
+        //             if($data[0]["check_out"] == null){
+        //                 $sql2 = "UPDATE buy_ticket SET 
+        //                 check_out = '$date'
+        //                 WHERE ticket_code = '$ticket_code'  AND ticket_status_id = '1' ";
+        //                 $result2 = mysqli_query($con,$sql2) or die ("Error in query: $sql2 " . mysqli_error());
                         
-                        echo "<script type='text/javascript'>";
-                        echo "window.location = 'check_in_out.php'; ";
-                        echo "alert('รหัส $ticket_code Check Out เรียบร้อย ');";
-                        echo "</script>";
-                    }
-                    else{
-                        echo "<script type='text/javascript'>";
-                        echo "window.location = 'check_in_out.php'; ";
-                        echo "alert('รหัส $ticket_code มีการ Check Out แล้ว');";
-                        echo "</script>";
-                    }
-                }
-                else{
-                    echo "<script type='text/javascript'>";
-                    echo "window.location = 'status.php'; ";
-                    echo "alert(".$data[0]['ticket_status_id']."สถานะของคุณยังไม่ผ่านการตรวจ โปรดตรวจสอบสถานะด้วย !!!');";
-                    echo "</script>";
-                }
-            }
-            else{
-                echo "<script type='text/javascript'>";
-                echo "window.location = 'check_in_out_individual.php'; ";
-                echo "alert('$ticket_code รหัสนี้มีจำนวนที่นั่ง แค่ 1 ที่นั่ง ควร Check In แบบ 1 ที่นั่ง');";
-                echo "</script>";
-            }
-        }
-        else{
-            echo "<script type='text/javascript'>";
-            echo "window.location = 'check_in_out.php'; ";
-            echo "alert('$ticket_code รหัสไม่ถูกต้อง !!!');";
-            echo "</script>";
-        }
+        //                 echo "<script type='text/javascript'>";
+        //                 echo "window.location = 'check_in_out.php'; ";
+        //                 echo "alert('รหัส $ticket_code Check Out เรียบร้อย ');";
+        //                 echo "</script>";
+        //             }
+        //             else{
+        //                 echo "<script type='text/javascript'>";
+        //                 echo "window.location = 'check_in_out.php'; ";
+        //                 echo "alert('รหัส $ticket_code มีการ Check Out แล้ว');";
+        //                 echo "</script>";
+        //             }
+        //         }
+        //         else{
+        //             echo "<script type='text/javascript'>";
+        //             echo "window.location = 'status.php'; ";
+        //             echo "alert(".$data[0]['ticket_status_id']."สถานะของคุณยังไม่ผ่านการตรวจ โปรดตรวจสอบสถานะด้วย !!!');";
+        //             echo "</script>";
+        //         }
+        //     }
+        //     else{
+        //         echo "<script type='text/javascript'>";
+        //         echo "window.location = 'check_in_out_individual.php'; ";
+        //         echo "alert('$ticket_code รหัสนี้มีจำนวนที่นั่ง แค่ 1 ที่นั่ง ควร Check In แบบ 1 ที่นั่ง');";
+        //         echo "</script>";
+        //     }
+        // }
+        // else{
+        //     echo "<script type='text/javascript'>";
+        //     echo "window.location = 'check_in_out.php'; ";
+        //     echo "alert('$ticket_code รหัสไม่ถูกต้อง !!!');";
+        //     echo "</script>";
+        // }
     }
-?>
 
-<!-- check_in - check_out  group-->
 
-<!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-<!-- check_in - check_out  individual-->
-
-<!-- check_in individual -->
+<!-- check_in -->
 <?php 
-    if (isset($_POST["check_in_individual"])){
+    if (isset($_POST["check_in"])){
         if(count($data1) >= 1){
             if($data1[0]['ticket_status_id'] == 1){
                 if($data1[0]["check_in"] == null){
@@ -160,11 +149,11 @@
             echo "</script>";
         }
     }
-?>
+?> -->
 
-<!-- check_out individual -->
+<!-- check_out -->
 <?php 
-    if (isset($_POST["check_out_individual"])){
+    if (isset($_POST["check_out"])){
         if(count($data1) >= 1){
             if($data1[0]['ticket_status_id'] == 1){
                 if($data1[0]["check_out"] == null){
@@ -201,4 +190,4 @@
         }
     }
 ?>
-<!-- check_in - check_out individual-->
+<!-- check_in - check_out-->
