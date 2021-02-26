@@ -41,7 +41,7 @@
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
-                            แก้ไข
+                            จัดการข้อมูล
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
 
@@ -67,11 +67,24 @@
                             </script>
                         </a>
 
-                        <div class="sb-sidenav-menu-heading">ระบบรายงานผลลัพธ์</div>
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            สรุปผลลัพธ์ (ยังไม่ทำ)
+                        <div class="sb-sidenav-menu-heading">ระบบรายงานผลลัพธ์  D/M/Y</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                            Report (Graph)
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+
+
+                        <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="report.php?reportType=newCustomer">จำนวนลูกค้าใหม่</a>
+                                <a class="nav-link" href="report.php?reportType=income">รายได้</a>
+                                <a class="nav-link" href="report.php?reportType=checkIn">เช็คอินท์ & เช็คเอาท์</a>
+                                <a class="nav-link" href="report.php?reportType=ticketStatus">สถานะตั๋ว</a>
+                                <a class="nav-link" href="report.php?reportType=ticketCatagory">ประเภทการซื้อตั๋ว</a>
+                            </nav>
+                        </div>
+
                         <div class="sb-sidenav-menu-heading">ระบบจัดการ Admin</div>
 
                         <a class="nav-link" href="employee.php">
@@ -106,7 +119,7 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    
+
                     <div class="">Logged in : <?php echo $_SESSION["username"]; ?></div>
                     <div class='small' style="text-align:right"><a href="logout.php">ออกจากระบบ</a></div>
                 </div>

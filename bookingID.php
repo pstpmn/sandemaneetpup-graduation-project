@@ -40,7 +40,7 @@ require 'navbar.php';
     <main>
         <div class="container-fluid">
             <h1 class="mt-4">
-                <center>จัดการข้อมูลตั๋ว</center>
+                <center>จัดการข้อมูล Booking ID</center>
             </h1>
             <br><br>
             <div class="card mb-4">

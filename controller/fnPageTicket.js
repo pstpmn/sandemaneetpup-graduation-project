@@ -132,7 +132,46 @@ const getListTicketEdit = async () => {
     }
 }
 
+const setDeleteTicketID = async (ticketCode) => {
+    try {
+        let cf = confirm('ยืนยันการลบ Ticket ID');
+        if (cf == true) {
+            let response = await fetch('model/apiSetDeleteTicketID.php', {
+                method: "POST",
+                body: JSON.stringify({ id: ticketCode }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            let json = await response.json();
+            if (json == true) {
+                // location.reload();
+                $('#dataTable-TicketEdit').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    'retrieve': false,
+                    'destroy': true,
+                    "ajax": {
+                        url: "model/apiGetTicketIdAll.php", // json datasource
+                        type: "post",  // method  , by default get
+                        error: function () {  // error handling
+                            $(".employee-grid-error").html("");
+                            $("#dataTable-TicketEdit").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                            $("#dataTable-TicketEdit_processing").css("display", "none");
 
+                        }
+                    }
+                });
+
+            } else {
+                alert('เกิดข้อผิดพลาดในการลบ');
+            }
+        }
+    }
+    catch (err) {
+        alert(err)
+    }
+}
 
 const setDeleteTicket = async (ticketCode) => {
     try {
@@ -147,7 +186,22 @@ const setDeleteTicket = async (ticketCode) => {
             });
             let json = await response.json();
             if (json == true) {
-                location.reload();
+               await $('#dataTable-TicketEdit').DataTable( {
+					"processing": true,
+					"serverSide": true,
+                    'retrieve': false,
+                    'destroy': true,
+					"ajax":{
+						url :"model/apiGetTicketBookAll.php", // json datasource
+						type: "post",  // method  , by default get
+						error: function(){  // error handling
+							$(".employee-grid-error").html("");
+							$("#dataTable-TicketEdit").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+							$("#dataTable-TicketEdit_processing").css("display","none");
+							
+						}
+					}
+				} );
 
             } else {
                 alert('เกิดข้อผิดพลาดในการลบ');

@@ -18,6 +18,7 @@ if ((!$_SESSION["username"])) {
 
 
     <!-- use -->
+    <script src="controller/fnPageReport.js"></script>
     <script src="controller/fnPageValidateSlip.js"></script>
     <script src="controller/fnPageScan.js"></script>
     <script src="controller/fnPageCustomer.js"></script>
@@ -32,12 +33,10 @@ if ((!$_SESSION["username"])) {
     <script src="controller/fnPageEmployee.js"></script>
     <script src="controller/fnPageLocation.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="http://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>

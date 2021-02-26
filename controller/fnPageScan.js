@@ -32,7 +32,7 @@ const getTicketCheckIn = async () => {
         'retrieve': false,
         'destroy': true,
         "ajax": {
-            url: "model/apiGetTicketAll.php", // json datasource
+            url: "model/apiGetCheckInToday.php", // json datasource
             type: "post", // method  , by default get
             error: function () { // error handling
                 $(".employee-grid-error").html("");

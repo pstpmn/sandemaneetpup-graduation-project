@@ -1,9 +1,15 @@
 <?php
-session_start();
-$_SESSION["admin"] = 1;
-$_SESSION['gm'] = 6; 
-$_SESSION["username"] = "asdsa";
+$pdo = new PDO('mysql:host=' . 'localhost' . ';dbname=' . 'project_db' . ';charset=utf8', 'root', '');
 
-echo $_SESSION["admin"];
+$sss = '" or ""="';
+// $a = addslashes(trim($sss));
+// $stmt = $pdo->prepare('select * from customer where customer_id = "'.$a.'"');
+// print_r($stmt);
 
+// $stmt->execute();
+// $data = $stmt->fetch();
+// print_r($data);
 ?>
+<script>
+alert(strip_tags('<?php echo $sss; ?>'));
+</script>
