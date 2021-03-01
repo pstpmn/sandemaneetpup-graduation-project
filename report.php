@@ -46,49 +46,51 @@ require 'navbar.php';
                 <button class="btn btn-info" onclick="getGraph()">แสดงข้อมูล</button>
             </div>
 
+            <div id='showGraph' style="display: none;">
 
-            <div class="container" style="padding:0;">
-                <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
-                    <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
-                        <div _ngcontent-jvv-c126="" class="card-header">Bar Chart
-                        </div>
-                        <div _ngcontent-jvv-c126="" class="card-body">
-                            <canvas id="myChart"></canvas>
-
-                        </div>
-                    </div>
-                </sbpro-card>
-            </div>
-
-
-
-            <br>
-            <div class="container" style="padding:0;">
-                <div _ngcontent-jvv-c126="" class="row">
-                    <div _ngcontent-jvv-c126="" class="col-lg-6 mb-4">
-                        <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
-                            <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
-                                <div _ngcontent-jvv-c126="" class="card-header">Pie Chart
-                                </div>
-                                <div _ngcontent-jvv-c126="" class="card-body" style="height: 290px;">
-                                    <canvas id="PieChart"></canvas>
-
-                                </div>
+                <div class="container" style="padding:0;">
+                    <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
+                        <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
+                            <div _ngcontent-jvv-c126="" class="card-header">Bar Chart
                             </div>
-                        </sbpro-card>
-                    </div>
-                    <div _ngcontent-jvv-c126="" class="col-lg-6 mb-4">
-                        <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
-                            <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
-                                <div _ngcontent-jvv-c126="" class="card-header">Detail</div>
-                                <div _ngcontent-jvv-c126="" class="card-body" style="height: 290px;">
-                                </div>
+                            <div _ngcontent-jvv-c126="" class="card-body">
+                                <canvas id="myChart"></canvas>
+
                             </div>
-                        </sbpro-card>
+                        </div>
+                    </sbpro-card>
+                </div>
+
+
+
+                <br>
+                <div class="container" style="padding:0;">
+                    <div _ngcontent-jvv-c126="" class="row">
+                        <div _ngcontent-jvv-c126="" class="col-lg-6 mb-4">
+                            <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
+                                <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
+                                    <div _ngcontent-jvv-c126="" class="card-header">Pie Chart
+                                    </div>
+                                    <div _ngcontent-jvv-c126="" class="card-body" style="height: 290px;">
+                                        <canvas id="PieChart"></canvas>
+
+                                    </div>
+                                </div>
+                            </sbpro-card>
+                        </div>
+                        <div _ngcontent-jvv-c126="" class="col-lg-6 mb-4">
+                            <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
+                                <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
+                                    <div _ngcontent-jvv-c126="" class="card-header">Detail</div>
+                                    <div _ngcontent-jvv-c126="" class="card-body" style="height: 290px;">
+                                    </div>
+                                </div>
+                            </sbpro-card>
+                        </div>
                     </div>
                 </div>
+                <br>
             </div>
-            <br>
         </div>
     </main>
     <?php

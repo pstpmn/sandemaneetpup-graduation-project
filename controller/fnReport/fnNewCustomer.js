@@ -1,28 +1,6 @@
-const getGraphBarCountCustomerY = async () => {
+const getGraphBarCountCustomerY = async (json) => {
     let yearValue = [];
     let yearName = [];
-    let response;
-    let json;
-    if (barChart != null) {
-        barChart.destroy();
-    }
-
-    try {
-        response = await fetch('model/report/apiGetReportNewCustomerY.php', {
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-
-        json = await response.json();
-    } catch (err) {
-        alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-        return;
-    }
-    if (json.length <= 0) {
-        alert("ไม่มีข้อมูลรายการ");
-        return;
-    }
     for (let i = 0; i < json.length; i++) {
         yearValue.push(json[i].yearValue);
         yearName.push(json[i].yearName);
@@ -65,33 +43,10 @@ const getGraphBarCountCustomerY = async () => {
 }
 
 
-const getGraphPieCountCustomerY = async () => {
+const getGraphPieCountCustomerY = async (json) => {
     let yearValue = [];
     let yearName = [];
-    let response;
-    let json;
 
-    if (pieChart != null) {
-        pieChart.destroy();
-    }
-
-    try {
-        response = await fetch('model/report/apiGetReportNewCustomerY.php', {
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-
-        json = await response.json();
-    } catch (err) {
-        alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-        return;
-    }
-
-    if (json.length <= 0) {
-        alert("ไม่มีข้อมูลรายการ");
-        return;
-    }
     for (let i = 0; i < json.length; i++) {
         yearValue.push(json[i].yearValue);
         yearName.push(json[i].yearName);
@@ -122,61 +77,8 @@ const getGraphPieCountCustomerY = async () => {
 }
 
 
-const getGraphBarCountCustomerD = async (date, week) => {
+const getGraphBarCountCustomerD = async (json, week) => {
     let value = [];
-    let dayToweek = [];
-    let response;
-    let json;
-    let checkCountJson = false;
-
-    try {
-        response = await fetch('model/report/apiGetReportNewCustomerD.php', {
-            method: "POST",
-            body: JSON.stringify({
-                date: date,
-                week: week
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-        json = await response.json();
-    } catch (err) {
-        alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-        return;
-    }
-
-    //check data
-    for (let i = 0; i < 7; i++) {
-        if (json[0][i] != 0) {
-            checkCountJson = true;
-            break;
-        }
-    }
-    if (checkCountJson != true) {
-        alert("ไม่มีข้อมูลรายการสัปดาห์นี้");
-        return;
-    }
-
-    if (barChart != null) {
-        barChart.destroy();
-    }
-
-    if (week == 1) {
-        dayToweek = ['วันที่ 1', 'วันที่ 2', 'วันที่ 3', 'วันที่ 4', 'วันที่ 5', 'วันที่ 6', 'วันที่ 7'];
-    }
-    else if (week == 2) {
-        dayToweek = ['วันที่ 8', 'วันที่ 9', 'วันที่ 10', 'วันที่ 11', 'วันที่ 12', 'วันที่ 13', 'วันที่ 14'];
-    }
-    else if (week == 3) {
-        dayToweek = ['วันที่ 15', 'วันที่ 16', 'วันที่ 17', 'วันที่ 18', 'วันที่ 19', 'วันที่ 20', 'วันที่ 21'];
-    }
-    else if (week == 4) {
-        dayToweek = ['วันที่ 22', 'วันที่ 23', 'วันที่ 24', 'วันที่ 25', 'วันที่ 26', 'วันที่ 27', 'วันที่ 28'];
-    }
-    else if (week == 5) {
-        dayToweek = ['วันที่ 29', 'วันที่ 30', 'วันที่ 31'];
-    }
     value.push(json[0].day1);
     value.push(json[0].day2)
     value.push(json[0].day3)
@@ -189,7 +91,7 @@ const getGraphBarCountCustomerD = async (date, week) => {
     barChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: dayToweek,
+            labels: week,
             datasets: [{
                 label: 'จำนวน',
                 data: value,
@@ -222,62 +124,8 @@ const getGraphBarCountCustomerD = async (date, week) => {
 }
 
 
-const getGraphPieCountCustomerD = async (date, week) => {
+const getGraphPieCountCustomerD = async (json, week) => {
     let value = [];
-    let dayToweek = [];
-    let checkCountJson = false;
-    let response;
-    let json;
-
-    try {
-        response = await fetch('model/report/apiGetReportNewCustomerD.php', {
-            method: "POST",
-            body: JSON.stringify({
-                date: date,
-                week: week
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-        json = await response.json();
-    } catch (err) {
-        alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-        return;
-    }
-
-    //check data
-    for (let i = 0; i < 7; i++) {
-        if (json[0][i] != 0) {
-            checkCountJson = true;
-            break;
-        }
-    }
-    if (checkCountJson != true) {
-        return;
-    }
-
-    if (pieChart != null) {
-        pieChart.destroy();
-    }
-
-    if (week == 1) {
-        dayToweek = ['วันที่ 1', 'วันที่ 2', 'วันที่ 3', 'วันที่ 4', 'วันที่ 5', 'วันที่ 6', 'วันที่ 7'];
-    }
-    else if (week == 2) {
-        dayToweek = ['วันที่ 8', 'วันที่ 9', 'วันที่ 10', 'วันที่ 11', 'วันที่ 12', 'วันที่ 13', 'วันที่ 14'];
-    }
-    else if (week == 3) {
-        dayToweek = ['วันที่ 15', 'วันที่ 16', 'วันที่ 17', 'วันที่ 18', 'วันที่ 19', 'วันที่ 20', 'วันที่ 21'];
-    }
-    else if (week == 4) {
-        dayToweek = ['วันที่ 22', 'วันที่ 23', 'วันที่ 24', 'วันที่ 25', 'วันที่ 26', 'วันที่ 27', 'วันที่ 28'];
-    }
-    else if (week == 5) {
-        dayToweek = ['วันที่ 29', 'วันที่ 30', 'วันที่ 31'];
-    }
-
-
     value.push(json[0].day1);
     value.push(json[0].day2)
     value.push(json[0].day3)
@@ -292,7 +140,7 @@ const getGraphPieCountCustomerD = async (date, week) => {
     pieChart = new Chart(ctxx, {
         type: 'pie',
         data: {
-            labels: ['สัปดาห์ 1', 'สัปดาห์ 2', 'สัปดาห์ 3', 'สัปดาห์ 4', 'สัปดาห์ 5'],
+            labels: week,
             datasets: [{
                 backgroundColor: [
                     "#2ecc71",
@@ -312,43 +160,8 @@ const getGraphPieCountCustomerD = async (date, week) => {
 
 
 
-const getGraphPieCountCustomerW = async (date) => {
+const getGraphPieCountCustomerW = async (json) => {
     let value = [];
-    let checkCountJson = false;
-    let response;
-    let json;
-
-    try {
-        response = await fetch('model/report/apiGetReportNewCustomerW.php', {
-            method: "POST",
-            body: JSON.stringify({
-                date: date
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-        json = await response.json();
-    } catch (err) {
-        alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-        return;
-    }
-    //check data
-    for (let i = 0; i < 5; i++) {
-        if (json[0][i] != 0) {
-            checkCountJson = true;
-            break;
-        }
-    }
-    if (checkCountJson != true) {
-        alert('ไม่พบข้อมูลของเดือนนี้')
-        return;
-    }
-    if (pieChart != null) {
-        pieChart.destroy();
-    }
-
-
     value.push(json[0].week1);
     value.push(json[0].week2)
     value.push(json[0].week3)
@@ -380,22 +193,9 @@ const getGraphPieCountCustomerW = async (date) => {
 }
 
 
-const getGraphPieCountCustomerM = async (date) => {
-    if (pieChart != null) {
-        pieChart.destroy();
-    }
-
+const getGraphPieCountCustomerM = async (json) => {
     let value = [];
-    let response = await fetch('model/report/apiGetReportNewCustomerM.php', {
-        method: "POST",
-        body: JSON.stringify({
-            date: date
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-    json = await response.json();
+    
     value.push(json[0].month1);
     value.push(json[0].month2)
     value.push(json[0].month3)
@@ -435,40 +235,10 @@ const getGraphPieCountCustomerM = async (date) => {
 
 
 
-const getGraphBarCountCustomerW = async (date) => {
+const getGraphBarCountCustomerW = async (json) => {
     let value = [];
-    let checkCountJson = false;
-    let response;
-    let json;
+   
 
-    try {
-        response = await fetch('model/report/apiGetReportNewCustomerW.php', {
-            method: "POST",
-            body: JSON.stringify({
-                date: date
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-        json = await response.json();
-    } catch (err) {
-        alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-        return;
-    }
-    //check data
-    for (let i = 0; i < 5; i++) {
-        if (json[0][i] != 0) {
-            checkCountJson = true;
-            break;
-        }
-    }
-    if (checkCountJson != true) {
-        return;
-    }
-    if (pieChart != null) {
-        pieChart.destroy();
-    }
 
 
     value.push(json[0].week1);
@@ -516,22 +286,10 @@ const getGraphBarCountCustomerW = async (date) => {
 
 
 
-const getGraphBarCountCustomerM = async (date) => {
+const getGraphBarCountCustomerM = async (json) => {
     let value = [];
-    if (barChart != null) {
-        barChart.destroy();
-    }
+  
 
-    let response = await fetch('model/report/apiGetReportNewCustomerM.php', {
-        method: "POST",
-        body: JSON.stringify({
-            date: date
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-    json = await response.json();
     value.push(json[0].month1);
     value.push(json[0].month2)
     value.push(json[0].month3)

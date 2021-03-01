@@ -38,28 +38,161 @@ const setBtnReportType = (btn) => {
 
 const getGraph = async () => {
     let date;
+    let response;
+    let json;
+    let checkCountJson = false;
 
+
+    if (pieChart != null) {
+        pieChart.destroy();
+    }
+    if (barChart != null) {
+        barChart.destroy();
+    }
 
     if (document.getElementById('btnDay').getAttribute('class') == 'btn btn-success') {
         date = document.getElementById('txtDate').value;
-        getGraphBarCountCustomerD(date, document.getElementById('txtWeek').value);
-        getGraphPieCountCustomerD(date, document.getElementById('txtWeek').value);
+        let week = document.getElementById('txtWeek').value;
+        let checkCountJson = false;
+
+        try {
+            response = await fetch('model/report/apiGetReportNewCustomerD.php', {
+                method: "POST",
+                body: JSON.stringify({
+                    date: date,
+                    week: week
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            json = await response.json();
+        } catch (err) {
+            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ' + err);
+            return;
+        }
+
+        //check data
+        for (let i = 0; i < 7; i++) {
+            if (json[0][i] != 0) {
+                checkCountJson = true;
+                break;
+            }
+        }
+        if (checkCountJson != true) {
+            alert("ไม่มีข้อมูลรายการสัปดาห์นี้");
+            return;
+        }
+
+        if (week == 1) {
+            week = ['วันที่ 1', 'วันที่ 2', 'วันที่ 3', 'วันที่ 4', 'วันที่ 5', 'วันที่ 6', 'วันที่ 7'];
+        }
+        else if (week == 2) {
+            week = ['วันที่ 8', 'วันที่ 9', 'วันที่ 10', 'วันที่ 11', 'วันที่ 12', 'วันที่ 13', 'วันที่ 14'];
+        }
+        else if (week == 3) {
+            week = ['วันที่ 15', 'วันที่ 16', 'วันที่ 17', 'วันที่ 18', 'วันที่ 19', 'วันที่ 20', 'วันที่ 21'];
+        }
+        else if (week == 4) {
+            week = ['วันที่ 22', 'วันที่ 23', 'วันที่ 24', 'วันที่ 25', 'วันที่ 26', 'วันที่ 27', 'วันที่ 28'];
+        }
+        else if (week == 5) {
+            week = ['วันที่ 29', 'วันที่ 30', 'วันที่ 31'];
+        }
+
+
+        getGraphBarCountCustomerD(json, week);
+        getGraphPieCountCustomerD(json, week);
     }
     else if (document.getElementById('btnMonth').getAttribute('class') == 'btn btn-success') {
+        let checkCountJson = false;
         date = document.getElementById('txtDate').value;
-        getGraphBarCountCustomerM(date);
-        getGraphPieCountCustomerM(date);
+
+        try {
+            response = await fetch('model/report/apiGetReportNewCustomerM.php', {
+                method: "POST",
+                body: JSON.stringify({
+                    date: date
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            json = await response.json();
+        } catch (err) {
+            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
+            return;
+        }
+        //check data
+        for (let i = 0; i < 5; i++) {
+            if (json[0][i] != 0) {
+                checkCountJson = true;
+                break;
+            }
+        }
+        if (checkCountJson != true) {
+            alert('ไม่พบข้อมูลของปีนี้')
+            return;
+        }
+        getGraphBarCountCustomerM(json);
+        getGraphPieCountCustomerM(json);
     }
     else if (document.getElementById('btnWeek').getAttribute('class') == 'btn btn-success') {
         date = document.getElementById('txtDate').value;
-        getGraphBarCountCustomerW(date);
-        getGraphPieCountCustomerW(date);
+
+        try {
+            response = await fetch('model/report/apiGetReportNewCustomerW.php', {
+                method: "POST",
+                body: JSON.stringify({
+                    date: date
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+            json = await response.json();
+        } catch (err) {
+            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
+            return;
+        }
+        //check data
+        for (let i = 0; i < 5; i++) {
+            if (json[0][i] != 0) {
+                checkCountJson = true;
+                break;
+            }
+        }
+        if (checkCountJson != true) {
+            return;
+        }
+        getGraphBarCountCustomerW(json);
+        getGraphPieCountCustomerW(json);
 
     }
     else if (document.getElementById('btnYear').getAttribute('class') == 'btn btn-success') {
-        getGraphBarCountCustomerY();
-        getGraphPieCountCustomerY();
+        try {
+            response = await fetch('model/report/apiGetReportNewCustomerY.php', {
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+
+            json = await response.json();
+        } catch (err) {
+            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
+            return;
+        }
+        if (json.length <= 0) {
+            alert("ไม่มีข้อมูลรายการ");
+            return;
+        }
+
+        getGraphBarCountCustomerY(json);
+        getGraphPieCountCustomerY(json);
     }
+
+    //Display Graph to Show
+    document.getElementById('showGraph').style.display = 'block';
 
 }
 
