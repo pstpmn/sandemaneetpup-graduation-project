@@ -9,15 +9,20 @@ if (isset($_GET['reportType']) == true && $_GET['reportType'] == "income") {
 } else {
     header("Location:home.php");
 }
-
-
 require 'header.php';
 require 'navbar.php';
 ?>
+
+<!-- Declare variables used Function -->
 <script>
     var barChart;
     var pieChart;
 </script>
+
+<!-- import function js -->
+<script src="controller/fnReport/fnNewCustomer.js"></script>
+
+
 <title>Report</title>
 <div id="layoutSidenav_content">
     <main>
@@ -29,7 +34,8 @@ require 'navbar.php';
 
             <div class="container p-3 my-3 border bg-white">
                 <h1 class="h3 mb-2 text-gray-800">เลือกประเภท</h1>
-                <button class="btn btn-warning" onclick="setBtnReportType(this)" name='day' id='btnDay'>รายวัน</button> <button onclick="setBtnReportType(this)" id='btnWeek' name='week' class="btn btn-warning">รายสัปดาห์</button>
+                <button class="btn btn-warning" onclick="setBtnReportType(this)" name='day' id='btnDay'>รายวัน</button>
+                <button onclick="setBtnReportType(this)" id='btnWeek' name='week' class="btn btn-warning">รายสัปดาห์</button>
                 <button class="btn btn-warning" id='btnMonth' name='month' onclick="setBtnReportType(this)">รายเดือน</button>
                 <button class="btn btn-warning" id='btnYear' name='year' onclick="setBtnReportType(this)">รายปี</button>
                 <br><br>
