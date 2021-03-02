@@ -78,7 +78,7 @@
                         <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="report.php?reportType=newCustomer">จำนวนลูกค้าใหม่</a>
-                                <a class="nav-link" href="report.php?reportType=income">จำนวนตั๋วที่ขาย</a>
+                                <a class="nav-link" href="report.php?reportType=countTicket">จำนวนตั๋วที่ขาย</a>
 
                                 <a class="nav-link" href="report.php?reportType=income">รายได้</a>
                                 <a class="nav-link" href="report.php?reportType=checkIn">เช็คอินท์ & เช็คเอาท์</a>

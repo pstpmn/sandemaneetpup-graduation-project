@@ -36,164 +36,27 @@ const setBtnReportType = (btn) => {
     }
 }
 
-const getGraph = async () => {
-    let date;
-    let response;
-    let json;
-    let checkCountJson = false;
+const getGraph = async (typeGraph) => {
+    let btnType;
+    if (document.getElementById('btnDay').getAttribute('class') == 'btn btn-success') btnType = "day";
+    else if (document.getElementById('btnWeek').getAttribute('class') == 'btn btn-success') btnType = "week";
+    else if (document.getElementById('btnMonth').getAttribute('class') == 'btn btn-success') btnType = "month";
+    else if (document.getElementById('btnYear').getAttribute('class') == 'btn btn-success') btnType = "year";
+    else {
+        return alert('กรุณาเลือก ประเภทการ Report ก่อน !!')
+    }
 
-
+    // check chart if have will destory chart
     if (pieChart != null) {
         pieChart.destroy();
     }
     if (barChart != null) {
         barChart.destroy();
     }
-
-    if (document.getElementById('btnDay').getAttribute('class') == 'btn btn-success') {
-        date = document.getElementById('txtDate').value;
-        let week = document.getElementById('txtWeek').value;
-        let checkCountJson = false;
-
-        try {
-            response = await fetch('model/report/apiGetReportNewCustomerD.php', {
-                method: "POST",
-                body: JSON.stringify({
-                    date: date,
-                    week: week
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-            json = await response.json();
-        } catch (err) {
-            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ' + err);
-            return;
-        }
-
-        //check data
-        for (let i = 0; i < 7; i++) {
-            if (json[0][i] != 0) {
-                checkCountJson = true;
-                break;
-            }
-        }
-        if (checkCountJson != true) {
-            alert("ไม่มีข้อมูลรายการสัปดาห์นี้");
-            return;
-        }
-
-        if (week == 1) {
-            week = ['วันที่ 1', 'วันที่ 2', 'วันที่ 3', 'วันที่ 4', 'วันที่ 5', 'วันที่ 6', 'วันที่ 7'];
-        }
-        else if (week == 2) {
-            week = ['วันที่ 8', 'วันที่ 9', 'วันที่ 10', 'วันที่ 11', 'วันที่ 12', 'วันที่ 13', 'วันที่ 14'];
-        }
-        else if (week == 3) {
-            week = ['วันที่ 15', 'วันที่ 16', 'วันที่ 17', 'วันที่ 18', 'วันที่ 19', 'วันที่ 20', 'วันที่ 21'];
-        }
-        else if (week == 4) {
-            week = ['วันที่ 22', 'วันที่ 23', 'วันที่ 24', 'วันที่ 25', 'วันที่ 26', 'วันที่ 27', 'วันที่ 28'];
-        }
-        else if (week == 5) {
-            week = ['วันที่ 29', 'วันที่ 30', 'วันที่ 31'];
-        }
-
-
-        getGraphBarCountCustomerD(json, week);
-        getGraphPieCountCustomerD(json, week);
-    }
-    else if (document.getElementById('btnMonth').getAttribute('class') == 'btn btn-success') {
-        let checkCountJson = false;
-        date = document.getElementById('txtDate').value;
-
-        try {
-            response = await fetch('model/report/apiGetReportNewCustomerM.php', {
-                method: "POST",
-                body: JSON.stringify({
-                    date: date
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-            json = await response.json();
-        } catch (err) {
-            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-            return;
-        }
-        //check data
-        for (let i = 0; i < 5; i++) {
-            if (json[0][i] != 0) {
-                checkCountJson = true;
-                break;
-            }
-        }
-        if (checkCountJson != true) {
-            alert('ไม่พบข้อมูลของปีนี้')
-            return;
-        }
-        getGraphBarCountCustomerM(json);
-        getGraphPieCountCustomerM(json);
-    }
-    else if (document.getElementById('btnWeek').getAttribute('class') == 'btn btn-success') {
-        date = document.getElementById('txtDate').value;
-
-        try {
-            response = await fetch('model/report/apiGetReportNewCustomerW.php', {
-                method: "POST",
-                body: JSON.stringify({
-                    date: date
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-            json = await response.json();
-        } catch (err) {
-            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-            return;
-        }
-        //check data
-        for (let i = 0; i < 5; i++) {
-            if (json[0][i] != 0) {
-                checkCountJson = true;
-                break;
-            }
-        }
-        if (checkCountJson != true) {
-            return;
-        }
-        getGraphBarCountCustomerW(json);
-        getGraphPieCountCustomerW(json);
-
-    }
-    else if (document.getElementById('btnYear').getAttribute('class') == 'btn btn-success') {
-        try {
-            response = await fetch('model/report/apiGetReportNewCustomerY.php', {
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-
-            json = await response.json();
-        } catch (err) {
-            alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
-            return;
-        }
-        if (json.length <= 0) {
-            alert("ไม่มีข้อมูลรายการ");
-            return;
-        }
-
-        getGraphBarCountCustomerY(json);
-        getGraphPieCountCustomerY(json);
-    }
-
-    //Display Graph to Show
-    document.getElementById('showGraph').style.display = 'block';
-
+    // calling Funcsion specifically Report Type
+    if (typeGraph == "newCustomer") getGraphCustomer(btnType);
+    else if(typeGraph == "countTicket") getGraphCountTicket(btnType);
+    else if(typeGraph == "income") getGraphIncome(btnType);
 }
 
 const calculatePercentage = (array) => {
@@ -211,6 +74,128 @@ const sumArray = (array) => {
     for (let i = 0; i < array.length; i++) {
         sum += parseInt(array[i]);
     }
-
     return sum;
+}
+
+const showContainerGraph = () => {
+    document.getElementById('showGraph').style.display = 'block';
+}
+const hideContainerGraph = () => {
+    document.getElementById('showGraph').style.display = 'none';
+}
+
+
+
+const getGraphBar = async (labels, value) => {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'จำนวนลูกค้า',
+                data: value,
+                backgroundColor: [
+                    "#2ecc71",
+                    "#3498db",
+                    "#95a5a6",
+                    "#9b59b6",
+                    "#f1c40f",
+                    "#e74c3c",
+                    "#34495e"
+                ],
+                pointRadius: 0,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
+const getGraphPie = async (labels, value) => {
+    let percentData = calculatePercentage(value)
+
+    var ctxx = document.getElementById("PieChart").getContext('2d');
+    pieChart = new Chart(ctxx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                backgroundColor: [
+                    "#2ecc71",
+                    "#3498db",
+                    "#95a5a6",
+                    "#9b59b6",
+                    "#f1c40f",
+                    "#e74c3c",
+                    "#34495e"
+                ],
+                data: percentData
+            }]
+        }
+    });
+}
+
+
+const getDetailGraph = (columnList, dataList, reportType) => {
+    if (reportType == 'newCustomer') {
+        document.getElementById('table-column').innerHTML = "<td>#</td>";
+        let percentage = calculatePercentage(dataList);
+        for (let i = 0; i < columnList.length; i++) {
+            document.getElementById('table-column').innerHTML += "<td><b>" + columnList[i] + "</b></td>";
+        }
+        document.getElementById('table-data').innerHTML = "<tr><td style='width: 19%;'><b>จำนวนคน</b></td></tr>";
+        for (let i = 0; i < dataList.length; i++) {
+            document.getElementById('table-data').innerHTML += "<td>" + dataList[i] + "</td>";
+        }
+        document.getElementById('table-percentage').innerHTML = "<tr><td style='width: 19%;'><b>ร้อยละ</b></td></tr>";
+        for (let i = 0; i < percentage.length; i++) {
+            document.getElementById('table-percentage').innerHTML += "<td>" + percentage[i] + "%</td>";
+        }
+        document.getElementById('table-resultGraph').innerHTML = "<b>รวมจำนวน : " + sumArray(dataList) + " คน</b>";
+    }
+    else if (reportType == 'countTicket') {
+        document.getElementById('table-column').innerHTML = "<td>#</td>";
+        let percentage = calculatePercentage(dataList);
+        for (let i = 0; i < columnList.length; i++) {
+            document.getElementById('table-column').innerHTML += "<td><b>" + columnList[i] + "</b></td>";
+        }
+        document.getElementById('table-data').innerHTML = "<tr><td style='width: 19%;'><b>จำนวนตั๋ว</b></td></tr>";
+        for (let i = 0; i < dataList.length; i++) {
+            document.getElementById('table-data').innerHTML += "<td>" + dataList[i] + "</td>";
+        }
+        document.getElementById('table-percentage').innerHTML = "<tr><td style='width: 19%;'><b>ร้อยละ</b></td></tr>";
+        for (let i = 0; i < percentage.length; i++) {
+            document.getElementById('table-percentage').innerHTML += "<td>" + percentage[i] + "%</td>";
+        }
+        document.getElementById('table-resultGraph').innerHTML = "<b>รวมจำนวน : " + sumArray(dataList) + " คน</b>";
+    }
+    else if (reportType == 'income') {
+        document.getElementById('table-column').innerHTML = "<td>#</td>";
+        let percentage = calculatePercentage(dataList);
+        for (let i = 0; i < columnList.length; i++) {
+            document.getElementById('table-column').innerHTML += "<td><b>" + columnList[i] + "</b></td>";
+        }
+        document.getElementById('table-data').innerHTML = "<tr><td style='width: 19%;'><b>จำนวนเงิน</b></td></tr>";
+        for (let i = 0; i < dataList.length; i++) {
+            document.getElementById('table-data').innerHTML += "<td>" + dataList[i] + "</td>";
+        }
+        document.getElementById('table-percentage').innerHTML = "<tr><td style='width: 19%;'><b>ร้อยละ</b></td></tr>";
+        for (let i = 0; i < percentage.length; i++) {
+            document.getElementById('table-percentage').innerHTML += "<td>" + percentage[i] + "%</td>";
+        }
+        document.getElementById('table-resultGraph').innerHTML = "<b>รวมจำนวน : " + sumArray(dataList) + " คน</b>";
+    }
 }

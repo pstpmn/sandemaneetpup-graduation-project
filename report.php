@@ -6,6 +6,7 @@ if (isset($_GET['reportType']) == true && $_GET['reportType'] == "income") {
 } else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "newCustomer") {
 } else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "ticketStatus") {
 } else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "ticketCatagory") {
+} else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "countTicket") {
 } else {
     header("Location:home.php");
 }
@@ -21,6 +22,10 @@ require 'navbar.php';
 
 <!-- import function js -->
 <script src="controller/fnReport/fnNewCustomer.js"></script>
+<script src="controller/fnReport/fnCountTicket.js"></script>
+<script src="controller/fnReport/fnIncome.js"></script>
+
+
 
 
 <title>Report</title>
@@ -43,7 +48,7 @@ require 'navbar.php';
                     <input type="text" class="form-control" disabled placeholder="กรุณาเลือกประเภทก่อนน">
                 </div>
                 <br>
-                <button class="btn btn-info" onclick="getGraph()">แสดงข้อมูล</button>
+                <button class="btn btn-info" onclick="getGraph('<?php echo $_GET['reportType']; ?>')">แสดงข้อมูล</button>
             </div>
 
             <div id='showGraph' style="display: none;">
@@ -80,9 +85,29 @@ require 'navbar.php';
                         </div>
                         <div _ngcontent-jvv-c126="" class="col-lg-6 mb-4">
                             <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
-                                <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
+                                <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100" style="overflow: auto;">
                                     <div _ngcontent-jvv-c126="" class="card-header">Detail</div>
                                     <div _ngcontent-jvv-c126="" class="card-body" style="height: 290px;">
+                                        <center>
+                                            <h5>ตารางแสดงรายละเอียด</h5>
+                                        </center>
+                                        <table class="table table-hover" style="text-align: center;" id="table-detailGraph">
+                                            <tr id='table-column'>
+                                                <!-- implement By Fn -->
+                                            </tr>
+                                            <tr id='table-data'>
+                                                <!-- implement By Fn -->
+
+                                            </tr>
+                                            <tr id='table-percentage'>
+                                                <!-- implement By Fn -->
+                                            </tr>
+                                        </table>
+
+                                        <div style="text-align: right;" id='table-resultGraph'>
+                                            <!-- implement By Fn -->
+                                        </div>
+
                                     </div>
                                 </div>
                             </sbpro-card>
