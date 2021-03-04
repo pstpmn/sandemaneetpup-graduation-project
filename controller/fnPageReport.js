@@ -55,15 +55,18 @@ const getGraph = async (typeGraph) => {
     }
     // calling Funcsion specifically Report Type
     if (typeGraph == "newCustomer") getGraphCustomer(btnType);
-    else if(typeGraph == "countTicket") getGraphCountTicket(btnType);
-    else if(typeGraph == "income") getGraphIncome(btnType);
+    else if (typeGraph == "countTicket") getGraphCountTicket(btnType);
+    else if (typeGraph == "income") getGraphIncome(btnType);
+    else if (typeGraph == "ticketCategory") getGraphTicketCategory(btnType);
+    else if (typeGraph == "checkIn") getGraphCheckIn(btnType);
+    else if (typeGraph == "confirmIdentity") getGraphConfirmIdentity(btnType);
+
 }
 
 const calculatePercentage = (array) => {
     let sum = sumArray(array)
     let listPercentage = [];
     for (let i = 0; i < array.length; i++) {
-
         listPercentage.push(Math.round((array[i] / sum) * 100));
     }
     return listPercentage;
@@ -88,12 +91,29 @@ const hideContainerGraph = () => {
 
 const getGraphBar = async (labels, value) => {
     var ctx = document.getElementById('myChart').getContext('2d');
+    if (typeof value.datasets == "object") {
+        barChart = new Chart(ctx, {
+            type: 'bar',
+            data: value,
+            options: {
+                barValueSpacing: 20,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }]
+                }
+            }
+        });
+        return;
+    }
     barChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
-                label: 'จำนวนลูกค้า',
+                label: ['ddd','dd'],
                 data: value,
                 backgroundColor: [
                     "#2ecc71",
@@ -106,26 +126,27 @@ const getGraphBar = async (labels, value) => {
                 ],
                 pointRadius: 0,
                 borderWidth: 1
-            }]
+            }],
         },
-        options: {
-            legend: {
-                display: false
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
+        
     });
 }
 
 
 const getGraphPie = async (labels, value) => {
-    let percentData = calculatePercentage(value)
+    let percentData;
+    let arrayKeepSum = [];
+  
+    if (typeof value.datasets == "object") {
+        for (let i = 0; i < value.datasets.length; i++) {
+            sum = sumArray(value.datasets[i].data);
+            arrayKeepSum.push(sum);
+        }
+        percentData = calculatePercentage(arrayKeepSum)
+    }
+    else {
+        percentData = calculatePercentage(value)
+    }
 
     var ctxx = document.getElementById("PieChart").getContext('2d');
     pieChart = new Chart(ctxx, {
@@ -146,6 +167,7 @@ const getGraphPie = async (labels, value) => {
             }]
         }
     });
+
 }
 
 
@@ -198,4 +220,30 @@ const getDetailGraph = (columnList, dataList, reportType) => {
         }
         document.getElementById('table-resultGraph').innerHTML = "<b>รวมจำนวน : " + sumArray(dataList) + " คน</b>";
     }
+    else if (reportType == 'ticketCategory') {
+        let sum;
+        let arrayKeepSum = [];
+        for (let i = 0; i < dataList.datasets.length; i++) {
+            sum = sumArray(dataList.datasets[i].data);
+            arrayKeepSum.push(sum);
+        }
+        dataList = arrayKeepSum;
+
+        document.getElementById('table-column').innerHTML = "<td>#</td>";
+        let percentage = calculatePercentage(dataList);
+        for (let i = 0; i < columnList.length; i++) {
+            document.getElementById('table-column').innerHTML += "<td><b>" + columnList[i] + "</b></td>";
+        }
+        document.getElementById('table-data').innerHTML = "<tr><td style='width: 19%;'><b>จำนวนตั๋ว</b></td></tr>";
+        for (let i = 0; i < dataList.length; i++) {
+            document.getElementById('table-data').innerHTML += "<td>" + dataList[i] + "</td>";
+        }
+        document.getElementById('table-percentage').innerHTML = "<tr><td style='width: 19%;'><b>ร้อยละ</b></td></tr>";
+        for (let i = 0; i < percentage.length; i++) {
+            document.getElementById('table-percentage').innerHTML += "<td>" + percentage[i] + "%</td>";
+        }
+        document.getElementById('table-resultGraph').innerHTML = "<b>รวมจำนวนตั๋วทั้งหมด : " + sumArray(dataList) + " ใบ</b>";
+    }
 }
+
+

@@ -5,8 +5,9 @@ if (isset($_GET['reportType']) == true && $_GET['reportType'] == "income") {
 } else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "checkIn") {
 } else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "newCustomer") {
 } else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "ticketStatus") {
-} else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "ticketCatagory") {
+} else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "ticketCategory") {
 } else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "countTicket") {
+} else if (isset($_GET['reportType']) == true && $_GET['reportType'] == "confirmIdentity") {
 } else {
     header("Location:home.php");
 }
@@ -24,6 +25,10 @@ require 'navbar.php';
 <script src="controller/fnReport/fnNewCustomer.js"></script>
 <script src="controller/fnReport/fnCountTicket.js"></script>
 <script src="controller/fnReport/fnIncome.js"></script>
+<script src="controller/fnReport/fnTicketCategory.js"></script>
+<script src="controller/fnReport/fnCheckIn.js"></script>
+<script src="controller/fnReport/fnConfirmIdentity.js"></script>
+
 
 
 

@@ -81,9 +81,11 @@
                                 <a class="nav-link" href="report.php?reportType=countTicket">จำนวนตั๋วที่ขาย</a>
 
                                 <a class="nav-link" href="report.php?reportType=income">รายได้</a>
-                                <a class="nav-link" href="report.php?reportType=checkIn">เช็คอินท์ & เช็คเอาท์</a>
-                                <a class="nav-link" href="report.php?reportType=ticketStatus">สถานะตั๋ว</a>
-                                <a class="nav-link" href="report.php?reportType=ticketCatagory">ประเภทการซื้อตั๋ว</a>
+                                <a class="nav-link" href="report.php?reportType=confirmIdentity">ยืนยันการขึ้นเรือ (NO)</a>
+
+                                <a class="nav-link" href="report.php?reportType=checkIn">เช็คอินท์ & เช็คเอาท์ (NO)</a>
+                                <a class="nav-link" href="report.php?reportType=ticketStatus">สถานะตั๋ว (NO)</a>
+                                <a class="nav-link" href="report.php?reportType=ticketCategory">ประเภทการซื้อตั๋ว</a>
                             </nav>
                         </div>
 
