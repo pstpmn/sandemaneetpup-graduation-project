@@ -34,9 +34,9 @@ session_start();
               echo "</script>";
               }
 
-            if($_SESSION["ticket_book_code"]== $id && $_SESSION["phone_number"] = $phone && $_SESSION["ticket_status_id"]== 3){
+            if($_SESSION["ticket_book_code"]== $id && $_SESSION["phone_number"] = $phone && $_SESSION["ticket_status_id"]== 3) {
               echo "<script>";
-              echo "window.location = 'booking_idk_information_cancel.php'; ";
+              echo "window.location = 'booking_id_information_cancel.php'; ";
               echo "</script>";
               }
 
@@ -60,7 +60,7 @@ session_start();
 
             if($_SESSION["ticket_code"]== $id && $_SESSION["phone_number"] = $phone && $_SESSION["ticket_status_id"]== 3){
               echo "<script>";
-              echo "window.location = 'ticket_id_information_book_cancel.php'; ";
+              echo "window.location = 'booking_id_information_cancel.php'; ";
               echo "</script>";
               }
             

@@ -1,12 +1,24 @@
 <?php 
 include('header.php');
+
+include('mysqli_connect.php');
+    
+    $ticket_id = $_REQUEST["ID"];
+    $destinatio = $_REQUEST['destinatio'];
+
+    $sql = "SELECT * FROM ticket_book AS tb
+    INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
+    INNER JOIN customer as c ON bt.customer_id = c.customer_id
+    INNER JOIN boat_seat as ba ON bt.boat_seat_id = ba.boat_seat_id
+    INNER JOIN boat as b ON ba.boat_number = b.boat_number
+    INNER JOIN location AS l ON tb.orgin = l.location_id
+    RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
+    INNER JOIN ticket_category AS tc ON tb.ticket_category_id = tc.ticket_category_id
+    WHERE ticket_code = '$ticket_id' ";
+    $result1 = mysqli_query($con,$sql);
+    $count = 0;
 ?>
 
-  <?php session_start();    
-    $ticket_id = $_SESSION['ticket_code'];
-    $destinatio = $_SESSION['destinatio'];
-  ?> 
-  
 <style>
 
   form {
@@ -41,36 +53,15 @@ include('header.php');
 }
 </style>
 
-  <center>
+<center>
   <form>
   <body class="has1">
      <h3 class="has4">กำหนดการเดินทาง / Trael Itinerary</br></br>
       รหัสตั๋ว Ticket ID : <?php echo  $ticket_id ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
-      
 
-      <?php 
-        include('mysqli_connect.php');
-        // $sql = "SELECT * FROM ticket_book AS tb
-        // INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
-        // INNER JOIN customer as c ON bt.customer_id = c.customer_id
-        // INNER JOIN boat_seat as ba ON bt.boat_seat_id = ba.boat_seat_id
-        // INNER JOIN boat as b ON ba.boat_number = b.boat_number
-        // INNER JOIN location AS l ON tb.orgin = l.location_id
-        // RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
-        // WHERE ticket_book_code = '$ticket_book' ";
+      <?php
 
-        $sql = "SELECT * FROM ticket_book AS tb
-        INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
-        INNER JOIN customer as c ON bt.customer_id = c.customer_id
-        INNER JOIN boat_seat as ba ON bt.boat_seat_id = ba.boat_seat_id
-        INNER JOIN boat as b ON ba.boat_number = b.boat_number
-        INNER JOIN location AS l ON tb.orgin = l.location_id
-        RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
-        INNER JOIN ticket_category AS tc ON tb.ticket_category_id = tc.ticket_category_id
-        WHERE ticket_code = '$ticket_id' ";
-        $result1 = mysqli_query($con,$sql);
-        $count = 0;
-        echo "<div class='box-3'>";
+      echo "<div class='box-3'>";
           echo "<b>ข้อมูลผู้โดยสาร</b><hr>";
             
             echo "<table>";
@@ -167,25 +158,8 @@ include('header.php');
           </div>
       </form>
       </center>
-      
-<script>
-  // function Function_Send_value()
-  //   {
-  //     var ticket_book = "";
-  //     window.location.href = "boarding_pass.php?booking_id=" + booking_id;
-  //   }
 
-  //   function makeCode() {
-  //     var qrcodeId = document.getElementById("QrcodeId");
-  //     var qrcode = new QRCode(document.getElementById("qrcode"), {
-  //         width: 100,
-  //         height: 100,
-  //         colorDark: "#000000",
-  //         colorLight: "#ffffff",
-  //         correctLevel: QRCode.CorrectLevel.H
-  //     });
-  //     qrcode.makeCode("http://localhost:50810/Profile/Qrcode?id=" + qrcodeId);
-  // }
+<script>
 
   var $ticket_id = "<?php echo $ticket_id ?>";
     new QRCode(document.getElementById("qrcode"), {
@@ -198,20 +172,5 @@ include('header.php');
         correctLevel: QRCode.CorrectLevel.H
     }
   );
-  
 
-  var plaquette = document.querySelector('plaquette');
-  var items = Array.from(plaquette.querySelectorAll('div.justifyAllWidth p'));
-  var firstLine = items.shift();
-  firstLine.style.fontSize=(plaquette.clientWidth*.1)+'px';
-  var baseFontSize=parseInt(firstLine.style.fontSize), baseFontChars=firstLine.innerText.length;
-  var newFontChars, newFontSize;
-    for(let p of items) {
-    newFontChars = p.innerText.length;
-    newFontSize = baseFontSize - (((newFontChars - baseFontChars) / newFontChars) * baseFontSize);
-    p.style.fontSize = newFontSize+'px';
-    }
 </script>
-      
-
-       
