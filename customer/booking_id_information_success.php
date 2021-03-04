@@ -88,17 +88,19 @@ include('header.php');
         // RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
         // WHERE ticket_book_code = '$ticket_book' ";
 
-        $sql = "SELECT * FROM ticket_book AS tb
-        INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
-        INNER JOIN customer as c ON bt.customer_id = c.customer_id
-        INNER JOIN boat_seat as ba ON bt.boat_seat_id = ba.boat_seat_id
-        INNER JOIN boat as b ON ba.boat_number = b.boat_number
-        INNER JOIN location AS l ON tb.orgin = l.location_id
-        RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
-        INNER JOIN ticket_category AS tc ON tb.ticket_category_id = tc.ticket_category_id
-        WHERE ticket_book_code = '$booking_id' ";
+        $sql = "SELECT * FROM `buy_ticket`
+        JOIN ticket_book ON buy_ticket.ticket_book_id = ticket_book.ticket_book_id
+        JOIN customer ON customer.customer_id = buy_ticket.customer_id
+        JOIN boat_seat ON boat_seat.boat_seat_id = buy_ticket.boat_seat_id
+        JOIN location ON location.location_id = ticket_book.orgin
+        JOIN boat ON boat_seat.boat_number =boat.boat_number
+        JOIN boat_schedule ON boat_schedule.boat_number = boat.boat_number
+        JOIN ticket_category ON ticket_category.ticket_category_id = ticket_book.ticket_category_id
+        WHERE ticket_book_code = '$booking_id'
+        GROUP BY buy_ticket.ticket_code ";
         $result1 = mysqli_query($con,$sql);
         $count = 0;
+        
         echo "<div class='box-3'>";
           echo "<b>ข้อมูลผู้โดยสาร</b><hr>";
             
