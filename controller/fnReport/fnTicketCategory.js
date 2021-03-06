@@ -337,4 +337,5 @@ const getGraphTicketCategory = async (btnType) => {
     getGraphPie(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value);
     getDetailGraph(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value, 'ticketCategory');
     showContainerGraph();
+    gayDataTableForReport(label);
 }

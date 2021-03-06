@@ -122,6 +122,38 @@ require 'navbar.php';
                 <br>
             </div>
         </div>
+
+
+        <div id='container-dataTable' style="display: none;">
+            <div class="container" style="padding:0;">
+                <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
+                    <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
+                        <div _ngcontent-jvv-c126="" class="card-header" >DataTable
+                        </div>
+                        <div _ngcontent-jvv-c126="" class="card-body" style="height: 420px;overflow:auto">
+                            <table id="myTable" class='table table-hover' style="width: 100%;">
+                                <div style="padding-right: 5px;margin-bottom:15px">
+                                    <div id='container-dataTable-btn'>
+
+                                    </div>
+                                </div>
+                                <thead style="text-align: center;" id="dataTable-thead">
+                                    <tr>
+                                        <th>รหัสตั๋ว</th>
+                                        <th>ชื่อ-นามสกุล</th>
+                                        <th>ประเภท</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: center;" id="dataTable-tbody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </sbpro-card>
+            </div>
+        </div>
+
     </main>
     <?php
     require 'footer.php';

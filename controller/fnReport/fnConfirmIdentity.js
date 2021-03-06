@@ -61,19 +61,27 @@ const getGraphConfirmIdentity = async (btnType) => {
 
 
         if (label == 1) {
-            label = ['วันที่ 1', 'วันที่ 2', 'วันที่ 3', 'วันที่ 4', 'วันที่ 5', 'วันที่ 6', 'วันที่ 7'];
+            labels = ['วันที่ 1', 'วันที่ 2', 'วันที่ 3', 'วันที่ 4', 'วันที่ 5', 'วันที่ 6', 'วันที่ 7'];
+            label = [1, 2, 3, 4, 5, 6, 7];
         }
         else if (label == 2) {
-            label = ['วันที่ 8', 'วันที่ 9', 'วันที่ 10', 'วันที่ 11', 'วันที่ 12', 'วันที่ 13', 'วันที่ 14'];
+            labels = ['วันที่ 8', 'วันที่ 9', 'วันที่ 10', 'วันที่ 11', 'วันที่ 12', 'วันที่ 13', 'วันที่ 14'];
+            label = [8, 9, 10, 11, 12, 13, 14];
+
         }
         else if (label == 3) {
-            label = ['วันที่ 15', 'วันที่ 16', 'วันที่ 17', 'วันที่ 18', 'วันที่ 19', 'วันที่ 20', 'วันที่ 21'];
+            labels = ['วันที่ 15', 'วันที่ 16', 'วันที่ 17', 'วันที่ 18', 'วันที่ 19', 'วันที่ 20', 'วันที่ 21'];
+            label = [15, 16, 17, 18, 19, 20, 21];
+
         }
         else if (label == 4) {
-            label = ['วันที่ 22', 'วันที่ 23', 'วันที่ 24', 'วันที่ 25', 'วันที่ 26', 'วันที่ 27', 'วันที่ 28'];
+            labels = ['วันที่ 22', 'วันที่ 23', 'วันที่ 24', 'วันที่ 25', 'วันที่ 26', 'วันที่ 27', 'วันที่ 28'];
+            label = [22, 23, 24, 25, 26, 27, 28];
+
         }
         else if (label == 5) {
-            label = ['วันที่ 29', 'วันที่ 30', 'วันที่ 31'];
+            labels = ['วันที่ 29', 'วันที่ 30', 'วันที่ 31'];
+            label = [29, 30, 31];
         }
 
         // alert(JSON.stringify(jsonForConfirm))
@@ -113,7 +121,7 @@ const getGraphConfirmIdentity = async (btnType) => {
         }
 
         value = {
-            labels: label,
+            labels: labels,
             datasets: [{
                 label: "กลุ่มคนที่ขึ้นเรือ",
                 backgroundColor: "#2ecc71",
@@ -161,10 +169,7 @@ const getGraphConfirmIdentity = async (btnType) => {
             hideContainerGraph();
             return;
         }
-
-
-
-
+        label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         value = {
             labels: ['เดือน 1', 'เดือน 2', 'เดือน 3', 'เดือน 4', 'เดือน 5', 'เดือน 6', 'เดือน 7', 'เดือน 8', 'เดือน 9', 'เดือน 10', 'เดือน 11', 'เดือน 12'],
             datasets: [{
@@ -231,6 +236,9 @@ const getGraphConfirmIdentity = async (btnType) => {
                     , jsonForNoConfirm[0].week4, jsonForNoConfirm[0].week5]
             }]
         };
+        label = [1, 2, 3, 4, 5];
+
+
     }
     else if (btnType == "year") {
         let valueMin = [];
@@ -258,9 +266,6 @@ const getGraphConfirmIdentity = async (btnType) => {
             hideContainerGraph();
             return;
         }
-
-
-
 
         if (jsonNormal.length >= jsonOnline.length) {
             for (let i = 0; i < jsonNormal.length; i++) {
@@ -301,6 +306,7 @@ const getGraphConfirmIdentity = async (btnType) => {
                 }
             }
         }
+
         value = {
             labels: label,
             datasets: [{
@@ -319,4 +325,66 @@ const getGraphConfirmIdentity = async (btnType) => {
     getGraphPie(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value);
     getDetailGraph(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value, 'ticketCategory');
     showContainerGraph();
+    dataTableForReport(label, btnType, "confirmIdentity");
 }
+
+
+const getDataTableConfirm = async (btnType) => {
+    let date = document.getElementById('txtInput-dataTable').value;
+    document.getElementById('dataTable-tbody').innerHTML = "";
+    let responseForConfirm;
+    let responseForNoConfirm;
+    let jsonForConfirm;
+    let jsonForNoConfirm;
+    let fullDate;
+    if(document.getElementById('txtDate') != null){
+        fullDate = document.getElementById('txtDate').value;
+    }
+    else{
+        fullDate = 0
+    }
+
+    responseForConfirm = await fetch('model/report/confirmIdentity/apiGetDataTableConfirm.php', {
+        method: "POST",
+        body: JSON.stringify({
+            date: date,
+            btnType: btnType,
+            fullDate: fullDate
+
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+
+    responseForNoConfirm = await fetch('model/report/confirmIdentity/apiGetDataTableNoConfirm.php', {
+        method: "POST",
+        body: JSON.stringify({
+            date: date,
+            btnType: btnType,
+            fullDate: fullDate
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    jsonForConfirm = await responseForConfirm.json();
+    jsonForNoConfirm = await responseForNoConfirm.json();
+
+
+
+    for (let i = 0; i < jsonForConfirm.length; i++) {
+
+        document.getElementById('dataTable-tbody').innerHTML += "<tr><td>" + jsonForConfirm[i].ticket_code + "</td>"
+            + "<td>" + jsonForConfirm[i].cust_first_name + " " + jsonForConfirm[i].cust_last_name + "</td>"
+            + "<td>มาขึ้นเรือ</td></tr>";
+    }
+
+    for (let i = 0; i < jsonForNoConfirm.length; i++) {
+
+        document.getElementById('dataTable-tbody').innerHTML += "<tr><td>" + jsonForNoConfirm[i].ticket_code + "</td>"
+            + "<td>" + jsonForNoConfirm[i].cust_first_name + " " + jsonForNoConfirm[i].cust_last_name + "</td>"
+            + "<td>ไม่มาขึ้นเรือ</td></tr>";
+    }
+}
+

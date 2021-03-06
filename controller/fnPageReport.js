@@ -96,24 +96,22 @@ const getGraphBar = async (labels, value) => {
             type: 'bar',
             data: value,
             options: {
-                barValueSpacing: 20,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            min: 0,
-                        }
-                    }]
+                legend: {
+                    display: false,
+                    labels: {
+                        display: false
+                    }
                 }
             }
         });
         return;
     }
+
     barChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
-                label: ['ddd','dd'],
                 data: value,
                 backgroundColor: [
                     "#2ecc71",
@@ -127,8 +125,14 @@ const getGraphBar = async (labels, value) => {
                 pointRadius: 0,
                 borderWidth: 1
             }],
-        },
-        
+        }, options: {
+            legend: {
+                display: false,
+                labels: {
+                    display: false
+                }
+            }
+        }
     });
 }
 
@@ -136,7 +140,7 @@ const getGraphBar = async (labels, value) => {
 const getGraphPie = async (labels, value) => {
     let percentData;
     let arrayKeepSum = [];
-  
+
     if (typeof value.datasets == "object") {
         for (let i = 0; i < value.datasets.length; i++) {
             sum = sumArray(value.datasets[i].data);
@@ -247,3 +251,36 @@ const getDetailGraph = (columnList, dataList, reportType) => {
 }
 
 
+const dataTableForReport = async (labels, btnType, dataTableType) => {
+    let dom = document.getElementById('container-dataTable-btn');
+    dom.innerHTML = "";
+    let select = document.createElement("select");
+    dom.innerHTML = "โปรดเลือกช่วงของข้อมูล : "
+
+    if (dataTableType == "confirmIdentity") {
+        document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ-นามสกุล</td><td>ประเภท</td></tr>";
+        select.style.width = "150px"
+        select.className = "custom-select mr-sm-2"
+        select.id = "txtInput-dataTable";
+
+        for (let i = 0; i < labels.length; i++) {
+            let option = document.createElement("option");
+            option.value = labels[i];
+            option.text = labels[i];
+            select.appendChild(option);
+        }
+        dom.appendChild(select)
+        dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableConfirm(" + '"' + btnType + '"' + ")'>แสดงข้อมูล</button>"
+        getDataTableConfirm(btnType)
+    }
+    displayDataTable();
+}
+
+
+const displayDataTable = () => {
+    document.getElementById('container-dataTable').style.display = "block";
+}
+
+const hideDataTable = () => {
+    document.getElementById('container-dataTable').style.display = "none";
+}
