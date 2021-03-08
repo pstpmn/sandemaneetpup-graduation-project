@@ -128,10 +128,30 @@ require 'navbar.php';
             <div class="container" style="padding:0;">
                 <sbpro-card _ngcontent-jvv-c126="" _nghost-jvv-c73="">
                     <div _ngcontent-jvv-c73="" class="card mb-4 card-header-actions h-100">
-                        <div _ngcontent-jvv-c126="" class="card-header" >DataTable
+                        <div _ngcontent-jvv-c126="" class="card-header">DataTable
                         </div>
                         <div _ngcontent-jvv-c126="" class="card-body" style="height: 420px;overflow:auto">
-                            <table id="myTable" class='table table-hover' style="width: 100%;">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <div id='container-dataTable-btn'>
+
+                                    </div>
+                                    <br>
+                                    <table class="table table-bordered" style="text-align: center;" id="dataTable-report" width="100%" cellspacing="0">
+                                        <thead id="dataTable-thead">
+                                            <tr>
+                                                <th>รหัสตั๋ว</th>
+                                                <th>ชื่อ-นามสกุล</th>
+                                                <th>ประเภท</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-ticket-edit">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- <table id="myTable" class='table table-hover' style="width: 100%;" id="dataTable-report">
                                 <div style="padding-right: 5px;margin-bottom:15px">
                                     <div id='container-dataTable-btn'>
 
@@ -147,7 +167,7 @@ require 'navbar.php';
                                 <tbody style="text-align: center;" id="dataTable-tbody">
 
                                 </tbody>
-                            </table>
+                            </table> -->
                         </div>
                     </div>
                 </sbpro-card>

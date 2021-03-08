@@ -251,12 +251,11 @@ const getDetailGraph = (columnList, dataList, reportType) => {
 }
 
 
-const dataTableForReport = async (labels, btnType, dataTableType) => {
+const dataTableForReport = async (labels, btnType, dataTableType,labelsName) => {
     let dom = document.getElementById('container-dataTable-btn');
     dom.innerHTML = "";
     let select = document.createElement("select");
     dom.innerHTML = "โปรดเลือกช่วงของข้อมูล : "
-
     if (dataTableType == "confirmIdentity") {
         document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ-นามสกุล</td><td>ประเภท</td></tr>";
         select.style.width = "150px"
@@ -266,12 +265,60 @@ const dataTableForReport = async (labels, btnType, dataTableType) => {
         for (let i = 0; i < labels.length; i++) {
             let option = document.createElement("option");
             option.value = labels[i];
-            option.text = labels[i];
+            option.text = labelsName[i];
             select.appendChild(option);
         }
         dom.appendChild(select)
         dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableConfirm(" + '"' + btnType + '"' + ")'>แสดงข้อมูล</button>"
         getDataTableConfirm(btnType)
+    }
+    else if (dataTableType == "newCustomer") {
+        document.getElementById('dataTable-thead').innerHTML = "<tr><td>ชื่อ</td><td>นามสกุล</td><td>เพศ</td><td>เบอร์โทร</td></tr>";
+        select.style.width = "150px"
+        select.className = "custom-select mr-sm-2"
+        select.id = "txtInput-dataTable";
+
+        for (let i = 0; i < labels.length; i++) {
+            let option = document.createElement("option");
+            option.value = labels[i];
+            option.text = labelsName[i];
+            select.appendChild(option);
+        }
+        dom.appendChild(select)
+        dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableNewCustomer(" + '"' + btnType + '"' + ")'>แสดงข้อมูล</button>"
+        getDataTableNewCustomer(btnType)
+    }
+    else if (dataTableType == "countTicket") {
+        document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ - นามสกุล</td><td>เบอร์โทรศัพท์</td></tr>";
+        select.style.width = "150px"
+        select.className = "custom-select mr-sm-2"
+        select.id = "txtInput-dataTable";
+
+        for (let i = 0; i < labels.length; i++) {
+            let option = document.createElement("option");
+            option.value = labels[i];
+            option.text = labelsName[i];
+            select.appendChild(option);
+        }
+        dom.appendChild(select)
+        dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableCountTicket(" + '"' + btnType + '"' + ")'>แสดงข้อมูล</button>"
+        getDataTableCountTicket(btnType)
+    }
+    else if (dataTableType == "ticketCategory") {
+        document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ - นามสกุล</td><td>ประเภทตั๋ว</td></tr>";
+        select.style.width = "150px"
+        select.className = "custom-select mr-sm-2"
+        select.id = "txtInput-dataTable";
+
+        for (let i = 0; i < labels.length; i++) {
+            let option = document.createElement("option");
+            option.value = labels[i];
+            option.text = labelsName[i];
+            select.appendChild(option);
+        }
+        dom.appendChild(select)
+        dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableTicketCategory(" + '"' + btnType + '"' + ")'>แสดงข้อมูล</button>"
+        getDataTableTicketCategory(btnType)
     }
     displayDataTable();
 }

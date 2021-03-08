@@ -1,4 +1,5 @@
 const getGraphConfirmIdentity = async (btnType) => {
+
     let date;
     let responseForNormal;
     let responseForOnline;
@@ -6,6 +7,8 @@ const getGraphConfirmIdentity = async (btnType) => {
     let jsonNormal;
     let value = [];
     let label = [];
+    let labels = [];
+
 
     if (btnType == "day") {
         let responseForConfirm;
@@ -45,21 +48,9 @@ const getGraphConfirmIdentity = async (btnType) => {
         } catch (err) {
             alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ' + err);
             hideContainerGraph();
+            hideDataTable();
             return;
         }
-
-        // alert(JSON.stringify(jsonForConfirm))
-        // alert(JSON.stringify(jsonForNoConfirm))
-
-        // if (jsonForConfirm[0].day1 == null) return;
-        // if (jsonForConfirm[0].day7 == null) return;
-        // if (jsonForConfirm[0].day2 == null) return;
-        // if (jsonForConfirm[0].day3 == null) return;
-        // if (jsonForConfirm[0].day4 == null) return;
-        // if (jsonForConfirm[0].day5 == null) return;
-        // if (jsonForConfirm[0].day6 == null) return;
-
-
         if (label == 1) {
             labels = ['วันที่ 1', 'วันที่ 2', 'วันที่ 3', 'วันที่ 4', 'วันที่ 5', 'วันที่ 6', 'วันที่ 7'];
             label = [1, 2, 3, 4, 5, 6, 7];
@@ -83,24 +74,24 @@ const getGraphConfirmIdentity = async (btnType) => {
             labels = ['วันที่ 29', 'วันที่ 30', 'วันที่ 31'];
             label = [29, 30, 31];
         }
-
-        // alert(JSON.stringify(jsonForConfirm))
-        // alert(JSON.stringify(jsonForNoConfirm))
-
         for (let i in jsonForConfirm[0]) {
-            if (jsonForConfirm[0][i] > 0 || jsonForConfirm[0][i] != null) {
+            if (jsonForConfirm[0][i] > 0 && jsonForConfirm[0][i] != null) {
                 checkValueForConfirm = true;
                 break;
             }
         }
 
         for (let i in jsonForNoConfirm[0]) {
-            if (jsonForNoConfirm[0][i] > 0 || jsonForNoConfirm[0][i] != null) {
+            if (jsonForNoConfirm[0][i] > 0 && jsonForNoConfirm[0][i] != null) {
                 checkValueForNoConfirm = true;
                 break;
             }
         }
-        if (checkValueForConfirm == false && checkValueForNoConfirm == false) return alert("ไม่พบข้อมูลนี้ !!");
+        if (checkValueForConfirm == false && checkValueForNoConfirm == false) {
+            hideContainerGraph();
+            hideDataTable();
+            return alert("ไม่พบข้อมูลนี้ !!");
+        }
         if (checkValueForConfirm == false) {
             jsonForConfirm[0].day1 = 0
             jsonForConfirm[0].day2 = 0
@@ -140,6 +131,8 @@ const getGraphConfirmIdentity = async (btnType) => {
         let responseForNoConfirm;
         let jsonForConfirm;
         let jsonForNoConfirm;
+        let checkValueForConfirm = false;
+        let checkValueForNoConfirm = false;
         date = document.getElementById('txtDate').value;
 
         try {
@@ -167,9 +160,60 @@ const getGraphConfirmIdentity = async (btnType) => {
         } catch (err) {
             alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ' + err);
             hideContainerGraph();
+            hideDataTable();
+
             return;
         }
+        //check data
+        for (let i in jsonForConfirm[0]) {
+            if (jsonForConfirm[0][i] > 0 && jsonForConfirm[0][i] != null) {
+                checkValueForConfirm = true;
+                break;
+            }
+        }
+
+        for (let i in jsonForNoConfirm[0]) {
+            if (jsonForNoConfirm[0][i] > 0 && jsonForNoConfirm[0][i] != null) {
+                checkValueForNoConfirm = true;
+                break;
+            }
+        }
+        if (checkValueForConfirm == false && checkValueForNoConfirm == false) {
+            hideContainerGraph();
+            hideDataTable();
+            return alert("ไม่พบข้อมูลนี้ !!");
+        }
+        if (checkValueForConfirm == false) {
+            jsonForConfirm[0].month1 = 0
+            jsonForConfirm[0].month2 = 0
+            jsonForConfirm[0].month3 = 0
+            jsonForConfirm[0].month4 = 0
+            jsonForConfirm[0].month5 = 0
+            jsonForConfirm[0].month6 = 0
+            jsonForConfirm[0].month7 = 0
+            jsonForConfirm[0].month8 = 0
+            jsonForConfirm[0].month9 = 0
+            jsonForConfirm[0].month10 = 0
+            jsonForConfirm[0].month11 = 0
+            jsonForConfirm[0].month12 = 0
+        }
+        if (checkValueForNoConfirm == false) {
+            jsonForNoConfirm[0].month1 = 0
+            jsonForNoConfirm[0].month2 = 0
+            jsonForNoConfirm[0].month3 = 0
+            jsonForNoConfirm[0].month4 = 0
+            jsonForNoConfirm[0].month5 = 0
+            jsonForNoConfirm[0].month6 = 0
+            jsonForNoConfirm[0].month7 = 0
+            jsonForNoConfirm[0].month8 = 0
+            jsonForNoConfirm[0].month9 = 0
+            jsonForNoConfirm[0].month10 = 0
+            jsonForNoConfirm[0].month11 = 0
+            jsonForNoConfirm[0].month12 = 0
+        }
+
         label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        labels = ['เดือน 1', 'เดือน 2', 'เดือน 3', 'เดือน 4', 'เดือน 5', 'เดือน 6', 'เดือน 7', 'เดือน 8', 'เดือน 9', 'เดือน 10', 'เดือน 11', 'เดือน 12']
         value = {
             labels: ['เดือน 1', 'เดือน 2', 'เดือน 3', 'เดือน 4', 'เดือน 5', 'เดือน 6', 'เดือน 7', 'เดือน 8', 'เดือน 9', 'เดือน 10', 'เดือน 11', 'เดือน 12'],
             datasets: [{
@@ -192,6 +236,11 @@ const getGraphConfirmIdentity = async (btnType) => {
         let responseForNoConfirm;
         let jsonForConfirm;
         let jsonForNoConfirm;
+        let checkValueForConfirm = false;
+        let checkValueForNoConfirm = false;
+        label = [1, 2, 3, 4, 5];
+        labels = ['สัปดาห์ 1', 'สัปดาห์ 2', 'สัปดาห์ 3', 'สัปดาห์ 4', 'สัปดาห์ 5'];
+
         date = document.getElementById('txtDate').value;
         try {
             responseForConfirm = await fetch('model/report/confirmIdentity/apiGetReportConfirmW.php', {
@@ -219,9 +268,43 @@ const getGraphConfirmIdentity = async (btnType) => {
         } catch (err) {
             alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ' + err);
             hideContainerGraph();
+            hideDataTable();
+
             return;
         }
         //check data
+        for (let i in jsonForConfirm[0]) {
+            if (jsonForConfirm[0][i] > 0 && jsonForConfirm[0][i] != null) {
+                checkValueForConfirm = true;
+                break;
+            }
+        }
+
+        for (let i in jsonForNoConfirm[0]) {
+            if (jsonForNoConfirm[0][i] > 0 && jsonForNoConfirm[0][i] != null) {
+                checkValueForNoConfirm = true;
+                break;
+            }
+        }
+        if (checkValueForConfirm == false && checkValueForNoConfirm == false) {
+            hideContainerGraph();
+            hideDataTable();
+            return alert("ไม่พบข้อมูลนี้ !!");
+        }
+        if (checkValueForConfirm == false) {
+            jsonForConfirm[0].week1 = 0
+            jsonForConfirm[0].week2 = 0
+            jsonForConfirm[0].week3 = 0
+            jsonForConfirm[0].week4 = 0
+            jsonForConfirm[0].week5 = 0
+        }
+        if (checkValueForNoConfirm == false) {
+            jsonForNoConfirm[0].week1 = 0
+            jsonForNoConfirm[0].week2 = 0
+            jsonForNoConfirm[0].week3 = 0
+            jsonForNoConfirm[0].week4 = 0
+            jsonForNoConfirm[0].week5 = 0
+        }
 
         value = {
             labels: ['สัปดาห์ 1', 'สัปดาห์ 2', 'สัปดาห์ 3', 'สัปดาห์ 4', 'สัปดาห์ 5'],
@@ -236,15 +319,12 @@ const getGraphConfirmIdentity = async (btnType) => {
                     , jsonForNoConfirm[0].week4, jsonForNoConfirm[0].week5]
             }]
         };
-        label = [1, 2, 3, 4, 5];
 
 
     }
     else if (btnType == "year") {
         let valueMin = [];
         let valueMax = [];
-
-
         try {
             responseForNormal = await fetch('model/report/confirmIdentity/apiGetReportConfirmY.php', {
                 headers: {
@@ -264,12 +344,15 @@ const getGraphConfirmIdentity = async (btnType) => {
         } catch (err) {
             alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
             hideContainerGraph();
+            hideDataTable();
+
             return;
         }
 
         if (jsonNormal.length >= jsonOnline.length) {
             for (let i = 0; i < jsonNormal.length; i++) {
                 label.push(jsonNormal[i].year);
+                labels.push(jsonNormal[i].year);
                 for (let n = 0; n < jsonOnline.length; n++) {
 
                     if (jsonNormal[i].year > jsonOnline[n].year) {
@@ -290,6 +373,7 @@ const getGraphConfirmIdentity = async (btnType) => {
         } else if (jsonNormal.length < jsonOnline.length) {
             for (let i = 0; i < jsonOnline.length; i++) {
                 label.push(jsonOnline[i].year);
+                labels.push(jsonOnline[i].year);
                 for (let n = 0; n < jsonNormal.length; n++) {
                     if (jsonNormal[n].year > jsonOnline[i].year) {
                         valueMax.push(jsonNormal[n].value);
@@ -322,69 +406,45 @@ const getGraphConfirmIdentity = async (btnType) => {
         }
     }
     getGraphBar(label, value);
-    getGraphPie(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value);
-    getDetailGraph(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value, 'ticketCategory');
+    getGraphPie(['จำนวนคนที่มาขึ้นเรือ', 'จำนวนคนที่ไม่มาขึ้นเรือ'], value);
+    getDetailGraph(['จำนวนคนที่มาขึ้นเรือ', 'จำนวนคนที่ไม่มาขึ้นเรือ'], value, 'ticketCategory');
     showContainerGraph();
-    dataTableForReport(label, btnType, "confirmIdentity");
+    dataTableForReport(label, btnType, "confirmIdentity", labels);
 }
 
 
 const getDataTableConfirm = async (btnType) => {
-    let date = document.getElementById('txtInput-dataTable').value;
-    document.getElementById('dataTable-tbody').innerHTML = "";
-    let responseForConfirm;
-    let responseForNoConfirm;
-    let jsonForConfirm;
-    let jsonForNoConfirm;
     let fullDate;
-    if(document.getElementById('txtDate') != null){
+    let date = document.getElementById('txtInput-dataTable').value;
+    if (document.getElementById('txtDate') != null) {
         fullDate = document.getElementById('txtDate').value;
     }
-    else{
+    else {
         fullDate = 0
     }
+    $(document).ready(function () {
+        $('#dataTable-report').DataTable({
+            "processing": true,
+            "serverSide": true,
+            'retrieve': false,
+            "destroy": true,
+            "ajax": {
+                url: "model/report/confirmIdentity/aaa.php", // json datasource
+                type: "post",  // method  , by default get
+                "data": {
+                    "date": date,
+                    "btnType": btnType,
+                    "fullDate": fullDate
+                },
+                error: function () {  // error handling
+                    $(".employee-grid-error").html("");
+                    $("#dataTable-TicketEdit").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                    $("#dataTable-TicketEdit_processing").css("display", "none");
 
-    responseForConfirm = await fetch('model/report/confirmIdentity/apiGetDataTableConfirm.php', {
-        method: "POST",
-        body: JSON.stringify({
-            date: date,
-            btnType: btnType,
-            fullDate: fullDate
+                }
+            }
+        });
 
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
     });
-
-    responseForNoConfirm = await fetch('model/report/confirmIdentity/apiGetDataTableNoConfirm.php', {
-        method: "POST",
-        body: JSON.stringify({
-            date: date,
-            btnType: btnType,
-            fullDate: fullDate
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-    jsonForConfirm = await responseForConfirm.json();
-    jsonForNoConfirm = await responseForNoConfirm.json();
-
-
-
-    for (let i = 0; i < jsonForConfirm.length; i++) {
-
-        document.getElementById('dataTable-tbody').innerHTML += "<tr><td>" + jsonForConfirm[i].ticket_code + "</td>"
-            + "<td>" + jsonForConfirm[i].cust_first_name + " " + jsonForConfirm[i].cust_last_name + "</td>"
-            + "<td>มาขึ้นเรือ</td></tr>";
-    }
-
-    for (let i = 0; i < jsonForNoConfirm.length; i++) {
-
-        document.getElementById('dataTable-tbody').innerHTML += "<tr><td>" + jsonForNoConfirm[i].ticket_code + "</td>"
-            + "<td>" + jsonForNoConfirm[i].cust_first_name + " " + jsonForNoConfirm[i].cust_last_name + "</td>"
-            + "<td>ไม่มาขึ้นเรือ</td></tr>";
-    }
 }
 

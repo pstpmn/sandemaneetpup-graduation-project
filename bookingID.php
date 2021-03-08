@@ -64,7 +64,6 @@ require 'navbar.php';
                                     <th>เวลาอัพสลิป</th>
                                     <th>รายละเอียดเพิ่มเติม</th>
                                     <th>action</th>
-
                                 </tr>
                             </thead>
                             <tbody id="table-ticket-edit">
