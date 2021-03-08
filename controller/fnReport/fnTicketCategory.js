@@ -32,7 +32,7 @@ const getGraphTicketCategory = async (btnType) => {
             return;
         }
         //check data
-        
+
         if (json.length == 0) {
             alert("ไม่มีข้อมูลรายการสัปดาห์นี้");
             hideContainerGraph();
@@ -183,7 +183,7 @@ const getGraphTicketCategory = async (btnType) => {
     else if (btnType == "week") {
         date = document.getElementById('txtDate').value;
         labels = ['สัปดาห์ 1', 'สัปดาห์ 2', 'สัปดาห์ 3', 'สัปดาห์ 4', 'สัปดาห์ 5'];
-        label = [1,2,3,4,5];
+        label = [1, 2, 3, 4, 5];
 
 
 
@@ -258,8 +258,8 @@ const getGraphTicketCategory = async (btnType) => {
         }
     }
     else if (btnType == "year") {
-        let valueMin = [];
-        let valueMax = [];
+        let valueNormal = [];
+        let valueOnline = [];
 
 
         try {
@@ -284,60 +284,84 @@ const getGraphTicketCategory = async (btnType) => {
             hideDataTable();
             return;
         }
-        if (jsonNormal.length >= jsonOnline.length) {
+
+        if (jsonNormal.length == jsonOnline.length) {
             for (let i = 0; i < jsonNormal.length; i++) {
                 label.push(jsonNormal[i].year);
                 labels.push(jsonNormal[i].year);
-                for (let n = 0; n < jsonOnline.length; n++) {
-                    if (jsonNormal[i].year > jsonOnline[n].year) {
-                        valueMax.push(jsonNormal[i].value);
-                        valueMin.push(0);
-                    }
-                    else if (jsonNormal[i].year < jsonOnline[n].year) {
-                        valueMax.push(0);
-                        valueMin.push(jsonOnline[n].value);
-                    }
-                    else if (jsonNormal[i].year == jsonOnline[n].year) {
-                        valueMax.push(jsonNormal[i].value);
-                        valueMin.push(jsonOnline[n].value);
-                    }
+                if (jsonNormal[i].year == jsonOnline[i].year) {
+                    valueNormal.push(jsonNormal[i].value);
+                    valueOnline.push(jsonOnline[i].value);
+                }
+                else if (jsonNormal[i].year > jsonOnline[i].year) {
+                    valueNormal.push(0);
+                    valueOnline.push(jsonOnline[i].value);
+                }
+                else if (jsonNormal[i].year < jsonOnline[i].year) {
+                    valueNormal.push(jsonNormal[i].value);
+                    valueOnline.push(0);
                 }
             }
-            responseForNormal = valueMax;
-            responseForOnline = valueMin;
+        } else if (jsonNormal.length > jsonOnline.length) {
+            for (let i = 0; i < jsonNormal.length; i++) {
+                label.push(jsonNormal[i].year);
+                labels.push(jsonNormal[i].year);
+
+                let indexMin;
+                if (((jsonOnline.length - 1) - i) < 0) {
+                    indexMin = 0;
+                }
+                else {
+                    indexMin = i;
+                }
+                if (jsonNormal[i].year == jsonOnline[indexMin].year) {
+                    valueNormal.push(jsonNormal[i].value);
+                    valueOnline.push(jsonOnline[indexMin].value);
+                }
+                else if (jsonNormal[i].year > jsonOnline[indexMin].year) {
+                    valueNormal.push(0);
+                    valueOnline.push(jsonOnline[indexMin].value);
+                }
+                else if (jsonNormal[i].year < jsonOnline[indexMin].year) {
+                    valueNormal.push(jsonNormal[i].value);
+                    valueOnline.push(0);
+                }
+            }
         } else if (jsonNormal.length < jsonOnline.length) {
             for (let i = 0; i < jsonOnline.length; i++) {
                 label.push(jsonOnline[i].year);
                 labels.push(jsonOnline[i].year);
 
-                for (let n = 0; n < jsonNormal.length; n++) {
-                    if (jsonNormal[n].year > jsonOnline[i].year) {
-                        valueMax.push(jsonNormal[n].value);
-                        valueMin.push(0);
-                    }
-                    else if (jsonNormal[n].year < jsonOnline[i].year) {
-                        valueMax.push(0);
-                        valueMin.push(jsonOnline[i].value);
-                    }
-                    else if (jsonNormal[n].year == jsonOnline[i].year) {
-                        valueMax.push(jsonNormal[n].value);
-                        valueMin.push(jsonOnline[i].value);
-                    }
+                let indexMin;
+                if ((jsonNormal.length - i) < 0) indexMin = 0;
+                else indexMin = i;
+
+                if (jsonNormal[indexMin].year == jsonOnline[i].year) {
+                    valueNormal.push(jsonNormal[indexMin].value);
+                    valueOnline.push(jsonOnline[i].value);
                 }
-                responseForNormal = valueMin;
-                responseForOnline = valueMax;
+                else if (jsonNormal[indexMin].year > jsonOnline[i].year) {
+                    valueNormal.push(0);
+                    valueOnline.push(jsonOnline[i].value);
+                }
+                else if (jsonNormal[indexMin].year < jsonOnline[i].year) {
+                    valueNormal.push(jsonNormal[indexMin].value);
+                    valueOnline.push(0);
+                }
+
             }
+
         }
         value = {
             labels: label,
             datasets: [{
                 label: "ตั๋วปกติ",
                 backgroundColor: "#2ecc71",
-                data: responseForNormal
+                data: valueNormal
             }, {
                 label: "ตั๋วออนไลน์",
                 backgroundColor: "#3498db",
-                data: responseForOnline
+                data: valueOnline
             }]
         }
     }
@@ -345,7 +369,7 @@ const getGraphTicketCategory = async (btnType) => {
     getGraphPie(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value);
     getDetailGraph(['ตั๋วปกติ', 'ตั๋วออนไลน์'], value, 'ticketCategory');
     showContainerGraph();
-    dataTableForReport(label, btnType, "ticketCategory",labels);
+    dataTableForReport(label, btnType, "ticketCategory", labels);
 }
 
 const getDataTableTicketCategory = async (btnType) => {

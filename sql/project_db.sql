@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2021 at 01:39 PM
+-- Generation Time: Mar 08, 2021 at 05:00 PM
 -- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -381,8 +381,13 @@ CREATE TABLE `buy_ticket` (
 INSERT INTO `buy_ticket` (`buy_ticket_id`, `customer_id`, `boat_seat_id`, `check_in`, `check_out`, `ticket_code`, `ticket_book_id`) VALUES
 (567, 147, 23, '2021-02-22 00:24:30', NULL, '410209833068', 68),
 (568, 150, 33, '2021-02-22 00:41:21', NULL, '383466120599', 68),
-(576, 147, 22, '2021-02-22 00:23:35', NULL, '917638297209', 68),
-(588, 38217, 13, NULL, NULL, '163237381033', 74);
+(576, 147, 22, '2021-02-22 00:23:35', NULL, '917638297209', 74),
+(589, 162, 2, NULL, '2021-03-04 00:35:19', '283540808510', 75),
+(590, 162, 4, NULL, NULL, '511244341625', 75),
+(591, 46274, 7, NULL, NULL, '752038095774', 76),
+(592, 46274, 9, NULL, NULL, '389764417898', 76),
+(593, 152, 4, NULL, NULL, '381769873307', 77),
+(594, 46275, 8, NULL, NULL, '256652565077', 77);
 
 -- --------------------------------------------------------
 
@@ -408,9 +413,9 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (147, '\' . $', '\' . $', '', '2021-02-07 18:03:41', 'Female', 10),
 (148, 'eqw', 'asdsa', '', '2021-02-07 18:03:41', 'Male', 1),
 (149, 'eqw', 'qwe', '', '2021-02-07 18:04:10', 'Male', 2),
-(150, 'asd', 'qwe', '', '2021-02-07 18:13:27', 'Male', 11),
+(150, 'asd', 'qwe', '111', '2021-02-07 18:13:27', 'Male', 11),
 (151, 'a', 'qqwe', '', '2021-02-07 18:41:47', 'Male', 1),
-(152, 'qwe', 'qwe', '', '2021-02-07 18:42:02', 'Male', 5),
+(152, 'qwe', 'qwe', '', '2021-02-07 18:42:02', 'Male', 6),
 (153, 'a', 'a', '', '2021-02-07 18:42:50', 'Male', 5),
 (154, 'q', 'q', '', '2021-02-07 18:51:22', 'Male', 3),
 (155, 'asd', 'asd', '2', '2021-02-08 14:46:45', 'Male', 5),
@@ -418,7 +423,7 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (159, 'เฟรมเฟรมเฟรมเฟรมเฟรม	เฟรมเฟรมเฟรม	เฟรมเฟรมเฟรม	', 'ฟิวฟิวฟิว', '0980733181', '2021-02-08 14:50:32', 'Female', 1),
 (160, 'qwe', 'asdsaw', '', '2021-02-08 15:08:25', 'Male', 1),
 (161, 'qew', 'asd', '', '2021-02-08 17:33:31', 'Male', 1),
-(162, 'ๆไำ', 'ฟหก', '', '2021-02-10 13:18:23', 'Male', 5),
+(162, 'ๆไำ', 'ฟหก', '', '2021-02-10 13:18:23', 'Male', 7),
 (163, 'ำๆไ', 'ฟหก', '', '2021-02-11 08:19:11', 'Male', 1),
 (164, 'd', 'asd', '', '2021-02-15 04:47:05', 'Male', 1),
 (165, 'ฟหก', 'ๆไำ', '', '2021-02-15 17:03:15', 'Male', 1),
@@ -46595,7 +46600,9 @@ INSERT INTO `customer` (`customer_id`, `cust_first_name`, `cust_last_name`, `pho
 (46270, 'a', 'a', '001', '2021-04-01 04:11:11', 'male', 1),
 (46271, 'a', 'a', '001', '2021-04-01 04:11:11', 'male', 1),
 (46272, 'a', 'a', '001', '2021-04-01 04:11:11', 'male', 1),
-(46273, 'asd', 'qwe', '001', '2022-09-07 19:27:47', 'Male', 1);
+(46273, 'asd', 'qwe', '001', '2022-09-07 19:27:47', 'Male', 1),
+(46274, 'ๆๆ', 'ๆๆ', '', '2021-03-03 08:26:40', 'Male', 2),
+(46275, 'qweqwe', 'qwe', '', '2021-03-03 11:02:17', 'Male', 1);
 
 -- --------------------------------------------------------
 
@@ -46742,8 +46749,11 @@ CREATE TABLE `ticket_book` (
 --
 
 INSERT INTO `ticket_book` (`ticket_book_id`, `ticket_book_code`, `employee_id`, `time_buy_ticket`, `time_up_slip`, `travel_date`, `ticket_status_id`, `deadline_book`, `payment_time`, `slip_img`, `payment_bank`, `payment_amount`, `orgin`, `destination`, `ticket_category_id`, `total_price`, `reason_cancel`) VALUES
-(68, 'B860141802749', 19, '2021-02-10 17:42:32', '2021-02-20 17:42:00', '2021-02-10', 3, '2021-02-12 03:47:32', NULL, NULL, NULL, NULL, 1, 2, 1, 1700, NULL),
-(74, 'B492998630984', 19, '2021-02-24 00:10:08', NULL, '2021-02-24', 1, '2021-02-25 10:15:08', NULL, NULL, NULL, NULL, 1, 2, 1, 100, NULL);
+(68, 'B860141802749', 19, '2021-02-10 17:42:32', '2021-02-20 17:42:00', '2021-02-10', 3, '2021-02-12 03:47:32', NULL, NULL, NULL, NULL, 1, 2, 2, 1700, NULL),
+(74, 'B492998630984', 19, '2021-02-10 00:10:08', NULL, '2021-02-24', 1, '2021-02-13 10:15:08', NULL, NULL, NULL, NULL, 1, 2, 1, 100, NULL),
+(75, 'B819613563178', 19, '2021-03-03 15:25:21', NULL, '2021-02-12', 1, '2021-03-05 01:30:21', NULL, NULL, NULL, NULL, 1, 2, 1, 200, NULL),
+(76, 'B183746371428', 19, '2022-02-03 15:26:40', NULL, '2021-02-12', 1, '2021-03-05 01:31:40', NULL, NULL, NULL, NULL, 1, 2, 1, 200, NULL),
+(77, 'B466143738502', 19, '2021-03-03 18:02:17', NULL, '2021-03-03', 1, '2021-03-05 04:07:17', NULL, NULL, NULL, NULL, 1, 2, 1, 200, NULL);
 
 -- --------------------------------------------------------
 
@@ -46916,13 +46926,13 @@ ALTER TABLE `book_time`
 -- AUTO_INCREMENT for table `buy_ticket`
 --
 ALTER TABLE `buy_ticket`
-  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=589;
+  MODIFY `buy_ticket_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46274;
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46276;
 
 --
 -- AUTO_INCREMENT for table `dayoff`
@@ -46958,7 +46968,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `ticket_book`
 --
 ALTER TABLE `ticket_book`
-  MODIFY `ticket_book_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `ticket_book_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `ticket_category`

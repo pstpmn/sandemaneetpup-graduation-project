@@ -8,10 +8,8 @@ $qeueryData = $database->select("SELECT year(ticket_book.time_buy_ticket) as yea
 from buy_ticket
 join ticket_book on ticket_book.ticket_book_id = buy_ticket.ticket_book_id
 join ticket_category on ticket_book.ticket_category_id = ticket_category.ticket_category_id
-where ticket_book.ticket_category_id = 2
+where ticket_book.ticket_category_id = 1
 GROUP BY year(ticket_book.time_buy_ticket)
 ORDER BY  year(time_buy_ticket) ASC");
-if ($qeueryData == true) {
-    echo json_encode($qeueryData);
-}
+echo json_encode($qeueryData);
 $pdo = null; //close connection

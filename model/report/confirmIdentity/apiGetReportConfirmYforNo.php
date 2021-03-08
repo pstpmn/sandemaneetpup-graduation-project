@@ -11,7 +11,5 @@ join ticket_category on ticket_book.ticket_category_id = ticket_category.ticket_
 where (buy_ticket.check_in is null AND buy_ticket.check_out is null)
 GROUP BY year(ticket_book.time_buy_ticket)
 ORDER BY  year(time_buy_ticket) ASC");
-if ($qeueryData == true) {
-    echo json_encode($qeueryData);
-}
+echo json_encode($qeueryData);
 $pdo = null; //close connection

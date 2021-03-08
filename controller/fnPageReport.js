@@ -96,11 +96,32 @@ const getGraphBar = async (labels, value) => {
             type: 'bar',
             data: value,
             options: {
+                responsive: true,
                 legend: {
-                    display: false,
-                    labels: {
-                        display: false
-                    }
+                    position: 'bottom',
+                },
+                hover: {
+                    mode: 'label'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 10,
+                            stepValue: 1
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'ภาพ แผนภูมิแท่ง'
                 }
             }
         });
@@ -126,6 +147,33 @@ const getGraphBar = async (labels, value) => {
                 borderWidth: 1
             }],
         }, options: {
+            responsive: true,
+            legend: {
+                position: 'bottom',
+            },
+            hover: {
+                mode: 'label'
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        steps: 10,
+                        stepValue: 1
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'ภาพ แผนภูมิแท่ง'
+            },
             legend: {
                 display: false,
                 labels: {
@@ -251,7 +299,7 @@ const getDetailGraph = (columnList, dataList, reportType) => {
 }
 
 
-const dataTableForReport = async (labels, btnType, dataTableType,labelsName) => {
+const dataTableForReport = async (labels, btnType, dataTableType, labelsName) => {
     let dom = document.getElementById('container-dataTable-btn');
     dom.innerHTML = "";
     let select = document.createElement("select");

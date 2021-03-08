@@ -323,8 +323,8 @@ const getGraphConfirmIdentity = async (btnType) => {
 
     }
     else if (btnType == "year") {
-        let valueMin = [];
-        let valueMax = [];
+        let valueConfirm = [];
+        let valueNoComfirm = [];
         try {
             responseForNormal = await fetch('model/report/confirmIdentity/apiGetReportConfirmY.php', {
                 headers: {
@@ -338,8 +338,8 @@ const getGraphConfirmIdentity = async (btnType) => {
                 }
             });
 
-            jsonNormal = await responseForNormal.json();
-            jsonOnline = await responseForOnline.json();
+            jsonConfirm = await responseForNormal.json();
+            jsonNoConfirm = await responseForOnline.json();
 
         } catch (err) {
             alert('เกิดข้อผิดพลาดในการติดต่อกับ API web Service ');
@@ -348,59 +348,78 @@ const getGraphConfirmIdentity = async (btnType) => {
 
             return;
         }
-
-        if (jsonNormal.length >= jsonOnline.length) {
-            for (let i = 0; i < jsonNormal.length; i++) {
-                label.push(jsonNormal[i].year);
-                labels.push(jsonNormal[i].year);
-                for (let n = 0; n < jsonOnline.length; n++) {
-
-                    if (jsonNormal[i].year > jsonOnline[n].year) {
-                        valueMax.push(jsonNormal[i].value);
-                        valueMin.push(0);
-                    }
-                    else if (jsonNormal[i].year < jsonOnline[n].year) {
-                        valueMax.push(0);
-                        valueMin.push(jsonOnline[n].value);
-                    }
-                    else if (jsonNormal[i].year == jsonOnline[n].year) {
-                        valueMax.push(jsonNormal[i].value);
-                        valueMin.push(jsonOnline[n].value);
-                    }
+        if (jsonConfirm.length == jsonNoConfirm.length) {
+            for (let i = 0; i < jsonConfirm.length; i++) {
+                label.push(jsonConfirm[i].year)
+                labels.push(jsonConfirm[i].year)
+                if (jsonConfirm[i].year == jsonNoConfirm[i].year) {
+                    valueConfirm.push(jsonConfirm[i].value)
+                    valueNoComfirm.push(jsonNoConfirm[i].value)
                 }
-            }
-
-        } else if (jsonNormal.length < jsonOnline.length) {
-            for (let i = 0; i < jsonOnline.length; i++) {
-                label.push(jsonOnline[i].year);
-                labels.push(jsonOnline[i].year);
-                for (let n = 0; n < jsonNormal.length; n++) {
-                    if (jsonNormal[n].year > jsonOnline[i].year) {
-                        valueMax.push(jsonNormal[n].value);
-                        valueMin.push(0);
-                    }
-                    else if (jsonNormal[n].year < jsonOnline[i].year) {
-                        valueMax.push(0);
-                        valueMin.push(jsonOnline[i].value);
-                    }
-                    else if (jsonNormal[n].year == jsonOnline[i].year) {
-                        valueMax.push(jsonNormal[n].value);
-                        valueMin.push(jsonOnline[i].value);
-                    }
+                else if (jsonConfirm[i].year > jsonNoConfirm[i].year) {
+                    valueConfirm.push(0)
+                    valueNoComfirm.push(jsonNoConfirm[i].value)
+                }
+                else if (jsonConfirm[i].year < jsonNoConfirm[i].year) {
+                    valueConfirm.push(jsonConfirm[i].value)
+                    valueNoComfirm.push(0)
                 }
             }
         }
+        else if (jsonConfirm.length < jsonNoConfirm.length) {
+            for (let i = 0; i < jsonNoConfirm.length; i++) {
+                let indexMin;
+                if ((jsonConfirm.length - i) < 0) indexMin = 0;
+                else indexMin = i;
 
+                label.push(jsonNoConfirm[i].year)
+                labels.push(jsonNoConfirm[i].year)
+                if (jsonConfirm[indexMin].year == jsonNoConfirm[i].year) {
+                    valueConfirm.push(jsonConfirm[indexMin].value)
+                    valueNoComfirm.push(jsonNoConfirm[i].value)
+                }
+                else if (jsonConfirm[indexMin].year > jsonNoConfirm[i].year) {
+                    valueConfirm.push(0)
+                    valueNoComfirm.push(jsonNoConfirm[i].value)
+                }
+                else if (jsonConfirm[indexMin].year < jsonNoConfirm[i].year) {
+                    valueConfirm.push(jsonConfirm[indexMin].value)
+                    valueNoComfirm.push(0)
+                }
+            }
+        }
+        else if (jsonConfirm.length > jsonNoConfirm.length) {
+            for (let i = 0; i < jsonNoConfirm.length; i++) {
+                let indexMin;
+                if ((jsonConfirm.length - i) < 0) indexMin = 0;
+                else indexMin = i;
+
+                label.push(jsonConfirm[i].year)
+                labels.push(jsonConfirm[i].year)
+                if (jsonConfirm[i].year == jsonNoConfirm[indexMin].year) {
+                    valueConfirm.push(jsonConfirm[i].value)
+                    valueNoComfirm.push(jsonNoConfirm[indexMin].value)
+                }
+                else if (jsonConfirm[i].year > jsonNoConfirm[indexMin].year) {
+                    valueConfirm.push(0)
+                    valueNoComfirm.push(jsonNoConfirm[indexMin].value)
+                }
+                else if (jsonConfirm[i].year < jsonNoConfirm[indexMin].year) {
+                    valueConfirm.push(jsonConfirm[i].value)
+                    valueNoComfirm.push(0)
+                }
+            }
+        }
         value = {
             labels: label,
             datasets: [{
                 label: "จำนวนคนที่มาขึ้นเรือ",
                 backgroundColor: "#2ecc71",
-                data: valueMax
+                data: valueConfirm
             }, {
                 label: "จำนวนคนที่ไม่มาขึ้นเรือ",
                 backgroundColor: "#3498db",
-                data: valueMin
+                data: valueNoComfirm
             }]
             // };
         }
