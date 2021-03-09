@@ -80,6 +80,7 @@
                                 <a class="nav-link" href="report.php?reportType=newCustomer">จำนวนลูกค้าใหม่</a>
                                 <a class="nav-link" href="report.php?reportType=countTicket">จำนวนตั๋วที่ขาย</a>
                                 <a class="nav-link" href="report.php?reportType=income">รายได้</a>
+                                <a class="nav-link" href="report.php?reportType=checkIn">จำนวน check-in แต่ละวัน</a>
                                 <a class="nav-link" href="report.php?reportType=confirmIdentity">ยืนยันการขึ้นเรือ</a>
                                 <a class="nav-link" href="report.php?reportType=ticketCategory">ประเภทการซื้อตั๋ว</a>
                             </nav>

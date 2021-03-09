@@ -213,7 +213,7 @@ const getGraphPie = async (labels, value) => {
     var ctxx = document.getElementById("PieChart").getContext('2d');
     pieChart = new Chart(ctxx, {
         type: 'doughnut',
-        
+
         data: {
             labels: labels,
             datasets: [{
@@ -338,7 +338,7 @@ const dataTableForReport = async (labels, btnType, dataTableType, labelsName) =>
     let dom = document.getElementById('container-dataTable-btn');
     dom.innerHTML = "";
     let select = document.createElement("select");
-    dom.innerHTML = "โปรดเลือกช่วงของข้อมูล : "
+    dom.innerHTML = "โปรดเลือกช่วงของข้อมูล : ";
     if (dataTableType == "confirmIdentity") {
         document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ-นามสกุล</td><td>ประเภท</td></tr>";
         select.style.width = "150px"
@@ -402,6 +402,21 @@ const dataTableForReport = async (labels, btnType, dataTableType, labelsName) =>
         dom.appendChild(select)
         dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableTicketCategory(" + '"' + btnType + '"' + ")'>แสดงข้อมูล</button>"
         getDataTableTicketCategory(btnType)
+    } else if (dataTableType == "checkIn") {
+        if(document.getElementById('txtDate').value == "")return alert("กรุณาใส่วันทีก่อน !!");
+        document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ - นามสกุล</td><td>ประเภท</td></tr>";
+        select.style.width = "200px"
+        select.className = "custom-select mr-sm-2"
+        select.id = "txtInput-dataTable";
+        for (let i = 0; i < labels.length; i++) {
+            let option = document.createElement("option");
+            option.value = labels[i];
+            option.text = labelsName[i];
+            select.appendChild(option);
+        }
+        dom.appendChild(select)
+        dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableCheckIn()'>แสดงข้อมูล</button>"
+        getDataTableCheckIn("check-in")
     }
     displayDataTable();
 }

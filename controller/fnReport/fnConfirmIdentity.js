@@ -448,7 +448,7 @@ const getDataTableConfirm = async (btnType) => {
             'retrieve': false,
             "destroy": true,
             "ajax": {
-                url: "model/report/confirmIdentity/aaa.php", // json datasource
+                url: "model/report/confirmIdentity/apiDataTableServerSideConfirmIdentity.php", // json datasource
                 type: "post",  // method  , by default get
                 "data": {
                     "date": date,

@@ -1,4 +1,3 @@
-
 <?php
 //validated the report
 
@@ -45,16 +44,35 @@ require 'navbar.php';
 
             <div class="container p-3 my-3 border bg-white">
                 <h1 class="h3 mb-2 text-gray-800">เลือกประเภท</h1>
-                <button class="btn btn-warning" onclick="setBtnReportType(this)" name='day' id='btnDay'>รายวัน</button>
-                <button onclick="setBtnReportType(this)" id='btnWeek' name='week' class="btn btn-warning">รายสัปดาห์</button>
-                <button class="btn btn-warning" id='btnMonth' name='month' onclick="setBtnReportType(this)">รายเดือน</button>
-                <button class="btn btn-warning" id='btnYear' name='year' onclick="setBtnReportType(this)">รายปี</button>
-                <br><br>
-                <div id='container-ReportType'>
-                    <input type="text" class="form-control" disabled placeholder="กรุณาเลือกประเภทก่อนน">
-                </div>
-                <br>
-                <button class="btn btn-info" onclick="getGraph('<?php echo $_GET['reportType']; ?>')">แสดงข้อมูล</button>
+                <?php
+                if ($_GET['reportType'] == "checkIn") {
+                ?>
+                    <div id='container-ReportType'>
+                        <input type="date" class="form-control" id='txtDate'>
+                    </div>
+                    <br>
+                    <button class="btn btn-info" onclick="dataTableForReport(
+                        ['check-in','check-out','all']
+                        ,null
+                        ,'<?php echo $_GET['reportType']; ?>'
+                        ,['เฉพาะ check-in','เฉพาะ check-out','check ทั้งสอง']
+                        )">แสดงข้อมูล</button>
+                <?php
+                } else {
+                ?>
+                    <button class="btn btn-warning" onclick="setBtnReportType(this)" name='day' id='btnDay'>รายวัน</button>
+                    <button onclick="setBtnReportType(this)" id='btnWeek' name='week' class="btn btn-warning">รายสัปดาห์</button>
+                    <button class="btn btn-warning" id='btnMonth' name='month' onclick="setBtnReportType(this)">รายเดือน</button>
+                    <button class="btn btn-warning" id='btnYear' name='year' onclick="setBtnReportType(this)">รายปี</button>
+                    <br><br>
+                    <div id='container-ReportType'>
+                        <input type="text" class="form-control" disabled placeholder="กรุณาเลือกประเภทก่อนน">
+                    </div>
+                    <br>
+                    <button class="btn btn-info" onclick="getGraph('<?php echo $_GET['reportType']; ?>')">แสดงข้อมูล</button>
+                <?php
+                }
+                ?>
             </div>
 
             <div id='showGraph' style="display: none;">

@@ -212,7 +212,7 @@ const getDataTableCountTicket = async (btnType) => {
             'retrieve': false,
             "destroy": true,
             "ajax": {
-                url: "model/report/countTicket/ccc.php", // json datasource
+                url: "model/report/countTicket/apiDataTableServerSideCountTicket.php", // json datasource
                 type: "post",  // method  , by default get
                 "data": {
                     "date": date,

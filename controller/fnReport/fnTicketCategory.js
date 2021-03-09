@@ -392,7 +392,7 @@ const getDataTableTicketCategory = async (btnType) => {
             'retrieve': false,
             "destroy": true,
             "ajax": {
-                url: "model/report/ticketCategory/ddd.php", // json datasource
+                url: "model/report/ticketCategory/apiDataTableServerSideTicketCategory.php", // json datasource
                 type: "post",  // method  , by default get
                 "data": {
                     "date": date,
