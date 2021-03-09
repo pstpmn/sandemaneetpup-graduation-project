@@ -285,6 +285,7 @@ const getGraphTicketCategory = async (btnType) => {
             return;
         }
 
+
         if (jsonNormal.length == jsonOnline.length) {
             for (let i = 0; i < jsonNormal.length; i++) {
                 label.push(jsonNormal[i].year);
@@ -319,12 +320,12 @@ const getGraphTicketCategory = async (btnType) => {
                     valueOnline.push(jsonOnline[indexMin].value);
                 }
                 else if (jsonNormal[i].year > jsonOnline[indexMin].year) {
-                    valueNormal.push(0);
-                    valueOnline.push(jsonOnline[indexMin].value);
-                }
-                else if (jsonNormal[i].year < jsonOnline[indexMin].year) {
                     valueNormal.push(jsonNormal[i].value);
                     valueOnline.push(0);
+                }
+                else if (jsonNormal[i].year < jsonOnline[indexMin].year) {
+                    valueNormal.push(0);
+                    valueOnline.push(jsonOnline[indexMin].valu);
                 }
             }
         } else if (jsonNormal.length < jsonOnline.length) {
@@ -341,17 +342,20 @@ const getGraphTicketCategory = async (btnType) => {
                     valueOnline.push(jsonOnline[i].value);
                 }
                 else if (jsonNormal[indexMin].year > jsonOnline[i].year) {
-                    valueNormal.push(0);
-                    valueOnline.push(jsonOnline[i].value);
-                }
-                else if (jsonNormal[indexMin].year < jsonOnline[i].year) {
                     valueNormal.push(jsonNormal[indexMin].value);
                     valueOnline.push(0);
                 }
+                else if (jsonNormal[indexMin].year < jsonOnline[i].year) {
+                    valueNormal.push(0);
+                    valueOnline.push(jsonOnline[i].value);
+                }
 
             }
+            
+
 
         }
+       
         value = {
             labels: label,
             datasets: [{
