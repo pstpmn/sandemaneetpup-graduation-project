@@ -122,6 +122,11 @@ const getGraphBar = async (labels, value) => {
                 title: {
                     display: true,
                     text: 'ภาพ แผนภูมิแท่ง'
+                },
+                plugins: {
+                    labels: {
+                        render: 'value'
+                    }
                 }
             }
         });
@@ -179,6 +184,11 @@ const getGraphBar = async (labels, value) => {
                 labels: {
                     display: false
                 }
+            },
+            plugins: {
+                labels: {
+                    render: 'value'
+                }
             }
         }
     });
@@ -202,7 +212,8 @@ const getGraphPie = async (labels, value) => {
 
     var ctxx = document.getElementById("PieChart").getContext('2d');
     pieChart = new Chart(ctxx, {
-        type: 'pie',
+        type: 'doughnut',
+        
         data: {
             labels: labels,
             datasets: [{
@@ -217,7 +228,31 @@ const getGraphPie = async (labels, value) => {
                 ],
                 data: percentData
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+                display: true,
+                text: 'ภาพ แผนภูมิวงกลม'
+            },
+            legend: {
+                position: 'bottom',
+            },
+            plugins: {
+                labels: [
+                    {
+                        render: 'label',
+                        position: 'outside'
+                    },
+                    {
+                        render: 'percentage'
+                    }
+                ]
+            }
         }
+
+
     });
 
 }
