@@ -59,6 +59,11 @@
                             สแกน QR Code
                         </a>
 
+                        <a class="nav-link collapsed" href="report.php?reportType=checkIn">
+                            <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
+                            รายชื่อ ยืนยันตัวตน
+                        </a>
+
                         <a class="nav-link collapsed" href="validatedSlip.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-dlist"></i></div>
                             <label id="count-slip-navbar">สลิปโอนเงิน&nbsp;</label>
@@ -77,12 +82,11 @@
 
                         <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="report.php?reportType=newCustomer">จำนวนลูกค้าใหม่</a>
+                                <a class="nav-link" href="report.php?reportType=newCustomer">จำนวนลูกค้า</a>
                                 <a class="nav-link" href="report.php?reportType=countTicket">จำนวนตั๋วที่ขาย</a>
-                                <a class="nav-link" href="report.php?reportType=income">รายได้</a>
-                                <a class="nav-link" href="report.php?reportType=checkIn">จำนวน check-in แต่ละวัน</a>
-                                <a class="nav-link" href="report.php?reportType=confirmIdentity">ยืนยันการขึ้นเรือ</a>
-                                <a class="nav-link" href="report.php?reportType=ticketCategory">ประเภทการซื้อตั๋ว</a>
+                                <a class="nav-link" href="report.php?reportType=income">จำนวนรายได้</a>
+                                <a class="nav-link" href="report.php?reportType=confirmIdentity">จำนวนลูกค้าที่ไม่มาขึ้นเรือ</a>
+                                <a class="nav-link" href="report.php?reportType=ticketCategory">จำนวนประเภทการซื้อตั๋ว</a>
                             </nav>
                         </div>
 

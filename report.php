@@ -51,12 +51,18 @@ require 'navbar.php';
                         <input type="date" class="form-control" id='txtDate'>
                     </div>
                     <br>
-                    <button class="btn btn-info" onclick="dataTableForReport(
-                        ['check-in','check-out','all']
-                        ,null
-                        ,'<?php echo $_GET['reportType']; ?>'
-                        ,['เฉพาะ check-in','เฉพาะ check-out','check ทั้งสอง']
-                        )">แสดงข้อมูล</button>
+                    <select class="custom-select mr-sm-2" style="width: 300px;" id="txtInput-dataTable">
+                        <option value="check-in">
+                            เฉพาะ check-in
+                        </option>
+                        <option value="check-out">
+                            เฉพาะ check-out
+                        </option>
+                        <option value="all">
+                            check-in และ check-out (ทั้งสอง)
+                        </option>
+                    </select><br><br>
+                    <button class="btn btn-info" onclick="getDataTableCheckIn()">แสดงข้อมูล</button>
                 <?php
                 } else {
                 ?>

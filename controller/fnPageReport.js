@@ -403,20 +403,20 @@ const dataTableForReport = async (labels, btnType, dataTableType, labelsName) =>
         dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableTicketCategory(" + '"' + btnType + '"' + ")'>แสดงข้อมูล</button>"
         getDataTableTicketCategory(btnType)
     } else if (dataTableType == "checkIn") {
-        if(document.getElementById('txtDate').value == "")return alert("กรุณาใส่วันทีก่อน !!");
-        document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ - นามสกุล</td><td>ประเภท</td></tr>";
-        select.style.width = "200px"
-        select.className = "custom-select mr-sm-2"
-        select.id = "txtInput-dataTable";
-        for (let i = 0; i < labels.length; i++) {
-            let option = document.createElement("option");
-            option.value = labels[i];
-            option.text = labelsName[i];
-            select.appendChild(option);
-        }
-        dom.appendChild(select)
-        dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableCheckIn()'>แสดงข้อมูล</button>"
-        getDataTableCheckIn("check-in")
+        // if(document.getElementById('txtDate').value == "")return alert("กรุณาใส่วันทีก่อน !!");
+        // document.getElementById('dataTable-thead').innerHTML = "<tr><td>รหัสตั๋ว</td><td>ชื่อ - นามสกุล</td><td>ประเภท</td></tr>";
+        // select.style.width = "250px"
+        // select.className = "custom-select mr-sm-2"
+        // select.id = "txtInput-dataTable";
+        // for (let i = 0; i < labels.length; i++) {
+        //     let option = document.createElement("option");
+        //     option.value = labels[i];
+        //     option.text = labelsName[i];
+        //     select.appendChild(option);
+        // }
+        // dom.appendChild(select)
+        // dom.innerHTML += " --> <button class='btn btn-info' onclick='getDataTableCheckIn()'>แสดงข้อมูล</button>"
+        // getDataTableCheckIn("check-in")
     }
     displayDataTable();
 }

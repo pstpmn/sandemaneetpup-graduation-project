@@ -8,6 +8,7 @@ mysqli_query($conn, "SET NAMES 'utf8' ");
 // storing  request (ie, get/post) global array to a variable  
 $requestData = $_REQUEST;
 $statementSQL;
+$columns;
 
 if ($requestData['btnType'] == 'check-in') {
     $statementSQL = 'SELECT * 
@@ -15,32 +16,41 @@ if ($requestData['btnType'] == 'check-in') {
     join ticket_book on ticket_book.ticket_book_id = buy_ticket.ticket_book_id
     join ticket_category on ticket_book.ticket_category_id = ticket_category.ticket_category_id
     join customer on buy_ticket.customer_id = customer.customer_id
-    where (ticket_book.time_buy_ticket LIKE "' . $requestData['fullDate'] . '%")  AND (buy_ticket.check_in is not null)';
+    where (ticket_book.travel_date LIKE "' . $requestData['fullDate'] . '%")  AND (buy_ticket.check_in is not null)';
+
+    $columns = array(
+        // datatable column index  => database column name
+        0 => 'ticket_code',
+        1 => 'cust_first_name',
+        2 => 'check_in'
+    );
 } else if ($requestData['btnType'] == 'check-out') {
     $statementSQL = 'SELECT * 
     FROM buy_ticket
     join ticket_book on ticket_book.ticket_book_id = buy_ticket.ticket_book_id
     join ticket_category on ticket_book.ticket_category_id = ticket_category.ticket_category_id
     join customer on buy_ticket.customer_id = customer.customer_id
-    where (ticket_book.time_buy_ticket LIKE "' . $requestData['fullDate'] . '%")  AND (buy_ticket.check_out is not null)';
+    where (ticket_book.travel_date LIKE "' . $requestData['fullDate'] . '%")  AND (buy_ticket.check_out is not null)';
+    $columns = array(
+        // datatable column index  => database column name
+        0 => 'ticket_code',
+        1 => 'cust_first_name',
+        2 => 'check_in'
+    );
 } else if ($requestData['btnType'] == 'all') {
     $statementSQL = 'SELECT * 
     FROM buy_ticket
     join ticket_book on ticket_book.ticket_book_id = buy_ticket.ticket_book_id
     join ticket_category on ticket_book.ticket_category_id = ticket_category.ticket_category_id
     join customer on buy_ticket.customer_id = customer.customer_id
-    where (ticket_book.time_buy_ticket LIKE "' . $requestData['fullDate'] . '%")  AND (buy_ticket.check_in is not null AND buy_ticket.check_out is not null)';
+    where (ticket_book.travel_date LIKE "' . $requestData['fullDate'] . '%")  AND (buy_ticket.check_in is not null AND buy_ticket.check_out is not null)';
+    $columns = array(
+        // datatable column index  => database column name
+        0 => 'ticket_code',
+        1 => 'cust_first_name',
+        2 => 'check_in',
+    );
 }
-
-
-
-
-//ฟิลด์ที่จะเอามาแสดงและค้นหา
-$columns = array(
-    // datatable column index  => database column name
-    0 => 'ticket_code',
-    1 => 'cust_first_name'
-);
 
 // getting total number records without any search
 $sql = "" . $statementSQL . "";
@@ -48,11 +58,22 @@ $query = mysqli_query($conn, $sql) or die("employee-grid-data.php: get employees
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-
 $sql = "" . $statementSQL . "";
 if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-    $sql .= " AND (buy_ticket.ticket_code LIKE '" . $requestData['search']['value'] . "%' ";
-    $sql .= " OR customer.cust_first_name LIKE '" . $requestData['search']['value'] . "%' )";
+    if ($requestData['btnType'] == 'check-in') {
+        $sql .= " AND (buy_ticket.ticket_code LIKE '" . $requestData['search']['value'] . "%' ";
+        $sql .= " OR customer.cust_first_name LIKE '" . $requestData['search']['value'] . "%' ";
+        $sql .= " OR buy_ticket.check_in LIKE '" . $requestData['search']['value'] . "%' )";
+    } else if ($requestData['btnType'] == 'check-out') {
+        $sql .= " AND (buy_ticket.ticket_code LIKE '" . $requestData['search']['value'] . "%' ";
+        $sql .= " OR customer.cust_first_name LIKE '" . $requestData['search']['value'] . "%' ";
+        $sql .= " OR buy_ticket.check_out LIKE '" . $requestData['search']['value'] . "%' )";
+    } else if ($requestData['btnType'] == 'all') {
+        $sql .= " AND (buy_ticket.ticket_code LIKE '" . $requestData['search']['value'] . "%' ";
+        $sql .= " OR customer.cust_first_name LIKE '" . $requestData['search']['value'] . "%' ";
+        $sql .= " OR buy_ticket.check_in LIKE '" . $requestData['search']['value'] . "%' ";
+        $sql .= " OR buy_ticket.check_out LIKE '" . $requestData['search']['value'] . "%' )";
+    }
 }
 $query = mysqli_query($conn, $sql) or die("employee-grid-data.php: get employees");
 $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -63,10 +84,22 @@ $query = mysqli_query($conn, $sql) or die("employee-grid-data.php: get employees
 $data = array();
 while ($row = mysqli_fetch_array($query)) {  // preparing an array
     $nestedData = array();
-    // $time_buy_ticket = date_create($row["time_buy_ticket"]);
-    $nestedData[] = $row["ticket_code"];
-    $nestedData[] = $row["cust_first_name"] . " " . $row["cust_last_name"];
-    $nestedData[] = $requestData['btnType'];
+    if ($requestData['btnType'] == 'check-in') {
+        $nestedData[] = $row["ticket_code"];
+        $nestedData[] = $row["cust_first_name"] . " " . $row["cust_last_name"];
+        $nestedData[] = $row["check_in"];
+        $nestedData[] = $requestData['btnType'];
+    } else if ($requestData['btnType'] == 'check-out') {
+        $nestedData[] = $row["ticket_code"];
+        $nestedData[] = $row["cust_first_name"] . " " . $row["cust_last_name"];
+        $nestedData[] = $row["check_out"];
+        $nestedData[] = $requestData['btnType'];
+    } else if ($requestData['btnType'] == 'all') {
+        $nestedData[] = $row["ticket_code"];
+        $nestedData[] = $row["cust_first_name"] . " " . $row["cust_last_name"];
+        $nestedData[] = $row["check_in"] . " | " . $row["check_out"];
+        $nestedData[] = $requestData['btnType'];
+    }
     $data[] = $nestedData;
 }
 
