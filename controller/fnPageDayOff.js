@@ -69,7 +69,7 @@ const getShowModalEditDayOff = async (id, dayOff, cause, status) => {
 
     }
     else if (status == 1) {
-        let daysThai = ["วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุทธ", "พฤหัสบดี", "วันศุกร์", "วันเสาร์"];
+        let daysThai = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
         let daysEng = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         let select = document.createElement("select");
         select.id = "text-dayOff";
@@ -131,7 +131,7 @@ const getShowModalAddDayOff = async (DayOffCategory) => {
     document.getElementById('tr-foot').innerHTML = "";
     if (DayOffCategory == "regular") {
         document.getElementById('EngDate').innerHTML = "";
-        let daysThai = ["วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุทธ", "พฤหัสบดี", "วันศุกร์", "วันเสาร์"];
+        let daysThai = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
         let daysEng = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         let select = document.createElement("select");
         select.id = "text-dayOff";

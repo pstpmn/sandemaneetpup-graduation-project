@@ -10,27 +10,27 @@ $requestData = $_REQUEST;
 $statementSQL;
 
 if ($requestData['btnType'] == 'year') {
-    $statementSQL = 'year(time_buy_ticket) = ' . $requestData["date"] . '';
+    $statementSQL = 'year(travel_date) = ' . $requestData["date"] . '';
 } else if ($requestData['btnType'] == 'month') {
-    $statementSQL = "(time_buy_ticket LIKE '" . $requestData['fullDate'] . "%') and (MONTH(time_buy_ticket) = '" . $requestData['date'] . "' )";
+    $statementSQL = "(travel_date LIKE '" . $requestData['fullDate'] . "%') and (MONTH(travel_date) = '" . $requestData['date'] . "' )";
 } else if ($requestData['btnType'] == 'week') {
     if($requestData['date'] == 1){
-        $statementSQL = "(time_buy_ticket LIKE '" . $requestData['fullDate'] . "%') and (DAY(time_buy_ticket) >= 1) AND (DAY(time_buy_ticket) <= 7)";
+        $statementSQL = "(travel_date LIKE '" . $requestData['fullDate'] . "%') and (DAY(travel_date) >= 1) AND (DAY(travel_date) <= 7)";
     }
     else if($requestData['date'] == 2){
-        $statementSQL = "(time_buy_ticket LIKE '" . $requestData['fullDate'] . "%') and (DAY(time_buy_ticket) >= 8) AND (DAY(time_buy_ticket) <= 14)";
+        $statementSQL = "(travel_date LIKE '" . $requestData['fullDate'] . "%') and (DAY(travel_date) >= 8) AND (DAY(travel_date) <= 14)";
     }
     else if($requestData['date'] == 3){
-        $statementSQL = "(time_buy_ticket LIKE '" . $requestData['fullDate'] . "%') and (DAY(time_buy_ticket) >= 15) AND (DAY(time_buy_ticket) <= 21)";
+        $statementSQL = "(travel_date LIKE '" . $requestData['fullDate'] . "%') and (DAY(travel_date) >= 15) AND (DAY(travel_date) <= 21)";
     }
     else if($requestData['date'] == 4){
-        $statementSQL = "(time_buy_ticket LIKE '" . $requestData['fullDate'] . "%') and (DAY(time_buy_ticket) >= 22) AND (DAY(time_buy_ticket) <= 28)";
+        $statementSQL = "(travel_date LIKE '" . $requestData['fullDate'] . "%') and (DAY(travel_date) >= 22) AND (DAY(travel_date) <= 28)";
     }
     else if($requestData['date'] == 5){
-        $statementSQL = "(time_buy_ticket LIKE '" . $requestData['fullDate'] . "%') and (DAY(time_buy_ticket)) >= 29 AND (DAY(time_buy_ticket) <= 31)";
+        $statementSQL = "(travel_date LIKE '" . $requestData['fullDate'] . "%') and (DAY(travel_date)) >= 29 AND (DAY(travel_date) <= 31)";
     }
 } else if ($requestData['btnType'] == 'day') {
-    $statementSQL = "(time_buy_ticket LIKE '" . $requestData['fullDate'] . "%') and (DAY(time_buy_ticket) = '" . $requestData['date'] . "')";
+    $statementSQL = "(travel_date LIKE '" . $requestData['fullDate'] . "%') and (DAY(travel_date) = '" . $requestData['date'] . "')";
 
 }
 

@@ -131,7 +131,7 @@ const setAddBoat = async () => {
                 location.reload();
             }
             else {
-                alert("เกิดข้อผิดพลาดในการเพิ่มเรือ");
+                alert("เกิดข้อผิดพลาดในการเพิ่มเรือ\nหรือ หมายเลขเรือซ้ำ");
             }
         }
     } catch (err) {
