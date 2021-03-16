@@ -68,16 +68,13 @@ include('header.php');
   
 </style>
 
+<body class="has1" >
+  <h3 class="has4">กำหนดการเดินทาง / Trael Itinerary</br></br>
+      รหัสการจอง Booking ID : <?php echo  $booking_id ?> <span style="color:#22E906">(ชำระแล้ว)</span>
+  </h3>
     <center>
-        <form>
-
-            <body class="has1">
-                <h3 class="has4">กำหนดการเดินทาง / Trael Itinerary</br></br>
-                    รหัสการจอง Booking ID : <?php echo  $booking_id ?> <span style="color:#22E906">(ชำระแล้ว)</span>
-                </h3>
-
-
-                <?php 
+    <form>
+      <?php 
         include('mysqli_connect.php');
         // $sql = "SELECT * FROM ticket_book AS tb
         // INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
@@ -200,46 +197,17 @@ include('header.php');
 </center>
 <script>
 
-// function Function_Send_value()
-//   {
-//     var destinatio = "<?php echo $destinatio ?>";
-//     window.location.href = "boarding_pass.php?destinatio=" + destinatio;
-//   }
-
-//   function makeCode() {
-//     var qrcodeId = document.getElementById("QrcodeId");
-//     var qrcode = new QRCode(document.getElementById("qrcode"), {
-//         width: 100,
-//         height: 100,
-//         colorDark: "#000000",
-//         colorLight: "#ffffff",
-//         correctLevel: QRCode.CorrectLevel.H
-//     });
-//     qrcode.makeCode("http://localhost:50810/Profile/Qrcode?id=" + qrcodeId);
-// }
-
-var $ticket_book_code = "<?php echo $booking_id ?>";
-new QRCode(document.getElementById("qrcode"), {
-    render: "canvas",
-    width: 200,
-    height: 200,
-    colorDark: "#000000",
-    colorLight: "#FFFFFF",
-    text: $ticket_book_code,
-    correctLevel: QRCode.CorrectLevel.H
-});
+  var $ticket_book_code = "<?php echo $booking_id ?>";
+  new QRCode(document.getElementById("qrcode"), {
+      render: "canvas",
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#FFFFFF",
+      text: $ticket_book_code,
+      correctLevel: QRCode.CorrectLevel.H
+  });
 
 
-var plaquette = document.querySelector('plaquette');
-var items = Array.from(plaquette.querySelectorAll('div.justifyAllWidth p'));
-var firstLine = items.shift();
-firstLine.style.fontSize = (plaquette.clientWidth * .1) + 'px';
-var baseFontSize = parseInt(firstLine.style.fontSize),
-    baseFontChars = firstLine.innerText.length;
-var newFontChars, newFontSize;
-for (let p of items) {
-    newFontChars = p.innerText.length;
-    newFontSize = baseFontSize - (((newFontChars - baseFontChars) / newFontChars) * baseFontSize);
-    p.style.fontSize = newFontSize + 'px';
-}
-</script>
+  
+  </script>
