@@ -6,14 +6,13 @@ if (isset($_POST["btnSearch"])) {
     $destination = $_POST['select-Location_end-responsive'];
     $boatId = $_POST['boat-number'];
     $date = $_POST['date'];
-    echo $orgin ."       a";
-    if($orgin == "0" || $destination == "0"){
+    echo $orgin . "       a";
+    if ($orgin == "0" || $destination == "0") {
         echo "<script type='text/javascript'>";
         echo "window.location = 'index.php'; ";
         echo "alert('ต้นทาง หรือ ปลายทาง ยังไม่ได้เลือก  !!!');";
         echo "</script>";
-    }
-    else if($orgin == $destination){
+    } else if ($orgin == $destination) {
         echo "<script type='text/javascript'>";
         echo "window.location = 'index.php'; ";
         echo "alert('ต้นทาง และ ปลายทาง เหมือนกัน  !!!');";
@@ -57,12 +56,13 @@ if (isset($_POST["btnSearch"])) {
         width: 85%;
         margin-bottom: 5px;
     }
-    
+
     #container-boatSeat-customerData {
         display: none;
         width: 95%;
     }
-    #tableFromBoatSeatTop{
+
+    #tableFromBoatSeatTop {
         width: 97%;
     }
 
@@ -91,26 +91,103 @@ if (isset($_POST["btnSearch"])) {
         }
 
         #container-boatSeat-customerData {
-        display: none;
-        width: 90%;
+            display: none;
+            width: 90%;
         }
 
-        #tableFromBoatSeatTop{
+        #tableFromBoatSeatTop {
             width: 100%;
         }
     }
 </style>
 
 <script>
-//List Boat Seat ID
-    var listSeat = []; 
-//List Boat Seat Number
-    var listSeatNumber = []; 
+    var listSeat = []; //List Boat Seat ID
+    var listSeatNumber = []; //List Boat Seat Number
+    var ticketPrice; // set price
+    var listCountFloor = [];
+    var listFloorData;
+    getTicketPrice(1);
 </script>
 
-<center>
-    <body class="has1">
+<body class="has1">
+
+
+    <div class="container-fluid">
+
+
+        <br><br><br>
         <div id="container-boatSeat-customerData">
+            <b>เลือกที่นั่งเรือของลูกค้า</b><br><br>
+
+            <div class="tableSet" id="tableFromBoatSeat">
+
+            </div>
+            <br>
+            <div id='container-btnFloor'>
+                <!-- <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
+                    <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button> -->
+            </div>
+
+            <!-- <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat" style="background-color: red;">กรุณาเลือกที่นั่งเรือ</label> -->
+            <!-- <br><br><b>ราคารวมทั้งหมด :</b> <label id="priceSum"></label> -->
+            <br>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <!-- Billing card 1-->
+                    <div class="card h-100 border-left-lg border-left-primary">
+                        <div class="card-body">
+                            <div class="small text-muted"><i>จำนวนลูกค้า</i></div>
+                            <div class="h3">
+                                <div id='countBoatSeatToSelected'>0 ที่นั่ง</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <!-- Billing card 1-->
+                    <div class="card h-100 border-left-lg border-left-primary">
+                        <div class="card-body">
+                            <div class="small text-muted"><i>ราคาต่อที่นั่ง</i></div>
+                            <div class="h3">
+                                <div id='priceToSeat'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <!-- Billing card 1-->
+                    <div class="card h-100 border-left-lg border-left-primary">
+                        <div class="card-body">
+                            <div class="small text-muted"><i>ราคารวม</i></div>
+                            <div class="h3"> <label id="priceSum">0</label> บาท</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing card 1-->
+            <div class="card h-100 border-left-lg border-left-primary">
+                <div class="card-body">
+                    <div class="small text-muted"><i>เลขที่นั่งเรือ</i></div>
+                    <div class="h4"> <label id="priceSum"><label id="number-boatseat">กรุณาเลือกที่นั่งเรือ</label></label></div>
+                </div>
+            </div>
+
+
+            <br><br><br>
+            <button class="form-control btn-primary" id="floorTwoBtn" onclick="registerCustomer()">ตกลง</button><br>
+            <button class="form-control btn-danger" onclick="setResetBoatSeatAll()">รีเซ็ต</button>
+        </div>
+    </div>
+
+
+
+
+    <!-- <div id="container-boatSeat-customerData">
             <h3 class="has2">เลือกที่นั่งเรือของลูกค้า</h3>
             <div class="tableSet" id="tableFromBoatSeatBottom">
                 <table class="table table-bordered table-primary" id="">
@@ -192,14 +269,49 @@ if (isset($_POST["btnSearch"])) {
 
                 </div>
             </div>
+        </div> -->
+
+    <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>โปรดระบุข้อมูลลูกค้า</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <div id="register-customer">
+                            <div id="register-customer-detail">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketNormal(listSeat,
+                                    listSeatNumber,
+                                    <?php echo $orgin ?>,
+                                    <?php echo $destination ?>,
+                                    )">Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        
-        <script>
-            let origin = "<?php echo $orgin ?>";
-            let destination = "<?php echo $destination ?>";
-            let boatId = "<?php echo $boatId ?>";
-            let date = "<?php echo $date ?>";
-            getBoatSeat(boatId, date, origin, destination);
-        </script>
-        <br>
-</center>
+    </div>
+
+</body>
+<script>
+    let origin = "<?php echo $orgin ?>";
+    let destination = "<?php echo $destination ?>";
+    let boatId = "<?php echo $boatId ?>";
+    let date = "<?php echo $date ?>";
+    getBoatSeat(boatId, date, origin, destination);
+    
+    
+
+</script>
+<br>

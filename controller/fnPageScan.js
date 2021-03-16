@@ -69,6 +69,11 @@ const getListTicketCode = async (ticketCode) => {
             }
         });
         let json = await response.json();
+        let Today = new Date();
+        let dateJson = new Date(json[0].travel_date);
+        let difDate = (Today.getTime() - dateJson.getTime()) / (1000 * 3600 * 24);
+
+        if(difDate <= 0)return alert('ต้องเช็คอิน เช็คเอ้าท์ ในวันที่ '+getFormatYearDMY(json[0].travel_date) + " เท่านั้น !!");
         if (json[0].ticket_status_id == 2) return alert('รหัสการจองนี้ มีสถานะการจอง !!');
         if (json[0].ticket_status_id == 4) return alert('รหัสการจองนี้ มีสถานะการจอง !!');
         if (json[0].ticket_status_id == 3) return alert('รหัสการจองนี้ มีสถานะถูกยกเลิก !!');

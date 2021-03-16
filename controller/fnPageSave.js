@@ -390,7 +390,6 @@ const getShowResultBuyTicket = async (ticketCode) => {
             }
         });
         json = await response.json();
-
         if (json.length <= 0) {
             document.getElementById('ModalHeader').setAttribute('class', 'modal-header alert alert-danger');
             document.getElementById('txtModalHeader').innerHTML = "<h4>ผลลัพธ์การซื้อตั๋ว : ไม่สำเร็จ</h4>";
@@ -400,7 +399,7 @@ const getShowResultBuyTicket = async (ticketCode) => {
         }
 
         document.getElementById('detail-boat').innerHTML = "<tr>"
-            + "<td> หมายเลขเรือ : <u>" + json[0].boat_number + "</u></td> <td>ต้นทาง : <u>" + json[0][49] + "</u></td> <td>ปลายทาง : <u>" + json[0][51] + "</u></td> <td>วันออกเดินทาง : <u>" + getFormatYearDMY(json[0].travel_date) + "</u></td> </tr>"
+            + "<td> หมายเลขเรือ : <u>" + json[0].boat_number + "</u></td> <td>ต้นทาง : <u>" + json[0][50] + "</u></td> <td>ปลายทาง : <u>" + json[0][52] + "</u></td> <td>วันออกเดินทาง : <u>" + getFormatYearDMY(json[0].travel_date) + "</u></td> </tr>"
 
         for (let i = 0; i < json.length; i++) {
             document.getElementById('detail-customer').innerHTML += "<tr><td><b><i>หมายเลขตั๋ว : " + json[i].ticket_code + "</b></i></td>"
