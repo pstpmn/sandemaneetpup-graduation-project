@@ -40,13 +40,11 @@ include('header.php');
      }
 }
 </style>
-
-  <center>
-  <form>
-  <body class="has1">
+<body class="has1">
      <h3 class="has4">กำหนดการเดินทาง / Trael Itinerary</br></br>
       รหัสตั๋ว Ticket ID : <?php echo  $ticket_id ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
-      
+      <center>
+        <form>
 
       <?php 
         include('mysqli_connect.php');
