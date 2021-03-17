@@ -1,10 +1,15 @@
 <?php 
 include('header.php');
 ?>
-
-  <?php session_start();    
+  <?php session_start();
+  if(isset($_GET["bookingId"]) != "" ){
+    $booking_id = $_GET["bookingId"];
+    $destinatio = "เกาะเต่า";
+  }else{
     $booking_id = $_SESSION['ticket_book_code'];
     $destinatio = $_SESSION['destinatio'];
+  }   
+    
   ?>
 
 <style>
@@ -49,6 +54,7 @@ include('header.php');
       <form>
       
       <?php 
+
         include('mysqli_connect.php');
         // $sql = "SELECT * FROM ticket_book AS tb
         // INNER JOIN buy_ticket as bt ON tb.ticket_book_id = bt.ticket_book_id
@@ -64,13 +70,20 @@ include('header.php');
         JOIN customer ON customer.customer_id = buy_ticket.customer_id
         JOIN boat_seat ON boat_seat.boat_seat_id = buy_ticket.boat_seat_id
         JOIN location ON location.location_id = ticket_book.orgin
-        JOIN boat ON boat_seat.boat_number =boat.boat_number
+        JOIN boat ON boat_seat.boat_number = boat.boat_number
         JOIN boat_schedule ON boat_schedule.boat_number = boat.boat_number
         JOIN ticket_category ON ticket_category.ticket_category_id = ticket_book.ticket_category_id
+
         WHERE ticket_book_code = '$booking_id'
         GROUP BY buy_ticket.ticket_code ";
         $result1 = mysqli_query($con,$sql);
         $count = 0;
+
+        $sqlLocation = "SELECT location.location_name FROM ticket_book
+        JOIN location ON location.location_id = ticket_book.destination
+        WHERE ticket_book_code = '$booking_id' ";
+        $result2 = mysqli_query($con,$sqlLocation);
+        $result2 = mysqli_fetch_all($result2,MYSQLI_ASSOC);
         echo "<div class='box-3'>";
           echo "<b>ข้อมูลผู้โดยสาร</b><hr>";
             
@@ -104,6 +117,7 @@ include('header.php');
         
       <div class='box-2'>
         <?php
+
           echo "<div class='box-4'>";
               echo "<b>ข้อมูลการเดินทาง</b><hr>";
                 echo "<table style='overflow-x:auto;'>";
@@ -113,7 +127,7 @@ include('header.php');
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-2'>ปลายทาง :</th>";
-                    echo "<td> $destinatio </td>";
+                    echo "<td>  ". $result2[0]["location_name"]." </td>";
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-2'>หมายเลขเรือ :</th>";

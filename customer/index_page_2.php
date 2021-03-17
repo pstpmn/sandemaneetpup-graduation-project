@@ -290,12 +290,12 @@ if (isset($_POST["btnSearch"])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketNormal(listSeat,
+                        <button class="btn btn-success" id="btnSaveTicket" onclick="saveTicketOnline(listSeat,
                                     listSeatNumber,
                                     <?php echo $orgin ?>,
-                                    <?php echo $destination ?>,
+                                    <?php echo $destination ?>,<?php echo $date ?>
                                     )">Save</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-dismiss=" ">Close</button>
                     </div>
                 </div>
 
@@ -310,8 +310,5 @@ if (isset($_POST["btnSearch"])) {
     let boatId = "<?php echo $boatId ?>";
     let date = "<?php echo $date ?>";
     getBoatSeat(boatId, date, origin, destination);
-    
-    
-
 </script>
 <br>

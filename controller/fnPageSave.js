@@ -295,7 +295,7 @@ const setResetBoatSeatAll = async () => {
     document.getElementById('priceSum').innerHTML = ticketPrice * listSeat.length;
 }
 
-const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination, employeeId) => {
+const saveTicketNormal = async (listSeat, listSeatNumber, orgin, destination, employeeId,date) => {
     let json;
     let listGender = [];
     let listFirstName = [];
