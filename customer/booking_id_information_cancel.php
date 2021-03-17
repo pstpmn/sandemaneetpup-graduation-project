@@ -101,6 +101,17 @@ include('header.php');
         echo "</table>";
         echo "</div>";
         ?>
+
+        <?php
+        echo "<div class='box-3'>";
+          echo "<b>สาเหตุ</b><hr>";
+            echo "<table>";
+            echo "<tr>";
+              echo "<td>" .$row["reason_cancel"]. "</td>";
+            echo "</tr>";
+        echo "</table>";
+        echo "</div>";
+        ?>
         
       <div class='box-2'>
         <?php

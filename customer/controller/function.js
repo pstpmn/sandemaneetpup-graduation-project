@@ -354,11 +354,15 @@ const checkBoatSeat = (id, number) => {
                 break;
             }
         }
-    } else {
+    }
+    else {
         document.getElementById(id).setAttribute('bgcolor', 'gray');
         listSeat.push(id);
         listSeatNumber.push(number);
     }
+    document.getElementById('priceSum').innerHTML = ticketPrice * listSeat.length;
+    document.getElementById('countBoatSeatToSelected').innerHTML = listSeat.length +" ที่นั่ง";
+
     getListSeat();
 }
 
@@ -385,8 +389,13 @@ const getListSeatForChangeBoatSeat = () => {
     numberBoatSeat.innerHTML = listSeatNumber;
 }
 
-const saveTicketNormal = async(listSeat, listSeatNumber, orgin, destination) => {
+const saveTicketOnline = async (listSeat, listSeatNumber, orgin, destination, employeeId) => {
     let json;
+    let listGender = [];
+    let listFirstName = [];
+    let listLastName = [];
+    let listPhoneNumber = [];
+
     for (let i = 0; i < listSeatNumber.length; i++) {
         if (document.getElementById('genderM-' + i + '').checked == false && document.getElementById('genderF-' + i + '').checked == false) {
             return alert('กรุณา ระบุเพศของลูกค้า ที่นั่ง : ' + listSeatNumber[i])
@@ -400,9 +409,10 @@ const saveTicketNormal = async(listSeat, listSeatNumber, orgin, destination) => 
     }
 
     try {
-        let response = await fetch('model/apiCheckTicketCode.php');
+        let response = await fetch('model/apiRandomTicketBookCode.php');
         json = await response.json();
-    } catch (err) {
+    }
+    catch (err) {
         return alert("Error Ticker Code เกิดข้อผิดพลาด !!\n " + err + "");
     }
 
@@ -410,44 +420,51 @@ const saveTicketNormal = async(listSeat, listSeatNumber, orgin, destination) => 
         let gender;
         if (document.getElementById('genderM-' + i + '').checked == true) {
             gender = "Male";
-        } else if (document.getElementById('genderF-' + i + '').checked == true) {
+        }
+        else if (document.getElementById('genderF-' + i + '').checked == true) {
             gender = "Female";
         }
-
-        let detailCustomer = {
-            fristName: document.getElementById('fristName-' + i + '').value,
-            lastName: document.getElementById('lastName-' + i + '').value,
-            phoneNumber: document.getElementById('phoneNumber-' + i + '').value,
-            gender: gender,
-            date: date = document.getElementById('date').value,
-            ticketID: listSeat[i],
-            ticketStatus: 1,
-            ticketCode: json,
-            orgin: orgin,
-            destination: destination
-        }
-        try {
-            let response = await fetch('model/apiSaveTicket.php', {
-                method: "POST",
-                body: JSON.stringify(detailCustomer),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-
-            const text = await response.text();
-            if (text == 'true') {
-                await $('#myModal').modal('hide');
-                await getShowResultBuyTicket(json);
-            } else {
-                alert("บันทึกข้อมูลไม่สำเร็จ");
-                return;
+        listGender.push(gender);
+        listFirstName.push(document.getElementById('fristName-' + i + '').value);
+        listLastName.push(document.getElementById('lastName-' + i + '').value);
+        listPhoneNumber.push(document.getElementById('phoneNumber-' + i + '').value);
+    }
+    let detailCustomer = {
+        fristName: listFirstName,
+        lastName: listLastName,
+        phoneNumber: listPhoneNumber,
+        gender: listGender,
+        date: date,
+        listSeat: listSeat,
+        ticketStatus: 2,
+        ticketBookCode: json,
+        orgin: orgin,
+        destination: destination,
+        empId: 8,
+        totalPrice: ticketPrice * listSeat.length
+    }
+    try {
+        let response = await fetch('model/apiSaveTicket.php', {
+            method: "POST",
+            body: JSON.stringify(detailCustomer),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
             }
-        } catch (e) {
-            alert("Error " + e);
-            location.reload();
+        });
+
+        const text = await response.text();
+        if (text == 'true') {
+            await $('#myModal').modal('hide');
+            window.location="booking_id_information_book.php?bookingId="+json;
+        }
+        else {
+            alert("บันทึกข้อมูลไม่สำเร็จ");
             return;
         }
+    } catch (e) {
+        alert("Error " + e);
+        location.reload();
+        return;
     }
 }
 

@@ -72,7 +72,7 @@ session_start();
       }
       else{
         echo "<script>";
-        echo 'alert(\' รหัส หรือ เบอร์โทรศัพท์ ไม่ถูกต้อง\');';
+        echo 'alert(\' รหัสการจอง หรือ รหัสตั๋ว ไม่ถูกต้อง\');';
         echo "window.location = 'status.php'; ";
         echo "</script>";
       }
