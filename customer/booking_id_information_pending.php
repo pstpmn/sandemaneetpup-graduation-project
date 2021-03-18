@@ -45,7 +45,7 @@ include('header.php');
 </style>
 
   <body class="has1">
-     <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
+     <h3 class="has4">กำหนดการเดินทาง / Traevl Itinerary</br></br>
       รหัสการจอง Booking ID : <?php echo  $booking_id ?> <span style="color:#F9D62E">(รอดำเนินการ)</span></h3>
       <center>
       <form>

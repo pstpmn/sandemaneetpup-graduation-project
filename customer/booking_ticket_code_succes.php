@@ -57,7 +57,7 @@ include('mysqli_connect.php');
 <center>
   <form>
   <body class="has1">
-     <h3 class="has4">กำหนดการเดินทาง / Trael Itinerary</br></br>
+     <h3 class="has4">กำหนดการเดินทาง / Traevl Itinerary</br></br>
       รหัสตั๋ว Ticket ID : <?php echo  $ticket_id ?> <span style="color:#22E906">(ชำระแล้ว)</span></h3>
 
       <?php
