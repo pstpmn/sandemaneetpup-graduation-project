@@ -72,7 +72,7 @@ include('header.php');
         <form>
 
             <body class="has1">
-                <h3 class="has4">กำหนดการเดินทาง / Trael Itinerary</br></br>
+                <h3 class="has4">กำหนดการเดินทาง / Traevl Itinerary</br></br>
                     รหัสการจอง Booking ID : <?php echo  $booking_id ?> <span style="color:#22E906">(ชำระแล้ว)</span>
                 </h3>
 
@@ -116,7 +116,7 @@ include('header.php');
               echo "<td>" .$row["ticket_code"]. "</td>";
               echo "<td>" .$row["cust_first_name"]. " " .$row["cust_last_name"]. "</td>";
               echo "<td>" .$row["phone_number"].  "</td>";
-              echo "<td> <right> <a href='booking_ticket_code_succes.php? ID=$row[ticket_code]&destinatio=$destinatio'><button type='button' id='btnQR' class='btn btn-info btnQR'>more <i class='fas fa-qrcode'> </right></i></button></a> </td>";
+              echo "<td> <right> <a href='booking_ticket_code_succes.php? ID=$row[ticket_code]&destinatio=$destinatio'><button type='button' id='btnQR' class='btn btn-info btnQR'>QR Code <i class='fas fa-qrcode'> </right></i></button></a> </td>";
             echo "</tr>";
             $count ++ ;
           }?>
@@ -186,19 +186,12 @@ include('header.php');
 </div>
 
 <div class="box-6">
-    <center>
-        <h5>QR Code</h5>
-        <div id="qrcode" ondragstart="return false" onselectstart="return false"></div><br>
-    </center>
-
-    <button type="button" class="btn btn-primary" onclick="window.print(document.getElementById('plaquette'))">ดาวน์โหลด
-        QR Code</button></a>
     <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>
 </div>
 </form>
 
 </center>
-<script>
+<!-- <script>
 
 // function Function_Send_value()
 //   {
@@ -242,4 +235,4 @@ for (let p of items) {
     newFontSize = baseFontSize - (((newFontChars - baseFontChars) / newFontChars) * baseFontSize);
     p.style.fontSize = newFontSize + 'px';
 }
-</script>
+</script> -->

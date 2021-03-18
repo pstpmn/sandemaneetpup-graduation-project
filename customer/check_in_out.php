@@ -1,7 +1,8 @@
 <?php 
     include('header.php');
     date_default_timezone_set("Asia/Bangkok");
-    $date = date('Y-m-d');
+    $date = date('d/m/Y');
+    $Date_time = date('Y-m-d H:i:s');
 ?>
 <style>
     button[class="btn btn-success"],
@@ -53,14 +54,14 @@
 
         if(mysqli_num_rows($result)){
             $row = mysqli_fetch_array($result);
-            $travel_date = date('Y-m-d' , strtotime($row['travel_date']));
+            $travel_date = date('d/m/Y' , strtotime($row['travel_date']));
 // buy_ticket //
                 if($row["ticket_book_code"] == $id && $row["phone_number"] == $phone){
                     if($row["ticket_status_id"] == 1){
-                        if($date >= $deadline_book){
+                        if($date >= $travel_date){
                             if($row['check_in'] == null){
                                 echo "<script type='text/javascript'>";
-                                echo "alert('รหัส $id AND $phone เรียบร้อย $date');";
+                                echo "alert('รหัส $id AND $phone AND $date AND $travel_date');";
                                 echo "</script>";
                             }else{
 
@@ -77,22 +78,41 @@
 // ticket_code//
                 if($row["ticket_code"] == $id && $row["phone_number"] == $phone){
                     if($row["ticket_status_id"] == 1){
-                        if($date >= $deadline_book){
+                        if($date >= $travel_date){
                             if($row['check_in'] == null){
+                                $sql_check_in = "UPDATE buy_ticket
+                                INNER JOIN customer ON buy_ticket.customer_id = customer.customer_id
+                                SET check_in = '$Date_time'
+                                WHERE ticket_code = '$id' AND phone_number = '$phone' ";
+                                $check_in = mysqli_query($con,$sql_check_in) or die ("Error in query: $sql_check_in" . mysqli_error());
+
                                 echo "<script type='text/javascript'>";
-                                echo "alert('รหัส $id AND $phone เรียบร้อย $date');";
+                                echo "window.location = 'index.php'; ";
+                                echo "alert('รหัสตั๋ว $id Check In เรียบร้อย ');";
                                 echo "</script>";
                             }else{
-                    
+                                echo "<script type='text/javascript'>";
+                                echo "window.location = 'check_in_out.php'; ";
+                                echo "alert('รหัส $id ได้มีการ Check In แล้ว');";
+                                echo "</script>";
                             }
                         }else{
-                    
+                            echo "<script type='text/javascript'>";
+                            echo "window.location = 'status.php'; ";
+                            echo "alert('รหัสตั๋ว $id ยังไม่ถึงวันเดินทาง ไม่สามารถ Check In ได้ !!!');";
+                            echo "</script>";
                         }   
                     }else{
-                    
+                        echo "<script type='text/javascript'>";
+                        echo "window.location = 'status.php'; ";
+                        echo "alert('รหัสตั๋ว $id สถานะของคุณยังไม่ผ่านการตรวจ โปรดตรวจสอบสถานะด้วย !!!');";
+                        echo "</script>";
                     }
                 }else{
-
+                    echo "<script type='text/javascript'>";
+                    echo "window.location = 'status.php'; ";
+                    echo "alert('รหัสตั๋ว $id หรือ เบอร์โทรศัพท์ $phone ไม่ถูกต้อง !!!!');";
+                    echo "</script>"; 
                 }
         }
     }

@@ -43,7 +43,7 @@ include('header.php');
 </style>
 
   <body class="has1">
-     <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
+     <h3 class="has4">กำหนดการเดินทาง / Traevl Itinerary</br></br>
       รหัสตั๋ว Ticket ID : <?php echo  $ticket_id ?> <span style="color:red">(ค้างชำระ)</span></h3>
       <center>
       <form>
