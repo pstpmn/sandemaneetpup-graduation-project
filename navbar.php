@@ -94,32 +94,36 @@
 
                         <a class="nav-link" href="employee.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
-                            จัดการพนักงาน
+                            พนักงาน
                         </a>
 
                         <a class="nav-link" href="location.php">
                             <div class="sb-nav-link-icon"><i class="far fa-compass"></i></div>
-                            จัดการสถานที่
+                            ตำแหน่ง Location
                         </a>
 
                         <a class="nav-link" href="boat.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-ship"></i></div>
-                            จัดการเรือ
+                            เรือ
                         </a>
 
                         <a class="nav-link" href="dayOff.php">
                             <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
-                            จัดการวันหยุดงาน
+                            วันหยุดงาน
                         </a>
 
                         <a class="nav-link" href="book.php">
                             <div class="sb-nav-link-icon"><i class="far fa-hourglass"></i></div>
-                            จัดการเวลาจองตั๋ว
+                            เวลาจองตั๋ว
                         </a>
 
                         <a class="nav-link" href="ticketPrice.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
-                            จัดการราคาตั๋ว
+                            ราคาตั๋ว
+                        </a>
+                        <a class="nav-link" href="bank.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-university"></i></div>
+                            ธนาคาร
                         </a>
                     </div>
                 </div>

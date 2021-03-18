@@ -66,7 +66,7 @@ require 'navbar.php';
                 <?php
                 } else {
                 ?>
-                    <button class="btn btn-warning" onclick="setBtnReportType(this)" name='day' id='btnDay'>รายวัน</button>
+                    <button class="btn btn-warning" onclick="setBtnReportType(this)" name='day' id='btnDay'>รายวัน (ต่อสัปดาห์)</button>
                     <button onclick="setBtnReportType(this)" id='btnWeek' name='week' class="btn btn-warning">รายสัปดาห์</button>
                     <button class="btn btn-warning" id='btnMonth' name='month' onclick="setBtnReportType(this)">รายเดือน</button>
                     <button class="btn btn-warning" id='btnYear' name='year' onclick="setBtnReportType(this)">รายปี</button>

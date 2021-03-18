@@ -1,7 +1,7 @@
 <?php 
     include('header.php');
     date_default_timezone_set("Asia/Bangkok");
-    $date = date('Y-m-d');
+    $date = date('d/m/y H:i:s');
 ?>
 <style>
     button[class="btn btn-success"],
@@ -19,11 +19,8 @@
     }
 }
 </style>
-
     <body class="has1">
-
         <h3 class="has2">เช็คอิน - เช็คเอาท์</h3>
-
         <center>
             <form method="post">
                 <input type="text" class="form-control" id="id" name="id"  placeholder="รหัสการจอง หรือ รหัสตั๋ว">
@@ -53,15 +50,15 @@
 
         if(mysqli_num_rows($result)){
             $row = mysqli_fetch_array($result);
-            $travel_date = date('Y-m-d' , strtotime($row['travel_date']));
 // buy_ticket //
-                if($row["ticket_book_code"] == $id && $row["phone_number"] == $phone){
+                if($row["ticket_book_code"] == $id && $row["phone_number"] = $phone){
                     if($row["ticket_status_id"] == 1){
-                        if($date >= $deadline_book){
-                            if($row['check_in'] == null){
-                                echo "<script type='text/javascript'>";
-                                echo "alert('รหัส $id AND $phone เรียบร้อย $date');";
+                        if($date >= date('d/m/y H:i:s' , strtotime($row['deadline_book']))){
+                            echo "<script type='text/javascript'>";
+                                echo "alert('รหัส $id AND $phone เรียบร้อย ');";
                                 echo "</script>";
+                            if($row['check_in'] == null){
+                                
                             }else{
 
                             }
@@ -75,13 +72,11 @@
                                 
                 }
 // ticket_code//
-                if($row["ticket_code"] == $id && $row["phone_number"] == $phone){
+                if($row["ticket_code"] == $id && $row["phone_number"] = $phone){
                     if($row["ticket_status_id"] == 1){
-                        if($date >= $deadline_book){
+                        if($date >= date('d/m/y H:i:s' , strtotime($row['deadline_book']))){
                             if($row['check_in'] == null){
-                                echo "<script type='text/javascript'>";
-                                echo "alert('รหัส $id AND $phone เรียบร้อย $date');";
-                                echo "</script>";
+                                
                             }else{
                     
                             }
@@ -91,8 +86,6 @@
                     }else{
                     
                     }
-                }else{
-
                 }
         }
     }

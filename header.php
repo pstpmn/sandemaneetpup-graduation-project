@@ -16,8 +16,9 @@ if ((!$_SESSION["username"])) {
     <meta name="author" content="" />
     <link href="css/styles.css" rel="stylesheet" />
 
-
+    
     <!-- use -->
+    <script src="controller/fnPageBank.js"></script>
     <script src="controller/fnPageReport.js"></script>
     <script src="controller/fnPageValidateSlip.js"></script>
     <script src="controller/fnPageScan.js"></script>

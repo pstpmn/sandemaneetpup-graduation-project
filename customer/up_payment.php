@@ -29,7 +29,7 @@
                                 $tmp = $_FILES['slip_img']['tmp_name'];
 
                                 $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
-                                $final_image = $ticket_book.$img;
+                                $final_image = 'slip_'.$ticket_book.'.jpg';
                                 
                                 if(in_array($ext, $valid_extensions)) { 
                                     $path = $path.strtolower($final_image);
@@ -44,7 +44,7 @@
                                             payment_time='$payment_time' , 
                                             payment_bank='$payment_bank' , 
                                             payment_amount='$payment_amount' , 
-                                            slip_img ='$path',
+                                            slip_img ='$final_image',
                                             ticket_status_id ='4'
                                             WHERE ticket_book_code='$ticket_book'";
                                         }

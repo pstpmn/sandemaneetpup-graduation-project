@@ -112,6 +112,7 @@ if (isset($_POST["btnSearch"])) {
 
 <body class="has1">
 
+<center>
 
     <div class="container-fluid">
 
@@ -312,3 +313,4 @@ if (isset($_POST["btnSearch"])) {
     getBoatSeat(boatId, date, origin, destination);
 </script>
 <br>
+</center>

@@ -4,7 +4,6 @@ include('header.php');
   <?php session_start();
   if(isset($_GET["bookingId"]) != "" ){
     $booking_id = $_GET["bookingId"];
-    $destinatio = "เกาะเต่า";
   }else{
     $booking_id = $_SESSION['ticket_book_code'];
     $destinatio = $_SESSION['destinatio'];
@@ -65,7 +64,7 @@ include('header.php');
         // RIGHT JOIN boat_schedule AS bs ON b.boat_number = bs.boat_number AND l.location_id = bs.location_id
         // WHERE ticket_book_code = '$ticket_book' ";
 
-       $sql = "SELECT * FROM `buy_ticket`
+        $sql = "SELECT * FROM `buy_ticket`
         JOIN ticket_book ON buy_ticket.ticket_book_id = ticket_book.ticket_book_id
         JOIN customer ON customer.customer_id = buy_ticket.customer_id
         JOIN boat_seat ON boat_seat.boat_seat_id = buy_ticket.boat_seat_id
@@ -83,7 +82,8 @@ include('header.php');
         JOIN location ON location.location_id = ticket_book.destination
         WHERE ticket_book_code = '$booking_id' ";
         $result2 = mysqli_query($con,$sqlLocation);
-        $result2 = mysqli_fetch_all($result2,MYSQLI_ASSOC);
+        $row2 = mysqli_fetch_all($result2,MYSQLI_ASSOC);
+
         echo "<div class='box-3'>";
           echo "<b>ข้อมูลผู้โดยสาร</b><hr>";
             
@@ -127,7 +127,7 @@ include('header.php');
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-2'>ปลายทาง :</th>";
-                    echo "<td>  ". $result2[0]["location_name"]." </td>";
+                    echo "<td>  ". $row2[0]["location_name"]." </td>";
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-2'>หมายเลขเรือ :</th>";
