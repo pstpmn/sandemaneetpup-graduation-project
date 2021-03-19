@@ -23,7 +23,7 @@ const getListLocation = async () => {
 
 const setDelectLocation = async (locationId,locationName) => {
     try {
-        let cf = confirm('ยืนยันลบ location : ' + locationName);
+        let cf = confirm('ยืนยันลบ location : ' + locationName+"\nคำเตือน เมือลบ location จะทำการลบข้อมูลตั๋วที่เกี่ยวกับข้องกับ location ไปด้วย !!");
         if (cf == true) {
             let response = await fetch('model/apiSetDeleteLocation.php', {
                 method: "POST",
@@ -37,6 +37,9 @@ const setDelectLocation = async (locationId,locationName) => {
             let json = await response.text();
             if (json == 'true') {
                 location.reload();
+            }
+            else{
+                alert("ไม่สามารถลบ location นี้ได้ !! \nเพราะมีข้อมูลเรือที่ผูกกับ location นี้ โปรดลบเรือก่อน ..")
             }
         }
     } catch (err) {
