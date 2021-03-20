@@ -50,8 +50,8 @@ require 'navbar.php';
                                         echo "<td>" . $bank[$i]["bank_name_owner"] . "</td>";
                                         if ($bank[$i]["bank_status"] == 0) $bank[$i]["bank_status"] = "ปิดการใช้งาน";
                                         else $bank[$i]["bank_status"] = "เปิดการใช้งาน";
-                                        echo "<td><b><button class='btn btn-link' onclick='getModalEditStatusBank(".$bank[$i]["bank_id"].")'>" . $bank[$i]["bank_status"] . "</button></b></td>";
-                                        echo "<td><button class='btn btn-danger' onclick='setDeleteBank(".$bank[$i]["bank_id"].")')>ลบ</button></td>";
+                                        echo "<td><b><button class='btn btn-link' onclick='getModalEditStatusBank(" . $bank[$i]["bank_id"] . ")'>" . $bank[$i]["bank_status"] . "</button></b></td>";
+                                        echo "<td><button class='btn btn-danger' onclick='setDeleteBank(" . $bank[$i]["bank_id"] . ")')>ลบ</button></td>";
                                         echo "</tr>";
                                     }
                                 } else {
@@ -91,6 +91,7 @@ require 'navbar.php';
                                         <td scope="col" width="30%"><b>ชื่อ - นามสกุล</b></td>
                                         <td><input id='text-fullName' type="text"></td>
                                     </tr>
+
                                     <tr>
                                         <td scope="col" width="30%"><b>สถานะ</b></td>
                                         <td><select id='text-status'>
@@ -107,7 +108,7 @@ require 'navbar.php';
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button"  class="btn btn-success" onclick="setAddBank(
+                            <button type="button" class="btn btn-success" onclick="setAddBank(
                                 document.getElementById('text-bank').value,
                                 document.getElementById('text-account').value,
                                 document.getElementById('text-fullName').value,

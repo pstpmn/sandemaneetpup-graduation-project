@@ -1,10 +1,27 @@
 <?php
+date_default_timezone_set('Asia/Bangkok');
 require 'header.php';
-?>
-<title>Ticket Recode</title>
-<?php
+require 'controller/database.php';
+require 'model/confix.php';
 require 'navbar.php';
+$database = new database(IP, DBNAME, USER, PASS);
+
+
+$booking = $database->select("select count(ticket_book_id) from ticket_book where time_buy_ticket LIKE '".date("Y-m-d")."%'  ");
+$ticket = $database->select("select count(buy_ticket.buy_ticket_id) from buy_ticket
+join ticket_book on ticket_book.ticket_book_id = buy_ticket.ticket_book_id
+where ticket_book.time_buy_ticket LIKE '".date("Y-m-d")."%'  ");
+$money = $database->select("select sum(total_price) from ticket_book where time_buy_ticket LIKE '".date("Y-m-d")."%'  ");
+$waitToPay = $database->select("select count(ticket_book_id) from ticket_book 
+where ticket_status_id = 2 AND deadline_book >= NOW()");
+$thanPaidDate = $database->select("select count(ticket_book_id) from ticket_book 
+where travel_date LIKE '".date("Y-m-d")."%' AND ticket_status_id = 2 AND deadline_book < NOW()");
+
+
+
 ?>
+<title>Dashboard</title>
+
 <!-- Body Implement -->
 <style>
     input[type='radio'] {
@@ -16,33 +33,57 @@ require 'navbar.php';
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">
-                <center>หน้าหลัก</center>
-            </h1><br>
+            <div class="container-fluid">
+                <h1 class="mt-4">Dashboard</h1>
 
-            <h2>ระบบที่พัฒนาเสร็จแล้ว แต่อาจจะยังไม่สมบูรณ์</h2><br>
-            ระบบซื้อตั๋ว เมื่อซื้อเปลียนสถานะที่นั่งเรือ <br>
-            ระบบจองตั๋ว เมื่อจอง ถ้ายังไม่จ่ายเงินตามระยะเวลาที่กำหนด จะคืนที่นั่งกลับสู่โหมดปกติ <br>
-            ระบบแสดงสลิปเข้ามาแบบ async สลิปแสดงมาเรือยๆ โดยไม่ต้องรีเฟซ<br>
-            ระบบยกเลิกตั๋ว <br>
-            ระบบ check in and check out สำหรับพนักงาน<br>
-            ระบบแก้ไขตั๋ว และ แก้ไขข้อมูลพนักงาน <br>
-            ระบบจัดการพนักงาน <br>
-            ระบบจัดการสถานที่<br> 
-            ระบบจัดการเรือ <br>
-            แสดงข้อมูลรหัสตั๋วตอนบันทึกตั๋ว (ยังไม่สมบูรณ์)<br>
-            ระบบเพิ่มวันหยุดงาน(ป้องกัน การซื้อตั๋ว ณ วันหยุด) <br>
-            ระบบจัดราคาตั๋ว <br>
-            ระบบ Login <br>
-            ระบบจัดเวลาจอง <br>
-            ระบบจัดการที่นั่งเรือ <br>
-            <br><br>
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-primary text-white mb-4">
+                            <div class="card-body">
+                                <h5>จำนวนการซื้อตั๋ววันนี้ </h5>
+                                การจอง : <?php echo $booking[0][0] ?> &nbsp;&nbsp;|&nbsp;&nbsp; ตั๋ว : <?php echo $ticket[0][0] ?> ใบ
+                                <?php
+                                ?>
+                            </div>
+                        </div>
+                    </div>
 
-            <h2>ระบบที่ยังพัฒนาไม่เสร็จ</h2><br>
-            ระบบที่นั่งเมื่อถึงปลายทางแล้วให้คืนที่นั่ง ทันที่<br>
-            ระบบแสดงผลลัพธ์ (กราฟ) <br>
-            ระบบจัดการเส้นทางเรือ <br>
-            ระบบแสดงข้อมูลหน้าหลัก <br><br>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-success text-white mb-4">
+                            <div class="card-body">
+                                <h5>จำนวนรายได้วันนี้ </h5>
+                                <?php echo $money[0][0] ?> บาท
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card text-white mb-4" style="background-color: #929C98;">
+                            <div class="card-body">
+                                <h5>จำนวนตั๋วรอการชำระเงิน </h5>
+                                <?php echo $waitToPay[0][0] ?> การจอง
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-danger text-white mb-4">
+                            <div class="card-body">
+                                <h5>ตั๋วที่เลยเวลาชำระเงินวันนี้ </h5>
+                                <?php echo $thanPaidDate[0][0] ?> การจอง
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
+
+
+            </div>
+
+
 
 
         </div>
