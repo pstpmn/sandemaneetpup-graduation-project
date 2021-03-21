@@ -153,6 +153,10 @@ include('header.php');
                     echo "<th class='th-3'>ยอดรวมชำระ :</th>";
                     echo "<td>" .$count * $row["ticket_category_price"]. " บาท</td>";
                   echo "</tr>";
+                  echo "<tr>";
+                    echo "<th class='th-3'> <span style='color:red'> ชำระเงินก่อน : </span></th>";
+                    echo "<td> <span style='color:red'>".date('d/m/Y  เวลา H:i น.', strtotime($row["deadline_book"])). " </span></td>";
+                  echo "</tr>";
               echo "</table>";
             echo "</div>";
             ?>

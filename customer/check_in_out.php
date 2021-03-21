@@ -26,8 +26,8 @@
         <h3 class="has2">เช็คอิน - เช็คเอาท์</h3>
 
         <center>
-            <form method="post">
-                <input type="text" class="form-control" id="id" name="id"  placeholder="รหัสการจอง หรือ รหัสตั๋ว">
+            <form action="up_check_in_out.php" method="POST"  name="form1" id="form1">
+                <input type="text" class="form-control" id="id" name="id"  placeholder="รหัสตั๋ว">
 
                 <input type="text" class="form-control" id="phone" name="phone"  placeholder="เบอร์โทรศัพท์">
 
@@ -38,9 +38,10 @@
             </form>
         </center>
 
-
-<?php 
+<!-- 
+<?php
     if(isset($_POST["check_in"])){
+        
         $id = $_POST["id"];
         $phone = $_POST["phone"];
 
@@ -52,29 +53,29 @@
         WHERE ticket_book_code = '$id' && phone_number = '$phone' || ticket_code = '$id' && phone_number = '$phone'";
         $result = mysqli_query($con,$sql);
 
-        if(mysqli_num_rows($result)){
-            $row = mysqli_fetch_array($result);
-            $travel_date = date('d/m/Y' , strtotime($row['travel_date']));
-// buy_ticket //
-                if($row["ticket_book_code"] == $id && $row["phone_number"] == $phone){
-                    if($row["ticket_status_id"] == 1){
-                        if($date >= $travel_date){
-                            if($row['check_in'] == null){
-                                echo "<script type='text/javascript'>";
-                                echo "alert('รหัส $id AND $phone AND $date AND $travel_date');";
-                                echo "</script>";
-                            }else{
 
-                            }
-                        }else{
-                        
-                        }
+    if(mysqli_num_rows($result)){
+        $row = mysqli_fetch_array($result);
+        $travel_date = date('d/m/Y' , strtotime($row['travel_date']));
+// buy_ticket //
+        if($row["ticket_book_code"] == $id && $row["phone_number"] == $phone){
+            if($row["ticket_status_id"] == 1){
+                if($date >= $travel_date){
+                    if($row['check_in'] == null){
+                        echo "<script type='text/javascript'>";
+                        echo "alert('รหัส $id AND $phone AND $date AND $travel_date');";
+                        echo "</script>";
                     }else{
-                    
-                    }  
+                    }
                 }else{
-                                
+                    
                 }
+            }else{
+                
+            }  
+        }else{
+                            
+        }
 // ticket_code//
                 if($row["ticket_code"] == $id && $row["phone_number"] == $phone){
                     if($row["ticket_status_id"] == 1){
@@ -116,4 +117,4 @@
                 }
         }
     }
-?>
+?> -->

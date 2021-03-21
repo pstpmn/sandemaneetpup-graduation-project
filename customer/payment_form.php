@@ -1,4 +1,12 @@
-<?php include('header.php');?>
+<?php include('header.php');
+  include('mysqli_connect.php');
+  
+  $query = "SELECT * FROM bank 
+  WHERE bank_status = 1
+  ORDER BY bank_id asc" or die("Error:" . mysqli_error());
+  $result = mysqli_query($con, $query);
+  
+?>
 
 <style>
    .form {
@@ -87,10 +95,13 @@
 
             <select  name='payment_bank' class="form-control" id=''>
               <option value="0">ธนาคาร</option>
-              <option value="ไทยพาณชย์">ไทยพาณชย์</option>
+              <?php foreach($result as $results){ ?>
+                <option value="<?php echo $results["bank_name"];?>"><?php echo $results["bank_name"]; ?></option>
+              <?php } ?>
+              <!-- <option value="ไทยพาณชย์">ไทยพาณชย์</option>
               <option value="กรุงศรี">กรุงศรี</option>
               <option value="กรุงเทพ">กรุงเทพ</option>
-              <option value="กสิกรไทย">กสิกรไทย</option>
+              <option value="กสิกรไทย">กสิกรไทย</option> -->
             </select>
 
             <input type="text" class="form-control" id="payment_amount"  name="payment_amount" placeholder="จำนวนเงิน">

@@ -107,9 +107,9 @@ include('header.php');
             echo "</tr>";
             $count ++ ;
           }?>
-          <?php
-            mysqli_close($con);
-          ?>
+          <!-- <?php
+            // mysqli_close($con);
+          ?> -->
         <?php
         echo "</table>";
         echo "</div>";
@@ -154,7 +154,7 @@ include('header.php');
                 echo "<table>";
                   echo "<tr>";
                     echo "<th class='th-3'>เดินทาง :</th>";
-                    echo "<td>".$count." ที่นั่ง</echo>";
+                    echo "<td>".$count." ที่นั่ง</td>";
                   echo "</tr>";
                   echo "<tr>";
                     echo "<th class='th-3'>ราคา :</th>";
@@ -168,11 +168,45 @@ include('header.php');
                     echo "<th class='th-3'>ยอดรวมชำระ :</th>";
                     echo "<td>" .$count * $row["ticket_category_price"]. " บาท</td>";
                   echo "</tr>";
+                  echo "<tr>";
+                    echo "<th class='th-3'> <span style='color:red'> ชำระเงินก่อน : </span></th>";
+                    echo "<td> <span style='color:red'>".date('d/m/Y  เวลา H:i น.', strtotime($row["deadline_book"])). " </span></td>";
+                  echo "</tr>";
               echo "</table>";
             echo "</div>";
             ?>
+
+            <?php
+            $query = "SELECT * FROM bank 
+            WHERE bank_status = 1
+            ORDER BY bank_id asc" or die("Error:" . mysqli_error());
+            $result = mysqli_query($con, $query);
+
+             echo "<div class='box-7'>";
+               echo "<b>ธนาคาร</b><hr>";
+                echo "<table>";
+                  echo "<tr>
+                  <th> ธนาคาร </th>
+                  <th style='text-align:center'>เลขบัญชี </th>
+                  <th style='text-align:center'>ชื่อเจ้าของบัญชี </th>
+                  </tr>";
+                  foreach($result as $row3){
+                    echo "<tr>";
+                    echo "<td>" .$row3["bank_name"]. "</td>";
+                    echo "<td style='text-align:center'>" .$row3["bank_account"]. "</td>";
+                    echo "<td style='text-align:center'>" .$row3["bank_name_owner"]. "</td>";
+                  }?>
+                  <!-- echo "</tr>"; -->
+                
+                <?php
+                  mysqli_close($con);
+                ?>
+                <?php
+                echo "</table>";
+             echo "</div>";
+              ?>
           </div>
-          
+
           <div class="box-6">
             <a href='payment_form.php'><button type="button" class="btn btn-info">ไปยังหน้าอัพสลิป</button></a>
             <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>

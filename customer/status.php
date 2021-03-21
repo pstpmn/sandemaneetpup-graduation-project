@@ -5,12 +5,21 @@
         width: 24%;
         font-family: 'Kanit', sans-serif;
     }
+    
+    span{
+      margin-left:26%;
+    }
+    
 
 @media (max-width: 890px) {
     button[class="btn btn-primary"],
     button[class="btn btn-danger"] {
         width: 90%;
         margin-bottom: 10px;
+    }
+    span{
+      margin-left:5%;
+      font-size:12px;
     }
 }
 
@@ -28,6 +37,15 @@
 
                 <button type="submit" class="btn btn-primary">ตกลง</button></a>
                 <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>
+
+                <br />
+                <br />
+                <b>คำแนะนำ</b>
+                <br>
+        </center>
+                <span>1.กรอกรหัสการจองหรือรหัสตั๋ว 10 หลัก เพื่อตรวจสอบข้อมูลการจอง และสถานะชำระเงิน<br></span>
+                <span>2.ถ้ากรอกรหัสการจอง กรอกเบอร์โทรศัพท์คนใดหคนนึ่งที่ร่วมทางกัน<br></span>
+                <span>3.ตรวจสอบข้อมูลทางโทรศัพท์ โทร 087 - 8873162 (ตลอด 24 ชม.)</span>
             </form>
         </div>
-        </center>
+                
