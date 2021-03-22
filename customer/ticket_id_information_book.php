@@ -93,9 +93,9 @@ include('header.php');
             echo "</tr>";
             $count ++ ;
           }?>
-          <?php
-            mysqli_close($con);
-          ?>
+          <!-- <?php
+            // mysqli_close($con);
+          ?> -->
         <?php
         echo "</table>";
         echo "</div>";
@@ -160,6 +160,36 @@ include('header.php');
               echo "</table>";
             echo "</div>";
             ?>
+
+            <?php
+            $query = "SELECT * FROM bank 
+            WHERE bank_status = 1
+            ORDER BY bank_id asc" or die("Error:" . mysqli_error());
+            $result = mysqli_query($con, $query);
+
+             echo "<div class='box-7'>";
+               echo "<b>ช่องทางการชำระเงิน</b><hr>";
+                echo "<table>";
+                  echo "<tr>
+                  <th> ธนาคาร </th>
+                  <th style='text-align:center'>เลขบัญชี </th>
+                  <th style='text-align:center'>ชื่อเจ้าของบัญชี </th>
+                  </tr>";
+                  foreach($result as $row3){
+                    echo "<tr>";
+                    echo "<td>" .$row3["bank_name"]. "</td>";
+                    echo "<td style='text-align:center'>" .$row3["bank_account"]. "</td>";
+                    echo "<td style='text-align:center'>" .$row3["bank_name_owner"]. "</td>";
+                  }?>
+                  <!-- echo "</tr>"; -->
+                
+                <?php
+                  mysqli_close($con);
+                ?>
+                <?php
+                echo "</table>";
+             echo "</div>";
+              ?>
           </div>
           
           <div class="box-6">

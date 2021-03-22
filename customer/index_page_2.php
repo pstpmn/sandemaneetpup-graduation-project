@@ -24,7 +24,7 @@ if (isset($_POST["btnSearch"])) {
 <style>
     input[type='radio'] {
         display: inline;
-        width: 5%;
+        width: 10%;
     }
 
     .tableSet {
@@ -42,9 +42,9 @@ if (isset($_POST["btnSearch"])) {
         font-family: 'Kanit', sans-serif;
     }
 
-    button[class="btn btn-success"],
+    button[id="btnSaveTicket"],
     button[class="btn btn-warning"] {
-        width: 5%;
+        width: 15%;
         font-family: 'Kanit', sans-serif;
     }
 
@@ -66,6 +66,16 @@ if (isset($_POST["btnSearch"])) {
         width: 97%;
     }
 
+    input[type="text"],
+    input[type="number"]{
+        width: 95%;
+        margin-top:-10px;
+    }
+
+    #register-customer-detail b{
+        margin-bottom:100px;
+    }
+
     @media (max-width: 890px) {
 
         button[class="form-control btn btn-danger"],
@@ -81,7 +91,7 @@ if (isset($_POST["btnSearch"])) {
 
         input[type='radio'] {
             display: inline;
-            width: 20%;
+            width: 90%;
         }
 
         table[class="table table-bordered table-primary"] {
@@ -120,20 +130,20 @@ if (isset($_POST["btnSearch"])) {
         <br><br><br>
         <div id="container-boatSeat-customerData">
             <b>เลือกที่นั่งเรือของลูกค้า</b><br><br>
-
+            
             <div class="tableSet" id="tableFromBoatSeat">
 
             </div>
             <br>
             <div id='container-btnFloor'>
-                <!-- <button class="btn btn-success" id="floorOneBtn" onclick="btnFloorOne()">ชั้น 1</button>
-                    <button class="btn btn-warning" id="floorTwoBtn" onclick="btnFloorTwo()">ชั้น 2</button> -->
+            
             </div>
 
             <!-- <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat" style="background-color: red;">กรุณาเลือกที่นั่งเรือ</label> -->
             <!-- <br><br><b>ราคารวมทั้งหมด :</b> <label id="priceSum"></label> -->
             <br>
             <div class="row">
+
                 <div class="col-lg-4 mb-4">
                     <!-- Billing card 1-->
                     <div class="card h-100 border-left-lg border-left-primary">

@@ -183,7 +183,7 @@ include('header.php');
             $result = mysqli_query($con, $query);
 
              echo "<div class='box-7'>";
-               echo "<b>ธนาคาร</b><hr>";
+               echo "<b>ช่องทางการชำระเงิน</b><hr>";
                 echo "<table>";
                   echo "<tr>
                   <th> ธนาคาร </th>

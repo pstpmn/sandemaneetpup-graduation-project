@@ -45,14 +45,13 @@ const checkBoatSeat = (id, number) => {
                 break;
             }
         }
-    }
-    else {
+    } else {
         document.getElementById(id).setAttribute('bgcolor', 'gray');
         listSeat.push(id);
         listSeatNumber.push(number);
     }
     document.getElementById('priceSum').innerHTML = ticketPrice * listSeat.length;
-    document.getElementById('countBoatSeatToSelected').innerHTML = listSeat.length +" ที่นั่ง";
+    document.getElementById('countBoatSeatToSelected').innerHTML = listSeat.length + " ที่นั่ง";
 
     getListSeat();
 }
@@ -80,7 +79,7 @@ const getListSeatForChangeBoatSeat = () => {
     numberBoatSeat.innerHTML = listSeatNumber;
 }
 
-const saveTicketOnline = async (listSeat, listSeatNumber, orgin, destination, employeeId) => {
+const saveTicketOnline = async(listSeat, listSeatNumber, orgin, destination, employeeId) => {
     let json;
     let listGender = [];
     let listFirstName = [];
@@ -108,8 +107,7 @@ const saveTicketOnline = async (listSeat, listSeatNumber, orgin, destination, em
     try {
         let response = await fetch('model/apiRandomTicketBookCode.php');
         json = await response.json();
-    }
-    catch (err) {
+    } catch (err) {
         return alert("Error Ticker Code เกิดข้อผิดพลาด !!\n " + err + "");
     }
 
@@ -117,8 +115,7 @@ const saveTicketOnline = async (listSeat, listSeatNumber, orgin, destination, em
         let gender;
         if (document.getElementById('genderM-' + i + '').checked == true) {
             gender = "Male";
-        }
-        else if (document.getElementById('genderF-' + i + '').checked == true) {
+        } else if (document.getElementById('genderF-' + i + '').checked == true) {
             gender = "Female";
         }
         listGender.push(gender);
@@ -152,9 +149,8 @@ const saveTicketOnline = async (listSeat, listSeatNumber, orgin, destination, em
         const text = await response.text();
         if (text == 'true') {
             await $('#myModal').modal('hide');
-            window.location="booking_id_information_book.php?bookingId="+json;
-        }
-        else {
+            window.location = "booking_id_information_book.php?bookingId=" + json;
+        } else {
             alert("บันทึกข้อมูลไม่สำเร็จ");
             return;
         }
@@ -173,8 +169,7 @@ const btnChangBoatFloor = (btnId) => {
             document.getElementById('btn-' + (i + 1)).setAttribute('class', 'btn btn-success');
             document.getElementById('table-' + (i + 1)).style.display = 'table';
 
-        }
-        else {
+        } else {
             document.getElementById('btn-' + (i + 1)).setAttribute('class', 'btn btn-warning');
             document.getElementById('table-' + (i + 1)).style.display = 'none';
 
@@ -352,13 +347,12 @@ const getSearchBoat = async(origin, destination) => {
     for (let countMax = 0; countMax < jsonOrgin.length; countMax++) {
         for (let countMin = 0; countMin < jsonDestination.length; countMin++) {
             if (jsonOrgin[countMax].boat_number == jsonDestination[countMin].boat_number &&
-                (jsonOrgin[countMax].start_time != null && jsonDestination[countMin].start_time != null)
-                && (jsonOrgin[countMax].boat_schedule_id < jsonDestination[countMin].boat_schedule_id)) {
+                (jsonOrgin[countMax].start_time != null && jsonDestination[countMin].start_time != null) &&
+                (jsonOrgin[countMax].boat_schedule_id < jsonDestination[countMin].boat_schedule_id)) {
                 boatNumber.innerHTML += "<option value=" + jsonOrgin[countMax].boat_number + " >หมายเลขเรือ : " + jsonOrgin[countMax].boat_number + "  เวลา : " + jsonOrgin[countMax].start_time.substring(0, 5) + " - " + jsonDestination[countMin].start_time.substring(0, 5) + " น. (รอบเรือเดินทางไป) </option>";
-            }
-            else if (jsonOrgin[countMax].boat_number == jsonDestination[countMin].boat_number &&
-                (jsonOrgin[countMax].return_time != null && jsonDestination[countMin].return_time != null)
-                && (jsonOrgin[countMax].boat_schedule_id < jsonDestination[countMin].boat_schedule_id)) {
+            } else if (jsonOrgin[countMax].boat_number == jsonDestination[countMin].boat_number &&
+                (jsonOrgin[countMax].return_time != null && jsonDestination[countMin].return_time != null) &&
+                (jsonOrgin[countMax].boat_schedule_id < jsonDestination[countMin].boat_schedule_id)) {
                 boatNumber.innerHTML += "<option value=" + jsonOrgin[countMax].boat_number + " >หมายเลขเรือ : " + jsonOrgin[countMax].boat_number + "  เวลา : " + jsonOrgin[countMax].return_time.substring(0, 5) + " - " + jsonDestination[countMin].return_time.substring(0, 5) + " น. (รอบเรือเดินทางกลับ) </option>";
             }
         }
@@ -468,7 +462,7 @@ const getSearchBoatChangeBoatSeat = async(origin, destination) => {
         }
     }
 }
-const CheckDayOff = async (date) => {
+const CheckDayOff = async(date) => {
     try {
         let makeObjectDate = new Date(date);
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -490,7 +484,7 @@ const CheckDayOff = async (date) => {
         return false;
     }
 }
-const getListCountFloor = async (boatNumber) => {
+const getListCountFloor = async(boatNumber) => {
     try {
         listCountFloor = [];
         let responseFloor = await fetch('model/apiGetFloorBoat.php', {
@@ -508,7 +502,7 @@ const getListCountFloor = async (boatNumber) => {
     }
 }
 
-const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode, numbetSeatId) => {
+const getBoatSeat = async(boatNumber, date, orgin, destination, ticketCode, numbetSeatId) => {
     if (orgin == destination) {
         alert('ต้นทาง และปลายทาง เหมือนกัน !!')
         return;
@@ -547,25 +541,24 @@ const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode, num
         for (let i = 0; i < listFloorData.length; i++) {
             countR = 0;
             countL = 0;
-            document.getElementById('tableFromBoatSeat').innerHTML += "<table id='table-" + (i + 1) + "'class='table table-bordered table-primary' style='display:" + statusTable + "' >  "
-                + "<tr id='right-" + listFloorData[i].floor + "'>"
-                + "<td bgcolor='#fff' id='td-right-" + listFloorData[i].floor + "' ><center>right</center></td>"
-                + "</tr>"
-                + "<tr>"
-                + "<td colspan='999' bgcolor='#fff'><center>ที่นั่งเรือ</center></td>"
-                + "</tr>"
-                + "<tr id='left-" + listFloorData[i].floor + "'>"
-                + "<td bgcolor='#fff' id='td-left-" + listFloorData[i].floor + "' ><center>Left</center></td>"
-                + "</tr>"
-                + "</table>";
+            document.getElementById('tableFromBoatSeat').innerHTML += "<table id='table-" + (i + 1) + "'class='table table-bordered table-primary' style='display:" + statusTable + "' >  " +
+                "<tr id='right-" + listFloorData[i].floor + "'>" +
+                "<td bgcolor='#fff' id='td-right-" + listFloorData[i].floor + "' ><center>right</center></td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td colspan='999' bgcolor='#fff'><center>ที่นั่งเรือ</center></td>" +
+                "</tr>" +
+                "<tr id='left-" + listFloorData[i].floor + "'>" +
+                "<td bgcolor='#fff' id='td-left-" + listFloorData[i].floor + "' ><center>Left</center></td>" +
+                "</tr>" +
+                "</table>";
 
             for (let n = 0; n < jsonBoatSeat.length; n++) {
                 if (jsonBoatSeat[n].floor == listFloorData[i].floor && jsonBoatSeat[n].boat_seat_type == 'R') {
                     document.getElementById("right-" + listFloorData[i].floor + "").innerHTML += '<td class="onmouse" id=' + jsonBoatSeat[n].boat_seat_id + '  >' + jsonBoatSeat[n].boat_seat_number + '</td>'
                     document.getElementById(jsonBoatSeat[n].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + jsonBoatSeat[n].boat_seat_id + ',' + jsonBoatSeat[n].boat_seat_number + ')');
                     countR++;
-                }
-                else if (jsonBoatSeat[n].floor == listFloorData[i].floor && jsonBoatSeat[n].boat_seat_type == 'L') {
+                } else if (jsonBoatSeat[n].floor == listFloorData[i].floor && jsonBoatSeat[n].boat_seat_type == 'L') {
                     document.getElementById("left-" + listFloorData[i].floor + "").innerHTML += '<td class="onmouse"  id=' + jsonBoatSeat[n].boat_seat_id + '>' + jsonBoatSeat[n].boat_seat_number + '</td>'
                     document.getElementById(jsonBoatSeat[n].boat_seat_id).setAttribute('onclick', 'checkBoatSeat(' + jsonBoatSeat[n].boat_seat_id + ',' + jsonBoatSeat[n].boat_seat_number + ')');
                     countL++;
@@ -578,8 +571,7 @@ const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode, num
                     document.getElementById("left-" + listFloorData[i].floor + "").innerHTML += "<td ></td>";
 
                 }
-            }
-            else if (countL > countR) {
+            } else if (countL > countR) {
                 let difCount = countL - countR;
                 for (let k = 0; k < difCount; k++) {
                     document.getElementById("right-" + listFloorData[i].floor + "").innerHTML += "<td ></td>";
@@ -594,8 +586,7 @@ const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode, num
             if (statusTable == 'display') {
                 document.getElementById('container-btnFloor').innerHTML += "<button id='btn-" + (i + 1) + "'  class='btn btn-success'>ชั้น " + listFloorData[i].floor + "</button>  ";
                 statusTable = 'none';
-            }
-            else {
+            } else {
                 document.getElementById('container-btnFloor').innerHTML += "<button id='btn-" + (i + 1) + "'  class='btn btn-warning'>ชั้น " + listFloorData[i].floor + "</button>  ";
             }
 
@@ -630,7 +621,7 @@ const getBoatSeat = async (boatNumber, date, orgin, destination, ticketCode, num
 
 
 
-const getBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode, BoatSeatID) => {
+const getBoatSeatStatus = async(dateToSeat, boatNumber, ticketCode, BoatSeatID) => {
     try {
         const response = await fetch('model/apiSeatStatus.php', {
             method: "POST",
@@ -672,15 +663,13 @@ const getBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode, BoatSeatID)
                         document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
                         document.getElementById(json[i].boat_seat_id).setAttribute('class', '');
                         document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสจอง : ' + json[i].ticket_book_code + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
-                    }
-                    else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
+                    } else if (json[i].ticket_status_id == 2 && resultDeadline == true) {
                         document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                         document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
                         document.getElementById(json[i].boat_seat_id).setAttribute('class', '');
                         document.getElementById(json[i].boat_seat_id).setAttribute('onclick', '');
                         document.getElementById(json[i].boat_seat_id).setAttribute('title', 'ชื่อ : ' + json[i].cust_first_name + " " + json[i].cust_last_name + '\nรหัสจอง : ' + json[i].ticket_book_code + '\nรหัสตั๋ว : ' + json[i].ticket_code + '');
-                    }
-                    else if (json[i].ticket_status_id == 4) {
+                    } else if (json[i].ticket_status_id == 4) {
                         document.getElementById(json[i].boat_seat_id).innerHTML = ("<td id=" + json[i].boat_seat_id + "><i class='fas fa-check-circle'></i></td>");
                         document.getElementById(json[i].boat_seat_id).setAttribute('bgcolor', 'yellow');
                         document.getElementById(json[i].boat_seat_id).setAttribute('class', '');
@@ -696,7 +685,7 @@ const getBoatSeatStatus = async (dateToSeat, boatNumber, ticketCode, BoatSeatID)
     }
 }
 
-const getTicketPrice = async (ticketCategoryId) => {
+const getTicketPrice = async(ticketCategoryId) => {
     try {
         let response = await fetch('model/apiGetTicketPrice.php', {
             method: "POST",
@@ -710,7 +699,7 @@ const getTicketPrice = async (ticketCategoryId) => {
     } catch (Error) {
 
     }
-    document.getElementById('priceToSeat').innerHTML = ticketPrice +" บาท";
+    document.getElementById('priceToSeat').innerHTML = ticketPrice + " บาท";
 
 }
 
@@ -919,16 +908,16 @@ const registerCustomer = () => {
     $("#myModal").modal({ backdrop: 'static', keyboard: false });
 
     document.getElementById('register-customer').innerHTML = "";
-    listSeatNumber.sort(function (a, b) { return a - b });
-    listSeat.sort(function (a, b) { return a - b });
+    listSeatNumber.sort(function(a, b) { return a - b });
+    listSeat.sort(function(a, b) { return a - b });
 
     for (let i = 0; i < listSeatNumber.length; i++) {
-        document.getElementById('register-customer').innerHTML += '<div id="register-customer-detail"> เลขที่นั่งเรือ : ' + listSeatNumber[i] + ''
-            + '<input type="text" class="form-control" id="fristName-' + i + '" placeholder="ชื่อจริง"><br>'
-            + '<input type="text" class="form-control" id="lastName-' + i + '" placeholder="นามสกุล"><br>'
-            + '<input type="number" class="form-control" id="phoneNumber-' + i + '" placeholder="เบอร์โทรศัพท์"><br>'
-            + '<form><input type="radio" class="form-control" id="genderM-' + i + '" name="gender" value="Male">ชาย'
-            + '<input type="radio" class="form-control " id="genderF-' + i + '" name="gender" value="Female">หญิง</form>';
+        document.getElementById('register-customer').innerHTML += '<div id="register-customer-detail"> เลขที่นั่งเรือ : ' + listSeatNumber[i] + '<br><br>' +
+            '<input type="text" class="form-control" id="fristName-' + i + '" placeholder="ชื่อจริง"><br>' +
+            '<input type="text" class="form-control" id="lastName-' + i + '" placeholder="นามสกุล"><br>' +
+            '<input type="number" class="form-control" id="phoneNumber-' + i + '" placeholder="เบอร์โทรศัพท์"><br>' +
+            '<form> <input type="radio" class="form" id="genderM-' + i + '" name="gender" value="Male">ชาย' +
+            '<input type="radio" class="form " id="genderF-' + i + '" name="gender" value="Female">หญิง</form>';
         document.getElementById('register-customer').innerHTML += "</div><br>"
     }
 }
