@@ -39,6 +39,8 @@ ORDER by COUNT(destination) DESC
     }
 </style>
 
+
+
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
@@ -46,6 +48,7 @@ ORDER by COUNT(destination) DESC
                 <h1 class="mt-4">Dashboard</h1>
 
                 <div class="row">
+
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-primary text-white mb-4">
                             <div class="card-body">
@@ -56,7 +59,6 @@ ORDER by COUNT(destination) DESC
                             </div>
                         </div>
                     </div>
-
 
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-success text-white mb-4">
@@ -139,13 +141,12 @@ ORDER by COUNT(destination) DESC
                                 </center>
                                 <table class="table table-hover">
                                     <?php
-                                        for($i=0;$i<count($rankLocation);$i++){
-                                            echo "<tr>";
-                                            echo "<td>อันดับ ".($i+1)."</td>";
-                                            echo "<td>".$rankLocation[$i]['location_name']."</td>";
-                                            echo "</tr>";
-
-                                        }
+                                    for ($i = 0; $i < count($rankLocation); $i++) {
+                                        echo "<tr>";
+                                        echo "<td>อันดับ " . ($i + 1) . "</td>";
+                                        echo "<td>" . $rankLocation[$i]['location_name'] . "</td>";
+                                        echo "</tr>";
+                                    }
                                     ?>
                                 </table>
                             </div>
@@ -157,16 +158,15 @@ ORDER by COUNT(destination) DESC
 
             </div>
 
-
-
-
         </div>
 
-
     </main>
+
 
 
     <!--  Finish -->
     <?php
     require 'footer.php';
     ?>
+
+

@@ -11,7 +11,7 @@ require 'navbar.php';
 
 
 <div id="layoutSidenav_content">
-    <main>
+    <main id="main">
         <div class="container-fluid">
             <h1 class="mt-4">
                 <center>จัดการพนักงาน</center>
@@ -53,7 +53,7 @@ require 'navbar.php';
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 id="header-Employee" >แก้ไขข้อมูลพนักงาน</h4>
+                            <h4 id="header-Employee">แก้ไขข้อมูลพนักงาน</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body" id="modal-body-slip">

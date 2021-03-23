@@ -1,21 +1,21 @@
-<?php 
+<?php
 include('header.php');
 ?>
-  <?php session_start();
-  if(isset($_GET["bookingId"]) != "" ){
-    $booking_id = $_GET["bookingId"];
-  }else{
-    $booking_id = $_SESSION['ticket_book_code'];
-    $destinatio = $_SESSION['destinatio'];
-  }   
-    
-  ?>
+<?php session_start();
+if (isset($_GET["bookingId"]) != "") {
+  $booking_id = $_GET["bookingId"];
+} else {
+  $booking_id = $_SESSION['ticket_book_code'];
+  $destinatio = $_SESSION['destinatio'];
+}
 
+?>
 <style>
-
+ 
   form {
     width: 50%;
   }
+
   button[class="btn btn-info"],
   button[class="btn btn-danger"] {
     width: 49.5%;
@@ -23,36 +23,38 @@ include('header.php');
     font-family: 'Kanit', sans-serif;
   }
 
-@media (max-width: 995px) {
-  form{
-    width: 100%;
+  @media (max-width: 995px) {
+    form {
+      width: 100%;
+    }
   }
-}
 
-@media (max-width: 890px) {
-  button[class="btn btn-info"],
-  button[class="btn btn-danger"] {
-    width: 90%;
-    margin-bottom: 10px;
+  @media (max-width: 890px) {
+
+    button[class="btn btn-info"],
+    button[class="btn btn-danger"] {
+      width: 90%;
+      margin-bottom: 10px;
+    }
   }
-}
 
-@media (max-width: 590px) {
-  button[class="btn btn-info"],
-  button[class="btn btn-danger"] {
-       width: 90%;
-       margin-bottom: 10px;
-     }
-}
+  @media (max-width: 590px) {
+
+    button[class="btn btn-info"],
+    button[class="btn btn-danger"] {
+      width: 90%;
+      margin-bottom: 10px;
+    }
+  }
 </style>
 
-  <body class="has1">
-     <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
+<div id="my_rectangle">
+  <body class="has1" id="has1">
+    <h3 class="has4">กำหนดการเดินทาง / Travel Itinerary</br></br>
       รหัสการจอง Booking ID : <?php echo  $booking_id ?> <span style="color:red">(ค้างชำระ)</span></h3>
-      <center>
+    <center>
       <form>
-      
-      <?php 
+        <?php
 
         include('mysqli_connect.php');
         // $sql = "SELECT * FROM ticket_book AS tb
@@ -75,20 +77,20 @@ include('header.php');
 
         WHERE ticket_book_code = '$booking_id'
         GROUP BY buy_ticket.ticket_code ";
-        $result1 = mysqli_query($con,$sql);
+        $result1 = mysqli_query($con, $sql);
         $count = 0;
 
         $sqlLocation = "SELECT location.location_name FROM ticket_book
         JOIN location ON location.location_id = ticket_book.destination
         WHERE ticket_book_code = '$booking_id' ";
-        $result2 = mysqli_query($con,$sqlLocation);
-        $row2 = mysqli_fetch_all($result2,MYSQLI_ASSOC);
+        $result2 = mysqli_query($con, $sqlLocation);
+        $row2 = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
         echo "<div class='box-3'>";
-          echo "<b>ข้อมูลผู้โดยสาร</b><hr>";
-            
-            echo "<table>";
-            echo "<tr>
+        echo "<b>ข้อมูลผู้โดยสาร</b><hr>";
+
+        echo "<table>";
+        echo "<tr>
               <th>รหัสตั๋ว</th>
               <th>ชื่อ - นามสกุล</th>
               <th>เบอร์โทรศัพท์</th>
@@ -96,124 +98,127 @@ include('header.php');
               <th style='text-align:center'>ฝั่ง</th>
               <th style='text-align:center'>ที่นั่ง</th>
             </tr>";
-            foreach( $result1 as $row ) {
-            echo "<tr>";
-              echo "<td>" .$row["ticket_code"]. "</td>";
-              echo "<td>" .$row["cust_first_name"]. " " .$row["cust_last_name"]. "</td>";
-              echo "<td>" .$row["phone_number"].  "</td>";
-              echo "<td style='text-align:center'>" .$row["floor"]. "</td>";
-              echo "<td style='text-align:center'>" .$row["boat_seat_type"]. "</td>";
-              echo "<td style='text-align:center'>" .$row["boat_seat_number"]. "</td>";
-            echo "</tr>";
-            $count ++ ;
-          }?>
-          <!-- <?php
-            // mysqli_close($con);
-          ?> -->
+        foreach ($result1 as $row) {
+          echo "<tr>";
+          echo "<td>" . $row["ticket_code"] . "</td>";
+          echo "<td>" . $row["cust_first_name"] . " " . $row["cust_last_name"] . "</td>";
+          echo "<td>" . $row["phone_number"] .  "</td>";
+          echo "<td style='text-align:center'>" . $row["floor"] . "</td>";
+          echo "<td style='text-align:center'>" . $row["boat_seat_type"] . "</td>";
+          echo "<td style='text-align:center'>" . $row["boat_seat_number"] . "</td>";
+          echo "</tr>";
+          $count++;
+        } ?>
+        <!-- <?php
+              // mysqli_close($con);
+              ?> -->
         <?php
         echo "</table>";
         echo "</div>";
         ?>
-        
-      <div class='box-2'>
-        <?php
+
+        <div class='box-2'>
+          <?php
 
           echo "<div class='box-4'>";
-              echo "<b>ข้อมูลการเดินทาง</b><hr>";
-                echo "<table style='overflow-x:auto;'>";
-                  echo "<tr>";
-                    echo "<th class='th-2'>ต้นทาง :</th>";
-                    echo "<td>" .$row["location_name"]. "</td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-2'>ปลายทาง :</th>";
-                    echo "<td>  ". $row2[0]["location_name"]." </td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-2'>หมายเลขเรือ :</th>";
-                    echo "<td>" .$row["boat_number"]. "</td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-2'>เวลาออกเรือ :</th>";
-                    echo "<td>" .date("h:i",strtotime($row["start_time"])). " น.</td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-2'>วันที่ออกเดินทาง :</th>";
-                    echo "<td>" .date("d/m/Y",strtotime($row["travel_date"])). "</td>";
-                  echo "</tr>";
-                  
-                  
-              echo "</table>";
-              ?>
+          echo "<b>ข้อมูลการเดินทาง</b><hr>";
+          echo "<table style='overflow-x:auto;'>";
+          echo "<tr>";
+          echo "<th class='th-2'>ต้นทาง :</th>";
+          echo "<td>" . $row["location_name"] . "</td>";
+          echo "</tr>";
+          echo "<tr>";
+          echo "<th class='th-2'>ปลายทาง :</th>";
+          echo "<td>  " . $row2[0]["location_name"] . " </td>";
+          echo "</tr>";
+          echo "<tr>";
+          echo "<th class='th-2'>หมายเลขเรือ :</th>";
+          echo "<td>" . $row["boat_number"] . "</td>";
+          echo "</tr>";
+          echo "<tr>";
+          echo "<th class='th-2'>เวลาออกเรือ :</th>";
+          echo "<td>" . date("h:i", strtotime($row["start_time"])) . " น.</td>";
+          echo "</tr>";
+          echo "<tr>";
+          echo "<th class='th-2'>วันที่ออกเดินทาง :</th>";
+          echo "<td>" . date("d/m/Y", strtotime($row["travel_date"])) . "</td>";
+          echo "</tr>";
 
-            </div>
-            
-            <?php
-            echo "<div class='box-5'>";
-              echo "<b>ข้อมูลการชำระเงิน</b><hr>";
-                echo "<table>";
-                  echo "<tr>";
-                    echo "<th class='th-3'>เดินทาง :</th>";
-                    echo "<td>".$count." ที่นั่ง</td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-3'>ราคา :</th>";
-                    echo "<td>" .$row["ticket_category_price"]. " บาท</td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-3'>ส่วนลด :</th>";
-                    echo "<td>0 บาท</td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-3'>ยอดรวมชำระ :</th>";
-                    echo "<td>" .$count * $row["ticket_category_price"]. " บาท</td>";
-                  echo "</tr>";
-                  echo "<tr>";
-                    echo "<th class='th-3'> <span style='color:red'> ชำระเงินก่อน : </span></th>";
-                    echo "<td> <span style='color:red'>".date('d/m/Y  เวลา H:i น.', strtotime($row["deadline_book"])). " </span></td>";
-                  echo "</tr>";
-              echo "</table>";
-            echo "</div>";
-            ?>
 
-            <?php
-            $query = "SELECT * FROM bank 
+          echo "</table>";
+          ?>
+
+        </div>
+
+        <?php
+        echo "<div class='box-5'>";
+        echo "<b>ข้อมูลการชำระเงิน</b><hr>";
+        echo "<table>";
+        echo "<tr>";
+        echo "<th class='th-3'>เดินทาง :</th>";
+        echo "<td>" . $count . " ที่นั่ง</td>";
+        echo "</tr>";
+        echo "<tr>";
+        echo "<th class='th-3'>ราคา :</th>";
+        echo "<td>" . $row["ticket_category_price"] . " บาท</td>";
+        echo "</tr>";
+        echo "<tr>";
+        echo "<th class='th-3'>ส่วนลด :</th>";
+        echo "<td>0 บาท</td>";
+        echo "</tr>";
+        echo "<tr>";
+        echo "<th class='th-3'>ยอดรวมชำระ :</th>";
+        echo "<td>" . $count * $row["ticket_category_price"] . " บาท</td>";
+        echo "</tr>";
+        echo "<tr>";
+        echo "<th class='th-3'> <span style='color:red'> ชำระเงินก่อน : </span></th>";
+        echo "<td> <span style='color:red'>" . date('d/m/Y  เวลา H:i น.', strtotime($row["deadline_book"])) . " </span></td>";
+        echo "</tr>";
+        echo "</table>";
+        echo "</div>";
+        ?>
+
+        <?php
+        $query = "SELECT * FROM bank 
             WHERE bank_status = 1
             ORDER BY bank_id asc" or die("Error:" . mysqli_error());
-            $result = mysqli_query($con, $query);
+        $result = mysqli_query($con, $query);
 
-             echo "<div class='box-7'>";
-               echo "<b>ช่องทางการชำระเงิน</b><hr>";
-                echo "<table>";
-                  echo "<tr>
+        echo "<div class='box-7'>";
+        echo "<b>ช่องทางการชำระเงิน</b><hr>";
+        echo "<table>";
+        echo "<tr>
                   <th> ธนาคาร </th>
                   <th style='text-align:center'>เลขบัญชี </th>
                   <th style='text-align:center'>ชื่อเจ้าของบัญชี </th>
                   </tr>";
-                  foreach($result as $row3){
-                    echo "<tr>";
-                    echo "<td>" .$row3["bank_name"]. "</td>";
-                    echo "<td style='text-align:center'>" .$row3["bank_account"]. "</td>";
-                    echo "<td style='text-align:center'>" .$row3["bank_name_owner"]. "</td>";
-                  }?>
-                  <!-- echo "</tr>"; -->
-                
-                <?php
-                  mysqli_close($con);
-                ?>
-                <?php
-                echo "</table>";
-             echo "</div>";
-              ?>
-          </div>
+        foreach ($result as $row3) {
+          echo "<tr>";
+          echo "<td>" . $row3["bank_name"] . "</td>";
+          echo "<td style='text-align:center'>" . $row3["bank_account"] . "</td>";
+          echo "<td style='text-align:center'>" . $row3["bank_name_owner"] . "</td>";
+        } ?>
+        <!-- echo "</tr>"; -->
 
-          <div class="box-6">
-            <a href='payment_form.php'><button type="button" class="btn btn-info">ไปยังหน้าอัพสลิป</button></a>
-            <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>
-          </div>
+        <?php
+        mysqli_close($con);
+        ?>
+        <?php
+        echo "</table>";
+        echo "</div>";
+        ?>
+
+        <div class="box-6">
+          <a href='payment_form.php'><button type="button" class="btn btn-info">ไปยังหน้าอัพสลิป</button></a>
+          <a href='index.php'><button type="button" class="btn btn-danger">กลับไปยังหน้าแรก</button></a>
+        </div>
       </form>
-      </center>
-            
-      
+    </center>
+</div>
 
-       
+
+
+
+
+
+
