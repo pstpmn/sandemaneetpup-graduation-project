@@ -69,13 +69,13 @@
                         }else{
                             echo "<script type='text/javascript'>";
                             echo "window.location = 'payment_form.php'; ";
-                            echo "alert('รหัสการจอง $ticket_book ได้เลยเวลาในการชำระแล้ว !!!');";
+                            echo "alert('รหัสการจอง $ticket_book ได้เลยเวลาในการชำระแล้ว !!!<br> มีปัญหาโปรดติดต่อพนักงาน');";
                             echo "</script>";
                         }    
                     }else{
                         echo "<script type='text/javascript'>";
                         echo "window.location = 'payment_form.php'; ";
-                        echo "alert('รหัสการจอง $ticket_book ได้มีการชำระเรียบร้อยแล้ว !!!<br> มีปัญหาโปรดติดต่อพนักงาน');";
+                        echo "alert('รหัสการจอง $ticket_book ได้มีการชำระเรียบร้อยแล้ว !!!');";
                         echo "</script>";
                     }
                 }else{
