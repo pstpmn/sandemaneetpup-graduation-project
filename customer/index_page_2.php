@@ -117,7 +117,7 @@ if (isset($_POST["btnSearch"])) {
     var ticketPrice; // set price
     var listCountFloor = [];
     var listFloorData;
-    getTicketPrice(1);
+    getTicketPrice(2);
 </script>
 
 <body class="has1">
