@@ -76,6 +76,51 @@ if (isset($_POST["btnSearch"])) {
         margin-bottom:100px;
     }
 
+    .flex-container {
+        display: -webkit-flex;
+        display: flex;
+        width: 100%;
+        height: 80px;
+        background-color: #ffff;
+        margin-bottom: 50px;
+    }
+    .flex-center {
+        width: 50%;
+        display: flex;
+        margin-left: 25%;
+    }
+
+    .flex-green {
+        background-color: green;
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+    }
+    .flex-yellow {
+        background-color: yellow;
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+    }
+    .flex-gray {
+        background-color: gray;
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+    }
+    .flex-blue {
+        background-color: #b8daff;
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+    }
+    .flex {
+        background-color: #ffff;
+        width: 70px;
+        height: 30px;
+        margin-top: 20px;
+    }
+
     @media (max-width: 890px) {
 
         button[class="form-control btn btn-danger"],
@@ -142,8 +187,24 @@ if (isset($_POST["btnSearch"])) {
             <!-- <br><br><b>เลขที่นั่งเรือ :</b> <label id="number-boatseat" style="background-color: red;">กรุณาเลือกที่นั่งเรือ</label> -->
             <!-- <br><br><b>ราคารวมทั้งหมด :</b> <label id="priceSum"></label> -->
             <br>
-            <div class="row">
 
+            
+            
+                <div class="flex-container">
+                
+                    <div class="flex-center">
+                        <div class="flex-blue"></div> <div class="flex">ที่ว่าง</div> 
+                        <div class="flex-gray"></div> <div class="flex">เลือกที่นั่ง</div>
+                        <div class="flex-yellow"></div> <div class="flex">จองที่นั่ง</div>
+                        <div class="flex-green"></div> <div class="flex">ชำระแล้ว</div>
+                         
+                    </div>
+                
+                </div>
+            
+            
+
+            <div class="row">
                 <div class="col-lg-4 mb-4">
                     <!-- Billing card 1-->
                     <div class="card h-100 border-left-lg border-left-primary">
