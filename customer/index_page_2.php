@@ -82,43 +82,39 @@ if (isset($_POST["btnSearch"])) {
         width: 100%;
         height: 80px;
         background-color: #ffff;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
     }
     .flex-center {
-        width: 50%;
+        width: 60%;
         display: flex;
-        margin-left: 25%;
+        margin-left: 20%;
     }
 
     .flex-green {
         background-color: green;
-        width: 40px;
-        height: 40px;
+        width: 20%;
         margin: 10px;
     }
     .flex-yellow {
         background-color: yellow;
-        width: 40px;
-        height: 40px;
+        width: 20%;
         margin: 10px;
     }
     .flex-gray {
         background-color: gray;
-        width: 40px;
-        height: 40px;
+        width: 20%;
         margin: 10px;
     }
     .flex-blue {
         background-color: #b8daff;
-        width: 40px;
-        height: 40px;
+        width: 20%;
         margin: 10px;
     }
     .flex {
         background-color: #ffff;
-        width: 70px;
-        height: 30px;
+        width: 200px;
         margin-top: 20px;
+        font-size: 14px;
     }
 
     @media (max-width: 890px) {
@@ -144,14 +140,35 @@ if (isset($_POST["btnSearch"])) {
             margin-bottom: 5px;
             margin-left: 15px;
         }
+        
 
-        #container-boatSeat-customerData {
+        #container-boatSeat-customerData{
             display: none;
             width: 90%;
         }
 
         #tableFromBoatSeatTop {
             width: 100%;
+        }
+        @media (max-width: 590px) {
+            .flex {
+                width: 500px;
+                font-size: 10px;
+                margin-top: 10px;
+            }
+            .flex-center {
+                display: flex;
+                width: 90%;
+                margin-left: 5px;
+            }
+            .flex-green,.flex-yellow,.flex-blue,.flex-gray{
+                width: 50%;
+                height:20px;
+                margin-right: 5px;
+            }
+            .flex-container {
+                height: 50px;
+            }
         }
     }
 </style>
@@ -195,8 +212,8 @@ if (isset($_POST["btnSearch"])) {
                     <div class="flex-center">
                         <div class="flex-blue"></div> <div class="flex">ที่ว่าง</div> 
                         <div class="flex-gray"></div> <div class="flex">เลือกที่นั่ง</div>
-                        <div class="flex-yellow"></div> <div class="flex">จองที่นั่ง</div>
-                        <div class="flex-green"></div> <div class="flex">ชำระแล้ว</div>
+                        <div class="flex-yellow"></div> <div class="flex">ที่นั่งถูกจอง</div>
+                        <div class="flex-green"></div> <div class="flex">ที่นั่งถูกซื้อแล้ว</div>
                          
                     </div>
                 
